@@ -1,7 +1,7 @@
 package idle.molaeng_back.user.model;
 
 import idle.molaeng_back.diary.model.Diary;
-import idle.molaeng_back.recipe.model.RecipeLike;
+import idle.molaeng_back.recipe.model.entity.RecipeLike;
 import idle.molaeng_back.review.model.Review;
 import idle.molaeng_back.review.model.ReviewLike;
 import lombok.Builder;

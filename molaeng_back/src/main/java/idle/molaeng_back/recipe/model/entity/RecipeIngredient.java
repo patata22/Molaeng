@@ -1,4 +1,4 @@
-package idle.molaeng_back.recipe.model;
+package idle.molaeng_back.recipe.model.entity;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -6,7 +6,6 @@ import lombok.Getter;
 import javax.persistence.*;
 
 @Getter
-@Builder
 @Entity
 public class RecipeIngredient {
 
@@ -30,4 +29,12 @@ public class RecipeIngredient {
     private Ingredient ingredient;
 
 
+    @Builder
+    public RecipeIngredient(long recipeIngredientId, int needWeight, String weightUnit, Recipe recipe, Ingredient ingredient) {
+        this.recipeIngredientId = recipeIngredientId;
+        this.needWeight = needWeight;
+        this.weightUnit = weightUnit;
+        this.recipe = recipe;
+        this.ingredient = ingredient;
+    }
 }

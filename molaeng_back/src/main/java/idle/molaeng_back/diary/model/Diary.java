@@ -1,6 +1,6 @@
 package idle.molaeng_back.diary.model;
 
-import idle.molaeng_back.recipe.model.Recipe;
+import idle.molaeng_back.recipe.model.entity.Recipe;
 import idle.molaeng_back.user.model.User;
 import lombok.Builder;
 import lombok.Getter;

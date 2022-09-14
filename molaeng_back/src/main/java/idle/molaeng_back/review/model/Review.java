@@ -1,14 +1,12 @@
 package idle.molaeng_back.review.model;
 
-import idle.molaeng_back.recipe.model.Recipe;
+import idle.molaeng_back.recipe.model.entity.Recipe;
 import idle.molaeng_back.user.model.User;
 import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity

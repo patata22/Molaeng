@@ -1,15 +1,13 @@
-package idle.molaeng_back.recipe.model;
+package idle.molaeng_back.recipe.model.entity;
 
 import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Entity
-@Builder
 public class Ingredient {
 
     @Id
@@ -32,4 +30,12 @@ public class Ingredient {
     @OneToMany(mappedBy = "ingredient")
     private List<RecipeIngredient> recipeIngredientList;
 
+    @Builder
+    public Ingredient(long ingredientId, String ingredientName,int ingredientPrice, String ingredientUnit, List<RecipeIngredient> recipeIngredientList) {
+        this.ingredientId = ingredientId;
+        this.ingredientName = ingredientName;
+        this.ingredientPrice = ingredientPrice;
+        this.ingredientUnit = ingredientUnit;
+        this.recipeIngredientList = recipeIngredientList;
+    }
 }

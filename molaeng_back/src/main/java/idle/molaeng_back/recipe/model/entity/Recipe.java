@@ -1,18 +1,19 @@
-package idle.molaeng_back.recipe.model;
+package idle.molaeng_back.recipe.model.entity;
 
 import idle.molaeng_back.diary.model.Diary;
 import idle.molaeng_back.review.model.Review;
 import idle.molaeng_back.user.model.Outeat;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Builder
 @Entity
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Recipe {
 
     @Id
@@ -64,5 +65,26 @@ public class Recipe {
 
     @OneToMany(mappedBy = "recipe")
     private List<RecipeIngredient> recipeIngredientList;
+
+    @Builder
+    public Recipe(long recipeId, String recipeName, String recipeImage, int recipeKcal, int serving, int oneScore, int twoScore, int threeScore, int fourScore, int fiveScore, List<Outeat> outeatList, List<RecipeLike> recipeLikeList, List<Review> reviewList, List<RecipeDetail> recipeDetailList, List<Diary> diaryList, List<RecipeIngredient> recipeIngredientList) {
+        this.recipeId = recipeId;
+        this.recipeName = recipeName;
+        this.recipeImage = recipeImage;
+        this.recipeKcal = recipeKcal;
+        this.serving = serving;
+        this.oneScore = oneScore;
+        this.twoScore = twoScore;
+        this.threeScore = threeScore;
+        this.fourScore = fourScore;
+        this.fiveScore = fiveScore;
+        this.outeatList = outeatList;
+        this.recipeLikeList = recipeLikeList;
+        this.reviewList = reviewList;
+        this.recipeDetailList = recipeDetailList;
+        this.diaryList = diaryList;
+        this.recipeIngredientList = recipeIngredientList;
+    }
+
 
 }

@@ -1,4 +1,4 @@
-package idle.molaeng_back.recipe.model;
+package idle.molaeng_back.recipe.model.entity;
 
 import lombok.Builder;
 import lombok.Getter;
