@@ -31,13 +31,13 @@ public class User{
     @JoinColumn(name="gugun_id")
     private Gugun gugun;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<RecipeLike> recipeLikeList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
     private List<Review> reviewList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<ReviewLike> reviewLikeList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
