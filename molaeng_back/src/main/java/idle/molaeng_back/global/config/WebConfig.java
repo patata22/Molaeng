@@ -1,4 +1,4 @@
-package idle.molaeng_back.config;
+package idle.molaeng_back.global.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
