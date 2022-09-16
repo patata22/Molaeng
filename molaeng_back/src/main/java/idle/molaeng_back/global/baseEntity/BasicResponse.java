@@ -16,6 +16,7 @@ public class BasicResponse<T> {
     private String message;
     private T data;
 
+
     public BasicResponse(HttpStatus statusCode, String message) {
         this.statusCode = statusCode;
         this.message = message;
