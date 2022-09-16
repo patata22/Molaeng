@@ -42,7 +42,7 @@ public class Review {
     @Builder
     public Review(long reviewId, LocalDateTime reviewDate, int score, String reviewContent, User user, Recipe recipe, List<ReviewLike> reviewLikeList) {
         this.reviewId = reviewId;
-        this.reviewDate = reviewDate;
+        this.reviewDate = LocalDateTime.now();
         this.score = score;
         this.reviewContent = reviewContent;
         this.user = user;
