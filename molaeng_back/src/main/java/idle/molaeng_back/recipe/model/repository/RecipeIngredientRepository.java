@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface RecipeIngredientRepository extends JpaRepository {
+public interface RecipeIngredientRepository extends JpaRepository<RecipeIngredient, Long> {
 
     // 레시피의 재료 정보 조회
     List<RecipeIngredient> findAllByRecipe_RecipeId(long recipeId);
