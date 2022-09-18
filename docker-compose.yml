@@ -14,4 +14,4 @@ services:
       context: ./molaeng_front
     container_name: molaeng_front
     ports:
-      - "8081:8081"
+      - "8081:80"
