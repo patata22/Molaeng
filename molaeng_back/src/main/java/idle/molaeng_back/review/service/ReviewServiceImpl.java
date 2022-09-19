@@ -6,15 +6,15 @@ import idle.molaeng_back.review.model.DTO.response.RecipeReviewResDTO;
 import idle.molaeng_back.review.model.Review;
 import idle.molaeng_back.review.repository.ReviewLikeRepository;
 import idle.molaeng_back.review.repository.ReviewRepository;
-import idle.molaeng_back.user.model.User;
-import idle.molaeng_back.user.model.userRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 @Transactional
 public class ReviewServiceImpl implements ReviewService{
 
@@ -94,13 +94,13 @@ public class ReviewServiceImpl implements ReviewService{
         List<Review> reviewList = null;
         switch(sort){
             case 0:
-                reviewList = reviewRepository.findAllByRecipeIdOrderByReviewScoreDesc(recipeId);
+                reviewList = reviewRepository.findAllByRecipeRecipeIdOrderByScoreDesc(recipeId);
                 break;
             case 1:
-                reviewList = reviewRepository.findAllByRecipeIdOrderByReviewScore(recipeId);
+                reviewList = reviewRepository.findAllByRecipeRecipeIdOrderByScore(recipeId);
                 break;
             case 2:
-                reviewList = reviewRepository.findAllByRecipeIdOrderByReviewReviewDateDesc(recipeId);
+                reviewList = reviewRepository.findAllByRecipeRecipeIdOrderByReviewDateDesc(recipeId);
                 break;
         }
         int size = reviewList.size();
