@@ -30,6 +30,9 @@ services:
       - "~/mysql:/var/lib/mysql"
     environment:
       MYSQL_ROOT_PASSWORD: "molaengA604!"
+      MYSQL_DATABASE: "molaeng"
+      MYSQL_USER: "ssafy"
+      MYSQL_PASSWORD: "ssafyA604!"
     command:
       - "--character-set-server=utf8mb4"
       - "--collation-server=utf8mb4_unicode_ci"
