@@ -1,5 +1,6 @@
 package idle.molaeng_back.review.model;
 
+
 import idle.molaeng_back.recipe.model.entity.Recipe;
 import idle.molaeng_back.user.model.User;
 import lombok.Builder;
@@ -37,6 +38,7 @@ public class Review {
     @JoinColumn(name="recipe_id")
     private Recipe recipe;
 
+
     @OneToMany(mappedBy = "review", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ReviewLike> reviewLikeList;
     @Builder
@@ -48,5 +50,9 @@ public class Review {
         this.user = user;
         this.recipe = recipe;
         this.reviewLikeList = reviewLikeList;
+    }
+
+    public void changeUser(User user){
+        this.user = user;
     }
 }

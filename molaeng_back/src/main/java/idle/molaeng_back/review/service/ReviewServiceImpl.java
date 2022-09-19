@@ -6,6 +6,8 @@ import idle.molaeng_back.review.model.DTO.response.RecipeReviewResDTO;
 import idle.molaeng_back.review.model.Review;
 import idle.molaeng_back.review.repository.ReviewLikeRepository;
 import idle.molaeng_back.review.repository.ReviewRepository;
+import idle.molaeng_back.user.model.User;
+import idle.molaeng_back.user.model.userRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -75,8 +77,32 @@ public class ReviewServiceImpl implements ReviewService{
     }
 
     @Override
+    public void transUserReview(long userId) {
+        int dummyId=0;
+//        userRepository 생기면 그때 테스트
+//        User user = userRepository.findOnebyUserUserId(userId);
+//        User dummy = userRepository.findOnebyuserUserId(dummyId);
+        List<Review> reviewList = reviewRepository.findByUserUserId(userId);
+        for (Review review : reviewList) {
+//            review.changeUser(dummy);
+        }
+    }
+
+    @Override
     public RecipeReviewResDTO readReviewByRecipeId(int sort, int page, long userId, long recipeId) {
-        List<Review> reviewList = reviewRepository.findByRecipeRecipeId(recipeId);
+
+        List<Review> reviewList = null;
+        switch(sort){
+            case 0:
+                reviewList = reviewRepository.findAllByRecipeIdOrderByReviewScoreDesc(recipeId);
+                break;
+            case 1:
+                reviewList = reviewRepository.findAllByRecipeIdOrderByReviewScore(recipeId);
+                break;
+            case 2:
+                reviewList = reviewRepository.findAllByRecipeIdOrderByReviewReviewDateDesc(recipeId);
+                break;
+        }
         int size = reviewList.size();
         int[] scoreCnt= new int[5];
         ArrayList<ReadReviewResDTO> readReviewResDTOS = new ArrayList<>();

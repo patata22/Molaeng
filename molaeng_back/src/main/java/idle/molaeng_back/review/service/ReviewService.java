@@ -17,4 +17,5 @@ public interface ReviewService {
     RecipeReviewResDTO readReviewByRecipeId(int sort, int page, long userId, long recipeId);
     void deleteReviewById(long reviewId);
 
+    void transUserReview(long userId);
 }
