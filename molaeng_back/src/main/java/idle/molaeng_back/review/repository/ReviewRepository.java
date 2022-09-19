@@ -15,11 +15,11 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     void deleteByReviewId(long reviewId);
 
     // 별점 높은순, sortNO= 0
-    List<Review> findAllByRecipeIdOrderByReviewScoreDesc(long recipeId);
+    List<Review> findAllByRecipeRecipeIdOrderByScoreDesc(long recipeId);
     // 별점 낮은순, sortNo= 1
-    List<Review> findAllByRecipeIdOrderByReviewScore(long recipeId);
+    List<Review> findAllByRecipeRecipeIdOrderByScore(long recipeId);
     // 최신순, sortNO=2
-    List<Review> findAllByRecipeIdOrderByReviewReviewDateDesc(long recipeId);
+    List<Review> findAllByRecipeRecipeIdOrderByReviewDateDesc(long recipeId);
 
     // 좋아요 많은 순
     //쿼리를 못짜겠드아아아 일단 보류! 막내 마음대로 하랬다 뭐

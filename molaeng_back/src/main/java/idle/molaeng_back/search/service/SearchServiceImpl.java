@@ -3,9 +3,11 @@ package idle.molaeng_back.search.service;
 import idle.molaeng_back.recipe.model.entity.Recipe;
 import idle.molaeng_back.recipe.model.entity.RecipeIngredient;
 import org.springframework.security.core.parameters.P;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+@Service
 public class SearchServiceImpl implements SearchService {
 
 

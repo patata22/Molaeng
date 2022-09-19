@@ -7,11 +7,13 @@ import idle.molaeng_back.review.repository.ReviewLikeRepository;
 import idle.molaeng_back.review.repository.ReviewRepository;
 import idle.molaeng_back.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Service
 @Transactional
 public class ReviewLikeServiceImpl implements ReviewLikeService{
 //    private final UserRepository userRepository;
