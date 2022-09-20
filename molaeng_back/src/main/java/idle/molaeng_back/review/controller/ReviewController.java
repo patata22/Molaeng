@@ -6,6 +6,7 @@ import idle.molaeng_back.review.model.DTO.response.ReadReviewResDTO;
 import idle.molaeng_back.review.model.DTO.response.RecipeReviewResDTO;
 import idle.molaeng_back.review.service.ReviewLikeService;
 import idle.molaeng_back.review.service.ReviewService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,16 +18,12 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/review")
+@RequiredArgsConstructor
 public class ReviewController {
 
     private final ReviewService reviewService;
     private final ReviewLikeService reviewLikeService;
 
-    @Autowired
-    public ReviewController(ReviewService reviewService, ReviewLikeService reviewLikeService) {
-        this.reviewService = reviewService;
-        this.reviewLikeService = reviewLikeService;
-    }
 
     @GetMapping
     public ResponseEntity readMyReview(@RequestBody long userId){
