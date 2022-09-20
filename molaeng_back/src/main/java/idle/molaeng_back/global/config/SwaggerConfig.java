@@ -28,7 +28,7 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title("molaeng Spring Boot REST API")
                 .version("1.0.0")
-                .description("레시피 추천 서비스 molaeng의 swagger api 입니다.")
+                .description("레시피 추천 서비스 molaeng의 swagger api입니다.")
                 .build();
     }
 }
