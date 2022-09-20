@@ -28,4 +28,11 @@ public class Outeat {
     @JoinColumn(name="recipe_id")
     private Recipe recipe;
 
+    @Builder
+    public Outeat(long outeatId, int outeatPrice, Gugun gugun, Recipe recipe) {
+        this.outeatId = outeatId;
+        this.outeatPrice = outeatPrice;
+        this.gugun = gugun;
+        this.recipe = recipe;
+    }
 }

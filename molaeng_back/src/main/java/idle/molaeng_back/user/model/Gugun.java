@@ -1,6 +1,5 @@
 package idle.molaeng_back.user.model;
 
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class Gugun {
 
     @Id
@@ -29,9 +28,10 @@ public class Gugun {
     List<Outeat> outeatList = new ArrayList<>();
 
     @Builder
-    public Gugun(Long gugunId, String gugunName){
+    public Gugun(Long gugunId, String gugunName, List<User> userList, List<Outeat> outeatList) {
         this.gugunId = gugunId;
         this.gugunName = gugunName;
+        this.userList = userList;
+        this.outeatList = outeatList;
     }
-
 }
