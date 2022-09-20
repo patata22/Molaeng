@@ -1,10 +1,12 @@
 package idle.molaeng_back.diary.service;
 
+import idle.molaeng_back.diary.controller.DiaryController;
 import idle.molaeng_back.diary.model.Diary;
 import idle.molaeng_back.diary.model.DiaryRepository;
 import idle.molaeng_back.recipe.model.entity.Recipe;
 import idle.molaeng_back.user.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -12,17 +14,19 @@ import java.util.List;
 
 public class DiaryServiceImpl implements DiaryService{
 
-    @Autowired
+    private static final Logger logger = LoggerFactory.getLogger(DiaryController.class);
+
     private DiaryRepository diaryRepository;
 
     @Override
-    public void saveDiary(long userId, long recipeId) {
+    public long saveDiary(long userId, long recipeId, int saveCost) {
         Recipe recipe = null;
         User user = null;
-        int saveCost = 0;
         Diary diary = Diary.builder().mealDate(LocalDate.now()).saveCost(saveCost).recipe(recipe).user(user).build();
 
         diaryRepository.save(diary);
+
+        return diary.getDiaryId();
     }
 
     @Override
@@ -53,12 +57,14 @@ public class DiaryServiceImpl implements DiaryService{
     @Override
     public List<Diary> findDiaryByDate(long userId, String date) {
         LocalDate mealDate = LocalDate.parse(date);
-
+        logger.info("findDiaryByDate - mealDate : "+mealDate);
         return diaryRepository.findByUserUserIdAndMealDate(userId, mealDate);
     }
 
     @Override
-    public void deleteDiaryByDiaryId(long diaryId) {
+    public long deleteDiaryByDiaryId(long diaryId) {
         diaryRepository.deleteByDiaryId(diaryId);
+
+        return diaryId;
     }
 }
