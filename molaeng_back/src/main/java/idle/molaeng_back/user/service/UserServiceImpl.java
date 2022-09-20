@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService{
         User targetUser = userRepository.findByUserId(userProfileRequest.getUserId());
         Gugun newRegion = gugunRepository.findByGugunName(userProfileRequest.getGugunName());
 
-        targetUser.changeProfile(userProfileRequest, newRegion);
+//        targetUser.changeProfile(userProfileRequest, newRegion);
         userRepository.save(targetUser);
     }
 
