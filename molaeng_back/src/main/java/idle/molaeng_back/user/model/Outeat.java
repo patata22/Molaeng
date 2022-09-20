@@ -3,12 +3,13 @@ package idle.molaeng_back.user.model;
 import idle.molaeng_back.recipe.model.entity.Recipe;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
-@Builder
+@NoArgsConstructor
 public class Outeat {
 
     @Id
@@ -26,4 +27,5 @@ public class Outeat {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="recipe_id")
     private Recipe recipe;
+
 }

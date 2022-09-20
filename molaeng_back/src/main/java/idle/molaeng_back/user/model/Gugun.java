@@ -1,7 +1,9 @@
 package idle.molaeng_back.user.model;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -9,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Getter
-@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Gugun {
 
     @Id
@@ -26,6 +28,10 @@ public class Gugun {
     @OneToMany(mappedBy = "gugun", fetch = FetchType.LAZY)
     List<Outeat> outeatList = new ArrayList<>();
 
-
+    @Builder
+    public Gugun(Long gugunId, String gugunName){
+        this.gugunId = gugunId;
+        this.gugunName = gugunName;
+    }
 
 }
