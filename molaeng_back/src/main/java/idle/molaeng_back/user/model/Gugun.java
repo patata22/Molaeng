@@ -2,6 +2,7 @@ package idle.molaeng_back.user.model;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Getter
-@Builder
+@NoArgsConstructor
 public class Gugun {
 
     @Id
@@ -26,6 +27,11 @@ public class Gugun {
     @OneToMany(mappedBy = "gugun", fetch = FetchType.LAZY)
     List<Outeat> outeatList = new ArrayList<>();
 
-
-
+    @Builder
+    public Gugun(Long gugunId, String gugunName, List<User> userList, List<Outeat> outeatList) {
+        this.gugunId = gugunId;
+        this.gugunName = gugunName;
+        this.userList = userList;
+        this.outeatList = outeatList;
+    }
 }

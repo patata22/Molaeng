@@ -2,11 +2,13 @@ package idle.molaeng_back.recipe.model.entity;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Getter
 @Entity
+@NoArgsConstructor
 public class RecipeIngredient {
 
     @Id
