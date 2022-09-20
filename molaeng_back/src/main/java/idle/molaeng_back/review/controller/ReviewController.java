@@ -21,7 +21,9 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ReviewController {
 
+    @Autowired
     private final ReviewLikeService reviewLikeService;
+    @Autowired
     private final ReviewService reviewService;
 
 
