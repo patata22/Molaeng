@@ -35,7 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         UsernamePasswordAuthenticationFilter.class)
                 // oauth2Login() : OAuth2Login 설정 부분
                 // loginPage() : login 페이지 url을 직접 설정
-                .oauth2Login().loginPage("/token/expired")
+                .oauth2Login()
+//                .loginPage("/aaaa")
                 // successHandler() : 로그인 성공시
                 .successHandler(successHandler)
                 // userInfoEndpoint() : OAuth2 로그인 성공 후 설정

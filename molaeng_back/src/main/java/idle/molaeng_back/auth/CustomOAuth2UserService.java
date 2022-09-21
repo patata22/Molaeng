@@ -1,6 +1,5 @@
 package idle.molaeng_back.auth;
 
-import idle.molaeng_back.auth.old.OAuth2Attribute;
 import lombok.extern.slf4j.Slf4j;
 import lombok.var;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

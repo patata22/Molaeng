@@ -9,6 +9,8 @@ public class UserRequestMapper {
 
     public UserDto getUser(OAuth2User oAuth2User) {
 
+        System.out.println("111111111");
+
         var attributes = oAuth2User.getAttributes();
         return UserDto.builder()
                 .name((String) attributes.get("name"))
