@@ -4,13 +4,14 @@ import idle.molaeng_back.recipe.model.entity.Recipe;
 import idle.molaeng_back.user.model.User;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Getter
-@Builder
 @Entity
+@NoArgsConstructor
 public class Diary {
 
     @Id
@@ -31,4 +32,13 @@ public class Diary {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name= "user_id")
     private User user;
+
+    @Builder
+    public Diary(long diaryId, LocalDate mealDate, int saveCost, Recipe recipe, User user){
+        this.diaryId = diaryId;
+        this.mealDate = mealDate;
+        this.saveCost = saveCost;
+        this.recipe = recipe;
+        this.user = user;
+    }
 }
