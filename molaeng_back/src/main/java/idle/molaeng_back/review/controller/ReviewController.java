@@ -4,6 +4,7 @@ import idle.molaeng_back.review.model.DTO.request.*;
 import idle.molaeng_back.review.model.DTO.response.LikeReviewResDTO;
 import idle.molaeng_back.review.model.DTO.response.ReadReviewResDTO;
 import idle.molaeng_back.review.model.DTO.response.RecipeReviewResDTO;
+import idle.molaeng_back.review.model.DTO.response.ScoreResDTO;
 import idle.molaeng_back.review.service.ReviewLikeService;
 import idle.molaeng_back.review.service.ReviewService;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +27,8 @@ public class ReviewController {
 
 
 
-    @GetMapping("/{userId}")
-    public ResponseEntity readMyReview(@PathVariable long userId){
+    @GetMapping
+    public ResponseEntity readMyReview(@RequestParam long userId){
         Map<String, Object> resultMap = new HashMap<>();
         try{
             List<ReadReviewResDTO> result = reviewService.readReviewByUserId(userId);
@@ -45,13 +46,26 @@ public class ReviewController {
     public ResponseEntity readReview(@PathVariable long recipeId, @RequestParam int sort, @RequestParam int page, @RequestParam long userId) {
         Map<String, Object> resultMap = new HashMap<>();
         try{
-            RecipeReviewResDTO result = reviewService.readReviewByRecipeId(sort,page,userId,recipeId);
+            List<ReadReviewResDTO> result = reviewService.readReviewByRecipeId(sort, page, userId, recipeId);
             resultMap.put("message", "success");
             resultMap.put("result", result);
             return new ResponseEntity(resultMap, HttpStatus.OK);
         }catch(Exception e){
             resultMap.put("message", "레시피 리뷰조회에서 에러났다아아");
 //            resultMap.put("error", e.getStackTrace());
+            return new ResponseEntity(resultMap, HttpStatus.BAD_REQUEST);
+        }
+    }
+    @GetMapping("/score/{recipeId}")
+    public ResponseEntity getScore(@PathVariable long recipeId){
+        Map<String, Object> resultMap = new HashMap<>();
+        try{
+            ScoreResDTO result = reviewService.findScoreByRecipeId(recipeId);
+            resultMap.put("message", "success");
+            resultMap.put("result", result);
+            return new ResponseEntity(resultMap, HttpStatus.OK);
+        }catch (Exception e){
+            resultMap.put("message", "점수조회에서 에러ㅓㅓㅓㅓㅓㅓㅓㅓ");
             return new ResponseEntity(resultMap, HttpStatus.BAD_REQUEST);
         }
     }

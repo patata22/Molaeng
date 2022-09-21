@@ -1,8 +1,10 @@
 package idle.molaeng_back.review.service;
 
+import idle.molaeng_back.recipe.model.entity.Recipe;
 import idle.molaeng_back.review.model.DTO.request.CreateReviewReqDTO;
 import idle.molaeng_back.review.model.DTO.response.ReadReviewResDTO;
 import idle.molaeng_back.review.model.DTO.response.RecipeReviewResDTO;
+import idle.molaeng_back.review.model.DTO.response.ScoreResDTO;
 import idle.molaeng_back.review.model.Review;
 import idle.molaeng_back.review.repository.ReviewLikeRepository;
 import idle.molaeng_back.review.repository.ReviewRepository;
@@ -12,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -89,7 +92,7 @@ public class ReviewServiceImpl implements ReviewService{
     }
 
     @Override
-    public RecipeReviewResDTO readReviewByRecipeId(int sort, int page, long userId, long recipeId) {
+    public List<ReadReviewResDTO> readReviewByRecipeId(int sort, int page, long userId, long recipeId) {
 
         List<Review> reviewList = null;
         switch(sort){
@@ -103,26 +106,41 @@ public class ReviewServiceImpl implements ReviewService{
                 reviewList = reviewRepository.findAllByRecipeRecipeIdOrderByReviewDateDesc(recipeId);
                 break;
         }
-        int size = reviewList.size();
-        int[] scoreCnt= new int[5];
         ArrayList<ReadReviewResDTO> readReviewResDTOS = new ArrayList<>();
         for (Review review : reviewList) {
             ReadReviewResDTO dto = reviewToReadReviewDTO(userId, review);
             readReviewResDTOS.add(dto);
-            scoreCnt[review.getScore()-1]+=1;
         }
-
-        int total = 0;
-        for(int i=0;i<5;i++){
-            total += scoreCnt[i]*(i+1);
-        }
-        //이거 맞는지 모르겠는데
-        float avgScore = Math.round((float)(total*10/size)/10);
-        return new RecipeReviewResDTO(avgScore, scoreCnt, readReviewResDTOS);
-
+        return readReviewResDTOS;
     }
 
-
+    @Override
+    public ScoreResDTO findScoreByRecipeId(long recipeId) {
+        int[] scoreCnt= new int[5];
+        int total = 0;
+//        Recipe recipe = recipeRepository.findByRecipeId();
+        Recipe recipe = Recipe.builder()
+                .recipeId(1)
+                .oneScore(2)
+                .twoScore(2)
+                .threeScore(2)
+                .fourScore(2)
+                .fiveScore(2)
+                .build();
+        scoreCnt[0] = recipe.getOneScore();
+        scoreCnt[1] = recipe.getTwoScore();
+        scoreCnt[2] = recipe.getThreeScore();
+        scoreCnt[3] = recipe.getFourScore();
+        scoreCnt[4] = recipe.getFiveScore();
+        System.out.println(Arrays.toString(scoreCnt));
+        int size=0;
+        for(int i=0;i<5;i++){
+            total += scoreCnt[i]*(i+1);
+            size += scoreCnt[i];
+        }
+        float avgScore = Math.round((float)(total*10/size)/10);
+        return new ScoreResDTO(scoreCnt, avgScore);
+    }
 
     //따로 추출한 메서드
     private ReadReviewResDTO reviewToReadReviewDTO(long userId, Review review) {
