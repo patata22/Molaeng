@@ -27,43 +27,73 @@ public class DiaryController {
     @PostMapping
     public ResponseEntity saveDiary(@RequestBody long userId, @RequestBody long recipeId, @RequestBody int saveCost){
         Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("result", diaryService.saveDiary(userId, recipeId, saveCost));
-        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+        try{
+            resultMap.put("diaryId", diaryService.saveDiary(userId, recipeId, saveCost));
+            return new ResponseEntity<>(resultMap, HttpStatus.OK);
+        }catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/calendar")
-    public ResponseEntity getCalendar(@RequestBody long userId, @RequestBody int year, @RequestBody int month){
+    public ResponseEntity getCalendar(@RequestParam long userId, @RequestParam int year, @RequestParam int month){
+        logger.info("userId:"+userId+" year:"+year+" month:"+month);
         Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("result", diaryService.findDiaryByCalendar(userId, year, month));
-        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+        try {
+            resultMap.put("saveCostList", diaryService.findDiaryByCalendar(userId, year, month));
+            return new ResponseEntity<>(resultMap, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/week")
-    public ResponseEntity getWeekGraph(@RequestBody long userId, @RequestBody int year, @RequestBody int month){
+    public ResponseEntity getWeekGraph(@RequestParam long userId, @RequestParam int year, @RequestParam int month){
         Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("result", diaryService.findDiaryByWeek(userId, year, month));
-        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+        try {
+            resultMap.put("year",year);
+            resultMap.put("month",month);
+            resultMap.put("saveCostList", diaryService.findDiaryByWeek(userId, year, month));
+            return new ResponseEntity<>(resultMap, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @GetMapping("/month")
-    public ResponseEntity getMonthGraph(@RequestBody long userId, @RequestBody int year, @RequestBody int month){
+    public ResponseEntity getMonthGraph(@RequestParam long userId, @RequestParam int year, @RequestParam int month){
         Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("result", diaryService.findDiaryByMonth(userId, year, month));
-        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+        try {
+            resultMap.put("year",year);
+            resultMap.put("month",month);
+            resultMap.put("saveCostList", diaryService.findDiaryByMonth(userId, year, month));
+            return new ResponseEntity<>(resultMap, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping
-    public ResponseEntity getDiary(@RequestBody long userId, @RequestBody String date){
+    public ResponseEntity getDiary(@RequestParam Long userId, String date){
         Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("result", diaryService.findDiaryByDate(userId, date));
-        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+        try {
+            resultMap.put("mealDate",date);
+            resultMap.put("mealList", diaryService.findDiaryByDate(userId, date));
+            return new ResponseEntity<>(resultMap, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    @DeleteMapping
-    public ResponseEntity deleteDiary(@RequestBody long diaryId){
+    @DeleteMapping("/{diaryId}")
+    public ResponseEntity deleteDiary(@PathVariable long diaryId){
         Map<String, Object> resultMap = new HashMap<>();
-        logger.info("diarycontroller - diaryId : "+diaryId);
-        resultMap.put("result", diaryService.deleteDiaryByDiaryId(diaryId));
-        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+        try {
+            resultMap.put("diaryId", diaryService.deleteDiaryByDiaryId(diaryId));
+            return new ResponseEntity<>(resultMap, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
