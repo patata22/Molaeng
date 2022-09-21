@@ -4,12 +4,10 @@ import idle.molaeng_back.recipe.model.entity.Recipe;
 import idle.molaeng_back.search.DTO.request.SearchRecipeByIngredientReqDTO;
 import idle.molaeng_back.search.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,12 +20,11 @@ public class SearchController {
 
     private final SearchService searchService;
 
-    @Autowired
     public SearchController(SearchService searchService) {
         this.searchService = searchService;
     }
 
-    @GetMapping("/ingredient")
+    @PostMapping("/ingredient")
     public ResponseEntity searchByIngredient(@RequestBody List<SearchRecipeByIngredientReqDTO> request){
         List<Long> ingredientIdList = new ArrayList<>();
         Map<String, Object> resultMap = new HashMap<>();
@@ -45,8 +42,9 @@ public class SearchController {
         }
     }
 
-    @GetMapping("/recipe")
-    public ResponseEntity searchByKeyword(@RequestBody String keyword){
+    @GetMapping("/recipe/{keyword}")
+    public ResponseEntity searchByKeyword(@PathVariable String keyword, @RequestParam("page") int page){
+        // 페이징 추가해야되니까 쿼리파라미터로 가는게 맞을듯
         Map<String, Object> resultMap = new HashMap<>();
         try{
             List<Recipe> result = searchService.findRecipeByName(keyword);

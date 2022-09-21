@@ -26,8 +26,8 @@ public class ReviewController {
 
 
 
-    @GetMapping
-    public ResponseEntity readMyReview(@RequestBody long userId){
+    @GetMapping("/{userId}")
+    public ResponseEntity readMyReview(@PathVariable long userId){
         Map<String, Object> resultMap = new HashMap<>();
         try{
             List<ReadReviewResDTO> result = reviewService.readReviewByUserId(userId);
@@ -42,15 +42,11 @@ public class ReviewController {
 
     @GetMapping("/{recipeId}")
     // 페이징 적용해야하는데 일단은 다 던져주는걸로
-    public ResponseEntity readReview(@PathVariable long recipeId, @RequestBody RecipeReviewReqDTO request) {
+    public ResponseEntity readReview(@PathVariable long recipeId, @RequestParam int sort, @RequestParam int page, @RequestParam long userId) {
         Map<String, Object> resultMap = new HashMap<>();
         try{
-            int sort=request.getSort();
-            int page=request.getPage();
-            long userId = request.getUserId();
             RecipeReviewResDTO result = reviewService.readReviewByRecipeId(sort,page,userId,recipeId);
             resultMap.put("message", "success");
-            //나중엔 DTO로 바꾸자
             resultMap.put("result", result);
             return new ResponseEntity(resultMap, HttpStatus.OK);
         }catch(Exception e){
