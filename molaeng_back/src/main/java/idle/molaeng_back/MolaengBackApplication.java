@@ -15,9 +15,9 @@ public class MolaengBackApplication {
 		SpringApplication.run(MolaengBackApplication.class, args);
 	}
 
-	@Bean
-	public TaskScheduler taskScheduler() {
-		return new ConcurrentTaskScheduler();
-	}
+//	@Bean
+//	public TaskScheduler taskScheduler() {
+//		return new ConcurrentTaskScheduler();
+//	}
 
 }
