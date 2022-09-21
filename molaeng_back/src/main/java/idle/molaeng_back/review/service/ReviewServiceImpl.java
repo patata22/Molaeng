@@ -3,19 +3,21 @@ package idle.molaeng_back.review.service;
 import idle.molaeng_back.recipe.model.entity.Recipe;
 import idle.molaeng_back.review.model.DTO.request.CreateReviewReqDTO;
 import idle.molaeng_back.review.model.DTO.response.ReadReviewResDTO;
-import idle.molaeng_back.review.model.DTO.response.RecipeReviewResDTO;
+import idle.molaeng_back.review.model.DTO.response.ReviewResDTO;
 import idle.molaeng_back.review.model.DTO.response.ScoreResDTO;
 import idle.molaeng_back.review.model.Review;
 import idle.molaeng_back.review.repository.ReviewLikeRepository;
 import idle.molaeng_back.review.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -64,14 +66,12 @@ public class ReviewServiceImpl implements ReviewService{
     }
 
     @Override
-    public List<ReadReviewResDTO> readReviewByUserId(long userId) {
-        List<Review> reviewList = reviewRepository.findByUserUserId(userId);
-        ArrayList<ReadReviewResDTO> readReviewResDTOS = new ArrayList<>();
-        for (Review review : reviewList) {
-            ReadReviewResDTO dto = reviewToReadReviewDTO(userId, review);
-            readReviewResDTOS.add(dto);
-        }
-        return readReviewResDTOS;
+    public ReviewResDTO readReviewByUserId(long userId, Pageable pageable) {
+        Slice<Review> reviewSlice = reviewRepository.findAllByUserUserId(userId, pageable);
+        List<ReadReviewResDTO> reviewList = reviewSlice.getContent()
+                .stream().map(x -> reviewToReadReviewDTO(userId, x))
+                .collect(Collectors.toList());
+        return new ReviewResDTO(reviewSlice.getNumber(), reviewSlice.hasNext(), reviewList);
     }
 
     @Override
@@ -92,26 +92,13 @@ public class ReviewServiceImpl implements ReviewService{
     }
 
     @Override
-    public List<ReadReviewResDTO> readReviewByRecipeId(int sort, int page, long userId, long recipeId) {
-
-        List<Review> reviewList = null;
-        switch(sort){
-            case 0:
-                reviewList = reviewRepository.findAllByRecipeRecipeIdOrderByScoreDesc(recipeId);
-                break;
-            case 1:
-                reviewList = reviewRepository.findAllByRecipeRecipeIdOrderByScore(recipeId);
-                break;
-            case 2:
-                reviewList = reviewRepository.findAllByRecipeRecipeIdOrderByReviewDateDesc(recipeId);
-                break;
-        }
-        ArrayList<ReadReviewResDTO> readReviewResDTOS = new ArrayList<>();
-        for (Review review : reviewList) {
-            ReadReviewResDTO dto = reviewToReadReviewDTO(userId, review);
-            readReviewResDTOS.add(dto);
-        }
-        return readReviewResDTOS;
+    public ReviewResDTO readReviewByRecipeId(long userId, long recipeId, Pageable pageable) {
+        Slice<Review> pageReviewList = reviewRepository.findAllByRecipeRecipeId(recipeId, pageable);
+        List<ReadReviewResDTO> reviewList = pageReviewList
+                .getContent().stream()
+                .map(x -> reviewToReadReviewDTO(userId, x))
+                .collect(Collectors.toList());
+        return new ReviewResDTO(pageReviewList.getNumber(), pageReviewList.hasNext(), reviewList);
     }
 
     @Override
