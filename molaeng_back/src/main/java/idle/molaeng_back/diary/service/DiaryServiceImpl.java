@@ -7,16 +7,26 @@ import idle.molaeng_back.recipe.model.entity.Recipe;
 import idle.molaeng_back.user.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
 
+@Service
+@Transactional
 public class DiaryServiceImpl implements DiaryService{
 
     private static final Logger logger = LoggerFactory.getLogger(DiaryController.class);
 
     private DiaryRepository diaryRepository;
+
+    @Autowired
+    public DiaryServiceImpl(DiaryRepository diaryRepository) {
+        this.diaryRepository = diaryRepository;
+    }
 
     @Override
     public long saveDiary(long userId, long recipeId, int saveCost) {

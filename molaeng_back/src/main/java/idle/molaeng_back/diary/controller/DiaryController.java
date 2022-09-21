@@ -1,15 +1,14 @@
 package idle.molaeng_back.diary.controller;
 
-import idle.molaeng_back.diary.model.Diary;
 import idle.molaeng_back.diary.service.DiaryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -18,7 +17,12 @@ public class DiaryController {
 
     private static final Logger logger = LoggerFactory.getLogger(DiaryController.class);
 
-    private DiaryService diaryService;
+    private final DiaryService diaryService;
+
+    @Autowired
+    public DiaryController(DiaryService diaryService) {
+        this.diaryService = diaryService;
+    }
 
     @PostMapping
     public ResponseEntity saveDiary(@RequestBody long userId, @RequestBody long recipeId, @RequestBody int saveCost){
