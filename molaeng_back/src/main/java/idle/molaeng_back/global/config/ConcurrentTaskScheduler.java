@@ -4,7 +4,7 @@ import idle.molaeng_back.global.api.NaverShoppingApi;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-
+//@Component
 public class ConcurrentTaskScheduler {
     // 자정마다 실행 (cron = "초 분 시 일 월 요일 년(생략가능)")
 
