@@ -1,4 +1,4 @@
-package idle.molaeng_back.auth;
+package idle.molaeng_back.auth.old;
 
 import lombok.var;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

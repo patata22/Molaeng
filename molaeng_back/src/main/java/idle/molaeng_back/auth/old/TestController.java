@@ -1,4 +1,4 @@
-package idle.molaeng_back.auth;
+package idle.molaeng_back.auth.old;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

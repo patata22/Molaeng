@@ -1,4 +1,4 @@
-package idle.molaeng_back.auth;
+package idle.molaeng_back.auth.old;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
