@@ -1,6 +1,8 @@
 package idle.molaeng_back.review.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import idle.molaeng_back.recipe.model.entity.Recipe;
 import idle.molaeng_back.user.model.User;
 import lombok.Builder;
@@ -32,10 +34,12 @@ public class Review {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
+    @JsonBackReference
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="recipe_id")
+    @JsonBackReference
     private Recipe recipe;
 
 

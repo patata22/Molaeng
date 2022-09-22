@@ -3,11 +3,12 @@ package idle.molaeng_back.review.controller;
 import idle.molaeng_back.review.model.DTO.request.*;
 import idle.molaeng_back.review.model.DTO.response.LikeReviewResDTO;
 import idle.molaeng_back.review.model.DTO.response.ReadReviewResDTO;
-import idle.molaeng_back.review.model.DTO.response.RecipeReviewResDTO;
+import idle.molaeng_back.review.model.DTO.response.ReviewResDTO;
+import idle.molaeng_back.review.model.DTO.response.ScoreResDTO;
 import idle.molaeng_back.review.service.ReviewLikeService;
 import idle.molaeng_back.review.service.ReviewService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,10 +28,10 @@ public class ReviewController {
 
 
     @GetMapping
-    public ResponseEntity readMyReview(@RequestBody long userId){
+    public ResponseEntity readMyReview(@RequestParam long userId, Pageable pageable){
         Map<String, Object> resultMap = new HashMap<>();
         try{
-            List<ReadReviewResDTO> result = reviewService.readReviewByUserId(userId);
+            ReviewResDTO result = reviewService.readReviewByUserId(userId, pageable);
             resultMap.put("result", result);
             resultMap.put("message", "success");
             return new ResponseEntity(resultMap, HttpStatus.OK);
@@ -41,21 +42,30 @@ public class ReviewController {
     }
 
     @GetMapping("/{recipeId}")
-    // 페이징 적용해야하는데 일단은 다 던져주는걸로
-    public ResponseEntity readReview(@PathVariable long recipeId, @RequestBody RecipeReviewReqDTO request) {
+    public ResponseEntity readReview(@PathVariable long recipeId, Pageable pageable, @RequestParam long userId) {
         Map<String, Object> resultMap = new HashMap<>();
         try{
-            int sort=request.getSort();
-            int page=request.getPage();
-            long userId = request.getUserId();
-            RecipeReviewResDTO result = reviewService.readReviewByRecipeId(sort,page,userId,recipeId);
+            ReviewResDTO result = reviewService.readReviewByRecipeId(userId, recipeId, pageable);
             resultMap.put("message", "success");
-            //나중엔 DTO로 바꾸자
             resultMap.put("result", result);
             return new ResponseEntity(resultMap, HttpStatus.OK);
         }catch(Exception e){
             resultMap.put("message", "레시피 리뷰조회에서 에러났다아아");
+            e.printStackTrace();
 //            resultMap.put("error", e.getStackTrace());
+            return new ResponseEntity(resultMap, HttpStatus.BAD_REQUEST);
+        }
+    }
+    @GetMapping("/score/{recipeId}")
+    public ResponseEntity getScore(@PathVariable long recipeId){
+        Map<String, Object> resultMap = new HashMap<>();
+        try{
+            ScoreResDTO result = reviewService.findScoreByRecipeId(recipeId);
+            resultMap.put("message", "success");
+            resultMap.put("result", result);
+            return new ResponseEntity(resultMap, HttpStatus.OK);
+        }catch (Exception e){
+            resultMap.put("message", "점수조회에서 에러ㅓㅓㅓㅓㅓㅓㅓㅓ");
             return new ResponseEntity(resultMap, HttpStatus.BAD_REQUEST);
         }
     }
