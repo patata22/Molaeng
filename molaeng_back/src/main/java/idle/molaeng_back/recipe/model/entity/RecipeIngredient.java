@@ -17,7 +17,7 @@ public class RecipeIngredient {
     private long recipeIngredientId;
 
     @Column(name="need_weight")
-    private int needWeight;
+    private float needWeight;
 
     @Column(name="weight_unit")
     private String weightUnit;
@@ -32,7 +32,7 @@ public class RecipeIngredient {
 
 
     @Builder
-    public RecipeIngredient(long recipeIngredientId, int needWeight, String weightUnit, Recipe recipe, Ingredient ingredient) {
+    public RecipeIngredient(long recipeIngredientId, float needWeight, String weightUnit, Recipe recipe, Ingredient ingredient) {
         this.recipeIngredientId = recipeIngredientId;
         this.needWeight = needWeight;
         this.weightUnit = weightUnit;
