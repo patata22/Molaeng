@@ -3,12 +3,13 @@ package idle.molaeng_back.recipe.model.entity;
 import idle.molaeng_back.user.model.User;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
-@Builder
+@NoArgsConstructor
 public class RecipeLike {
 
     @Id
@@ -24,4 +25,10 @@ public class RecipeLike {
     @JoinColumn(name="recipe_id")
     private Recipe recipe;
 
+    @Builder
+    public RecipeLike(long recipeLikeId, User user, Recipe recipe) {
+        this.recipeLikeId = recipeLikeId;
+        this.user = user;
+        this.recipe = recipe;
+    }
 }

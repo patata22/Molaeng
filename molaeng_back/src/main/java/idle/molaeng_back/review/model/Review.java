@@ -1,17 +1,19 @@
 package idle.molaeng_back.review.model;
 
+
 import idle.molaeng_back.recipe.model.entity.Recipe;
 import idle.molaeng_back.user.model.User;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Builder
 @Getter
+@NoArgsConstructor
 public class Review {
 
     @Id
@@ -36,8 +38,21 @@ public class Review {
     @JoinColumn(name="recipe_id")
     private Recipe recipe;
 
-    @OneToMany(mappedBy = "review", fetch = FetchType.LAZY)
+
+    @OneToMany(mappedBy = "review", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ReviewLike> reviewLikeList;
+    @Builder
+    public Review(long reviewId, LocalDateTime reviewDate, int score, String reviewContent, User user, Recipe recipe, List<ReviewLike> reviewLikeList) {
+        this.reviewId = reviewId;
+        this.reviewDate = LocalDateTime.now();
+        this.score = score;
+        this.reviewContent = reviewContent;
+        this.user = user;
+        this.recipe = recipe;
+        this.reviewLikeList = reviewLikeList;
+    }
 
-
+    public void changeUser(User user){
+        this.user = user;
+    }
 }
