@@ -1,8 +1,6 @@
 package idle.molaeng_back.diary.service;
 
 import idle.molaeng_back.diary.model.Diary;
-import idle.molaeng_back.diary.request.GetDiaryReq;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
