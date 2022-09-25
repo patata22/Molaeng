@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import MyPageHeader from "../components/molecules/MoleculesMyPageHeader.vue";
+import MyPageHeader from "../components/organisms/OrganismMyPageHeader.vue";
 import AccountEdit from "../components/templates/TemplatesAccountEdit.vue";
 import NavBar from "../components/molecules/MoleculesNavBar.vue";
 
