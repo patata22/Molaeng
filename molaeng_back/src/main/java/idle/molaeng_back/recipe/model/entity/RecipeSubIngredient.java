@@ -14,23 +14,23 @@ public class RecipeSubIngredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="sub_ingredient_id")
-    private long sub_ingredient_id;
+    private long subIngredientId;
 
     @Column(name="sub_ingredient_name")
-    private String sub_ingredient_name;
+    private String subIngredientName;
 
     @Column(name="weight_unit")
-    private String weight_unit;
+    private String weightUnit;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="recipe_id")
     private Recipe recipe;
 
     @Builder
-    public RecipeSubIngredient(long sub_ingredient_id, String sub_ingredient_name, String weight_unit, Recipe recipe) {
-        this.sub_ingredient_id = sub_ingredient_id;
-        this.sub_ingredient_name = sub_ingredient_name;
-        this.weight_unit = weight_unit;
+    public RecipeSubIngredient(long subIngredientId, String subIngredientName, String weightUnit, Recipe recipe) {
+        this.subIngredientId = subIngredientId;
+        this.subIngredientName = subIngredientName;
+        this.weightUnit = weightUnit;
         this.recipe = recipe;
     }
 }

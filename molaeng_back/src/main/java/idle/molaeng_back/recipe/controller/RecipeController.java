@@ -2,10 +2,12 @@ package idle.molaeng_back.recipe.controller;
 
 import idle.molaeng_back.recipe.model.response.RecipeDetailRes;
 import idle.molaeng_back.recipe.model.response.RecipeIngredientRes;
+import idle.molaeng_back.recipe.model.response.RecipeMainSubIngredientRes;
 import idle.molaeng_back.recipe.model.response.RecipeRes;
 import idle.molaeng_back.recipe.service.RecipeDetailService;
 import idle.molaeng_back.recipe.service.RecipeIngredientService;
 import idle.molaeng_back.recipe.service.RecipeService;
+import idle.molaeng_back.recipe.service.RecipeSubIngredientService;
 import idle.molaeng_back.review.model.DTO.response.ReadReviewResDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +33,8 @@ public class RecipeController {
     RecipeDetailService recipeDetailService;
     @Autowired
     RecipeIngredientService recipeIngredientService;
+    @Autowired
+    RecipeSubIngredientService recipeSubIngredientService;
 
     //레시피 정보 조회(상단부분)
     @GetMapping("/{recipeId}")
@@ -71,11 +76,15 @@ public class RecipeController {
     }
 
     //레시피 재료 조회
-    @GetMapping("/ingredient/{recipeId}")
+    @GetMapping("/allingredient/{recipeId}")
     public ResponseEntity getRecipeIngredient(@PathVariable long recipeId){
         Map<String, Object> resultMap = new HashMap<>();
         try{
-            List<RecipeIngredientRes> result = recipeIngredientService.readRecipeIngredientByRecipeId(recipeId);
+//            List<RecipeIngredientRes> result = recipeIngredientService.readRecipeIngredientByRecipeId(recipeId);
+            RecipeMainSubIngredientRes result = RecipeMainSubIngredientRes.builder()
+                            .recipeIngredientResList(recipeIngredientService.readRecipeIngredientByRecipeId(recipeId))
+                                    .recipeSubIngredientResList(recipeSubIngredientService.readRecipeSubIngredientByRecipeId(recipeId))
+                                            .build();
 
             resultMap.put("result", result);
             resultMap.put("message", "success");
