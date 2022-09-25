@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="dark--text font-weight-bold text-center pa-5">
-      <h2>마이 페이지</h2>
+      <h1>마이 페이지</h1>
     </div>
     <v-tabs centered fixed-tabs>
       <menu-tab-item
