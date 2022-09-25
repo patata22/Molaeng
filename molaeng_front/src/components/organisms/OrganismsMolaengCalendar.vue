@@ -19,6 +19,7 @@
         class="calendar"
         v-model="value"
         :weekdays="weekday"
+        :showMonthOnFirst="false"
         :weekday-format="getWeekDayFormat"
         :type="type"
         :events="events"
@@ -117,7 +118,6 @@ export default {
   justify-content: center;
 }
 .spacer {
-  padding-top: 1%;
   align-self: center;
   text-align: center;
   font-size: 1.2rem;
