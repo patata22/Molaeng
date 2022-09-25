@@ -16,7 +16,6 @@
             <h4 class="carrot--text">닉네임</h4>
           </div>
           <v-text-field
-            label="닉네임"
             placeholder="닉네임을 입력해주세요."
             outlined
             color="carrot"
@@ -36,16 +35,16 @@
             </h6>
           </div>
           <v-select
+            placeholder="시/도"
             :items="sido"
-            label="시/도"
             outlined
             color="carrot"
             rounded
             dense
           ></v-select>
           <v-select
+            placeholder="구/군"
             :items="gugun"
-            label="구/군"
             outlined
             color="carrot"
             rounded
