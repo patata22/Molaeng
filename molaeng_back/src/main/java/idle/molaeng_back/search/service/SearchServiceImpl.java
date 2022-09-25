@@ -14,8 +14,8 @@ public class SearchServiceImpl implements SearchService {
     //여기도 결국 페이징이 들어가야한다
     @Override
     public List<Recipe> searchRecipeByIngredient(List<Long> ingredientIdList) {
-        // recipeRepository가 구현되면 아래로 대체한다
-        // List<Recipe> recipeList = recipeRepository.findAll();
+//         recipeRepository가 구현되면 아래로 대체한다
+//         List<Recipe> recipeList = recipeRepository.findAll();
 //        List<Recipe> recipeList = new ArrayList<>();
 //        // 이런식으로 하면 페이징으로 할때마다 조회해야하는데
 //        // redis?
@@ -75,7 +75,7 @@ public class SearchServiceImpl implements SearchService {
 //            }
 //        });
 //        return result;
-//
+
         return null;
     }
 
