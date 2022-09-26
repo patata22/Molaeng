@@ -24,8 +24,6 @@ services:
     container_name: molaeng_front
     ports:
       - "8081:80"
-    volumes:
-      - "/var/www/html:/app"
 
   mysql:
     image: mysql

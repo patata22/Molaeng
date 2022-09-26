@@ -10,9 +10,8 @@ RUN npm run build
 
 FROM nginx:stable-alpine
 
+COPY --from=builder /app/default.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /app/dist /usr/share/nginx/html
-
-VOLUME /app
 
 EXPOSE 8081
 
