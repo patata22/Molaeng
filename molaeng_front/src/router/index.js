@@ -1,10 +1,10 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import MainView from "../views/MainView.vue";
 import SearchView from "@/views/SearchView.vue";
 // import RecipeListView from "@/views/RecipeListView.vue";
 // import RecipeDetailView from "@/views/RecipeDetailView.vue";
-// import MyPageView from "@/views/MyPageView.vue";
+import MyPageView from "@/views/MyPageView.vue";
 // import MolaengDiaryView from "@/views/MolaengDiaryView.vue";
 // import MenuView from "@/views/MenuView.vue";
 // import InterestRecipeView from "@/views/InterestRecipeView.vue";
@@ -14,8 +14,8 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "home",
-    component: HomeView,
+    name: "main",
+    component: MainView,
   },
   {
     path: "/search",
@@ -32,11 +32,11 @@ const routes = [
   //   name: "recipe",
   //   component: RecipeDetailView,
   // },
-  // {
-  //   path: "/myPage",
-  //   name: "myPage",
-  //   component: MyPageView,
-  // },
+  {
+    path: "/myPage",
+    name: "myPage",
+    component: MyPageView,
+  },
   // {
   //   path: "/diary",
   //   name: "diary",

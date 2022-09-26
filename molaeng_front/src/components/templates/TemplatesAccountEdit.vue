@@ -23,6 +23,7 @@
             dense
             v-model="nickname"
             :error-messages="nicknameDuplicated"
+            :disabled="validated ? '' : disabled"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -41,6 +42,7 @@
             color="carrot"
             rounded
             dense
+            :disabled="validated ? '' : disabled"
           ></v-select>
           <v-select
             placeholder="구/군"
@@ -49,6 +51,7 @@
             color="carrot"
             rounded
             dense
+            :disabled="validated ? '' : disabled"
           ></v-select>
         </v-col>
       </v-row>
@@ -57,9 +60,19 @@
           class="primary font-weight-bold mt-5"
           rounded
           dense
-          @click="updateInfo"
+          @click="clickUpdate"
+          v-if="disabled === true"
         >
           수정
+        </v-btn>
+        <v-btn
+          class="primary font-weight-bold mt-5"
+          rounded
+          dense
+          @click="saveUserInfo"
+          v-if="disabled === false"
+        >
+          저장
         </v-btn>
       </v-row>
       <v-row class="text--disabled justify-end pa-5 pt-15">
@@ -70,20 +83,42 @@
 </template>
 
 <script>
-// import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
+import { mapActions, mapGetters } from "vuex";
+// import api from "@api/RestAPI";
+// import axios from "axios";
 
 export default {
   name: "myPage",
+  mounted() {
+    this.gugun = this.$store.getters.getAllGugun;
+  },
   data: () => ({
     sido: ["서울특별시"],
     gugun: [],
-    nickname: "",
+    nickname: "기본 닉네임",
     myRegion: "",
     userId: 1,
+    disabled: true,
   }),
-  computed: {},
-  methods: {},
-  created() {},
+
+  computed: { ...mapGetters(["userId", "nickname", "myRegion", "gugun"]) },
+  methods: {
+    ...mapActions(["getUserInfo"]),
+    clickUpdate: function () {
+      console.log("수정 버튼 클릭");
+      this.disabled = false;
+    },
+    saveUserInfo: function () {
+      console.log("회원 정보 수정");
+      this.disabled = true;
+    },
+  },
+  created() {
+    console.log("시작한다1");
+    // this.getUserInfo(this.userId);
+    this.$store.dispatch("getUserInfo");
+    console.log("created 끝?");
+  },
 };
 </script>
 
