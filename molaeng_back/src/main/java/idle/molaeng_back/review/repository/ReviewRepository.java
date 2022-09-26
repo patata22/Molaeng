@@ -1,6 +1,9 @@
 package idle.molaeng_back.review.repository;
 
 import idle.molaeng_back.review.model.Review;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,9 +14,11 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     Review save(Review review);
     Review findByReviewId(long reviewId);
     List<Review> findByUserUserId(long userId);
-    List<Review> findByRecipeRecipeId(long recipeId);
+    Slice<Review> findAllByUserUserId(long userId, Pageable pageable);
+
     void deleteByReviewId(long reviewId);
 
+    Slice<Review> findAllByRecipeRecipeId(long recipeId, Pageable pageable);
     // 별점 높은순, sortNO= 0
     List<Review> findAllByRecipeRecipeIdOrderByScoreDesc(long recipeId);
     // 별점 낮은순, sortNo= 1

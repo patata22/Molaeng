@@ -1,5 +1,7 @@
 package idle.molaeng_back.recipe.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import idle.molaeng_back.diary.model.Diary;
 import idle.molaeng_back.review.model.Review;
 import idle.molaeng_back.user.model.Outeat;
@@ -49,12 +51,15 @@ public class Recipe {
     private int fiveScore;
 
     @OneToMany(mappedBy = "recipe")
+
     private List<Outeat> outeatList;
 
     @OneToMany(mappedBy = "recipe")
+    @JsonBackReference
     private List<RecipeLike> recipeLikeList;
 
     @OneToMany(mappedBy = "recipe")
+    @JsonManagedReference
     private List<Review> reviewList;
 
     @OneToMany(mappedBy = "recipe")
