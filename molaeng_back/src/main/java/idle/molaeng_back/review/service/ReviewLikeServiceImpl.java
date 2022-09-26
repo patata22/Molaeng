@@ -28,7 +28,7 @@ public class ReviewLikeServiceImpl implements ReviewLikeService{
 
     @Override
     public LikeReviewResDTO like(long userId, long reviewId) {
-        User temp = User.builder().build();
+        User temp = User.builder().userId(1L).build();
         //userReposiotry까지 땡겨와야함
         // User user = userRepository.findById(userId)
         Review review = reviewRepository.findByReviewId(reviewId);

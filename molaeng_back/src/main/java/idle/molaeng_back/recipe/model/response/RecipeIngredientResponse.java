@@ -22,7 +22,7 @@ public class RecipeIngredientResponse {
         public RecipeIngredientInfo(RecipeIngredient recipeIngredient){
             this.ingredientId = recipeIngredient.getIngredient().getIngredientId();
             this.ingredientName = recipeIngredient.getIngredient().getIngredientName();
-            this.needWeight = recipeIngredient.getNeedWeight();
+//            this.needWeight = recipeIngredient.getNeedWeight();
             this.weightUnit = recipeIngredient.getWeightUnit();
         }
     }
