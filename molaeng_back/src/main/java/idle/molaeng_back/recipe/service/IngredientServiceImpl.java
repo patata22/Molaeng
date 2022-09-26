@@ -58,7 +58,7 @@ public class IngredientServiceImpl implements IngredientService {
         List<RecipeIngredientResponse.RecipeIngredientPriceInfo> result = new ArrayList<>();
         for (RecipeIngredient recipeIngredient : recipeIngredients) {
             Ingredient ingredient = recipeIngredient.getIngredient();
-            result.add(new RecipeIngredientResponse.RecipeIngredientPriceInfo(recipeIngredient, ingredient.pricePerWeight(recipeIngredient.getNeedWeight(),recipeIngredient.getWeightUnit())));
+//            result.add(new RecipeIngredientResponse.RecipeIngredientPriceInfo(recipeIngredient, ingredient.pricePerWeight(recipeIngredient.getNeedWeight(),recipeIngredient.getWeightUnit())));
         }
 
         return result;
