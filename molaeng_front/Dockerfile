@@ -12,7 +12,7 @@ FROM nginx:stable-alpine
 
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-COPY /var/www/html /usr/share/nginx/html
+VOLUME /app
 
 EXPOSE 8081
 
