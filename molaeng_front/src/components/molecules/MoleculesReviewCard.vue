@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <v-card max-width="350px">
+  <v-container>
+    <v-card>
       <v-card-title>
         <v-row>
           <atom-review-read-star
@@ -12,33 +12,43 @@
         </v-row>
       </v-card-title>
       <v-row>
-        {{ review.userNickname }} / {{ review.reviewDate.substr(0, 10) }}
+        <v-col>{{ review.userNickname }} </v-col>
+        <v-col>/ {{ review.reviewDate.substr(0, 10) }}</v-col>
       </v-row>
       <v-row>
-        <div>{{ review.reviewContent }}</div>
+        <v-col>{{ review.reviewContent }}</v-col>
       </v-row>
-      <v-btn
-        v-if="review.liked"
-        v-on:click="dislikeReview(1, review.reviewId)"
-        icon
-        right
-        color="carrot"
-      >
-        <v-icon>mdi-thumb-up</v-icon>
-      </v-btn>
-      <v-btn
-        v-else
-        v-on:click="likeReview(1, review.reviewId)"
-        icon
-        right
-        color="semidark"
-      >
-        <v-icon>mdi-thumb-up</v-icon>
-      </v-btn>
-      <div>{{ review.likeCnt }}</div>
+      <v-row>
+        <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
+        <v-col>
+          <v-btn
+            v-if="review.liked"
+            v-on:click="dislikeReview(1, review.reviewId)"
+            icon
+            color="carrot"
+          >
+            <v-icon>mdi-thumb-up</v-icon>
+          </v-btn>
+          <v-btn
+            v-else
+            v-on:click="likeReview(1, review.reviewId)"
+            icon
+            color="semidark"
+          >
+            <v-icon>mdi-thumb-up</v-icon>
+          </v-btn>
+          <div>&nbsp;&nbsp;&nbsp;{{ review.likeCnt }}</div>
+        </v-col>
+      </v-row>
     </v-card>
     <br />
-  </div>
+  </v-container>
 </template>
 <script>
 import axios from "axios";

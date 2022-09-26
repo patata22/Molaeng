@@ -191,8 +191,8 @@
   </div>
 </template>
 <script>
-import RecipeScore from "../atoms/RecipeScore.vue";
-import ReviewCard from "../molecules/ReviewCard.vue";
+import RecipeScore from "../molecules/MoleculesRecipeScore.vue";
+import ReviewCard from "../molecules/MoleculesReviewCard.vue";
 import axios from "axios";
 
 export default {
