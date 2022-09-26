@@ -14,6 +14,7 @@ export default new Vuetify({
         forest: "#72A971",
         dark: "#5B574B",
         semidark: "#CECDC9",
+        yellow: "#FFC006",
       },
     },
   },

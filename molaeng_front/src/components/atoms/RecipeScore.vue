@@ -1,16 +1,105 @@
 <template>
   <div>
-    <div>
-      <h2>평점</h2>
-      <h2>{{ avgScore }}</h2>
-    </div>
-    <div>
-      <div>5점 {{ scoreCnt[4] }}</div>
-      <div>4점 {{ scoreCnt[3] }}</div>
-      <div>3점 {{ scoreCnt[2] }}</div>
-      <div>2점 {{ scoreCnt[1] }}</div>
-      <div>1점 {{ scoreCnt[0] }}</div>
-    </div>
+    <v-row>
+      <v-col>
+        <h2>평점</h2>
+        <h2>{{ avgScore }}</h2>
+      </v-col>
+      <div>
+        <v-row>
+          <v-col>
+            <v-icon color="yellow">mdi-star</v-icon>
+          </v-col>
+          <v-col>
+            <v-icon color="yellow">mdi-star</v-icon>
+          </v-col>
+          <v-col>
+            <v-icon color="yellow">mdi-star</v-icon>
+          </v-col>
+          <v-col>
+            <v-icon color="yellow">mdi-star</v-icon>
+          </v-col>
+          <v-col>
+            <v-icon color="yellow">mdi-star</v-icon>
+          </v-col>
+          <v-col>
+            {{ scoreCnt[4] }}
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-icon color="yellow">mdi-star</v-icon>
+          </v-col>
+          <v-col>
+            <v-icon color="yellow">mdi-star</v-icon>
+          </v-col>
+          <v-col>
+            <v-icon color="yellow">mdi-star</v-icon>
+          </v-col>
+          <v-col>
+            <v-icon color="yellow">mdi-star</v-icon>
+          </v-col>
+          <v-col>
+            <v-icon color="yellow">mdi-star-outline</v-icon>
+          </v-col>
+          <v-col>{{ scoreCnt[3] }}</v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-icon color="yellow">mdi-star</v-icon>
+          </v-col>
+          <v-col>
+            <v-icon color="yellow">mdi-star</v-icon>
+          </v-col>
+          <v-col>
+            <v-icon color="yellow">mdi-star</v-icon>
+          </v-col>
+          <v-col>
+            <v-icon color="yellow">mdi-star-outline</v-icon>
+          </v-col>
+          <v-col>
+            <v-icon color="yellow">mdi-star-outline</v-icon>
+          </v-col>
+          <v-col>{{ scoreCnt[2] }}</v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-icon color="yellow">mdi-star</v-icon>
+          </v-col>
+          <v-col>
+            <v-icon color="yellow">mdi-star</v-icon>
+          </v-col>
+          <v-col>
+            <v-icon color="yellow">mdi-star-outline</v-icon>
+          </v-col>
+          <v-col>
+            <v-icon color="yellow">mdi-star-outline</v-icon>
+          </v-col>
+          <v-col>
+            <v-icon color="yellow">mdi-star-outline</v-icon>
+          </v-col>
+          <v-col>{{ scoreCnt[1] }}</v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-icon color="yellow">mdi-star</v-icon>
+          </v-col>
+          <v-col>
+            <v-icon color="yellow">mdi-star-outline</v-icon>
+          </v-col>
+          <v-col>
+            <v-icon color="yellow">mdi-star-outline</v-icon>
+          </v-col>
+          <v-col>
+            <v-icon color="yellow">mdi-star-outline</v-icon>
+          </v-col>
+          <v-col>
+            <v-icon color="yellow">mdi-star-outline</v-icon>
+          </v-col>
+          <v-col>{{ scoreCnt[0] }}</v-col>
+        </v-row>
+      </div>
+    </v-row>
   </div>
 </template>
 <script>

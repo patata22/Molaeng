@@ -8,6 +8,7 @@ import idle.molaeng_back.review.model.DTO.response.ScoreResDTO;
 import idle.molaeng_back.review.model.Review;
 import idle.molaeng_back.review.repository.ReviewLikeRepository;
 import idle.molaeng_back.review.repository.ReviewRepository;
+import idle.molaeng_back.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -41,21 +42,18 @@ public class ReviewServiceImpl implements ReviewService{
     @Override
     public long createReview(Long recipeId, CreateReviewReqDTO createReviewDTO) {
         int score = createReviewDTO.getScore();
+        ////////////여기 수정해라아아아아아
+        Recipe tempRecipe = Recipe.builder().recipeId(1).build();
+        ///////////이것도 수정해라아아아아
+        //recipeRepository 연결되면 recipe 찾은 후 score table 갱신해줄것
+        User user = User.builder().userId(1L).build();
         Review review = Review.builder()
                 .reviewContent(createReviewDTO.getReviewContent())
                 .reviewDate(LocalDateTime.now())
+                .recipe(tempRecipe)
+                .user(user)
                 .score(score)
-//                .user(userRepository.findByUserId(createReviewDTO.getUserId()))
-//                .recipe(recipeRepository.findByRecipeId)
                 .build();
-//        에러가 뜨는데 레포지토리 문제인지 아니면 다른 문제인지 나중에 확인해봐야겠다.
-//        검색해본 결과 recipe 내에 함수 하나 만들어서 처리하는게 맞는듯
-//        Recipe recipe = recipeRepository.findByRecipeId(recipeId);
-//        if(score==1) recipe.getOneScore()++;
-//        else if(score==2) recipe.getTwoScore()++;
-//        else if(score==3) recipe.getThreeScore()++;
-//        else if(score==4) recipe.getFourScore()++;
-//        else if(score==5) recipe.getFiveScore()++;
         reviewRepository.save(review);
         return review.getReviewId();
     }
