@@ -14,7 +14,7 @@ public class RecipeIngredientResponse {
         @ApiParam("재료명")
         private String ingredientName;
         @ApiParam("레시피를 만드는 데 필요한 재료 무게")
-        private int needWeight;
+        private double needWeight;
         @ApiParam("재료의 무게 단위")
         private String weightUnit;
 
