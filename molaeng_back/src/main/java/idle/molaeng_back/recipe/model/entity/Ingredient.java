@@ -44,10 +44,10 @@ public class Ingredient {
         this.recipeIngredientList = recipeIngredientList;
     }
 
-    public int pricePerWeight(int needWeight, String needUnit) {
+    public int pricePerWeight(double needWeight, String needUnit) {
         int ip=this.ingredientPrice;
         int iw=this.ingredientWeight;
-        int nw=needWeight;
+        double nw=needWeight;
 
         // 200g 당근이 3500원인데 1kg이 필요할 때
         if(needUnit.equals("kg") && ingredientUnit.equals("g")){
@@ -59,6 +59,6 @@ public class Ingredient {
 
         // ml는 어떻게 할건지 차후 추가 필요~
 
-        return (int)((float)ip/iw) * nw;
+        return (int)Math.round((ip/iw) * nw);
     }
 }
