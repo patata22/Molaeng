@@ -5,7 +5,7 @@ import SearchView from "@/views/SearchView.vue";
 // import RecipeListView from "@/views/RecipeListView.vue";
 // import RecipeDetailView from "@/views/RecipeDetailView.vue";
 // import MyPageView from "@/views/MyPageView.vue";
-// import MolaengDiaryView from "@/views/MolaengDiaryView.vue";
+import MolaengDiaryView from "@/views/MolaengDiaryView.vue";
 // import MenuView from "@/views/MenuView.vue";
 // import InterestRecipeView from "@/views/InterestRecipeView.vue";
 
@@ -37,11 +37,11 @@ const routes = [
   //   name: "myPage",
   //   component: MyPageView,
   // },
-  // {
-  //   path: "/diary",
-  //   name: "diary",
-  //   component: MolaengDiaryView,
-  // },
+  {
+    path: "/diary",
+    name: "diary",
+    component: MolaengDiaryView,
+  },
   // {
   //   path: "/recipeLike",
   //   name: "recipeLike",
