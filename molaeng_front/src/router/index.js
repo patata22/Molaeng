@@ -1,6 +1,13 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import SearchView from "@/views/SearchView.vue";
+// import RecipeListView from "@/views/RecipeListView.vue";
+import RecipeView from "@/views/RecipeView.vue";
+// import MyPageView from "@/views/MyPageView.vue";
+import MolaengDiaryView from "@/views/MolaengDiaryView.vue";
+// import MenuView from "@/views/MenuView.vue";
+// import InterestRecipeView from "@/views/InterestRecipeView.vue";
 
 Vue.use(VueRouter);
 
@@ -13,22 +20,38 @@ const routes = [
   {
     path: "/search",
     name: "search",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/SearchView.vue"),
+    component: SearchView,
   },
+  // {
+  //   path: "/recipeList",
+  //   name: "recipeList",
+  //   component: RecipeListView,
+  // },
   {
-    path: "/score",
-    name: "recipeScore",
-    component: () => import("../components/atoms/RecipeScore.vue"),
+    path: "/recipe",
+    name: "recipe",
+    component: RecipeView,
   },
+  // {
+  //   path: "/myPage",
+  //   name: "myPage",
+  //   component: MyPageView,
+  // },
   {
-    path: "/review",
-    name: "recipeReview",
-    component: () => import("../components/organisms/RecipeReview.vue"),
+    path: "/diary",
+    name: "diary",
+    component: MolaengDiaryView,
   },
+  // {
+  //   path: "/recipeLike",
+  //   name: "recipeLike",
+  //   component: InterestRecipeView,
+  // },
+  // {
+  //   path: "/menu",
+  //   name: "menu",
+  //   component: MenuView,
+  // },
 ];
 
 const router = new VueRouter({
