@@ -1,8 +1,13 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-// import HomeView from "../views/HomeView.vue";
-import MyPageView from "../views/MyPageView.vue";
-import MainView from "../views/MainView.vue";
+import HomeView from "../views/HomeView.vue";
+import SearchView from "@/views/SearchView.vue";
+// import RecipeListView from "@/views/RecipeListView.vue";
+// import RecipeDetailView from "@/views/RecipeDetailView.vue";
+// import MyPageView from "@/views/MyPageView.vue";
+// import MolaengDiaryView from "@/views/MolaengDiaryView.vue";
+// import MenuView from "@/views/MenuView.vue";
+// import InterestRecipeView from "@/views/InterestRecipeView.vue";
 
 Vue.use(VueRouter);
 
@@ -10,22 +15,43 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: MainView,
+    component: HomeView,
   },
   {
     path: "/search",
     name: "search",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/SearchView.vue"),
+    component: SearchView,
   },
-  {
-    path: "/user",
-    name: "user",
-    component: MyPageView,
-  },
+  // {
+  //   path: "/recipeList",
+  //   name: "recipeList",
+  //   component: RecipeListView,
+  // },
+  // {
+  //   path: "/recipe",
+  //   name: "recipe",
+  //   component: RecipeDetailView,
+  // },
+  // {
+  //   path: "/myPage",
+  //   name: "myPage",
+  //   component: MyPageView,
+  // },
+  // {
+  //   path: "/diary",
+  //   name: "diary",
+  //   component: MolaengDiaryView,
+  // },
+  // {
+  //   path: "/recipeLike",
+  //   name: "recipeLike",
+  //   component: InterestRecipeView,
+  // },
+  // {
+  //   path: "/menu",
+  //   name: "menu",
+  //   component: MenuView,
+  // },
 ];
 
 const router = new VueRouter({

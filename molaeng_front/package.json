@@ -60,6 +60,12 @@
         {
           "ignores": []
         }
+      ],
+      "prettier/prettier": [
+        "error",
+        {
+          "endOfLine": "auto"
+        }
       ]
     }
   },
