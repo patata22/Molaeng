@@ -18,7 +18,7 @@ public class RecipeIngredient {
     private long recipeIngredientId;
 
     @Column(name="need_weight")
-    private float needWeight;
+    private double needWeight;
 
     @Column(name="weight_unit")
     private String weightUnit;
