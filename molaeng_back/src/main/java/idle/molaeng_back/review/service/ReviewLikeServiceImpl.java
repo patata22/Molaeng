@@ -6,36 +6,37 @@ import idle.molaeng_back.review.model.ReviewLike;
 import idle.molaeng_back.review.repository.ReviewLikeRepository;
 import idle.molaeng_back.review.repository.ReviewRepository;
 import idle.molaeng_back.user.model.User;
+import idle.molaeng_back.user.model.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @Transactional
 public class ReviewLikeServiceImpl implements ReviewLikeService{
-//    private final UserRepository userRepository;
+    private final UserRepository userRepository;
     private final ReviewLikeRepository reviewLikeRepository;
     private final ReviewRepository reviewRepository;
 
     @Autowired
-    public ReviewLikeServiceImpl(ReviewLikeRepository reviewLikeRepository, ReviewRepository reviewRepository) {
+    public ReviewLikeServiceImpl(ReviewLikeRepository reviewLikeRepository, ReviewRepository reviewRepository, UserRepository userRepository) {
         this.reviewLikeRepository = reviewLikeRepository;
         this.reviewRepository= reviewRepository;
+        this.userRepository= userRepository;
     }
 
     @Override
     public LikeReviewResDTO like(long userId, long reviewId) {
-        User temp = User.builder().userId(1L).build();
-        //userReposiotry까지 땡겨와야함
-        // User user = userRepository.findById(userId)
+
+        User user =userRepository.findByUserId(userId);
         Review review = reviewRepository.findByReviewId(reviewId);
-        //이 줄 까먹지 말고 수정(temp 있는거 다)
-        ReviewLike reviewLike = ReviewLike.builder().user(temp).review(review).build();
+        ReviewLike reviewLike = ReviewLike.builder().user(user).review(review).build();
         reviewLikeRepository.save(reviewLike);
-        return new LikeReviewResDTO(reviewLike.getReviewLikeId(), review.getReviewId(),temp.getUserId());
+        return new LikeReviewResDTO(reviewLike.getReviewLikeId(), review.getReviewId(),user.getUserId());
 
     }
 
