@@ -1,13 +1,7 @@
 <template lang="">
-  <div>
-    RecipeListView Page
-  </div>
+  <div>RecipeListView Page</div>
 </template>
 <script>
-export default {
-  
-}
+export default {};
 </script>
-<style lang="">
-  
-</style>
+<style lang=""></style>
