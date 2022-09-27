@@ -26,15 +26,16 @@ export default {
       {
         recipeOrder: 1,
         recipeDetailImg:
-          "http://www.foodsafetykorea.go.kr/uploadimg/cook/20_00028_1.png",
-        recipeContent: "손질된 새우를 끓는 물에 데쳐 건진다.",
+          "http://file.okdab.com/UserFiles/searching/recipe/002100_p01.jpg",
+        recipeContent:
+          "쇠고기는 삶아 건져 편육으로 썰고 국물은 식혀 기름을 걷어 육수로 준비한다.",
       },
       {
         recipeOrder: 2,
         recipeDetailImg:
-          "http://www.foodsafetykorea.go.kr/uploadimg/cook/20_00028_2.png",
+          "http://file.okdab.com/UserFiles/searching/recipe/002100_p02.jpg",
         recipeContent:
-          "연두부, 달걀, 생크림, 설탕에 녹인 무염버터를 믹서에 넣고 간 뒤 새우(1)를 함께 섞어 그릇에 담는다.",
+          "동치미무는 길쭉하고 얇게 썰고 오이는 어슷썰어 소금에 20분 동안 절였다가 물기를 꼭 짜서 살짝 볶는다.",
       },
     ],
   }),
