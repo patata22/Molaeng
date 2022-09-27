@@ -9,8 +9,12 @@ import RecipeView from "@/views/RecipeView.vue";
 import MyPageView from "@/views/MyPageView.vue";
 import MolaengDiaryView from "@/views/MolaengDiaryView.vue";
 // import MenuView from "@/views/MenuView.vue";
-// import InterestRecipeView from "@/views/InterestRecipeView.vue";
+import InterestRecipeView from "@/views/InterestRecipeView.vue";
 import OrganismRecipeReview from "../components/organisms/OrganismsRecipeReview";
+import RecipeHistory from "@/components/templates/TemplatesRecipeHistoryList.vue";
+import RecipeLike from "@/components/templates/TemplatesRecipeLikeList.vue";
+// import recipeHistory from "../components/templates/TemplatesRecipeHistoryList.vue";
+// import recipeLike from "../components/templates/TemplatesRecipeLik.vue";
 
 Vue.use(VueRouter);
 
@@ -60,11 +64,21 @@ const routes = [
     name: "diary",
     component: MolaengDiaryView,
   },
-  // {
-  //   path: "/recipeLike",
-  //   name: "recipeLike",
-  //   component: InterestRecipeView,
-  // },
+  {
+    path: "/interestRecipe",
+    name: "interestRecipe",
+    component: InterestRecipeView,
+    children: [
+      {
+        path: "recipeLike",
+        component: RecipeLike,
+      },
+      {
+        path: "recipeHistory",
+        component: RecipeHistory,
+      },
+    ],
+  },
   // {
   //   path: "/menu",
   //   name: "menu",
