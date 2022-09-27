@@ -1,6 +1,6 @@
 <template>
   <div id="loginBtn">
-    <v-btn color="secondary black--text" width="90%" height="40px">
+    <v-btn color="secondary black--text" width="90%" height="50px">
       <img src="../../assets/kakaoIcon.png" alt="" id="kakao" />
       카카오 로그인
     </v-btn>
@@ -17,9 +17,11 @@ export default {
 <style>
 #loginBtn {
   text-align: center;
+  margin-top: 15px;
+  margin-bottom: 20px;
 }
 #kakao {
   width: 28px;
-  margin-right: 10px;
+  margin-right: 5%;
 }
 </style>

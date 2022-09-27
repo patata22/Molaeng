@@ -2,9 +2,10 @@
   <div id="background">
     <v-carousel
       cycle
-      height="200"
+      height="250px"
       hide-delimiter-background
       show-arrows-on-hover
+      id="caro"
     >
       <v-carousel-item v-for="(item, i) in items" :key="i" :src="item.src">
       </v-carousel-item>
@@ -34,6 +35,10 @@ export default {
 <style>
 #background {
   background-color: white;
-  margin: 5%;
+  margin: 15px 5%;
+  border-radius: 20px;
+}
+#caro {
+  border-radius: 20px;
 }
 </style>
