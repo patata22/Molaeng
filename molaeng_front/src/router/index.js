@@ -40,11 +40,11 @@ const routes = [
       },
     ],
   },
-  // {
-  //   path: "/recipeList",
-  //   name: "recipeList",
-  //   component: RecipeListView,
-  // },
+  {
+    path: "/recipeList",
+    name: "recipeList",
+    component: RecipeListView,
+  },
   {
     path: "/recipe",
     name: "recipe",
