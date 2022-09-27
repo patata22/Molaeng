@@ -1,5 +1,6 @@
 <template>
   <div>
+    <search-box></search-box>
     <menu-tab :tabs="tabs" />
     <router-view></router-view>
   </div>
@@ -7,11 +8,13 @@
 
 <script>
 import MenuTab from "../components/molecules/MoleculesMenuTab.vue";
+import SearchBox from "@/components/atoms/AtomsSearchBox.vue";
 
 export default {
   name: "SearchView",
   components: {
     MenuTab,
+    SearchBox,
   },
   data: () => ({
     buttonText: "레시피 검색",

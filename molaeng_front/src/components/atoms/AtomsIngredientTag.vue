@@ -3,7 +3,7 @@
     id="ingredient-tag"
     rounded
     class="font-weight-bold ma-1"
-    :color="tagColor"
+    :color="isSelected ? 'carrot' : 'dark'"
     outlined
     @click="select(ingredient)"
     >{{ ingredient.ingredientName }}</v-btn
@@ -16,22 +16,17 @@ export default {
     ingredient: Object,
   },
   computed: {
-    tagColor() {
-      if (this.ingredient.selected) {
-        return "carrot";
-      } else {
-        return "dark";
-      }
+    isSelected() {
+      return this.ingredient.selected;
     },
   },
+  data: () => ({}),
   methods: {
     select(ingredient) {
       if (!ingredient.selected) {
         this.$store.commit("ADD_CART", ingredient);
-        this.tagColor = "carrot";
       } else {
         this.$store.commit("REMOVE_CART", ingredient);
-        this.tagColor = "dark";
       }
     },
   },
