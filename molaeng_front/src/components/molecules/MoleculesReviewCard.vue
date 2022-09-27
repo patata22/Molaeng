@@ -1,9 +1,10 @@
 <template>
   <v-container>
-    <v-card>
+    <v-card outlined elevation="2">
       <v-card-title>
         <v-row>
           <atom-review-read-star
+            class="pad"
             v-for="(score, i) in [1, 2, 3, 4, 5]"
             :key="i"
             v-bind:score="score"
@@ -12,14 +13,18 @@
         </v-row>
       </v-card-title>
       <v-row>
-        <v-col>{{ review.userNickname }} </v-col>
-        <v-col>/ {{ review.reviewDate.substr(0, 10) }}</v-col>
+        <v-col class="semidark--text"
+          >&nbsp;&nbsp;&nbsp;&nbsp;{{ review.userNickname }}님&nbsp; / &nbsp;{{
+            review.reviewDate.substr(0, 10)
+          }}
+        </v-col>
       </v-row>
       <v-row>
-        <v-col>{{ review.reviewContent }}</v-col>
+        <v-col color="dark"
+          >&nbsp;&nbsp;&nbsp;&nbsp;{{ review.reviewContent }}</v-col
+        >
       </v-row>
       <v-row>
-        <v-spacer></v-spacer>
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
@@ -52,7 +57,7 @@
 </template>
 <script>
 import axios from "axios";
-import AtomReviewReadStar from "../atoms/AtomReviewReadStar.vue";
+import AtomReviewReadStar from "../atoms/AtomsReviewReadStar.vue";
 export default {
   components: {
     AtomReviewReadStar,
@@ -87,4 +92,9 @@ export default {
   },
 };
 </script>
-<style></style>
+<style>
+.pad {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+</style>

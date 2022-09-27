@@ -1,15 +1,87 @@
 <template>
+  <!-- 이 페이지는 recipeId와 userId를 모두 더미(1)로 설정된 페이지이므로 추후 수정이 필요함 -->
   <div>
     <v-container>
-      <v-card>
+      <v-card outlined class="outline-color=primary">
         <recipe-score></recipe-score>
       </v-card>
     </v-container>
     <br />
     <v-container>
       <v-row>
-        <h3>리뷰</h3>
-        <h5>리뷰 숫자</h5>
+        <v-col cols="2"><h3>리뷰</h3></v-col>
+        <v-col cols="3" align-self="center" class="dark--text"
+          ><h4>{{ count }}건</h4></v-col
+        >
+        <v-spacer></v-spacer>
+        <v-col cols="4" align-self="center"
+          ><div class="text-center">
+            <v-menu offset-y>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  color="primary"
+                  dark
+                  rounded
+                  small
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  {{ sortString }}
+                </v-btn>
+              </template>
+              <v-list>
+                <v-list-item dense>
+                  <v-list-item-title
+                    class="primary--text"
+                    v-on:click="
+                      () => {
+                        this.sort = 'score,desc';
+                        this.sortString = '별점 높은 순';
+                        this.reviewList = [];
+                        this.page = 0;
+                        this.hasNext = true;
+                        getReview();
+                      }
+                    "
+                    >별점 높은순</v-list-item-title
+                  >
+                </v-list-item>
+                <v-list-item dense>
+                  <v-list-item-title
+                    class="primary--text"
+                    v-on:click="
+                      () => {
+                        this.sort = 'score';
+                        this.sortString = '별점 낮은 순';
+                        this.reviewList = [];
+                        this.page = 0;
+                        this.hasNext = true;
+                        getReview();
+                      }
+                    "
+                    >별점 낮은순</v-list-item-title
+                  >
+                </v-list-item>
+                <v-list-item dense>
+                  <v-list-item-title
+                    class="primary--text"
+                    v-on:click="
+                      () => {
+                        this.sort = 'reviewDate,desc';
+                        this.sortString = '최신순';
+                        this.reviewList = [];
+                        this.page = 0;
+                        this.hasNext = true;
+                        getReview();
+                      }
+                    "
+                    >최신순</v-list-item-title
+                  >
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </div></v-col
+        >
       </v-row>
     </v-container>
     <review-card
@@ -28,24 +100,26 @@
       >
         <template v-slot:activator="{ on, attrs }">
           <v-btn
-            right
             class="mx-2"
             fab
             rounded
             color="primary"
             v-bind="attrs"
             v-on="on"
+            absolute
+            right
           >
             <v-icon dark>mdi-plus</v-icon>
           </v-btn>
         </template>
         <v-card>
           <v-card-title>
-            <span class="text-h5">리뷰 작성</span>
+            <span class="text-h5">&nbsp;&nbsp;리뷰 작성</span>
           </v-card-title>
           <!-- 별점 -->
-          <v-row>
-            <v-col>
+          <v-row align-content="center">
+            <v-col cols="1"></v-col>
+            <v-col cols="2">
               <div v-if="score >= 1">
                 <v-icon
                   color="yellow"
@@ -70,7 +144,7 @@
                 >
               </div>
             </v-col>
-            <v-col>
+            <v-col cols="2">
               <div v-if="score >= 2">
                 <v-icon
                   color="yellow"
@@ -95,7 +169,7 @@
                 >
               </div>
             </v-col>
-            <v-col>
+            <v-col cols="2">
               <div v-if="score >= 3">
                 <v-icon
                   color="yellow"
@@ -120,7 +194,7 @@
                 >
               </div>
             </v-col>
-            <v-col>
+            <v-col cols="2">
               <div v-if="score >= 4">
                 <v-icon
                   color="yellow"
@@ -145,7 +219,7 @@
                 >
               </div>
             </v-col>
-            <v-col>
+            <v-col cols="2">
               <div v-if="score >= 5">
                 <v-icon
                   color="yellow"
@@ -170,17 +244,19 @@
                 >
               </div>
             </v-col>
+            <hr />
           </v-row>
           <!-- 별점끝 -->
           <v-card-text>
             <v-container>
               <v-row>
                 <v-col cols="12">
-                  <v-text-field
+                  <v-textarea
                     v-model="content"
                     label="리뷰를 작성해주세요"
+                    outlined
                     required
-                  ></v-text-field>
+                  ></v-textarea>
                 </v-col>
               </v-row>
             </v-container>
@@ -208,6 +284,7 @@ import axios from "axios";
 export default {
   created() {
     this.getReview();
+    this.getCount();
   },
   components: {
     RecipeScore,
@@ -222,6 +299,9 @@ export default {
       writing: false,
       content: "",
       score: 1,
+      count: 0,
+      sort: "score,desc",
+      sortString: "별점 높은 순",
     };
   },
   methods: {
@@ -233,7 +313,9 @@ export default {
             this.recipeId +
             "?page=" +
             this.page +
-            "&sort=score&userId=1&size=5"
+            "&sort=" +
+            this.sort +
+            "&userId=1&size=5"
         )
         .then(function (response) {
           temp.hasNext = response.data.result.hasNext;
@@ -255,11 +337,19 @@ export default {
           reviewContent: this.content,
           score: this.score,
         })
-        .then((request) => {
-          console.log(request);
+        .then(() => {
           temp.writing = false;
+          this.$router.go();
         })
         .catch((error) => console.log(error));
+    },
+    getCount() {
+      var temp = this;
+      axios
+        .get("http://localhost:8080/molaeng/review/count/" + this.recipeId)
+        .then((response) => {
+          temp.count = response.data.result;
+        });
     },
   },
 };

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <v-card id="card" class="mx-auto mb-9 rounded-lg" max-width="351">
+  <div id="ingredientCard">
+    <v-card id="card" class="mx-auto mb-9 rounded-lg">
       <v-card-actions id="title" :class="{ 'rounded-lg': !show }">
         <v-card-title class="dark--text font-weight-bold" text>
           {{ ingredientCategory.ingredientTitle }}
@@ -44,11 +44,23 @@ export default {
 </script>
 
 <style>
+.v-card,
+table {
+  width: 86%;
+  max-width: 351px;
+}
+
+.v-card {
+  margin-top: 7%;
+}
+
 #title {
   background-color: #fef3c6;
-  height: 60px;
 }
 #card {
   box-shadow: 0px 4px 10px #cecdc9;
+}
+#ingredientCard #title {
+  height: 60px;
 }
 </style>
