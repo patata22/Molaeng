@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import MainView from "../views/MainView.vue";
+import MainView from "@/views/MainView.vue";
 import SearchView from "@/views/SearchView.vue";
 import SearchIngredient from "@/components/templates/TemplatesSearchIngredient.vue";
 import SearchRecipe from "@/components/templates/TemplatesSearchRecipe.vue";
@@ -8,15 +8,15 @@ import RecipeListView from "@/views/RecipeListView.vue";
 import RecipeView from "@/views/RecipeView.vue";
 import MyPageView from "@/views/MyPageView.vue";
 import MolaengDiaryView from "@/views/MolaengDiaryView.vue";
-// import MenuView from "@/views/MenuView.vue";
+import MenuView from "@/views/MenuView.vue";
 import InterestRecipeView from "@/views/InterestRecipeView.vue";
 import OrganismRecipeReview from "../components/organisms/OrganismsRecipeReview";
 import RecipeHistory from "@/components/templates/TemplatesRecipeHistoryList.vue";
 import RecipeLike from "@/components/templates/TemplatesRecipeLikeList.vue";
 import EditProfile from "@/components/templates/TemplatesEditProfile.vue";
 import MyReview from "@/components/templates/TemplatesMyReviewList.vue";
-// import recipeHistory from "../components/templates/TemplatesRecipeHistoryList.vue";
-// import recipeLike from "../components/templates/TemplatesRecipeLik.vue";
+import MemberMenu from "@/components/templates/TemplatesMemberMenu.vue";
+import UserMenu from "@/components/templates/TemplatesUserMenu.vue";
 
 Vue.use(VueRouter);
 
@@ -93,11 +93,22 @@ const routes = [
       },
     ],
   },
-  // {
-  //   path: "/menu",
-  //   name: "menu",
-  //   component: MenuView,
-  // },
+  {
+    path: "/menu",
+    name: "menu",
+    component: MenuView,
+    children: [
+      {
+        path: "member",
+        alias: [""],
+        component: MemberMenu,
+      },
+      {
+        path: "user",
+        component: UserMenu,
+      },
+    ],
+  },
   {
     path: "/review",
     name: "OrganismsRecipeReview",
