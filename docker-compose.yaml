@@ -11,8 +11,6 @@ services:
       - redis
     ports:
       - "8080:8080"
-    volumes:
-      - "/home/ubuntu/tmp:/tmp"
     environment:
       SPRING_DATASOURCE_URL: "jdbc:mysql://mysql-container:3306/molaeng"
       SPRING_DATASOURCE_USERNAME: "ssafy"

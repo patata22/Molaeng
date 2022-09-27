@@ -94,7 +94,7 @@ public class ReviewController {
             resultMap.put("message", "success");
             return new ResponseEntity(resultMap, HttpStatus.OK);
         }catch(Exception e){
-            resultMap.put("message", "리뷰 등록에서 에러났다아아");
+            resultMap.put("message", "리뷰 삭제에서 에러났다아아");
             return new ResponseEntity(resultMap, HttpStatus.BAD_REQUEST);
         }
     }
@@ -111,6 +111,7 @@ public class ReviewController {
             return new ResponseEntity(resultMap, HttpStatus.OK);
         }catch(Exception e){
             resultMap.put("message", "리뷰 좋아요 등록에서 에러 남");
+            e.printStackTrace();
             return new ResponseEntity(resultMap, HttpStatus.BAD_REQUEST);
         }
     }

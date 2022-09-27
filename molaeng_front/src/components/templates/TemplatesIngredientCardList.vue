@@ -1,26 +1,25 @@
 <template>
   <div>
     <ingredient-card
-      v-for="(ingredient, index) in this.ingredients"
+      v-for="(ingredientCategory, index) in allIngredients"
       :key="index"
-      :ingredient="ingredient"
+      :ingredientCategory="ingredientCategory"
     />
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 import IngredientCard from "../organisms/OrganismsIngredientCard.vue";
 export default {
   name: "IngredientCardList",
   components: {
     IngredientCard,
   },
-  mounted() {
-    this.ingredients = this.$store.getters.getAllIngredients;
+  computed: {
+    ...mapGetters(["allIngredients"]),
   },
-  data: () => ({
-    ingredients: [],
-  }),
 };
 </script>
 
