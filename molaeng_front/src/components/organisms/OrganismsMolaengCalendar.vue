@@ -1,5 +1,5 @@
 <template>
-  <div class="calendarpage">
+  <div class="calendarPage">
     <div class="calendarHeader">
       <span class="calendarHeaderDefault">이번 주는 </span
       ><span class="calendarHeaderChange">2,300원 절약했어요!</span>
@@ -43,7 +43,7 @@ export default {
     events: [],
     color: "white",
     textcolors: ["#72A971", "#ED8A53"],
-    names: ["+3", "+5", "+7,000", "-3", "-5", "-7,000"],
+    names: ["+300,000", "+500,000", "+700,000", "-3", "-5", "-7000"],
   }),
   methods: {
     getEvents({ start, end }) {
@@ -60,7 +60,7 @@ export default {
         const price = this.names[this.rnd(0, this.names.length - 1)];
 
         events.push({
-          name: price + "원",
+          name: price,
           start: yearmonth + date,
           color: this.color,
           textcolor: this.textcolors[this.rndcolor(parseInt(price))],
@@ -94,7 +94,7 @@ export default {
 </script>
 
 <style>
-.calendarpage {
+.calendarPage {
   margin: 2%;
 }
 .calendarHeader {
@@ -151,6 +151,9 @@ export default {
   font-size: 1rem;
 }
 .v-calendar .v-event {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
+}
+.v-application .pl-1 {
+  padding: 0 !important;
 }
 </style>
