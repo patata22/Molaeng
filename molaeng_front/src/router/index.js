@@ -27,7 +27,7 @@ const routes = [
     children: [
       {
         path: "/",
-        redirect: "/inredient",
+        redirect: "/ingredient",
       },
       {
         path: "/ingredient",
