@@ -1,7 +1,17 @@
 <template>
   <div>
-    <recipe-score></recipe-score>
+    <v-container>
+      <v-card>
+        <recipe-score></recipe-score>
+      </v-card>
+    </v-container>
     <br />
+    <v-container>
+      <v-row>
+        <h3>리뷰</h3>
+        <h5>리뷰 숫자</h5>
+      </v-row>
+    </v-container>
     <review-card
       v-for="(review, i) in reviewList"
       :key="i"
