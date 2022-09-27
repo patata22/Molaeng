@@ -13,6 +13,8 @@ import InterestRecipeView from "@/views/InterestRecipeView.vue";
 import OrganismRecipeReview from "../components/organisms/OrganismsRecipeReview";
 import RecipeHistory from "@/components/templates/TemplatesRecipeHistoryList.vue";
 import RecipeLike from "@/components/templates/TemplatesRecipeLikeList.vue";
+import EditProfile from "@/components/templates/TemplatesEditProfile.vue";
+import MyReview from "@/components/templates/TemplatesMyReviewList.vue";
 // import recipeHistory from "../components/templates/TemplatesRecipeHistoryList.vue";
 // import recipeLike from "../components/templates/TemplatesRecipeLik.vue";
 
@@ -58,6 +60,17 @@ const routes = [
     path: "/myPage",
     name: "myPage",
     component: MyPageView,
+    children: [
+      {
+        path: "editProfile",
+        alias: [""],
+        component: EditProfile,
+      },
+      {
+        path: "myReview",
+        component: MyReview,
+      },
+    ],
   },
   {
     path: "/diary",
@@ -71,6 +84,7 @@ const routes = [
     children: [
       {
         path: "recipeLike",
+        alias: [""],
         component: RecipeLike,
       },
       {
