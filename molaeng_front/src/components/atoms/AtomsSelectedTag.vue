@@ -1,13 +1,13 @@
 <template>
   <v-chip
     id="selectedTag"
-    v-if="isSelected"
+    v-if="ingredient.selected"
     color="carrot"
-    class="ma-2 font-weight-bold white--text"
+    class="my-1 mr-3 font-weight-bold white--text"
     close
-    @click:close="isSelected = false"
+    @click:close="deleteIngredient(ingredient)"
   >
-    {{ text }}
+    {{ ingredient.ingredientName }}
   </v-chip>
 </template>
 
@@ -15,12 +15,12 @@
 export default {
   name: "SelectedTag",
   props: {
-    text: String,
+    ingredient: Object,
   },
-  data() {
-    return {
-      isSelected: true,
-    };
+  methods: {
+    deleteIngredient(ingredient) {
+      this.$store.commit("REMOVE_CART", ingredient);
+    },
   },
 };
 </script>

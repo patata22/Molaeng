@@ -14,23 +14,31 @@ export const ingredient = {
         ],
       },
       {
+        ingredientTitle: "ㄴ",
+        ingredientList: [
+          { ingredientId: 9, ingredientName: "넙치", selected: false },
+          { ingredientId: 10, ingredientName: "냉이", selected: false },
+        ],
+      },
+      {
         ingredientTitle: "ㄷ/ㄸ",
         ingredientList: [
-          { ingredientId: 10, ingredientName: "당근", selected: false },
+          { ingredientId: 12, ingredientName: "당근", selected: false },
           { ingredientId: 15, ingredientName: "대추", selected: false },
         ],
       },
     ],
+    selectedIngredients: [],
   }, //원본 소스. vue에서 data로 불러올 수 있음
   getters: {
-    getAllIngredients: (state) => {
+    allIngredients: (state) => {
       return state.ingredients;
     },
     // 선택된 재료들을 불러오는 함수
-    getSelectedIngredients: (state) => {
-      return state.ingredients.filter((ingredient) => ingredient.seleted);
+    selectedIngredients: (state) => {
+      return state.selectedIngredients;
     },
-    getIngredientById: (state) => (id) => {
+    ingredientById: (state) => (id) => {
       return state.ingredients.find(
         (ingredient) => ingredient.ingredientId === id
       );
@@ -39,6 +47,17 @@ export const ingredient = {
   mutations: {
     SET_INGREDIENT_SELECT(state, ingredient) {
       ingredient.selected = !ingredient.selected;
+    },
+    ADD_CART(state, ingredient) {
+      ingredient.selected = true;
+      state.selectedIngredients.push(ingredient);
+    },
+    REMOVE_CART(state, ingredient) {
+      let idx = state.selectedIngredients.findIndex((i) => {
+        return i.ingredientId === ingredient.ingredientId;
+      });
+      ingredient.selected = false;
+      state.selectedIngredients.splice(idx, 1);
     },
   }, // setter. state를 변경할 땐 mutations를 사용해야. 무조건 동기
   actions: {}, // 비동기

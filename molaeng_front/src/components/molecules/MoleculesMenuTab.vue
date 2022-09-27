@@ -1,11 +1,6 @@
 <template>
   <v-tabs centered fixed-tabs>
-    <menu-tab-item
-      v-for="(title, index) in titles"
-      :key="index"
-      :text="title"
-      :requestUrl="title"
-    />
+    <menu-tab-item v-for="(tab, index) in tabs" :key="index" :tab="tab" />
   </v-tabs>
 </template>
 
@@ -16,9 +11,9 @@ export default {
   components: {
     MenuTabItem,
   },
-  data: () => ({
-    titles: ["재료", "레시피"],
-  }),
+  props: {
+    tabs: Array,
+  },
 };
 </script>
 

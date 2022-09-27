@@ -3,8 +3,7 @@
     <ingredient-tag
       v-for="(ingredient, index) in ingredientList"
       :key="index"
-      :text="ingredient.ingredientName"
-      :id="ingredient.ingredientId"
+      :ingredient="ingredient"
     >
     </ingredient-tag>
   </div>
