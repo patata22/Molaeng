@@ -57,7 +57,7 @@
 </template>
 <script>
 import axios from "axios";
-import AtomReviewReadStar from "../atoms/AtomReviewReadStar.vue";
+import AtomReviewReadStar from "../atoms/AtomsReviewReadStar.vue";
 export default {
   components: {
     AtomReviewReadStar,
