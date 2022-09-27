@@ -120,7 +120,7 @@
               rounded
               background-color="semidark"
               color="primary"
-              value="50"
+              value=""
             ></v-progress-linear>
           </v-col>
           <v-col cols="2">
