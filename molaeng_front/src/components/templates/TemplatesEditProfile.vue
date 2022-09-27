@@ -84,10 +84,9 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-// import api from "@api/RestAPI";
 
 export default {
-  name: "myPage",
+  name: "EditProfile",
   mounted() {
     this.gugun = this.$store.getters.getAllGugun;
   },

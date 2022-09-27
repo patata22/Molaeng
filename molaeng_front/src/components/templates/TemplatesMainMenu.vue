@@ -75,7 +75,7 @@ export default {
   border-radius: 20px;
   margin: 0 auto;
 }
-#back .column {
+#back.column {
   text-align: center;
   width: 45%;
   height: calc((100vh - 445px) / 3);
@@ -98,6 +98,6 @@ export default {
   width: 100%;
   height: 100%;
   /* color: red; */
-  opacity: 100% !important;
+  /* opacity: 100% !important; */
 }
 </style>
