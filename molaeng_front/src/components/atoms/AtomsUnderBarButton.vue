@@ -8,6 +8,7 @@
     block
     color="carrot"
     class="font-weight-bold white--text elevation-0 py-2"
+    :to="to"
   >
     {{ text }}
   </v-btn>
@@ -18,6 +19,7 @@ export default {
   name: "UnderBarButton",
   props: {
     text: String,
+    to: String,
   },
 };
 </script>

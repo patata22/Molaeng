@@ -1,9 +1,9 @@
 <template>
   <div>
-    <v-card id="card" class="mx-auto my-9 rounded-lg" max-width="351">
+    <v-card id="card" class="mx-auto mb-9 rounded-lg" max-width="351">
       <v-card-actions id="title" :class="{ 'rounded-lg': !show }">
         <v-card-title class="dark--text font-weight-bold" text>
-          {{ ingredient.ingredientTitle }}
+          {{ ingredientCategory.ingredientTitle }}
         </v-card-title>
 
         <v-spacer></v-spacer>
@@ -16,7 +16,9 @@
       <v-expand-transition>
         <div v-show="show">
           <v-card-text>
-            <ingredient-tag-list :ingredientList="ingredient.ingredientList" />
+            <ingredient-tag-list
+              :ingredientList="ingredientCategory.ingredientList"
+            />
           </v-card-text>
         </div>
       </v-expand-transition>
@@ -30,7 +32,7 @@ import IngredientTagList from "../molecules/MoleculesIngredientTagList.vue";
 export default {
   name: "IngredientCard",
   props: {
-    ingredient: Object,
+    ingredientCategory: Object,
   },
   components: {
     IngredientTagList,
@@ -38,9 +40,6 @@ export default {
   data: () => ({
     show: false,
   }),
-  mounted() {
-    console.log(this.$props.ingredient);
-  },
 };
 </script>
 
