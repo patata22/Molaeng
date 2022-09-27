@@ -2,6 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import SearchView from "@/views/SearchView.vue";
+import SearchIngredient from "@/components/templates/TemplatesSearchIngredient.vue";
+import SearchRecipe from "@/components/templates/TemplatesSearchRecipe.vue";
 // import RecipeListView from "@/views/RecipeListView.vue";
 import RecipeView from "@/views/RecipeView.vue";
 // import MyPageView from "@/views/MyPageView.vue";
@@ -22,6 +24,20 @@ const routes = [
     path: "/search",
     name: "search",
     component: SearchView,
+    children: [
+      {
+        path: "/",
+        redirect: "/inredient",
+      },
+      {
+        path: "/ingredient",
+        component: SearchIngredient,
+      },
+      {
+        path: "/recipe",
+        component: SearchRecipe,
+      },
+    ],
   },
   // {
   //   path: "/recipeList",
