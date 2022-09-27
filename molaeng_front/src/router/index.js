@@ -8,6 +8,7 @@ import RecipeView from "@/views/RecipeView.vue";
 import MolaengDiaryView from "@/views/MolaengDiaryView.vue";
 // import MenuView from "@/views/MenuView.vue";
 // import InterestRecipeView from "@/views/InterestRecipeView.vue";
+import OrganismRecipeReview from "../components/organisms/OrganismsRecipeReview";
 
 Vue.use(VueRouter);
 
@@ -52,6 +53,11 @@ const routes = [
   //   name: "menu",
   //   component: MenuView,
   // },
+  {
+    path: "/review",
+    name: "OrganismsRecipeReview",
+    component: OrganismRecipeReview,
+  },
 ];
 
 const router = new VueRouter({
