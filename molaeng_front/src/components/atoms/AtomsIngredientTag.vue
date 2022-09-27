@@ -9,7 +9,6 @@
     >{{ ingredient.ingredientName }}</v-btn
   >
 </template>
-
 <script>
 export default {
   name: "IngredientTag",

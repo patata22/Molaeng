@@ -8,6 +8,7 @@ import idle.molaeng_back.review.model.ReviewLike;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @Entity
-public class User{
+public class User  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
