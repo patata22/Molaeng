@@ -18,11 +18,11 @@ export default {
     tabs: [
       {
         tabName: "재료",
-        tabLink: "/ingredient",
+        tabLink: "/search/ingredient",
       },
       {
         tabName: "레시피",
-        tabLink: "/recipe",
+        tabLink: "/search/recipe",
       },
     ],
   }),

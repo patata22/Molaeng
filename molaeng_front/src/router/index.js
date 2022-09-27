@@ -25,16 +25,17 @@ const routes = [
     name: "search",
     component: SearchView,
     children: [
+      // {
+      //   path: "",
+      //   redirect: "/ingredient",
+      // },
       {
-        path: "/",
-        redirect: "/ingredient",
-      },
-      {
-        path: "/ingredient",
+        path: "ingredient",
+        alias: [""],
         component: SearchIngredient,
       },
       {
-        path: "/recipe",
+        path: "recipe",
         component: SearchRecipe,
       },
     ],
