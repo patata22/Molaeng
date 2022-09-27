@@ -6,14 +6,20 @@
       width="100%"
       :src="recipeInfo.recipeImg"
     ></v-img>
-    <div v-if="recipeInfo.isLiked">
+    <div v-if="recipeInfo.isLiked" class="isLikedIcon">
       <v-icon large color="primary">mdi-cards-heart</v-icon>
     </div>
-    <div v-else>
+    <div v-else class="isLikedIcon">
       <v-icon large color="primary">mdi-cards-heart-outline</v-icon>
     </div>
-    <div class="recipeName">{{ recipeInfo.recipeName }}</div>
-    <div class="recipeKcal">열량 {{ recipeInfo.recipeKcal }}kcal</div>
+    <div style="text-align: center">
+      <div style="color: #5b574b; font-size: x-large; font-weight: bold">
+        {{ recipeInfo.recipeName }}
+      </div>
+      <div style="color: #5b574b; opacity: 30%">
+        열량 {{ recipeInfo.recipeKcal }}kcal
+      </div>
+    </div>
   </div>
 </template>
 
@@ -27,14 +33,11 @@ export default {
 };
 </script>
 
-<style>
-.recipeName {
-  color: #5b574b;
-  text-align: center;
-}
-.recipeKcal {
-  color: #5b574b;
-  opacity: 30%;
-  text-align: center;
+<style scoped>
+.isLikedIcon {
+  display: flex;
+  justify-content: right;
+  padding-top: 2%;
+  padding-right: 2%;
 }
 </style>

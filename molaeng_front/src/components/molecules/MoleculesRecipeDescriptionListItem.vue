@@ -13,7 +13,9 @@
 
     <div tabindex="-1" class="v-stepper__step v-stepper__step--active">
       <span class="v-stepper__step__step primary">{{ order }}</span>
-      <div class="v-stepper__label">{{ content }}</div>
+      <div class="v-stepper__label" style="line-height: 140%">
+        {{ content }}
+      </div>
     </div>
     <div class="v-stepper_content">
       <div class="v-stepper__wrapper" style="height: auto">
