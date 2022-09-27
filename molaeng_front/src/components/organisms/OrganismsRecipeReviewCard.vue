@@ -4,10 +4,10 @@
       <review-read-star :reviewScore="review.reviewScore" />
     </v-card-title>
     <v-card-text class="pb-12">
-      <div id="writerInfo" class="font-weight-light">
+      <div id="writerInfo" class="font-weight-light ml-1">
         {{ review.userNickname }}님 / {{ review.reviewDate }}
       </div>
-      <div class="dark--text text-body-1 mt-4">
+      <div class="dark--text text-body-1 mt-4 ml-1">
         {{ review.reviewContent }}
       </div>
       <v-btn
