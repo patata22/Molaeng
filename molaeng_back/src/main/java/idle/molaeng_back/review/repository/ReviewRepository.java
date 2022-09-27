@@ -25,6 +25,8 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     List<Review> findAllByRecipeRecipeIdOrderByScore(long recipeId);
     // 최신순, sortNO=2
     List<Review> findAllByRecipeRecipeIdOrderByReviewDateDesc(long recipeId);
+    // 리뷰 총 숫자
+    int countByRecipeRecipeId(long recipeId);
 
     // 좋아요 많은 순
     //쿼리를 못짜겠드아아아 일단 보류! 막내 마음대로 하랬다 뭐

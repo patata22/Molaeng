@@ -1,12 +1,10 @@
 <template lang="">
-  <div>
-    <v-col v-if="reviewScore >= score">
-      <v-icon color="yellow">mdi-star</v-icon>
-    </v-col>
-    <v-col v-else>
-      <v-icon color="yellow">mdi-star-outline</v-icon>
-    </v-col>
-  </div>
+  <v-col cols="1" v-if="reviewScore >= score">
+    <v-icon color="yellow">mdi-star</v-icon>
+  </v-col>
+  <v-col cols="1" v-else>
+    <v-icon color="yellow">mdi-star-outline</v-icon>
+  </v-col>
 </template>
 <script>
 export default {
@@ -16,4 +14,4 @@ export default {
   },
 };
 </script>
-<style lang=""></style>
+<style></style>

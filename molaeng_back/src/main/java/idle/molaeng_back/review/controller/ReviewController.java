@@ -56,6 +56,19 @@ public class ReviewController {
             return new ResponseEntity(resultMap, HttpStatus.BAD_REQUEST);
         }
     }
+    @GetMapping("/count/{recipeId}")
+    public ResponseEntity countReview(@PathVariable long recipeId){
+        Map<String, Object> resultMap= new HashMap<>();
+        try{
+            int result = reviewService.countReviewByRecipeId(recipeId);
+            resultMap.put("message", "success");
+            resultMap.put("result", result);
+            return new ResponseEntity(resultMap, HttpStatus.OK);
+        }catch(Exception e){
+            resultMap.put("message", "리뷰수 조회에서 에러났네???????");
+            return new ResponseEntity(resultMap, HttpStatus.BAD_REQUEST);
+        }
+    }
     @GetMapping("/score/{recipeId}")
     public ResponseEntity getScore(@PathVariable long recipeId){
         Map<String, Object> resultMap = new HashMap<>();

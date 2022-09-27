@@ -9,6 +9,7 @@ import idle.molaeng_back.review.model.Review;
 import idle.molaeng_back.review.repository.ReviewLikeRepository;
 import idle.molaeng_back.review.repository.ReviewRepository;
 import idle.molaeng_back.user.model.User;
+import idle.molaeng_back.user.model.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -28,25 +29,24 @@ public class ReviewServiceImpl implements ReviewService{
 
     private final ReviewRepository reviewRepository;
     private final ReviewLikeRepository reviewLikeRepository;
-//    private final UserRepository userRepository;
+    private final UserRepository userRepository;
 //    private final RecipeRepository recipeRepository;
 
     @Autowired
-    public ReviewServiceImpl(ReviewRepository reviewRepository, ReviewLikeRepository reviewLikeRepository) {
+    public ReviewServiceImpl(ReviewRepository reviewRepository, ReviewLikeRepository reviewLikeRepository, UserRepository userRepository) {
         this.reviewRepository = reviewRepository;
         this.reviewLikeRepository = reviewLikeRepository;
-//        this.userRepository = userRepository;
+        this.userRepository = userRepository;
 //        this.recipeRepository= recipeRepository;
     }
 
     @Override
     public long createReview(Long recipeId, CreateReviewReqDTO createReviewDTO) {
         int score = createReviewDTO.getScore();
-        ////////////여기 수정해라아아아아아
+        User user = userRepository.findByUserId(createReviewDTO.getUserId());
         Recipe tempRecipe = Recipe.builder().recipeId(1).build();
         ///////////이것도 수정해라아아아아
         //recipeRepository 연결되면 recipe 찾은 후 score table 갱신해줄것
-        User user = User.builder().userId(1L).build();
         Review review = Review.builder()
                 .reviewContent(createReviewDTO.getReviewContent())
                 .reviewDate(LocalDateTime.now())
@@ -80,9 +80,7 @@ public class ReviewServiceImpl implements ReviewService{
     @Override
     public void transUserReview(long userId) {
         int dummyId=0;
-//        userRepository 생기면 그때 테스트
-//        User user = userRepository.findOnebyUserUserId(userId);
-//        User dummy = userRepository.findOnebyuserUserId(dummyId);
+        User user = userRepository.findByUserId(userId);
         List<Review> reviewList = reviewRepository.findByUserUserId(userId);
         for (Review review : reviewList) {
 //            review.changeUser(dummy);
@@ -117,7 +115,6 @@ public class ReviewServiceImpl implements ReviewService{
         scoreCnt[2] = recipe.getThreeScore();
         scoreCnt[3] = recipe.getFourScore();
         scoreCnt[4] = recipe.getFiveScore();
-        System.out.println(Arrays.toString(scoreCnt));
         int size=0;
         for(int i=0;i<5;i++){
             total += scoreCnt[i]*(i+1);
@@ -127,6 +124,11 @@ public class ReviewServiceImpl implements ReviewService{
         return new ScoreResDTO(scoreCnt, avgScore);
     }
 
+    @Override
+    public int countReviewByRecipeId(long recipeId) {
+        return reviewRepository.countByRecipeRecipeId(recipeId);
+    }
+
     //따로 추출한 메서드
     private ReadReviewResDTO reviewToReadReviewDTO(long userId, Review review) {
         long reviewId = review.getReviewId();
@@ -134,7 +136,7 @@ public class ReviewServiceImpl implements ReviewService{
         ReadReviewResDTO dto = ReadReviewResDTO.builder()
                 .reviewId(reviewId)
                 .reviewScore(review.getScore())
-//                    .userNickname(userRepository.getUserNickname())
+                .userNickname(userRepository.findByUserId(userId).getNickname())
                 .reviewDate(review.getReviewDate())
                 .reviewContent(review.getReviewContent())
                 .likeCnt(reviewLikeRepository.countByReviewReviewId(reviewId))
