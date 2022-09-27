@@ -24,7 +24,6 @@ export default {
   },
 };
 </script>
-
 <style>
 #header {
   justify-content: space-between;

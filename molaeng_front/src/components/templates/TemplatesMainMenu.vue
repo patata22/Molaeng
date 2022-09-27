@@ -11,9 +11,11 @@
     <div class="column-bottom">ee</div>
   </div>
 </template>
+
 <script>
 export default {};
 </script>
+
 <style>
 #back {
   background-color: white;

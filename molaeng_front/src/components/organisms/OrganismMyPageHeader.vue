@@ -13,7 +13,6 @@
     </v-tabs>
   </div>
 </template>
-
 <script>
 import MenuTabItem from "../atoms/AtomsMenuTabItem.vue";
 export default {

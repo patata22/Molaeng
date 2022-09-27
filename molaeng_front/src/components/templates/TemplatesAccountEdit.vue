@@ -85,7 +85,6 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 // import api from "@api/RestAPI";
-// import axios from "axios";
 
 export default {
   name: "myPage",

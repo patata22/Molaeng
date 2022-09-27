@@ -21,6 +21,7 @@ export default {
     MainMenu,
     KakaoLogin,
   },
+
   data() {
     return {};
   },

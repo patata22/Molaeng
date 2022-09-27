@@ -24,7 +24,6 @@ export default {
   },
 };
 </script>
-
 <style>
 #selectedTag {
   box-shadow: 0px 4px 10px #cecdc9;
