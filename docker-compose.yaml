@@ -11,8 +11,6 @@ services:
       - redis
     ports:
       - "8080:8080"
-    volumes:
-      - "/home/ubuntu/tmp:/tmp"
     environment:
       SPRING_DATASOURCE_URL: "jdbc:mysql://mysql-container:3306/molaeng"
       SPRING_DATASOURCE_USERNAME: "ssafy"
@@ -40,14 +38,7 @@ services:
       MYSQL_PASSWORD: "ssafyA604!"
       TZ: "Asia/Seoul"
     command:
-      - "--character-set-client=utf8mb4"
-      - "--character-set-connection=utf8mb4"
-      - "--character-set-database=utf8mb4"
-      - "--character-set-results=utf8mb4"
       - "--character-set-server=utf8mb4"
-      - "--character-set-system=utf8mb4"
-      - "--collation-connection=utf8mb4_general_ci"
-      - "--collation-database=utf8mb4_general_ci"
       - "--collation-server=utf8mb4_general_ci"
 
   redis:

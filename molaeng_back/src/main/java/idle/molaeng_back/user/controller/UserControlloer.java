@@ -41,8 +41,8 @@ public class UserControlloer {
     }
 
     @ApiOperation(value="마이페이지 사용자 정보 조회", notes = "userId를 이용하여 닉네임, 거주지역 정보를 불러온다.")
-    @GetMapping
-    public ResponseEntity getProfile(@RequestBody long userId){
+    @PostMapping
+    public ResponseEntity getProfile(@RequestParam long userId){
         HashMap<String, Object> result = new HashMap<>();
 
         try {

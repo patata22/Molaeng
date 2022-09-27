@@ -1,5 +1,6 @@
 package idle.molaeng_back.diary.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import idle.molaeng_back.recipe.model.entity.Recipe;
 import idle.molaeng_back.user.model.User;
 import lombok.Builder;
@@ -25,10 +26,12 @@ public class Diary {
     @Column(name="save_cost")
     private int saveCost;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name= "recipe_id")
     private Recipe recipe;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name= "user_id")
     private User user;

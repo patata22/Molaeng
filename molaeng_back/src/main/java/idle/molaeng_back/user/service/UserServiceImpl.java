@@ -10,10 +10,15 @@ import javax.transaction.Transactional;
 public class UserServiceImpl implements UserService{
 
     @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    private GugunRepository gugunRepository;
+    private final GugunRepository gugunRepository;
+
+    public UserServiceImpl(UserRepository userRepository, GugunRepository gugunRepository) {
+        this.userRepository = userRepository;
+        this.gugunRepository = gugunRepository;
+    }
 
     @Override
     public UserProfileResponse getUserProfile(long userId) {

@@ -1,6 +1,10 @@
 <template>
-  <v-tab class="font-weight-bold" elevation-5 @click="goto(requestUrl)"
-    >{{ text }}
+  <v-tab
+    class="font-weight-bold"
+    elevation-5
+    :to="tab.tabLink"
+    @click="goto(tab.tabLink)"
+    >{{ tab.tabName }}
   </v-tab>
 </template>
 
@@ -8,8 +12,7 @@
 export default {
   name: "MenuTabItem",
   props: {
-    text: String,
-    requestUrl: String,
+    tab: Object,
   },
   methods: {
     goto(requestUrl) {
