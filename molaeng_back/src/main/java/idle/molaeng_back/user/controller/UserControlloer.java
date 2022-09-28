@@ -26,7 +26,7 @@ public class UserControlloer {
         HashMap<String, Object> result = new HashMap<>();
 
         try {
-            userService.deleteUserProfile(userId);
+            userService.deleteUserAccount(userId);
             result.put("result", userId);
             result.put("message", "success");
             return new ResponseEntity<>(result, HttpStatus.OK);

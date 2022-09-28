@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void deleteUserProfile(long userId) {
+    public void deleteUserAccount(long userId) {
         // user와 연결된 테이블은 총 4개 - Recipe_like, Review_like, Review, Diary
 
         // 리뷰는 user_id를 탈퇴한 사용자로 변경

@@ -30,5 +30,24 @@ export default {
       },
     };
   },
+  mounted() {
+    this.chartColor();
+  },
+  methods: {
+    chartColor() {
+      let size = this.chartData.datasets[0].data.length;
+      let colors = [];
+      for (let i = 0; i < size; i++) {
+        if (this.chartData.datasets[0].data[i] < 0) {
+          this.chartData.datasets[0].data[i] =
+            this.chartData.datasets[0].data[i] * -1;
+          colors.push("#ED8A53");
+        } else {
+          colors.push("#72A971");
+        }
+      }
+      this.chartData.datasets[0].backgroundColor = colors;
+    },
+  },
 };
 </script>

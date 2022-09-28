@@ -7,5 +7,5 @@ public interface UserService {
 
     UserProfileResponse getUserProfile(long userId);
     void updateUserProfile(UserProfileRequest userProfileRequest);
-    void deleteUserProfile(long userId);
+    void deleteUserAccount(long userId);
 }

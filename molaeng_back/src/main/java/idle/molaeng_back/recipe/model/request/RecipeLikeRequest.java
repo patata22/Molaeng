@@ -1,4 +1,4 @@
-package idle.molaeng_back.user.model.DTO;
+package idle.molaeng_back.recipe.model.request;
 
 import lombok.AccessLevel;
 import lombok.Builder;
