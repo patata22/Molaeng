@@ -8,7 +8,7 @@
       <v-btn icon large @click="$refs.calendar.prev()">
         <v-icon>mdi-chevron-left</v-icon>
       </v-btn>
-      <v-spacer>2022년 9월</v-spacer>
+      <v-spacer v-if="$refs.calendar">{{ $refs.calendar.title }}</v-spacer>
       <v-btn icon large @click="$refs.calendar.next()">
         <v-icon>mdi-chevron-right</v-icon>
       </v-btn>
@@ -19,7 +19,7 @@
         class="calendar"
         v-model="value"
         :weekdays="weekday"
-        :showMonthOnFirst="false"
+        :show-month-on-first="false"
         :weekday-format="getWeekDayFormat"
         :type="type"
         :events="events"
@@ -27,7 +27,8 @@
         :event-overlap-threshold="30"
         :event-color="getEventColor"
         :event-text-color="getEventTextColor"
-        @change="getEvents"
+        @click:date="dateSelected"
+        @change="getPrices"
       ></v-calendar>
     </v-sheet>
   </div>
@@ -43,10 +44,10 @@ export default {
     events: [],
     color: "white",
     textcolors: ["#72A971", "#ED8A53"],
-    names: ["+300,000", "+500,000", "+700,000", "-3", "-5", "-7000"],
+    names: ["+30,000", "+500", "+7,000", "-30", "-5", "-700"],
   }),
   methods: {
-    getEvents({ start, end }) {
+    getPrices({ start, end }) {
       const events = [];
 
       const yearmonth = start.date.substr(0, 8);
@@ -78,6 +79,12 @@ export default {
     },
     getEventTextColor(event) {
       return event.textcolor;
+    },
+    dateSelected(value) {
+      this.$emit("dateSelected");
+      console.log(value.date);
+      console.log(value.year);
+      console.log(value.month);
     },
     rnd(a, b) {
       return Math.floor((b - a + 1) * Math.random()) + a;
