@@ -5,7 +5,7 @@
     </v-card-title>
     <v-card-text class="pb-12">
       <div id="writerInfo" class="font-weight-light ml-1">
-        {{ review.userNickname }}님 / {{ review.reviewDate }}
+        {{ review.userNickname }}님 / {{ review.reviewDate.substr(0,10) }}
       </div>
       <div class="dark--text text-body-1 mt-4 ml-1">
         {{ review.reviewContent }}

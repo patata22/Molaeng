@@ -1,5 +1,5 @@
 <template>
-  <div class="calendarpage">
+  <div class="calendarPage">
     <div class="calendarHeader">
       <span class="calendarHeaderDefault">이번 주는 </span
       ><span class="calendarHeaderChange">2,300원 절약했어요!</span>
@@ -8,7 +8,7 @@
       <v-btn icon large @click="$refs.calendar.prev()">
         <v-icon>mdi-chevron-left</v-icon>
       </v-btn>
-      <v-spacer>2022년 9월</v-spacer>
+      <v-spacer v-if="$refs.calendar">{{ $refs.calendar.title }}</v-spacer>
       <v-btn icon large @click="$refs.calendar.next()">
         <v-icon>mdi-chevron-right</v-icon>
       </v-btn>
@@ -19,7 +19,7 @@
         class="calendar"
         v-model="value"
         :weekdays="weekday"
-        :showMonthOnFirst="false"
+        :show-month-on-first="false"
         :weekday-format="getWeekDayFormat"
         :type="type"
         :events="events"
@@ -27,7 +27,8 @@
         :event-overlap-threshold="30"
         :event-color="getEventColor"
         :event-text-color="getEventTextColor"
-        @change="getEvents"
+        @click:date="dateSelected"
+        @change="getPrices"
       ></v-calendar>
     </v-sheet>
   </div>
@@ -43,10 +44,10 @@ export default {
     events: [],
     color: "white",
     textcolors: ["#72A971", "#ED8A53"],
-    names: ["+3", "+5", "+7,000", "-3", "-5", "-7,000"],
+    names: ["+30,000", "+500", "+7,000", "-30", "-5", "-700"],
   }),
   methods: {
-    getEvents({ start, end }) {
+    getPrices({ start, end }) {
       const events = [];
 
       const yearmonth = start.date.substr(0, 8);
@@ -60,7 +61,7 @@ export default {
         const price = this.names[this.rnd(0, this.names.length - 1)];
 
         events.push({
-          name: price + "원",
+          name: price,
           start: yearmonth + date,
           color: this.color,
           textcolor: this.textcolors[this.rndcolor(parseInt(price))],
@@ -79,6 +80,12 @@ export default {
     getEventTextColor(event) {
       return event.textcolor;
     },
+    dateSelected(value) {
+      this.$emit("dateSelected");
+      console.log(value.date);
+      console.log(value.year);
+      console.log(value.month);
+    },
     rnd(a, b) {
       return Math.floor((b - a + 1) * Math.random()) + a;
     },
@@ -94,12 +101,12 @@ export default {
 </script>
 
 <style>
-.calendarpage {
+.calendarPage {
   margin: 2%;
 }
 .calendarHeader {
-  padding-top: 6%;
-  padding-bottom: 4%;
+  padding-top: 5%;
+  padding-bottom: 5%;
   text-align: center;
   font-size: 1rem;
   font-weight: 900;
@@ -126,22 +133,22 @@ export default {
 }
 .calendar {
   text-align: center;
-  font-weight: bold;
 }
 .theme--light.v-calendar-weekly {
   border: 30px;
 }
 .theme--light.v-calendar-weekly .v-calendar-weekly__head-weekday {
-  padding-bottom: 2%;
+  padding-bottom: 1%;
   border: 0px;
   font-size: 1rem;
+  font-weight: bold;
   color: #5b574b;
 }
 .theme--light.v-calendar-weekly .v-calendar-weekly__head-weekday.v-outside {
   background-color: white;
 }
 .theme--light.v-calendar-weekly .v-calendar-weekly__day {
-  border: 0px;
+  border: none;
 }
 .theme--light.v-calendar-weekly .v-calendar-weekly__day.v-outside {
   visibility: hidden;
@@ -152,5 +159,8 @@ export default {
 }
 .v-calendar .v-event {
   font-size: 0.8rem;
+}
+.v-application .pl-1 {
+  padding: 0 !important;
 }
 </style>
