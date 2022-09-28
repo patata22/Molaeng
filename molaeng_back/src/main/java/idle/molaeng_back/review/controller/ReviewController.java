@@ -97,7 +97,7 @@ public class ReviewController {
         }
     }
 
-    @DeleteMapping("/recipe")
+    @DeleteMapping
     public ResponseEntity deleteReview(@RequestBody DeleteReviewReqDTO deleteReviewDTO){
         Map<String, Object> resultMap = new HashMap<>();
         try{
