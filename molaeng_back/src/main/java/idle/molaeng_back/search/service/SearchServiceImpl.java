@@ -2,14 +2,22 @@ package idle.molaeng_back.search.service;
 
 import idle.molaeng_back.recipe.model.entity.Recipe;
 import idle.molaeng_back.recipe.model.entity.RecipeIngredient;
+import idle.molaeng_back.recipe.model.repository.RecipeRepository;
+import idle.molaeng_back.search.DTO.response.RecipeNameResDTO;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class SearchServiceImpl implements SearchService {
 
+    private final RecipeRepository recipeRepository;
+
+    public SearchServiceImpl(RecipeRepository recipeRepository) {
+        this.recipeRepository = recipeRepository;
+    }
 
     //여기도 결국 페이징이 들어가야한다
     @Override
@@ -85,5 +93,10 @@ public class SearchServiceImpl implements SearchService {
 //        List<Recipe> result = recipeRepository.findByRecipeNameContains(String keyword);
 //        return result;
         return null;
+    }
+
+    @Override
+    public List<RecipeNameResDTO> searchAllRecipe() {
+        return recipeRepository.findAll().stream().map(x -> new RecipeNameResDTO(x.getRecipeId(), x.getRecipeName())).collect(Collectors.toList());
     }
 }

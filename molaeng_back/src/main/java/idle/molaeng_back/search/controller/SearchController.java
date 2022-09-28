@@ -2,9 +2,8 @@ package idle.molaeng_back.search.controller;
 
 import idle.molaeng_back.recipe.model.entity.Recipe;
 import idle.molaeng_back.search.DTO.request.SearchRecipeByIngredientReqDTO;
+import idle.molaeng_back.search.DTO.response.RecipeNameResDTO;
 import idle.molaeng_back.search.service.SearchService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,6 +42,7 @@ public class SearchController {
     }
 
     @GetMapping("/recipe/{keyword}")
+    //autocomplete로 갈거면 상관이 없다;
     public ResponseEntity searchByKeyword(@PathVariable String keyword, @RequestParam("page") int page){
         // 페이징 추가해야되니까 쿼리파라미터로 가는게 맞을듯
         Map<String, Object> resultMap = new HashMap<>();
@@ -53,6 +53,21 @@ public class SearchController {
             return new ResponseEntity(resultMap, HttpStatus.OK);
         }catch(Exception e ){
             resultMap.put("message", "레시피 이름검색에서 에러");
+            return new ResponseEntity(resultMap, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity searchAllRecipe(){
+        Map<String, Object> resultMap = new HashMap();
+        try{
+            List<RecipeNameResDTO> Dtos = searchService.searchAllRecipe();
+            resultMap.put("message", "success");
+            resultMap.put("result", Dtos);
+            return new ResponseEntity(resultMap, HttpStatus.OK);
+
+        }catch(Exception e){
+            resultMap.put("message", "레시피 전체 조회에서 에러났는데????");
             return new ResponseEntity(resultMap, HttpStatus.BAD_REQUEST);
         }
     }
