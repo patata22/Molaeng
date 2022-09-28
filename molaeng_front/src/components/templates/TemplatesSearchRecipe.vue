@@ -1,5 +1,6 @@
 <template>
-  <button v-on:click="tempToRecipe">레시피로 찾기</button>
+  <!-- <button v-on:click="tempToRecipe">레시피로 찾기</button> -->
+  <div></div>
 </template>
 
 <script>
