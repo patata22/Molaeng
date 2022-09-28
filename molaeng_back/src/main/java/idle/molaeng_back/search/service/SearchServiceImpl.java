@@ -97,6 +97,8 @@ public class SearchServiceImpl implements SearchService {
 
     @Override
     public List<RecipeNameResDTO> searchAllRecipe() {
-        return recipeRepository.findAll().stream().map(x -> new RecipeNameResDTO(x.getRecipeId(), x.getRecipeName())).collect(Collectors.toList());
+        return recipeRepository.findAll().stream()
+                .map(x -> new RecipeNameResDTO(x.getRecipeId(), x.getRecipeName()))
+                .collect(Collectors.toList());
     }
 }

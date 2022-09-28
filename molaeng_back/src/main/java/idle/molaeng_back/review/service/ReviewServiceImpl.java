@@ -116,15 +116,7 @@ public class ReviewServiceImpl implements ReviewService{
     public ScoreResDTO findScoreByRecipeId(long recipeId) {
         int[] scoreCnt= new int[5];
         int total = 0;
-//        Recipe recipe = recipeRepository.findByRecipeId();
-        Recipe recipe = Recipe.builder()
-                .recipeId(1)
-                .oneScore(2)
-                .twoScore(2)
-                .threeScore(2)
-                .fourScore(2)
-                .fiveScore(2)
-                .build();
+        Recipe recipe = recipeRepository.findByRecipeId(recipeId);
         scoreCnt[0] = recipe.getOneScore();
         scoreCnt[1] = recipe.getTwoScore();
         scoreCnt[2] = recipe.getThreeScore();
