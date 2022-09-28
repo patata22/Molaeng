@@ -83,25 +83,51 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+// import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "EditProfile",
-  mounted() {
-    this.gugun = this.$store.getters.getAllGugun;
-  },
+  // mounted() {
+  //   this.gugun = this.$store.getters.getAllGugun;
+  // },
+  // props: {
+  //   gugun: Array,
+  // },
   data: () => ({
     sido: ["서울특별시"],
-    gugun: [],
-    nickname: "기본 닉네임",
-    myRegion: "",
-    userId: 1,
+    gugun: [
+      "강남구",
+      "강동구",
+      "강북구",
+      "강서구",
+      "관악구",
+      "광진구",
+      "구로구",
+      "금천구",
+      "노원구",
+      "도봉구",
+      "동대문구",
+      "동작구",
+      "마포구",
+      "서대문구",
+      "서초구",
+      "성동구",
+      "성북구",
+      "송파구",
+      "양천구",
+      "영등포구",
+      "용산구",
+      "은평구",
+      "종로구",
+      "중구",
+      "중랑구",
+    ],
     disabled: true,
   }),
 
-  computed: { ...mapGetters(["userId", "nickname", "myRegion", "gugun"]) },
+  // computed: { ...mapGetters(["userId", "nickname", "myRegion", "gugun"]) },
   methods: {
-    ...mapActions(["getUserInfo"]),
+    // ...mapActions(["getUserInfo"]),
     clickUpdate: function () {
       console.log("수정 버튼 클릭");
       this.disabled = false;
@@ -111,12 +137,12 @@ export default {
       this.disabled = true;
     },
   },
-  created() {
-    console.log("시작한다1");
-    // this.getUserInfo(this.userId);
-    this.$store.dispatch("getUserInfo");
-    console.log("created 끝?");
-  },
+  // created() {
+  //   console.log("시작한다1");
+  //   // this.getUserInfo(this.userId);
+  //   this.$store.dispatch("getUserInfo");
+  //   console.log("created 끝?");
+  // },
 };
 </script>
 

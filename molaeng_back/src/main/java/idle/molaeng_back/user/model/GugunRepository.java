@@ -6,5 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface GugunRepository extends JpaRepository<Gugun, Long> {
-    Gugun findByGugunName(String gugunName);
+    Gugun findByGugunId(long gugunId);
+
 }
+

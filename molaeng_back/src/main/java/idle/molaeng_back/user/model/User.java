@@ -5,10 +5,10 @@ import idle.molaeng_back.diary.model.Diary;
 import idle.molaeng_back.recipe.model.entity.RecipeLike;
 import idle.molaeng_back.review.model.Review;
 import idle.molaeng_back.review.model.ReviewLike;
+import idle.molaeng_back.user.model.DTO.UserProfileRequest;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -44,8 +44,13 @@ public class User  {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<ReviewLike> reviewLikeList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Diary> diaryList = new ArrayList<>();
+
+    public void changeProfile(UserProfileRequest userProfileRequest, Gugun gugun){
+        this.nickname = userProfileRequest.getNickname();
+        this.gugun = gugun;
+    }
 
     @Builder
     public User(Long userId, String nickname, String uuid, Gugun gugun, List<RecipeLike> recipeLikeList, List<Review> reviewList, List<ReviewLike> reviewLikeList, List<Diary> diaryList) {

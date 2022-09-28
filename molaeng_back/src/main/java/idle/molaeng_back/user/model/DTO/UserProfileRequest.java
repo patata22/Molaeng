@@ -1,4 +1,4 @@
-package idle.molaeng_back.user.model;
+package idle.molaeng_back.user.model.DTO;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -10,13 +10,13 @@ import lombok.NoArgsConstructor;
 public class UserProfileRequest {
     private long userId;
     private String nickname;
-    private String gugunName;
+    private long gugunId;
 
     @Builder
-    public UserProfileRequest(long userId, String nickname, String gugunName){
+    public UserProfileRequest(long userId, String nickname, long gugunId){
         this.userId = userId;
         this.nickname = nickname;
-        this.gugunName = gugunName;
+        this.gugunId = gugunId;
     }
 //    @Builder
 //    public UserProfileRequest(User user){
