@@ -105,8 +105,8 @@ export default {
   margin: 2%;
 }
 .calendarHeader {
-  padding-top: 6%;
-  padding-bottom: 4%;
+  padding-top: 5%;
+  padding-bottom: 5%;
   text-align: center;
   font-size: 1rem;
   font-weight: 900;
@@ -133,22 +133,22 @@ export default {
 }
 .calendar {
   text-align: center;
-  font-weight: bold;
 }
 .theme--light.v-calendar-weekly {
   border: 30px;
 }
 .theme--light.v-calendar-weekly .v-calendar-weekly__head-weekday {
-  padding-bottom: 2%;
+  padding-bottom: 1%;
   border: 0px;
   font-size: 1rem;
+  font-weight: bold;
   color: #5b574b;
 }
 .theme--light.v-calendar-weekly .v-calendar-weekly__head-weekday.v-outside {
   background-color: white;
 }
 .theme--light.v-calendar-weekly .v-calendar-weekly__day {
-  border: 0px;
+  border: none;
 }
 .theme--light.v-calendar-weekly .v-calendar-weekly__day.v-outside {
   visibility: hidden;
@@ -158,7 +158,7 @@ export default {
   font-size: 1rem;
 }
 .v-calendar .v-event {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
 }
 .v-application .pl-1 {
   padding: 0 !important;
