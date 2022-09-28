@@ -12,4 +12,5 @@ public interface DiaryRepository extends JpaRepository<Diary, Long> {
     List<Diary> findByUserUserIdAndMealDate(long userId, LocalDate mealDate);
 
     void deleteByDiaryId(long diaryId);
+
 }
