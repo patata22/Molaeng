@@ -108,7 +108,7 @@ export default {
   padding-bottom: 5%;
   text-align: center;
   font-size: 1rem;
-  font-weight: 900;
+  font-weight: bold;
 }
 .calendarHeaderDefault {
   color: #5b574b;
@@ -127,7 +127,7 @@ export default {
   align-self: center;
   text-align: center;
   font-size: 1.2rem;
-  font-weight: 900;
+  font-weight: 800;
   color: #5b574b;
 }
 .calendar {
