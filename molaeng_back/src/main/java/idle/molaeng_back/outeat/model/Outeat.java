@@ -1,6 +1,7 @@
-package idle.molaeng_back.user.model;
+package idle.molaeng_back.outeat.model;
 
 import idle.molaeng_back.recipe.model.entity.Recipe;
+import idle.molaeng_back.user.model.Gugun;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,7 @@ public class Outeat {
     private long outeatId;
 
     @Column(name="outeat_price")
-    private int outeatPrice;
+    private long outeatPrice;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="gugun_id")

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import idle.molaeng_back.diary.model.Diary;
 import idle.molaeng_back.review.model.Review;
-import idle.molaeng_back.user.model.Outeat;
+import idle.molaeng_back.outeat.model.Outeat;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
