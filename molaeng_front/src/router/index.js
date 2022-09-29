@@ -8,6 +8,7 @@ import RecipeListView from "@/views/RecipeListView.vue";
 import RecipeView from "@/views/RecipeView.vue";
 import RecipeDescriptionList from "@/components/organisms/OrganismsRecipeDescriptionList.vue";
 import RecipeIngredientInfo from "@/components/templates/TemplatesRecipeIngredientInfo.vue";
+import RecipePriceInfo from "@/components/templates/TemplatesRecipePriceInfo.vue";
 import MyPageView from "@/views/MyPageView.vue";
 import MolaengDiaryView from "@/views/MolaengDiaryView.vue";
 import MenuView from "@/views/MenuView.vue";
@@ -71,6 +72,10 @@ const routes = [
       {
         path: "review",
         component: RecipeReview,
+      },
+      {
+        path: "price",
+        component: RecipePriceInfo,
       },
       //RecipePriceInfo가 들어와야 함
     ],
