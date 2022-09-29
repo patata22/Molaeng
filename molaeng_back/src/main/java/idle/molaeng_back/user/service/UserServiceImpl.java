@@ -24,6 +24,7 @@ public class UserServiceImpl implements UserService{
     private final ReviewRepository reviewRepository;
 
 
+    @Autowired
     public UserServiceImpl(UserRepository userRepository, GugunRepository gugunRepository, ReviewRepository reviewRepository) {
         this.userRepository = userRepository;
         this.gugunRepository = gugunRepository;
@@ -48,6 +49,7 @@ public class UserServiceImpl implements UserService{
         userRepository.save(targetUser);
     }
 
+    @Transactional
     @Override
     public void deleteUserAccount(long userId) {
         // user와 연결된 테이블은 총 4개 - Recipe_like, Review_like, Review, Diary

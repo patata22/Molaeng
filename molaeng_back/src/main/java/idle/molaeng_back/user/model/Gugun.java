@@ -1,5 +1,6 @@
 package idle.molaeng_back.user.model;
 
+import idle.molaeng_back.outeat.model.Outeat;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,7 @@ public class Gugun {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="gugun_id")
-    private Long gugunId;
+    private long gugunId;
 
     @Column(name="gugun_name")
     private String gugunName;
@@ -28,7 +29,7 @@ public class Gugun {
     List<Outeat> outeatList = new ArrayList<>();
 
     @Builder
-    public Gugun(Long gugunId, String gugunName, List<User> userList, List<Outeat> outeatList) {
+    public Gugun(long gugunId, String gugunName, List<User> userList, List<Outeat> outeatList) {
         this.gugunId = gugunId;
         this.gugunName = gugunName;
         this.userList = userList;

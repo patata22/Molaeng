@@ -22,7 +22,7 @@ public class User  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="user_id")
-    private Long userId;
+    private long userId;
 
     @Column(name="nickname")
     private String nickname;
@@ -53,7 +53,7 @@ public class User  {
     }
 
     @Builder
-    public User(Long userId, String nickname, String uuid, Gugun gugun, List<RecipeLike> recipeLikeList, List<Review> reviewList, List<ReviewLike> reviewLikeList, List<Diary> diaryList) {
+    public User(long userId, String nickname, String uuid, Gugun gugun, List<RecipeLike> recipeLikeList, List<Review> reviewList, List<ReviewLike> reviewLikeList, List<Diary> diaryList) {
         this.userId = userId;
         this.nickname = nickname;
         this.uuid = uuid;
