@@ -21,6 +21,11 @@ export const recipe = {
     },
     GET_RECIPE_DETAIL(state, payload) {
       state.recipeDetailList = payload.result;
+      console.log(state.recipeDetailList);
+      state.recipeDetailList.sort(function (a, b) {
+        return a.recipeOrder - b.recipeOrder;
+      });
+      console.log(state.recipeDetailList);
     },
   },
   actions: {
