@@ -1,5 +1,6 @@
 package idle.molaeng_back.user.model;
 
+import idle.molaeng_back.outeat.model.Outeat;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
