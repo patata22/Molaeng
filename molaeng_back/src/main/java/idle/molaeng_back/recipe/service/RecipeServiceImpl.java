@@ -31,7 +31,7 @@ public class RecipeServiceImpl implements RecipeService{
 
         //recipeId와 userId로 RecipeLike 테이블에서 해당 데이터 찾기
         //0이면 없다는 거니까 false, 1이면 있다는 거니까 true
-        boolean isLiked= recipeLikeRepository.countByRecipeRecipeIdAndUserUserId(userId, recipeId)==0?false:true;
+        boolean isLiked= recipeLikeRepository.countByUserUserIdAndRecipeRecipeId(userId, recipeId)==0?false:true;
 
         System.out.println("isLiked : " + isLiked);
 
