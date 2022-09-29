@@ -4,7 +4,6 @@
     <menu-tab :tabs="tabs" />
     <router-view></router-view>
     <under-bar-button :text="buttonText" @click.native="moveMolaeng" />
-    <p>{{ recipeId }}</p>
   </div>
 </template>
 
@@ -47,26 +46,20 @@ export default {
       ];
     },
   },
-  mounted() {
-    console.log("asdf" + this.recipeInfo);
-    console.log(this.tabs);
-  },
+  // mounted() {
+  //   console.log("asdf" + this.recipeInfo);
+  //   console.log(this.tabs);
+  // },
   created() {
     const pathName = this.$route.fullPath.split("/");
-    console.log(pathName);
     this.recipeId = pathName[2];
+    //레시피 상단바 상세정보
     this.$store.dispatch("getRecipeInfo", this.recipeId);
+    //레시피 조리방법
+    this.$store.dispatch("getRecipeDetail", this.recipeId);
   },
   data: () => ({
     recipeId: "",
-    // recipeInfo: {
-    //   recipeId: 1,
-    //   recipeName: "동치미막국수",
-    //   recipeKcal: 140,
-    //   avgScore: 4.7,
-    //   recipeImg: "http://file.okdab.com/UserFiles/searching/recipe/002400.jpg",
-    //   isLiked: true,
-    // },
     buttonText: "모랭일기에 기록하기",
   }),
   methods: {
