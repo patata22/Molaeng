@@ -23,10 +23,9 @@
         :weekday-format="getWeekDayFormat"
         :type="type"
         :events="events"
-        :event-overlap-mode="mode"
-        :event-overlap-threshold="30"
         :event-color="getEventColor"
         :event-text-color="getEventTextColor"
+        :event-more="false"
         @click:date="dateSelected"
         @change="getPrices"
       ></v-calendar>
@@ -147,6 +146,9 @@ export default {
 .theme--light.v-calendar-weekly .v-calendar-weekly__head-weekday.v-outside {
   background-color: white;
 }
+.theme--light.v-calendar-weekly .v-calendar-weekly__head-weekday.v-past {
+  color: #5b574b;
+}
 .theme--light.v-calendar-weekly .v-calendar-weekly__day {
   border: none;
 }
@@ -156,6 +158,9 @@ export default {
 .v-calendar-weekly__day-label .v-btn {
   margin-top: 2%;
   font-size: 1rem;
+}
+.theme--light.v-btn.v-btn--has-bg {
+  background-color: white;
 }
 .v-calendar .v-event {
   font-size: 0.8rem;
