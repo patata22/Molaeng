@@ -315,7 +315,7 @@ export default {
             this.page +
             "&sort=" +
             this.sort +
-            "&userId=1&size=5",
+            "&userId=1&size=5"
         )
         .then(function (response) {
           temp.hasNext = response.data.result.hasNext;
@@ -347,7 +347,7 @@ export default {
       var temp = this;
       axios
         .get(
-          "http://j7a604.p.ssafy.io:8080/molaeng/review/count/" + this.recipeId,
+          "http://j7a604.p.ssafy.io:8080/molaeng/review/count/" + this.recipeId
         )
         .then((response) => {
           temp.count = response.data.result;
