@@ -29,7 +29,7 @@ export const recipe = {
     //레시피 상세정보 상단바 정보
     getRecipeInfo({ commit }, recipeId) {
       // const API_URL = api + "/recipe/" + recipeId;
-      const API_URL = `http://localhost:8080/molaeng/recipe/${recipeId}`;
+      const API_URL = `http://j7a604.p.ssafy.io:8080/molaeng/recipe/${recipeId}`;
       console.log(API_URL);
       axios({
         methods: "GET",

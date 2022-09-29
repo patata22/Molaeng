@@ -147,7 +147,7 @@ export default {
   methods: {
     getScore: function () {
       var temp = this;
-      var url = "http://localhost:8080/molaeng/review/score/";
+      var url = "http://j7a604.p.ssafy.io:8080/molaeng/review/score/";
       axios
         .get(url + temp.recipeId)
         // .get("http://j7a604.p.ssafy.io/molaeng/review/score/" + this.recipeId)
