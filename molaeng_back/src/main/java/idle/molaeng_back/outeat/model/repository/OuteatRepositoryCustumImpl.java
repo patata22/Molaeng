@@ -2,7 +2,7 @@ package idle.molaeng_back.outeat.model.repository;
 
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import idle.molaeng_back.recipe.model.entity.model.QOuteat;
+import idle.molaeng_back.outeat.model.QOuteat;
 import idle.molaeng_back.user.model.QGugun;
 import idle.molaeng_back.user.model.QUser;
 import lombok.RequiredArgsConstructor;
