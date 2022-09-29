@@ -54,7 +54,8 @@ const routes = [
     component: RecipeListView,
   },
   {
-    path: "/recipe",
+    // path: "/recipe",
+    path: "/recipe/:recipeId",
     name: "recipe",
     component: RecipeView,
     children: [

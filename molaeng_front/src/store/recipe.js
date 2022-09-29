@@ -17,23 +17,27 @@ export const recipe = {
   },
   mutations: {
     GET_RECIPE_INFO(state, payload) {
-      state.recipeInfo = payload;
+      console.log(payload.result);
+      state.recipeInfo = payload.result;
+      console.log(state.recipeInfo);
     },
     GET_RECIPE_DETAIL(state, payload) {
-      state.recipeDetail = payload;
+      state.recipeDetail = payload.result;
     },
   },
   actions: {
     //레시피 상세정보 상단바 정보
     getRecipeInfo({ commit }, recipeId) {
       // const API_URL = api + "/recipe/" + recipeId;
-      const API_URL = `${api}/recipe/${recipeId}`;
+      const API_URL = `http://localhost:8080/molaeng/recipe/${recipeId}`;
+      console.log(API_URL);
       axios({
         methods: "GET",
         url: API_URL,
       })
         .then((res) => {
           commit("GET_RECIPE_INFO", res.data);
+          console.log(res.data);
         })
         .catch((err) => console.log("상단바 정보 오류 : " + err));
     },
