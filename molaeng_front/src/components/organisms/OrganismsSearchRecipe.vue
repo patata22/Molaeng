@@ -1,30 +1,35 @@
 <template lang="">
   <div>
-    <h1>검색</h1>
-    <v-input
+    <atoms-search-box v-on:change="changeKeyword"> </atoms-search-box>
+    <menu-tab :tabs="tabs"></menu-tab>
+    <!-- <v-input
       ><v-text-field
         v-model="keyWord"
         @input="matchingKeyword"
         id="searchInputText"
         class="font-weight-bold"
       ></v-text-field
-    ></v-input>
+    ></v-input> -->
     <v-card
+      flat
       v-for="(recipe, i) in matchList"
       :key="i"
       @click="moveToRecipe(recipe.recipeId)"
-      class="font-weight-bold dark--text"
+      height="50px"
+      class="font-weight-bold dark--text mt-0 ml-5 pt-5"
     >
-      <!-- {{ recipe.recipeName }} -->
-      {{ recipe.F }}
-      <span class="primary--text">{{ recipe.M }}</span
+      <v-icon>mdi-magnify</v-icon>
+      {{ recipe.F }}<span class="primary--text">{{ recipe.M }}</span
       >{{ recipe.E }}
     </v-card>
   </div>
 </template>
 <script>
+import AtomsSearchBox from "../atoms/AtomsSearchBox.vue";
 import axios from "axios";
+import MenuTab from "../molecules/MoleculesMenuTab.vue";
 export default {
+  name: "OrganismsSearchRecipe",
   created() {
     this.getAllRecipe();
   },
@@ -32,9 +37,22 @@ export default {
     return {
       recipeNameList: [],
       recipeMap: new Map(),
-      keyWord: "",
       matchList: [],
+      tabs: [
+        {
+          tabName: "재료",
+          tabLink: "/search/ingredient",
+        },
+        {
+          tabName: "레시피",
+          tabLink: "/search/recipe",
+        },
+      ],
     };
+  },
+  components: {
+    AtomsSearchBox,
+    MenuTab,
   },
   methods: {
     getAllRecipe() {
@@ -65,6 +83,10 @@ export default {
           });
         }
       });
+    },
+    changeKeyword(value) {
+      this.keyWord = value;
+      this.matchingKeyword();
     },
     moveToRecipe(i) {
       this.$router.push("/recipe/" + i);

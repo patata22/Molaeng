@@ -8,6 +8,7 @@
       dense
       rounded
       append-icon="mdi-microphone"
+      @input="sendKeyword"
       @click:append="startSTT"
     ></v-text-field>
   </div>
@@ -27,6 +28,9 @@ export default {
   methods: {
     startSTT() {
       console.log("mic on!");
+    },
+    sendKeyword() {
+      this.$emit("change", this.keyword);
     },
   },
 };
