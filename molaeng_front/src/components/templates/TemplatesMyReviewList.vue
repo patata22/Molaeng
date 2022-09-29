@@ -31,7 +31,7 @@ export default {
     getMyReview() {
       var temp = this;
       axios
-        .get("http://localhost:8080/molaeng/review", {
+        .get("http://j7a604.p.ssafy.io:8080/molaeng/review", {
           params: {
             userId: temp.userId,
             sort: temp.sort,

@@ -40,22 +40,22 @@ public class SearchController {
             return new ResponseEntity(resultMap, HttpStatus.BAD_REQUEST);
         }
     }
-
-    @GetMapping("/recipe/{keyword}")
-    //autocomplete로 갈거면 상관이 없다;
-    public ResponseEntity searchByKeyword(@PathVariable String keyword, @RequestParam("page") int page){
-        // 페이징 추가해야되니까 쿼리파라미터로 가는게 맞을듯
-        Map<String, Object> resultMap = new HashMap<>();
-        try{
-            List<Recipe> result = searchService.findRecipeByName(keyword);
-            resultMap.put("message", "success");
-            resultMap.put("recipeList", result);
-            return new ResponseEntity(resultMap, HttpStatus.OK);
-        }catch(Exception e ){
-            resultMap.put("message", "레시피 이름검색에서 에러");
-            return new ResponseEntity(resultMap, HttpStatus.BAD_REQUEST);
-        }
-    }
+//
+//    @GetMapping("/recipe/{keyword}")
+//    //autocomplete로 갈거면 상관이 없다;
+//    public ResponseEntity searchByKeyword(@PathVariable String keyword, @RequestParam("page") int page){
+//        // 페이징 추가해야되니까 쿼리파라미터로 가는게 맞을듯
+//        Map<String, Object> resultMap = new HashMap<>();
+//        try{
+//            List<Recipe> result = searchService.findRecipeByName(keyword);
+//            resultMap.put("message", "success");
+//            resultMap.put("recipeList", result);
+//            return new ResponseEntity(resultMap, HttpStatus.OK);
+//        }catch(Exception e ){
+//            resultMap.put("message", "레시피 이름검색에서 에러");
+//            return new ResponseEntity(resultMap, HttpStatus.BAD_REQUEST);
+//        }
+//    }
 
     @GetMapping("/all")
     public ResponseEntity searchAllRecipe(){

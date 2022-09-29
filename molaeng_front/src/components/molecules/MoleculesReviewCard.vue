@@ -67,7 +67,7 @@ export default {
     likeReview: function (userId, reviewId) {
       var temp = this;
       axios
-        .post("http://localhost:8080/molaeng/review/like", {
+        .post("http://j7a604.p.ssafy.io:8080/molaeng/review/like", {
           userId: userId,
           reviewId: reviewId,
         })
@@ -80,7 +80,7 @@ export default {
     dislikeReview: function (userId, reviewId) {
       var temp = this;
       axios
-        .delete("http://localhost:8080/molaeng/review/like", {
+        .delete("http://j7a604.p.ssafy.io:8080/molaeng/review/like", {
           data: { userId: userId, reviewId: reviewId },
         })
         .then(function () {
