@@ -6,11 +6,13 @@ import SearchIngredient from "@/components/templates/TemplatesSearchIngredient.v
 import SearchRecipe from "@/components/templates/TemplatesSearchRecipe.vue";
 import RecipeListView from "@/views/RecipeListView.vue";
 import RecipeView from "@/views/RecipeView.vue";
+import RecipeDescriptionList from "@/components/organisms/OrganismsRecipeDescriptionList.vue";
+import RecipeIngredientInfo from "@/components/templates/TemplatesRecipeIngredientInfo.vue";
 import MyPageView from "@/views/MyPageView.vue";
 import MolaengDiaryView from "@/views/MolaengDiaryView.vue";
 import MenuView from "@/views/MenuView.vue";
 import InterestRecipeView from "@/views/InterestRecipeView.vue";
-import OrganismRecipeReview from "../components/organisms/OrganismsRecipeReview";
+import RecipeReview from "../components/organisms/OrganismsRecipeReview";
 import RecipeHistory from "@/components/templates/TemplatesRecipeHistoryList.vue";
 import RecipeLike from "@/components/templates/TemplatesRecipeLikeList.vue";
 import EditProfile from "@/components/templates/TemplatesEditProfile.vue";
@@ -52,9 +54,26 @@ const routes = [
     component: RecipeListView,
   },
   {
-    path: "/recipe",
+    // path: "/recipe",
+    path: "/recipe/:recipeId",
     name: "recipe",
     component: RecipeView,
+    children: [
+      {
+        path: "description",
+        component: RecipeDescriptionList,
+      },
+      {
+        path: "ingInfo",
+        alias: [""],
+        component: RecipeIngredientInfo,
+      },
+      {
+        path: "review",
+        component: RecipeReview,
+      },
+      //RecipePriceInfo가 들어와야 함
+    ],
   },
   {
     path: "/myPage",
@@ -108,11 +127,6 @@ const routes = [
         component: UserMenu,
       },
     ],
-  },
-  {
-    path: "/review",
-    name: "OrganismsRecipeReview",
-    component: OrganismRecipeReview,
   },
 ];
 

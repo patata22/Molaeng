@@ -91,5 +91,23 @@ public class Recipe {
         this.recipeIngredientList = recipeIngredientList;
     }
 
+    public void setOneScore(int oneScore) {
+        this.oneScore = oneScore;
+    }
 
+    public void setTwoScore(int twoScore) {
+        this.twoScore = twoScore;
+    }
+
+    public void setThreeScore(int threeScore) {
+        this.threeScore = threeScore;
+    }
+
+    public void setFourScore(int fourScore) {
+        this.fourScore = fourScore;
+    }
+
+    public void setFiveScore(int fiveScore) {
+        this.fiveScore = fiveScore;
+    }
 }
