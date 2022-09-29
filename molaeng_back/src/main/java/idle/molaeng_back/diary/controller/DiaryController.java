@@ -25,7 +25,7 @@ public class DiaryController {
     }
 
     @PostMapping
-    public ResponseEntity saveDiary(@RequestBody long userId, @RequestBody long recipeId, @RequestBody int saveCost){
+    public ResponseEntity saveDiary(@RequestParam long userId, @RequestParam long recipeId, @RequestParam int saveCost){
         Map<String, Object> resultMap = new HashMap<>();
         try{
             resultMap.put("diaryId", diaryService.saveDiary(userId, recipeId, saveCost));
