@@ -20,7 +20,6 @@ import java.time.YearMonth;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 @Service
 @Transactional
@@ -91,15 +90,9 @@ public class DiaryServiceImpl implements DiaryService{
         int[] saveCostList = new int[weekCnt];
         for(int i=0; i<weekCnt; i++){
             if(tmpDate.isAfter(endDate)){
-                System.out.println(startDate);
-                System.out.println(endDate);
                 saveCostList[i] = diaryRepository.findSaveCostForGraph(userId, startDate, endDate);
-                System.out.println(saveCostList[i]);
             }else {
-                System.out.println(startDate);
-                System.out.println(tmpDate);
                 saveCostList[i] = diaryRepository.findSaveCostForGraph(userId, startDate, tmpDate);
-                System.out.println(saveCostList[i]);
                 startDate = tmpDate.plusDays(1);
                 tmpDate = tmpDate.plusDays(7);
             }
