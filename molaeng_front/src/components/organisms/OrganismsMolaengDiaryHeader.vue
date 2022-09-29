@@ -4,7 +4,7 @@
 
 <style>
 .diaryHeader {
-  padding-bottom: 10%;
+  padding-bottom: 6%;
   border-style: none none solid;
   border-color: rgba(91, 87, 75, 30%);
   border-width: 1px;

@@ -1,10 +1,13 @@
 <template>
   <div>
     <nav-bar />
-    <molaeng-diary-header />
-    <molaeng-calendar v-on:dateSelected="dateSelected" />
+    <molaeng-diary-header @click.native="dateNotSelected" />
+    <molaeng-calendar
+      v-on:dateSelected="dateSelected"
+      @click.native="dateNotSelected"
+    />
     <molaeng-history v-if="isDateSelected" />
-    <molaeng-graph />
+    <molaeng-graph v-else />
   </div>
 </template>
 
@@ -28,7 +31,10 @@ export default {
   }),
   methods: {
     dateSelected() {
-      this.isDateSelected = !this.isDateSelected;
+      this.isDateSelected = true;
+    },
+    dateNotSelected() {
+      this.isDateSelected = false;
     },
   },
 };
