@@ -1,17 +1,17 @@
 package idle.molaeng_back.search.controller;
 
-import idle.molaeng_back.recipe.model.entity.Recipe;
 import idle.molaeng_back.search.DTO.request.SearchRecipeByIngredientReqDTO;
+import idle.molaeng_back.search.DTO.request.SearchRecipeDTO;
 import idle.molaeng_back.search.DTO.response.RecipeNameResDTO;
+import idle.molaeng_back.search.DTO.response.SearchRecipeResDTO;
 import idle.molaeng_back.search.service.SearchService;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/search")
@@ -23,39 +23,54 @@ public class SearchController {
         this.searchService = searchService;
     }
 
+    //userId 더미처리 된것 고쳐야함!
     @PostMapping("/ingredient")
-    public ResponseEntity searchByIngredient(@RequestBody List<SearchRecipeByIngredientReqDTO> request){
-        List<Long> ingredientIdList = new ArrayList<>();
+    public ResponseEntity searchByIngredient(@RequestBody SearchRecipeDTO data){
         Map<String, Object> resultMap = new HashMap<>();
+        Pageable pageable = PageRequest.of(data.getPage(), data.getSize());
+        int userId=1;
+        List<Long> ingredientIdList = new ArrayList<>();
         try {
-            for (SearchRecipeByIngredientReqDTO dto : request) {
-                ingredientIdList.add(dto.getRecipeId());
+            for (SearchRecipeByIngredientReqDTO dto : data.getIngredientList()) {
+                ingredientIdList.add(dto.getIngredientId());
             }
-            List<Recipe> result = searchService.searchRecipeByIngredient(ingredientIdList);
+            SearchRecipeResDTO result = searchService.searchRecipeByIngredient(ingredientIdList, pageable, userId);
             resultMap.put("message", "success");
-            resultMap.put("recipeList", result);
+            resultMap.put("result", result);
             return new ResponseEntity(resultMap, HttpStatus.OK);
         }catch(Exception e){
             resultMap.put("message", "재료로 검색에서 에러났어어어");
+            e.printStackTrace();
             return new ResponseEntity(resultMap, HttpStatus.BAD_REQUEST);
         }
     }
-//
-//    @GetMapping("/recipe/{keyword}")
-//    //autocomplete로 갈거면 상관이 없다;
-//    public ResponseEntity searchByKeyword(@PathVariable String keyword, @RequestParam("page") int page){
-//        // 페이징 추가해야되니까 쿼리파라미터로 가는게 맞을듯
-//        Map<String, Object> resultMap = new HashMap<>();
-//        try{
-//            List<Recipe> result = searchService.findRecipeByName(keyword);
-//            resultMap.put("message", "success");
-//            resultMap.put("recipeList", result);
-//            return new ResponseEntity(resultMap, HttpStatus.OK);
-//        }catch(Exception e ){
-//            resultMap.put("message", "레시피 이름검색에서 에러");
-//            return new ResponseEntity(resultMap, HttpStatus.BAD_REQUEST);
-//        }
-//    }
+    @GetMapping("/calory")
+    public ResponseEntity searchByCalory(@RequestParam long userId, Pageable pageable){
+        Map<String, Object> resultMap = new HashMap();
+        try{
+            SearchRecipeResDTO result = searchService.searchRecipeByCalory(pageable, userId);
+            resultMap.put("result", result);
+            resultMap.put("message","success");
+            return new ResponseEntity(resultMap, HttpStatus.OK);
+        }catch(Exception e){
+            resultMap.put("message", "검색에서 에러");
+            return new ResponseEntity(resultMap, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/score")
+    public ResponseEntity searchByScore(@RequestParam long userId, Pageable pageable){
+        Map<String, Object> resultMap = new HashMap<>();
+        try{
+            SearchRecipeResDTO result = searchService.searchRecipeByScore(pageable, userId);
+            resultMap.put("result", result);
+            resultMap.put("message", "success");
+            return new ResponseEntity(resultMap, HttpStatus.OK);
+        }catch(Exception e){
+            resultMap.put("message", "평점검색 에러");
+            return new ResponseEntity(resultMap, HttpStatus.BAD_REQUEST);
+        }
+    }
 
     @GetMapping("/all")
     public ResponseEntity searchAllRecipe(){

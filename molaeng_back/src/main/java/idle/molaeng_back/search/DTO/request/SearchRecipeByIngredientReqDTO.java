@@ -4,11 +4,15 @@ import lombok.Getter;
 
 @Getter
 public class SearchRecipeByIngredientReqDTO {
-    String recipeName;
-    long recipeId;
+    long ingredientId;
+    String ingredientName;
 
-    public SearchRecipeByIngredientReqDTO(String recipeName, long recipeId) {
-        this.recipeName = recipeName;
-        this.recipeId = recipeId;
+    public SearchRecipeByIngredientReqDTO() {
     }
+
+    public SearchRecipeByIngredientReqDTO(String ingredientName, long ingredientId) {
+        this.ingredientName = ingredientName;
+        this.ingredientId = ingredientId;
+    }
+
 }

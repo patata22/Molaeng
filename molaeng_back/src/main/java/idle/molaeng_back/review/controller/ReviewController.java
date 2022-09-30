@@ -42,7 +42,7 @@ public class ReviewController {
     }
 
     @GetMapping("/{recipeId}")
-    public ResponseEntity readReview(@PathVariable long recipeId, Pageable pageable, @RequestParam long userId) {
+    public ResponseEntity readReview(@PathVariable long recipeId,@RequestParam long userId, Pageable pageable) {
         Map<String, Object> resultMap = new HashMap<>();
         try{
             ReviewResDTO result = reviewService.readReviewByRecipeId(userId, recipeId, pageable);
