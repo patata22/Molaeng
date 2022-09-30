@@ -4,7 +4,6 @@
     <menu-tab :tabs="tabs" />
     <router-view :recipeId="recipeId"></router-view>
     <under-bar-button :text="buttonText" @click.native="moveMolaeng" />
-    <p>{{ recipeId }}</p>
   </div>
 </template>
 

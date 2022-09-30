@@ -1,11 +1,11 @@
 <template>
   <div>
-    <out-price-info :recipeId="recipeId"></out-price-info>
+    <out-price-card :recipeId="recipeId"></out-price-card>
   </div>
 </template>
 
 <script>
-import OutPriceInfo from "@/components/organisms/OrganismOutPriceInfo.vue";
+import OutPriceCard from "@/components/organisms/OrganismOutPriceCard.vue";
 
 export default {
   name: "RecipePriceInfo",
@@ -13,7 +13,7 @@ export default {
     recipeId: String,
   },
   components: {
-    OutPriceInfo,
+    OutPriceCard,
   },
 };
 </script>
