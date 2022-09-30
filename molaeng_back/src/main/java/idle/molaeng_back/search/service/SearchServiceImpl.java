@@ -55,7 +55,7 @@ public class SearchServiceImpl implements SearchService {
                     .ingredientList(IngredientToDTO(recipe))
                     .recipeImage(recipe.getRecipeImage())
                     .recipeKcal(recipe.getRecipeKcal())
-                    .isLiked(RecipeLikeRepository.countByRecipeRecipeIdAndUserUserId(userId, id))
+                    .isLiked(RecipeLikeRepository.countByUserUserIdAndRecipeRecipeId(userId, id))
                     .avgScore(getAvgScore(recipe))
                     .build());
         }
@@ -79,7 +79,7 @@ public class SearchServiceImpl implements SearchService {
                     .ingredientList(IngredientToDTO(recipe))
                     .recipeImage(recipe.getRecipeImage())
                     .recipeKcal(recipe.getRecipeKcal())
-                    .isLiked(RecipeLikeRepository.countByRecipeRecipeIdAndUserUserId(userId, id))
+                    .isLiked(RecipeLikeRepository.countByUserUserIdAndRecipeRecipeId(userId, id))
                     .avgScore(getAvgScore(recipe))
                     .build());
         }
@@ -113,7 +113,7 @@ public class SearchServiceImpl implements SearchService {
                     .ingredientList(IngredientToDTO(recipe))
                     .recipeImage(recipe.getRecipeImage())
                     .recipeKcal(recipe.getRecipeKcal())
-                    .isLiked(RecipeLikeRepository.countByRecipeRecipeIdAndUserUserId(userId, id))
+                    .isLiked(RecipeLikeRepository.countByUserUserIdAndRecipeRecipeId(userId, id))
                     .avgScore(getAvgScore(recipe))
                     .build());
         }
