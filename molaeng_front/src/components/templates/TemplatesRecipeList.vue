@@ -103,7 +103,10 @@ export default {
         var ingredient = [];
         var temp = state.ingredient.selectedIngredients;
         temp.forEach((e) => {
-          e;
+          ingredient.push({
+            ingredientId: e.ingredientId,
+            ingredientName: e.ingredientName,
+          });
         });
         return ingredient;
       },
@@ -115,6 +118,7 @@ export default {
   methods: {
     getRecipeByIngredient() {
       var temp = this;
+      console.log(temp.ingredientList);
       axios
         .post("https://j7a604.p.ssafy.io/molaeng/search/ingredient", {
           ingredientList: temp.ingredientList,
