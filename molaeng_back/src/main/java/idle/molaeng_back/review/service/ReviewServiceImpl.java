@@ -127,7 +127,7 @@ public class ReviewServiceImpl implements ReviewService{
             total += scoreCnt[i]*(i+1);
             size += scoreCnt[i];
         }
-        float avgScore = Math.round((float)(total*10/size)/10);
+        float avgScore = Math.round(((float)total*10/size)/10);
         return new ScoreResDTO(scoreCnt, avgScore);
     }
 
