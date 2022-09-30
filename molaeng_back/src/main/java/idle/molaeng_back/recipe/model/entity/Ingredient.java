@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.util.List;
@@ -22,11 +23,12 @@ public class Ingredient {
     @Column(name="ingredient_name")
     private String ingredientName;
 
+    //지금 DB에 null이 들어가있어서 테스트용으로 임시 수정
     @Column(name="ingredient_price")
-    private int ingredientPrice;
-
+    private Integer ingredientPrice;
+    //지금 DB에 null이 들어가있어서 테스트용으로 임시 수정
     @Column(name="ingredient_weight")
-    private int ingredientWeight;
+    private Integer ingredientWeight;
 
     @Column(name="ingredient_unit")
     private String ingredientUnit;
