@@ -13,5 +13,7 @@ export default {
   recipeInfo: {
     getRecipeInfo: () => HOST + RECIPE,
     getRecipeDetail: () => HOST + RECIPE + "/detail",
+    registRecipeLike: () => HOST + RECIPE + "/like",
+    deleteRecipeLike: () => HOST + RECIPE + "/like",
   },
 };

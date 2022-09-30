@@ -1,6 +1,6 @@
 <template>
   <div>
-    <recipe-detail-header v-bind:recipeInfo="recipeInfo" />
+    <recipe-detail-header v-bind:recipeInfo="recipeInfo" :recipeId="recipeId" />
     <menu-tab :tabs="tabs" />
     <router-view></router-view>
     <under-bar-button :text="buttonText" @click.native="moveMolaeng" />
