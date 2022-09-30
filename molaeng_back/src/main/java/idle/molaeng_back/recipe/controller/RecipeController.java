@@ -16,10 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,23 +39,17 @@ public class RecipeController {
 
     //레시피 정보 조회(상단부분)
     @GetMapping("/{recipeId}")
-    public ResponseEntity getRecipeInfo(@PathVariable long recipeId){
+    public ResponseEntity getRecipeInfo(@PathVariable long recipeId, @RequestParam long userId){
+        logger.info(userId+"");
 
         Map<String, Object> resultMap = new HashMap<>();
 
         try{
-            //userId의 경우 JWT 토큰을 이용해 가져와야 함
-            long userId = 1;
-
             RecipeRes result = recipeService.readRecipeById(userId, recipeId);
             System.out.println(result);
 
             resultMap.put("result", result);
             resultMap.put("message", "success");
-
-
-
-            logger.info(result+"");
 
             return new ResponseEntity(resultMap, HttpStatus.OK);
         }catch(Exception e){

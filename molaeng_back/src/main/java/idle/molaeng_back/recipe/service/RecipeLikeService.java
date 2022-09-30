@@ -11,8 +11,8 @@ import java.util.List;
 public interface RecipeLikeService {
 
     List<RecipeListResponse> getRecipeLikeList(long userId);
-    RecipeLikeResponse registReviewLike(RecipeLikeRequest recipeLikeRequest);
-    RecipeLikeResponse deleteReviewLike(RecipeLikeRequest recipeLikeRequest);
+    RecipeLikeResponse registRecipeLike(RecipeLikeRequest recipeLikeRequest);
+    RecipeLikeResponse deleteRecipeLike(RecipeLikeRequest recipeLikeRequest);
 
     double calAvgScore(Recipe recipe);
 }
