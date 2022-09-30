@@ -26,7 +26,7 @@ export default {
   display: flex;
   width: 90%;
   height: 70px;
-  margin: 0 auto;
+  margin: auto;
   margin-top: 4%;
   padding-left: 4%;
   padding-right: 4%;
@@ -48,7 +48,6 @@ export default {
 }
 .deleteHistoryBtn {
   color: rgba(91, 87, 75, 50%);
-  font-weight: bold;
 }
 .deleteHistoryBtn:active {
   color: #5b574b;

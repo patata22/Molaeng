@@ -25,7 +25,7 @@ export default {
 }
 .historyHeader {
   font-size: 1.2rem;
-  font-weight: 900;
+  font-weight: 800;
   color: #5b574b;
 }
 .historyList {
