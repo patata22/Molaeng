@@ -11,10 +11,10 @@
       class="isLikedIcon"
       @click="deleteRecipeLike"
     >
-      <v-icon large color="primary">mdi-cards-heart</v-icon>
+      <v-icon large color="#ED8A53">mdi-cards-heart</v-icon>
     </div>
     <div v-else class="isLikedIcon" @click="registRecipeLike">
-      <v-icon large color="primary">mdi-cards-heart-outline</v-icon>
+      <v-icon large color="#ED8A53">mdi-cards-heart-outline</v-icon>
     </div>
     <div style="text-align: center">
       <div style="color: #5b574b; font-size: x-large; font-weight: bold">
@@ -38,14 +38,10 @@ export default {
   methods: {
     //요청을 보내고, RecipeView로 리다이렉트..?
     registRecipeLike() {
-      console.log("관심레시피등록");
-      console.log(this.recipeId);
       this.$store.dispatch("registRecipeLike", this.recipeId);
       this.$router.go("/recipe/" + this.recipeId);
     },
     deleteRecipeLike() {
-      console.log("관심레시피삭제");
-      console.log(this.recipeId);
       this.$store.dispatch("deleteRecipeLike", this.recipeId);
       this.$router.go("/recipe/" + this.recipeId);
     },

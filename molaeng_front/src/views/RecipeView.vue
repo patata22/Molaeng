@@ -4,6 +4,9 @@
     <menu-tab :tabs="tabs" />
     <router-view :recipeId="recipeId"></router-view>
     <under-bar-button :text="buttonText" @click.native="moveMolaeng" />
+    <v-dialog v-model="dialog">
+      <add-to-molaeng-button @cancel="cancel" />
+    </v-dialog>
   </div>
 </template>
 
@@ -11,6 +14,7 @@
 import RecipeDetailHeader from "../components/organisms/OrganismsRecipeDetailHeader.vue";
 import UnderBarButton from "../components/atoms/AtomsUnderBarButton.vue";
 import MenuTab from "../components/molecules/MoleculesMenuTab.vue";
+import AddToMolaengButton from "../components/atoms/AtomsAddToMolaengButton.vue";
 
 import { mapGetters } from "vuex";
 
@@ -22,6 +26,7 @@ export default {
     RecipeDetailHeader,
     UnderBarButton,
     MenuTab,
+    AddToMolaengButton,
   },
   computed: {
     ...mapGetters(["recipeInfo"]),
@@ -61,10 +66,16 @@ export default {
   data: () => ({
     recipeId: "",
     buttonText: "모랭일기에 기록하기",
+    dialog: false,
   }),
   methods: {
     moveMolaeng() {
-      this.$router.push({ path: "/diary" });
+      // this.$router.push({ path: "/diary" });
+      this.dialog = true;
+    },
+    //emit으로 AddToMolaengButton에게서 전달받은 dialog
+    cancel(value) {
+      this.dialog = value;
     },
   },
 };
