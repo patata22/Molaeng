@@ -2,7 +2,7 @@
   <div>
     <recipe-detail-header v-bind:recipeInfo="recipeInfo" :recipeId="recipeId" />
     <menu-tab :tabs="tabs" />
-    <router-view></router-view>
+    <router-view :recipeId="recipeId"></router-view>
     <under-bar-button :text="buttonText" @click.native="moveMolaeng" />
   </div>
 </template>
@@ -37,7 +37,7 @@ export default {
         },
         {
           tabName: "가격정보",
-          tabLink: "/",
+          tabLink: "/recipe/" + this.recipeId + "/price",
         },
         {
           tabName: "리뷰",
