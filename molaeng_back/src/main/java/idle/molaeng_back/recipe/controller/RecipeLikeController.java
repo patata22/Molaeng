@@ -7,11 +7,13 @@ import idle.molaeng_back.recipe.service.RecipeLikeServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.ws.Response;
+//import javax.xml.ws.Response;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,6 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/recipe/like")
 public class RecipeLikeController {
+    private static final Logger logger = LoggerFactory.getLogger(RecipeLikeController.class);
 
     private final RecipeLikeServiceImpl recipeLikeService;
     @ApiOperation(value="찜한 레시피 목록 불러오기", notes = "user_id를 이용하여 사용자가 찜한 레시피의 전체 목록을 불러온다.")
@@ -45,7 +48,7 @@ public class RecipeLikeController {
     public ResponseEntity registRecipeLike(@RequestBody RecipeLikeRequest recipeLikeRequest) {
         HashMap<String, Object> result = new HashMap<>();
         try {
-            RecipeLikeResponse recipeLikeResponse = recipeLikeService.registReviewLike(recipeLikeRequest);
+            RecipeLikeResponse recipeLikeResponse = recipeLikeService.registRecipeLike(recipeLikeRequest);
             result.put("result", recipeLikeResponse);
             result.put("message", "success");
             return new ResponseEntity<>(result, HttpStatus.OK);
@@ -59,9 +62,10 @@ public class RecipeLikeController {
     @ApiOperation(value="레시피 찜하기 해제", notes = "recipe_id와 user_id를 이용하여 찜한 레시피를 해제한다.")
     @DeleteMapping
     public ResponseEntity deleteRecipeLike(@RequestBody RecipeLikeRequest recipeLikeRequest) {
+        System.out.println(recipeLikeRequest.getRecipeId());
         HashMap<String, Object> result = new HashMap<>();
         try {
-            RecipeLikeResponse recipeLikeResponse = recipeLikeService.deleteReviewLike(recipeLikeRequest);
+            RecipeLikeResponse recipeLikeResponse = recipeLikeService.deleteRecipeLike(recipeLikeRequest);
             result.put("result", recipeLikeResponse);
             result.put("message", "success");
             return new ResponseEntity<>(result, HttpStatus.OK);

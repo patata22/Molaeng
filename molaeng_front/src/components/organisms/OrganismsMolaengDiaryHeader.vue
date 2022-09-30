@@ -10,7 +10,7 @@
   border-width: 1px;
   text-align: center;
   font-size: 2.1rem;
-  font-weight: 900;
+  font-weight: 800;
   color: #5b574b;
 }
 </style>
