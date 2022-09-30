@@ -8,4 +8,9 @@ public interface UserService {
     UserProfileResponse getUserProfile(long userId);
     void updateUserProfile(UserProfileRequest userProfileRequest);
     void deleteUserAccount(long userId);
+
+    boolean isMember(String uuid);
+
+
+    long joinUser(String nickname, String uuid);
 }
