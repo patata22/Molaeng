@@ -1,6 +1,6 @@
 <template>
   <div id="back">
-    <div class="d-flex flex-row justify-space-between">
+    <div class="d-flex justify-space-between">
       <div class="column">
         <div class="icon">
           <v-btn text icon color="dark" @click="goIngredientSearch">
@@ -69,6 +69,7 @@ export default {
 
 <style>
 #back {
+  text-align: center;
   background-color: white;
   width: 90%;
   height: calc(100vh - 445px);
@@ -94,6 +95,7 @@ export default {
   margin: 0 auto;
 }
 .icon {
+  text-align: center;
   padding: 25%;
   width: 100%;
   height: 100%;

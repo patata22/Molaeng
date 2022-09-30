@@ -20,11 +20,4 @@ export default {
   },
 };
 </script>
-<style>
-.background {
-  background-color: #fef3c6;
-  width: 100%;
-  height: 100%;
-  max-width: 351px;
-}
-</style>
+<style></style>

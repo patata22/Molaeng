@@ -7,9 +7,9 @@
         contain
         height="100px"
         width="100px"
-        class="mx-auto my-8 mt-10"
+        class="mx-auto my-10 mt-10"
       ></v-img>
-      <div class="d-flex justify-center">
+      <div class="d-flex justify-center dark--text">
         <p id="name">{{ userInfo.name }}</p>
         <p id="dear">님</p>
       </div>
@@ -81,20 +81,21 @@ export default {
   width: 100%;
 }
 #profile #name {
-  font-size: 6vw;
+  font-size: 24px;
   font-weight: bold;
 }
 #profile #dear {
-  font-size: 4vw;
+  font-size: 20px;
   font-weight: bold;
   margin-left: 5px;
-  margin-top: 2vw;
+  margin-top: 4px;
 }
 #menuList {
   text-align: center;
+  margin-top: 5%;
 }
 #menuList p {
-  font-size: 5vw;
+  font-size: 22px;
   margin: 0;
   font-weight: bold;
 }
@@ -103,11 +104,11 @@ export default {
   margin: 0 auto;
 }
 #menuList .icon {
-  margin: 2vw;
-  font-size: 6vw;
+  margin: 10px;
+  font-size: 25px;
   padding: 0;
 }
 #menuList .menuItem {
-  margin: 2vw;
+  margin: 10px;
 }
 </style>

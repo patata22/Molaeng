@@ -1,8 +1,12 @@
 <template>
   <div id="loginBtn">
-    <v-btn color="secondary black--text" width="90%" height="50px">
+    <v-btn
+      color="secondary dark--text font-weight-bold"
+      width="90%"
+      height="50px"
+    >
       <img src="../../assets/kakaoIcon.png" alt="" id="kakao" />
-      카카오 로그인
+      <h3>카카오 로그인</h3>
     </v-btn>
   </div>
 </template>
