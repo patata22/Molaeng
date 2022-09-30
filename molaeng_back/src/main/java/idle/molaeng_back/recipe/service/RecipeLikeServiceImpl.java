@@ -63,8 +63,9 @@ public class RecipeLikeServiceImpl implements RecipeLikeService{
         return resultList;
     }
 
+    //관심 레시피 등록, 삭제 - 메서드명 수정
     @Override
-    public RecipeLikeResponse registReviewLike(RecipeLikeRequest recipeLikeRequest) {
+    public RecipeLikeResponse registRecipeLike(RecipeLikeRequest recipeLikeRequest) {
         User user = userRepository.findByUserId(recipeLikeRequest.getUserId());
         Recipe recipe = recipeRepository.findByRecipeId(recipeLikeRequest.getRecipeId());
 
@@ -76,7 +77,7 @@ public class RecipeLikeServiceImpl implements RecipeLikeService{
 
     @Transactional
     @Override
-    public RecipeLikeResponse deleteReviewLike(RecipeLikeRequest recipeLikeRequest) {
+    public RecipeLikeResponse deleteRecipeLike(RecipeLikeRequest recipeLikeRequest) {
         User user = userRepository.findByUserId(recipeLikeRequest.getUserId());
         Recipe recipe = recipeRepository.findByRecipeId(recipeLikeRequest.getRecipeId());
 
