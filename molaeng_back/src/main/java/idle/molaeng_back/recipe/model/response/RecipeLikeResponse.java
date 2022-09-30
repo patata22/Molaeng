@@ -6,11 +6,11 @@ import lombok.Getter;
 @Getter
 @Builder
 public class RecipeLikeResponse {
-    private long recipeLikeId;
+    private long recipeId;
 
     @Builder
-    public RecipeLikeResponse(long recipeLikeId){
-        this.recipeLikeId = recipeLikeId;
+    public RecipeLikeResponse(long recipeId){
+        this.recipeId = recipeId;
     }
 
 }
