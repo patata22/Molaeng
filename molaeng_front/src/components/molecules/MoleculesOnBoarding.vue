@@ -33,10 +33,10 @@ export default {
   }),
 };
 </script>
-<style>
+<style scoped>
 #background {
   background-color: white;
-  margin: 15px 5%;
+  margin: 5px 5% 5% 5%;
   border-radius: 20px;
 }
 #caro {
