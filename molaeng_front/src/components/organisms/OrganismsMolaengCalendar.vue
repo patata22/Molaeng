@@ -18,10 +18,10 @@
         ref="calendar"
         class="calendar"
         v-model="value"
-        :weekdays="weekday"
-        :show-month-on-first="false"
-        :weekday-format="getWeekDayFormat"
         :type="type"
+        :weekdays="weekday"
+        :weekday-format="getWeekDayFormat"
+        :show-month-on-first="false"
         :events="events"
         :event-color="getEventColor"
         :event-text-color="getEventTextColor"
@@ -34,44 +34,56 @@
 </template>
 
 <script>
+import API from "@/api/APIs";
+const api = API;
+
 export default {
   data: () => ({
-    type: "month",
-    mode: "stack",
-    weekday: [0, 1, 2, 3, 4, 5, 6],
+    userId: 1,
+    year: 0,
+    month: 0,
+    res: {
+      saveCostList: [{ mealDate: "", saveCost: 0 }],
+    },
     value: "",
+    type: "month",
+    weekday: [0, 1, 2, 3, 4, 5, 6],
+    weekDayFormat: ["S", "M", "T", "W", "T", "F", "S"],
     events: [],
     color: "white",
-    textcolors: ["#72A971", "#ED8A53"],
-    names: ["+30,000", "+500", "+7,000", "-30", "-5", "-700"],
+    textcolor: ["#72A971", "#ED8A53"],
   }),
   methods: {
-    getPrices({ start, end }) {
+    async getPrices({ start }) {
       const events = [];
 
-      const yearmonth = start.date.substr(0, 8);
-      const startDate = start.date.slice(-2);
-      const endDate = end.date.slice(-2);
+      this.year = start.date.split("-", 3)[0];
+      this.month = start.date.split("-", 3)[1];
 
-      const eventCount = this.rnd(3, 8);
+      this.res = await api.getCalendar(this.userId, this.year, this.month);
 
-      for (let i = 0; i < eventCount; i++) {
-        const date = this.rnd(parseInt(startDate), parseInt(endDate));
-        const price = this.names[this.rnd(0, this.names.length - 1)];
+      for (let i = 0; i < this.res.saveCostList.length; i++) {
+        let date = this.res.saveCostList[i].mealDate;
+        let price = this.res.saveCostList[i].saveCost;
+        if (price > 0) {
+          price = price.toLocaleString();
+          price = "+" + price;
+        } else {
+          price = price.toLocaleString();
+        }
 
         events.push({
           name: price,
-          start: yearmonth + date,
+          start: date,
           color: this.color,
-          textcolor: this.textcolors[this.rndcolor(parseInt(price))],
+          textcolor: this.textcolor[this.setcolor(parseInt(price))],
         });
       }
 
       this.events = events;
     },
     getWeekDayFormat(date) {
-      const weekDayFormat = ["S", "M", "T", "W", "T", "F", "S"];
-      return weekDayFormat[date.weekday];
+      return this.weekDayFormat[date.weekday];
     },
     getEventColor(event) {
       return event.color;
@@ -81,14 +93,9 @@ export default {
     },
     dateSelected(value) {
       this.$emit("dateSelected");
-      console.log(value.date);
-      console.log(value.year);
-      console.log(value.month);
+      console.log(value);
     },
-    rnd(a, b) {
-      return Math.floor((b - a + 1) * Math.random()) + a;
-    },
-    rndcolor(a) {
+    setcolor(a) {
       if (a > 0) {
         return 0;
       } else {

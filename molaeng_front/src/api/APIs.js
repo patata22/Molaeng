@@ -40,6 +40,48 @@ const API = {
     });
     return response.data;
   },
+  async getCalendar(userId, year, month) {
+    const response = await this.instance.get(
+      "/diary/calendar" +
+        "?userId=" +
+        userId +
+        "&year=" +
+        year +
+        "&month=" +
+        month
+    );
+    return response.data;
+  },
+  async getMonthGraph(userId, year, month) {
+    const response = await this.instance.get(
+      "/diary/month" + "?userId=" + userId + "&year=" + year + "&month=" + month
+    );
+    return response.data;
+  },
+  async getWeekGraph(userId, year, month) {
+    const response = await this.instance.get(
+      "/diary/week" + "?userId=" + userId + "&year=" + year + "&month=" + month
+    );
+    return response.data;
+  },
+  async saveDiary(userId, recipeId, saveCost) {
+    const response = await this.instance.post("/diary", {
+      userId: userId,
+      recipeId: recipeId,
+      saveCost: saveCost,
+    });
+    return response.data;
+  },
+  async getDiary(userId, date) {
+    const response = await this.instance.get(
+      "/diary" + "?userId=" + userId + "&date=" + date
+    );
+    return response.data;
+  },
+  async deleteDiary(diaryId) {
+    const response = await this.instance.delete("/diary/" + diaryId);
+    return response.data;
+  },
 };
 
 export default API;
