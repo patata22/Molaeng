@@ -28,7 +28,7 @@
   </v-card>
 </template>
 <script>
-import ReviewReadStar from "@/components/atoms/AtomReviewReadStar.vue";
+import ReviewReadStar from "@/components/atoms/AtomsReviewReadStar.vue";
 import axios from "axios";
 export default {
   name: "RecipeReviewCard",

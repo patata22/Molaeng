@@ -10,7 +10,8 @@ import MyPageView from "@/views/MyPageView.vue";
 import MolaengDiaryView from "@/views/MolaengDiaryView.vue";
 // import MenuView from "@/views/MenuView.vue";
 // import InterestRecipeView from "@/views/InterestRecipeView.vue";
-import OrganismRecipeReview from "../components/organisms/OrganismsRecipeReview";
+// import OrganismRecipeReview from "../components/organisms/OrganismsRecipeReview";
+import RecipeReview from "@/components/templates/TemplatesRecipeReview.vue";
 
 Vue.use(VueRouter);
 
@@ -72,8 +73,8 @@ const routes = [
   // },
   {
     path: "/review",
-    name: "OrganismsRecipeReview",
-    component: OrganismRecipeReview,
+    name: "RecipeReview",
+    component: RecipeReview,
   },
 ];
 
