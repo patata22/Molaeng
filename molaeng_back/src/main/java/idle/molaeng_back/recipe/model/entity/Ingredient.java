@@ -1,10 +1,10 @@
 package idle.molaeng_back.recipe.model.entity;
 
-import io.swagger.annotations.ApiParam;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,29 +23,41 @@ public class Ingredient {
     private String ingredientName;
 
     @Column(name="ingredient_price")
-    private int ingredientPrice;
+    private Double ingredientPrice;
 
     @Column(name="ingredient_weight")
-    private int ingredientWeight;
+    private Integer ingredientWeight;
 
     @Column(name="ingredient_unit")
     private String ingredientUnit;
+
+    @Column(name="ingredient_block_word")
+    private String ingredientBlockWord;
+
+    @Column(name="ingredient_iscrawl")
+    private Integer ingredientIsCrawl;
 
     @OneToMany(mappedBy = "ingredient")
     private List<RecipeIngredient> recipeIngredientList;
 
     @Builder
-    public Ingredient(long ingredientId, String ingredientName,int ingredientPrice, int ingredientWeight, String ingredientUnit, List<RecipeIngredient> recipeIngredientList) {
+    public Ingredient(long ingredientId, String ingredientName,double ingredientPrice, int ingredientWeight, String ingredientUnit, String ingredientBlockWord, int ingredientIsCrawl, List<RecipeIngredient> recipeIngredientList) {
         this.ingredientId = ingredientId;
         this.ingredientName = ingredientName;
         this.ingredientPrice = ingredientPrice;
         this.ingredientWeight = ingredientWeight;
         this.ingredientUnit = ingredientUnit;
+        this.ingredientBlockWord = ingredientBlockWord;
+        this.ingredientIsCrawl = ingredientIsCrawl;
         this.recipeIngredientList = recipeIngredientList;
     }
 
+    public void updatePrice(double ingredientPrice) {
+        this.ingredientPrice = ingredientPrice;
+    }
+
     public int pricePerWeight(double needWeight, String needUnit) {
-        int ip=this.ingredientPrice;
+        double ip=this.ingredientPrice;
         int iw=this.ingredientWeight;
         double nw=needWeight;
 

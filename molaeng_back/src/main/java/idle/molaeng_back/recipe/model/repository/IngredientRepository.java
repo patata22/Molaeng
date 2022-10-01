@@ -16,6 +16,9 @@ public interface IngredientRepository extends JpaRepository<Ingredient, Long> {
     // 재료의 가격 정보 조회
     Ingredient findById(long ingredientId);
 
+    // 재료 가격 정보 업데이트
+
+
 
     // 레시피의 재료 가격 정보 조회: 레시피에 필요한 재료 무게대로 가격 계산해서 넘겨주기
 }

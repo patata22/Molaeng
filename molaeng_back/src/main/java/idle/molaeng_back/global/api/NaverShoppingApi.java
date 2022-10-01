@@ -2,6 +2,7 @@ package idle.molaeng_back.global.api;
 
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -11,25 +12,25 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
+@Component
 public class NaverShoppingApi {
 
-    @Value("${API-KEY.naver-api-client-id}")
+    @Value("${naver-api-client-id}")
     private String clientId;
 
-    @Value("${API-KEY.naver-api-client-secret}")
+    @Value("${api-key-id}")
+    private String tmp;
+
+    @Value("${naver-api-client-secret}")
     private String clientSecret;
 
-    @Value("${API-KEY.apiURL}")
-    private String apiURL;
-    Map<String, String> requestHeaders = new HashMap<>();
+    static Map<String, String> requestHeaders = new HashMap<>();
 
-    public NaverShoppingApi(){
-        requestHeaders.put("X-Naver-Client-Id", "ftQgA4cRqqXVAIVlzF0G");
-        requestHeaders.put("X-Naver-Client-Secret", "ebGKtoSHOs");
-    }
 
     public void callApi(String query){
         String text = null;
+        requestHeaders.put("X-Naver-Client-Id", clientId);
+        requestHeaders.put("X-Naver-Client-Secret", clientSecret);
         try {
             text = URLEncoder.encode(query, "UTF-8");
         } catch (UnsupportedEncodingException e) {

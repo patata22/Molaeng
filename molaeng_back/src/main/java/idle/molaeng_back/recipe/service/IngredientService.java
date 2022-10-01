@@ -17,4 +17,5 @@ public interface IngredientService {
     List<RecipeIngredientResponse.RecipeIngredientPriceInfo> searchIngredientPriceByRecipeId(long recipeId) throws Throwable;
 
 
+
 }

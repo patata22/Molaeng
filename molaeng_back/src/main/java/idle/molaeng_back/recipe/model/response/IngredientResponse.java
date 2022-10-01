@@ -49,7 +49,7 @@ public class IngredientResponse {
         @ApiParam("재료명")
         private String ingredientName;
         @ApiParam("기준 무게 당 재료 가격")
-        private int ingredientPrice;
+        private double ingredientPrice;
         @ApiParam("기준 무게")
         private int ingredientWeight;
         @ApiParam("기준 무게의 무게단위")
