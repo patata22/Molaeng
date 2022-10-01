@@ -309,7 +309,7 @@ export default {
       var temp = this;
       axios
         .get(
-          "http://j7a604.p.ssafy.io:8080/molaeng/review/" +
+          "https://j7a604.p.ssafy.io/molaeng/review/" +
             this.recipeId +
             "?page=" +
             this.page +
@@ -332,7 +332,7 @@ export default {
       var temp = this;
       console.log(temp.Content);
       axios
-        .post("http://j7a604.p.ssafy.io:8080/molaeng/review/" + this.recipeId, {
+        .post("https://j7a604.p.ssafy.io/molaeng/review/" + this.recipeId, {
           userId: 1,
           reviewContent: this.content,
           score: this.score,
@@ -346,9 +346,7 @@ export default {
     getCount() {
       var temp = this;
       axios
-        .get(
-          "http://j7a604.p.ssafy.io:8080/molaeng/review/count/" + this.recipeId
-        )
+        .get("https://j7a604.p.ssafy.io/molaeng/review/count/" + this.recipeId)
         .then((response) => {
           temp.count = response.data.result;
         });
