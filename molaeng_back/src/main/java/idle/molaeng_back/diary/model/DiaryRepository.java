@@ -9,7 +9,8 @@ import java.util.List;
 public interface DiaryRepository extends JpaRepository<Diary, Long> {
     Diary save(Diary diary);
 
-    List<Diary> findByUserUserIdAndMealDateBetween(long userId, LocalDate startDate, LocalDate endDate);
+    @Query(value = "select mealDate, sum(saveCost) from Diary where user.userId=:userId and mealDate between :startDate and :endDate group by mealDate")
+    List<Object[]> findSaveCostForCalendar(long userId, LocalDate startDate, LocalDate endDate);
 
     @Query(value = "select coalesce(sum(saveCost),0) from Diary where user.userId=:userId and mealDate between :startDate and :endDate")
     int findSaveCostForGraph(long userId, LocalDate startDate, LocalDate endDate);
