@@ -1,16 +1,5 @@
 <template>
   <div>
-    <!-- <div>{{ order }}</div>
-    <div>{{ detailImg }}</div>
-    <div>{{ content }}</div> -->
-
-    <!-- <v-stepper vertical color="carrot">
-      <v-stepper-step step="1">{{ detailImg }}</v-stepper-step>
-      <v-stepper-content step="1">냠냠</v-stepper-content>
-      <v-stepper-step step="2">{{ detailImg }}</v-stepper-step>
-      <v-stepper-content step="2">냠냠</v-stepper-content>
-    </v-stepper> -->
-
     <div tabindex="-1" class="v-stepper__step v-stepper__step--active">
       <span class="v-stepper__step__step primary">{{ order }}</span>
       <div class="v-stepper__label" style="line-height: 140%">

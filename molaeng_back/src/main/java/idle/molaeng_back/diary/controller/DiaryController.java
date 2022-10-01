@@ -1,5 +1,6 @@
 package idle.molaeng_back.diary.controller;
 
+import idle.molaeng_back.diary.request.SaveDiaryReq;
 import idle.molaeng_back.diary.service.DiaryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +26,11 @@ public class DiaryController {
     }
 
     @PostMapping
-    public ResponseEntity saveDiary(@RequestBody long userId, @RequestBody long recipeId, @RequestBody int saveCost){
+    public ResponseEntity saveDiary(@RequestBody SaveDiaryReq saveDiaryReq){
+        long userId = saveDiaryReq.getUserId();
+        long recipeId = saveDiaryReq.getRecipeId();
+        int saveCost = saveDiaryReq.getSaveCost();
+
         Map<String, Object> resultMap = new HashMap<>();
         try{
             resultMap.put("diaryId", diaryService.saveDiary(userId, recipeId, saveCost));
@@ -41,6 +46,7 @@ public class DiaryController {
         Map<String, Object> resultMap = new HashMap<>();
         try {
             resultMap.put("saveCostList", diaryService.findDiaryByCalendar(userId, year, month));
+            logger.info("resultMap: "+resultMap);
             return new ResponseEntity<>(resultMap, HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

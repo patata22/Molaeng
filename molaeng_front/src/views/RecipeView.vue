@@ -1,56 +1,83 @@
 <template>
   <div>
-    <recipe-detail-header v-bind:recipeInfo="recipeInfo" />
-    <v-tabs centered fixed-tabs>
-      <menu-tab-item
-        v-for="(title, index) in titles"
-        :key="index"
-        :text="title"
-        :requestUrl="title"
-      />
-    </v-tabs>
-    <!-- 임시 -->
-    <button @click="moveReview">리뷰이동</button>
-    <organisms-recipe-description-list />
+    <recipe-detail-header v-bind:recipeInfo="recipeInfo" :recipeId="recipeId" />
+    <menu-tab :tabs="tabs" />
+    <router-view :recipeId="recipeId"></router-view>
     <under-bar-button :text="buttonText" @click.native="moveMolaeng" />
+    <v-dialog v-model="dialog">
+      <add-to-molaeng-button @cancel="cancel" />
+    </v-dialog>
   </div>
 </template>
 
 <script>
 import RecipeDetailHeader from "../components/organisms/OrganismsRecipeDetailHeader.vue";
-import OrganismsRecipeDescriptionList from "@/components/organisms/OrganismsRecipeDescriptionList.vue";
 import UnderBarButton from "../components/atoms/AtomsUnderBarButton.vue";
-import MenuTabItem from "../components/atoms/AtomsMenuTabItem.vue";
+import MenuTab from "../components/molecules/MoleculesMenuTab.vue";
+import AddToMolaengButton from "../components/atoms/AtomsAddToMolaengButton.vue";
 
+import { mapGetters } from "vuex";
+
+// recipeList에서 레시피아이디를 받아서 axios 요청 보내는 코드 추가해야 함
+// 레시피아이디를 어떻게 받아오는지..?
 export default {
   name: "RecipeView",
   components: {
     RecipeDetailHeader,
-    OrganismsRecipeDescriptionList,
     UnderBarButton,
-    MenuTabItem,
+    MenuTab,
+    AddToMolaengButton,
+  },
+  computed: {
+    ...mapGetters(["recipeInfo"]),
+    tabs() {
+      return [
+        {
+          tabName: "재료",
+          tabLink: "/recipe/" + this.recipeId + "/ingInfo",
+        },
+        {
+          tabName: "조리방법",
+          tabLink: "/recipe/" + this.recipeId + "/description",
+        },
+        {
+          tabName: "가격정보",
+          tabLink: "/recipe/" + this.recipeId + "/price",
+        },
+        {
+          tabName: "리뷰",
+          tabLink: "/recipe/" + this.recipeId + "/review",
+        },
+      ];
+    },
+  },
+  // mounted() {
+  //   console.log("asdf" + this.recipeInfo);
+  //   console.log(this.tabs);
+  // },
+  created() {
+    const pathName = this.$route.fullPath.split("/");
+    this.recipeId = pathName[2];
+    //레시피 상단바 상세정보
+    this.$store.dispatch("getRecipeInfo", this.recipeId);
+    //레시피 조리방법
+    this.$store.dispatch("getRecipeDetail", this.recipeId);
   },
   data: () => ({
-    recipeInfo: {
-      recipeId: 1,
-      recipeName: "동치미막국수",
-      recipeKcal: 140,
-      avgScore: 4.7,
-      recipeImg: "http://file.okdab.com/UserFiles/searching/recipe/002400.jpg",
-      isLiked: true,
-    },
+    recipeId: "",
     buttonText: "모랭일기에 기록하기",
-    titles: ["재료", "조리방법", "가격정보", "리뷰"],
+    dialog: false,
   }),
   methods: {
     moveMolaeng() {
-      this.$router.push({ path: "/diary" });
+      // this.$router.push({ path: "/diary" });
+      this.dialog = true;
     },
-    moveReview() {
-      this.$router.push({ path: "/review" });
+    //emit으로 AddToMolaengButton에게서 전달받은 dialog
+    cancel(value) {
+      this.dialog = value;
     },
   },
 };
 </script>
-
 <style></style>

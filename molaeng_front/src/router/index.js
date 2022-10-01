@@ -1,17 +1,25 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import MainView from "../views/MainView.vue";
+import MainView from "@/views/MainView.vue";
 import SearchView from "@/views/SearchView.vue";
 import SearchIngredient from "@/components/templates/TemplatesSearchIngredient.vue";
 import SearchRecipe from "@/components/templates/TemplatesSearchRecipe.vue";
 import RecipeListView from "@/views/RecipeListView.vue";
 import RecipeView from "@/views/RecipeView.vue";
+import RecipeDescriptionList from "@/components/organisms/OrganismsRecipeDescriptionList.vue";
+import RecipeIngredientInfo from "@/components/templates/TemplatesRecipeIngredientInfo.vue";
+import RecipePriceInfo from "@/components/templates/TemplatesRecipePriceInfo.vue";
 import MyPageView from "@/views/MyPageView.vue";
 import MolaengDiaryView from "@/views/MolaengDiaryView.vue";
-// import MenuView from "@/views/MenuView.vue";
-// import InterestRecipeView from "@/views/InterestRecipeView.vue";
-// import OrganismRecipeReview from "../components/organisms/OrganismsRecipeReview";
-import RecipeReview from "@/components/templates/TemplatesRecipeReview.vue";
+import MenuView from "@/views/MenuView.vue";
+import InterestRecipeView from "@/views/InterestRecipeView.vue";
+import RecipeReview from "../components/organisms/OrganismsRecipeReview";
+import RecipeHistory from "@/components/templates/TemplatesRecipeHistoryList.vue";
+import RecipeLike from "@/components/templates/TemplatesRecipeLikeList.vue";
+import EditProfile from "@/components/templates/TemplatesEditProfile.vue";
+import MyReview from "@/components/templates/TemplatesMyReviewList.vue";
+import MemberMenu from "@/components/templates/TemplatesMemberMenu.vue";
+import UserMenu from "@/components/templates/TemplatesUserMenu.vue";
 
 Vue.use(VueRouter);
 
@@ -47,34 +55,83 @@ const routes = [
     component: RecipeListView,
   },
   {
-    path: "/recipe",
+    // path: "/recipe",
+    path: "/recipe/:recipeId",
     name: "recipe",
     component: RecipeView,
+    children: [
+      {
+        path: "description",
+        component: RecipeDescriptionList,
+      },
+      {
+        path: "ingInfo",
+        alias: [""],
+        component: RecipeIngredientInfo,
+      },
+      {
+        path: "review",
+        component: RecipeReview,
+      },
+      {
+        path: "price",
+        component: RecipePriceInfo,
+      },
+      //RecipePriceInfo가 들어와야 함
+    ],
   },
   {
     path: "/myPage",
     name: "myPage",
     component: MyPageView,
+    children: [
+      {
+        path: "editProfile",
+        alias: [""],
+        component: EditProfile,
+      },
+      {
+        path: "myReview",
+        component: MyReview,
+      },
+    ],
   },
   {
     path: "/diary",
     name: "diary",
     component: MolaengDiaryView,
   },
-  // {
-  //   path: "/recipeLike",
-  //   name: "recipeLike",
-  //   component: InterestRecipeView,
-  // },
-  // {
-  //   path: "/menu",
-  //   name: "menu",
-  //   component: MenuView,
-  // },
   {
-    path: "/review",
-    name: "RecipeReview",
-    component: RecipeReview,
+    path: "/interestRecipe",
+    name: "interestRecipe",
+    component: InterestRecipeView,
+    children: [
+      {
+        path: "recipeLike",
+        alias: [""],
+        component: RecipeLike,
+      },
+      {
+        path: "recipeHistory",
+        component: RecipeHistory,
+      },
+    ],
+  },
+  {
+    path: "/menu",
+    name: "menu",
+    component: MenuView,
+    children: [
+      {
+        path: "member",
+        alias: [""],
+        component: MemberMenu,
+      },
+      {
+        path: "user",
+        component: UserMenu,
+      },
+    ],
   },
 ];
 

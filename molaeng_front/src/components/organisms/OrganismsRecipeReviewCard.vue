@@ -1,13 +1,19 @@
 <template>
   <v-card id="reviewCard" class="mx-auto rounded-lg" outlined max-width="351">
-    <v-card-title class="pt-2 pb-0">
+    <v-card-title class="pt-2 pb-0 d-flex justify-space-between">
       <review-read-star :reviewScore="review.reviewScore" />
+      <span
+        class="button font-weight-bold dark--text mr-1"
+        style="font-size: 13px"
+        @click="removeReview(1, review.reviewId)"
+        >삭제</span
+      >
     </v-card-title>
     <v-card-text class="pb-12">
-      <div id="writerInfo" class="font-weight-light">
-        {{ review.userNickname }}님 / {{ review.reviewDate }}
+      <div id="writerInfo" class="font-weight-light ml-1">
+        {{ review.userNickname }}님 / {{ review.reviewDate.substr(0, 10) }}
       </div>
-      <div class="dark--text text-body-1 mt-4">
+      <div class="dark--text text-body-1 mt-4 ml-1">
         {{ review.reviewContent }}
       </div>
       <v-btn
@@ -22,7 +28,9 @@
         <v-icon
           >{{ isLiked ? "mdi-thumb-up" : "mdi-thumb-up-outline" }}
         </v-icon>
-        <span class="dark--text text-caption"> {{ review.likeCnt }} </span>
+        <span class="dark--text text-caption" style="margin-top: -4px">
+          {{ review.likeCnt }}
+        </span>
       </v-btn>
     </v-card-text>
   </v-card>
@@ -60,7 +68,7 @@ export default {
     likeReview(userId, reviewId) {
       var temp = this;
       axios
-        .post("http://localhost:8080/molaeng/review/like", {
+        .post("http://j7a604.p.ssafy.io:8080/molaeng/review/like", {
           userId: userId,
           reviewId: reviewId,
         })
@@ -78,7 +86,7 @@ export default {
     dislikeReview(userId, reviewId) {
       var temp = this;
       axios
-        .delete("http://localhost:8080/molaeng/review/like", {
+        .delete("http://j7a604.p.ssafy.io:8080/molaeng/review/like", {
           data: { userId: userId, reviewId: reviewId },
         })
         .then(function () {
@@ -87,6 +95,18 @@ export default {
             temp.review.likeCnt -= 1;
             temp.review.liked = false;
           }
+        })
+        .catch((error) => console.log(error));
+    },
+    removeReview(userId, reviewId) {
+      console.log(reviewId);
+      axios
+        .delete("http://j7a604.p.ssafy.io:8080/molaeng/review", {
+          data: { userId: userId, reviewId: reviewId },
+        })
+        .then((response) => {
+          console.log(response);
+          this.$router.go();
         })
         .catch((error) => console.log(error));
     },

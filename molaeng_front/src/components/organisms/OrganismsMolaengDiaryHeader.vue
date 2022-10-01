@@ -4,14 +4,13 @@
 
 <style>
 .diaryHeader {
-  padding-top: 4%;
-  padding-bottom: 10%;
+  padding-bottom: 6%;
   border-style: none none solid;
   border-color: rgba(91, 87, 75, 30%);
   border-width: 1px;
   text-align: center;
-  font-size: 2.2rem;
-  font-weight: 900;
+  font-size: 2.1rem;
+  font-weight: 800;
   color: #5b574b;
 }
 </style>

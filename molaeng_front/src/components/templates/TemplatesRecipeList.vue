@@ -1,0 +1,176 @@
+<template lang="">
+  <v-container>
+    <div class="d-flex justify-center align center pt-10">
+      <h1 class="dark--text">레시피 목록</h1>
+    </div>
+    <div class="d-flex justify-end pr-6 pt-5">
+      <v-menu offset-y>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            color="carrot"
+            dark
+            rounded
+            small
+            v-bind="attrs"
+            v-on="on"
+            depressed
+          >
+            {{ sortString }}
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item dense>
+            <v-list-item-title
+              class="carrot--text"
+              v-on:click="
+                () => {
+                  this.sortString = '재료 일치순';
+                  this.recipeList = [];
+                  this.page = 0;
+                  this.hasNext = true;
+                  getRecipeByIngredient();
+                }
+              "
+              >재료 일치순</v-list-item-title
+            >
+          </v-list-item>
+          <v-list-item dense>
+            <v-list-item-title
+              class="carrot--text"
+              v-on:click="
+                () => {
+                  this.sort = 'score';
+                  this.sortString = '열량 낮은순';
+                  this.recipeList = [];
+                  this.page = 0;
+                  this.hasNext = true;
+                  getRecipeByCalory();
+                }
+              "
+              >열량 낮은순</v-list-item-title
+            >
+          </v-list-item>
+          <v-list-item dense>
+            <v-list-item-title
+              class="carrot--text"
+              v-on:click="
+                () => {
+                  this.sort = 'reviewDate,desc';
+                  this.sortString = '평점순';
+                  this.recipeList = [];
+                  this.page = 0;
+                  this.hasNext = true;
+                  getRecipeByScore();
+                }
+              "
+              >평점순</v-list-item-title
+            >
+          </v-list-item>
+        </v-list>
+      </v-menu>
+    </div>
+    <organisms-recipe-card
+      v-for="(recipe, i) in recipeList"
+      :key="i"
+      :recipe="recipe"
+      class="ml-6 mt-10"
+    >
+    </organisms-recipe-card>
+    <button v-if="hasNext" v-on:click="getRecipeByIngredient">더보기</button>
+  </v-container>
+</template>
+<script>
+import { mapState } from "vuex";
+import axios from "axios";
+import OrganismsRecipeCard from "../organisms/OrganismsRecipeCard.vue";
+export default {
+  name: "TemplatesRecipeList",
+  created() {
+    this.getRecipeByIngredient();
+  },
+  data: function () {
+    return {
+      page: 0,
+      size: 5,
+      hasNext: true,
+      recipeList: [],
+      sortString: "재료일치 순",
+    };
+  },
+  computed: {
+    ...mapState({
+      ingredientList(state) {
+        var ingredient = [];
+        var temp = state.ingredient.selectedIngredients;
+        temp.forEach((e) => {
+          ingredient.push({
+            ingredientId: e.ingredientId,
+            ingredientName: e.ingredientName,
+          });
+        });
+        return ingredient;
+      },
+    }),
+  },
+  components: {
+    OrganismsRecipeCard,
+  },
+  methods: {
+    getRecipeByIngredient() {
+      var temp = this;
+      console.log(temp.ingredientList);
+      axios
+        .post("https://j7a604.p.ssafy.io/molaeng/search/ingredient", {
+          ingredientList: temp.ingredientList,
+          page: temp.page,
+          size: temp.size,
+        })
+        .then((response) => {
+          response.data.result.recipeList.forEach((e) => {
+            temp.recipeList.push(e);
+          });
+          temp.page += 1;
+          temp.hasNext = response.data.result.hasNext;
+        })
+        .catch((error) => console.log(error));
+    },
+    getRecipeByCalory() {
+      var temp = this;
+      axios
+        .get(
+          "https://j7a604.p.ssafy.io/molaeng/search/calory?page=" +
+            temp.page +
+            "&size=" +
+            temp.size +
+            "&sort=recipeKcal&userId=1"
+        )
+        .then((response) => {
+          response.data.result.recipeList.forEach((e) => {
+            temp.recipeList.push(e);
+          });
+          temp.page += 1;
+          temp.hasNext = response.data.result.hasNext;
+        })
+        .catch((error) => console.log(error));
+    },
+    getRecipeByScore() {
+      var temp = this;
+      axios
+        .get(
+          "https://j7a604.p.ssafy.io/molaeng/search/score?userId=1&page=" +
+            temp.page +
+            "&size=5"
+        )
+        .then((response) => {
+          response.data.result.recipeList.forEach((e) => {
+            temp.recipeList.push(e);
+          });
+          temp.page += 1;
+          temp.hasNext = response.data.result.hasNext;
+        })
+        .catch((error) => console.log(error));
+    },
+  },
+};
+</script>
+<style lang=""></style>

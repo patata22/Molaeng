@@ -17,4 +17,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.v-slide-group__prev {
+  display: none !important;
+}
+</style>

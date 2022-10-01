@@ -1,5 +1,5 @@
 <template>
-  <div class="calendarpage">
+  <div class="calendarPage">
     <div class="calendarHeader">
       <span class="calendarHeaderDefault">이번 주는 </span
       ><span class="calendarHeaderChange">2,300원 절약했어요!</span>
@@ -8,7 +8,7 @@
       <v-btn icon large @click="$refs.calendar.prev()">
         <v-icon>mdi-chevron-left</v-icon>
       </v-btn>
-      <v-spacer>2022년 9월</v-spacer>
+      <v-spacer v-if="$refs.calendar">{{ $refs.calendar.title }}</v-spacer>
       <v-btn icon large @click="$refs.calendar.next()">
         <v-icon>mdi-chevron-right</v-icon>
       </v-btn>
@@ -18,60 +18,72 @@
         ref="calendar"
         class="calendar"
         v-model="value"
-        :weekdays="weekday"
-        :showMonthOnFirst="false"
-        :weekday-format="getWeekDayFormat"
         :type="type"
+        :weekdays="weekday"
+        :weekday-format="getWeekDayFormat"
+        :show-month-on-first="false"
         :events="events"
-        :event-overlap-mode="mode"
-        :event-overlap-threshold="30"
         :event-color="getEventColor"
         :event-text-color="getEventTextColor"
-        @change="getEvents"
+        :event-more="false"
+        @click:date="dateSelected"
+        @change="getPrices"
       ></v-calendar>
     </v-sheet>
   </div>
 </template>
 
 <script>
+import API from "@/api/APIs";
+const api = API;
+
 export default {
   data: () => ({
-    type: "month",
-    mode: "stack",
-    weekday: [0, 1, 2, 3, 4, 5, 6],
+    userId: 1,
+    year: 0,
+    month: 0,
+    res: {
+      saveCostList: [{ mealDate: "", saveCost: 0 }],
+    },
     value: "",
+    type: "month",
+    weekday: [0, 1, 2, 3, 4, 5, 6],
+    weekDayFormat: ["S", "M", "T", "W", "T", "F", "S"],
     events: [],
     color: "white",
-    textcolors: ["#72A971", "#ED8A53"],
-    names: ["+3", "+5", "+7,000", "-3", "-5", "-7,000"],
+    textcolor: ["#72A971", "#ED8A53"],
   }),
   methods: {
-    getEvents({ start, end }) {
+    async getPrices({ start }) {
       const events = [];
 
-      const yearmonth = start.date.substr(0, 8);
-      const startDate = start.date.slice(-2);
-      const endDate = end.date.slice(-2);
+      this.year = start.date.split("-", 3)[0];
+      this.month = start.date.split("-", 3)[1];
 
-      const eventCount = this.rnd(3, 8);
+      this.res = await api.getCalendar(this.userId, this.year, this.month);
 
-      for (let i = 0; i < eventCount; i++) {
-        const date = this.rnd(parseInt(startDate), parseInt(endDate));
-        const price = this.names[this.rnd(0, this.names.length - 1)];
+      for (let i = 0; i < this.res.saveCostList.length; i++) {
+        let date = this.res.saveCostList[i].mealDate;
+        let price = this.res.saveCostList[i].saveCost;
+        if (price > 0) {
+          price = price.toLocaleString();
+          price = "+" + price;
+        } else {
+          price = price.toLocaleString();
+        }
 
         events.push({
-          name: price + "원",
-          start: yearmonth + date,
+          name: price,
+          start: date,
           color: this.color,
-          textcolor: this.textcolors[this.rndcolor(parseInt(price))],
+          textcolor: this.textcolor[this.setcolor(parseInt(price))],
         });
       }
 
       this.events = events;
     },
     getWeekDayFormat(date) {
-      const weekDayFormat = ["S", "M", "T", "W", "T", "F", "S"];
-      return weekDayFormat[date.weekday];
+      return this.weekDayFormat[date.weekday];
     },
     getEventColor(event) {
       return event.color;
@@ -79,10 +91,11 @@ export default {
     getEventTextColor(event) {
       return event.textcolor;
     },
-    rnd(a, b) {
-      return Math.floor((b - a + 1) * Math.random()) + a;
+    dateSelected(value) {
+      this.$emit("dateSelected");
+      console.log(value);
     },
-    rndcolor(a) {
+    setcolor(a) {
       if (a > 0) {
         return 0;
       } else {
@@ -94,15 +107,15 @@ export default {
 </script>
 
 <style>
-.calendarpage {
+.calendarPage {
   margin: 2%;
 }
 .calendarHeader {
-  padding-top: 6%;
-  padding-bottom: 4%;
+  padding-top: 5%;
+  padding-bottom: 5%;
   text-align: center;
   font-size: 1rem;
-  font-weight: 900;
+  font-weight: bold;
 }
 .calendarHeaderDefault {
   color: #5b574b;
@@ -121,27 +134,30 @@ export default {
   align-self: center;
   text-align: center;
   font-size: 1.2rem;
-  font-weight: 900;
+  font-weight: 800;
   color: #5b574b;
 }
 .calendar {
   text-align: center;
-  font-weight: bold;
 }
 .theme--light.v-calendar-weekly {
   border: 30px;
 }
 .theme--light.v-calendar-weekly .v-calendar-weekly__head-weekday {
-  padding-bottom: 2%;
+  padding-bottom: 1%;
   border: 0px;
   font-size: 1rem;
+  font-weight: bold;
   color: #5b574b;
 }
 .theme--light.v-calendar-weekly .v-calendar-weekly__head-weekday.v-outside {
   background-color: white;
 }
+.theme--light.v-calendar-weekly .v-calendar-weekly__head-weekday.v-past {
+  color: #5b574b;
+}
 .theme--light.v-calendar-weekly .v-calendar-weekly__day {
-  border: 0px;
+  border: none;
 }
 .theme--light.v-calendar-weekly .v-calendar-weekly__day.v-outside {
   visibility: hidden;
@@ -150,7 +166,13 @@ export default {
   margin-top: 2%;
   font-size: 1rem;
 }
+.theme--light.v-btn.v-btn--has-bg {
+  background-color: white;
+}
 .v-calendar .v-event {
   font-size: 0.8rem;
+}
+.v-application .pl-1 {
+  padding: 0 !important;
 }
 </style>

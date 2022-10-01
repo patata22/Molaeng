@@ -1,6 +1,7 @@
 package idle.molaeng_back.review.service;
 
 import idle.molaeng_back.recipe.model.entity.Recipe;
+import idle.molaeng_back.recipe.model.repository.RecipeRepository;
 import idle.molaeng_back.review.model.DTO.request.CreateReviewReqDTO;
 import idle.molaeng_back.review.model.DTO.response.ReadReviewResDTO;
 import idle.molaeng_back.review.model.DTO.response.ReviewResDTO;
@@ -17,7 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,32 +25,47 @@ import java.util.stream.Collectors;
 @Transactional
 public class ReviewServiceImpl implements ReviewService{
 
-    ////////// 회원 탈퇴 시에 기존 있던거 더미로 바꾸는 로직 만들어야됨!!!!!!!!!!
-
     private final ReviewRepository reviewRepository;
     private final ReviewLikeRepository reviewLikeRepository;
     private final UserRepository userRepository;
-//    private final RecipeRepository recipeRepository;
+    private final RecipeRepository recipeRepository;
 
     @Autowired
-    public ReviewServiceImpl(ReviewRepository reviewRepository, ReviewLikeRepository reviewLikeRepository, UserRepository userRepository) {
+    public ReviewServiceImpl(ReviewRepository reviewRepository, ReviewLikeRepository reviewLikeRepository, UserRepository userRepository, RecipeRepository recipeRepository) {
         this.reviewRepository = reviewRepository;
         this.reviewLikeRepository = reviewLikeRepository;
         this.userRepository = userRepository;
-//        this.recipeRepository= recipeRepository;
+        this.recipeRepository= recipeRepository;
     }
 
     @Override
+    @Transactional
     public long createReview(Long recipeId, CreateReviewReqDTO createReviewDTO) {
         int score = createReviewDTO.getScore();
         User user = userRepository.findByUserId(createReviewDTO.getUserId());
         Recipe tempRecipe = Recipe.builder().recipeId(1).build();
-        ///////////이것도 수정해라아아아아
-        //recipeRepository 연결되면 recipe 찾은 후 score table 갱신해줄것
+        Recipe recipe = recipeRepository.findByRecipeId(recipeId);
+        switch(score){
+            case 1:
+                recipe.setOneScore(recipe.getOneScore()+1);
+                break;
+            case 2:
+                recipe.setTwoScore(recipe.getTwoScore()+1);
+                break;
+            case 3:
+                recipe.setThreeScore(recipe.getThreeScore()+1);
+                break;
+            case 4:
+                recipe.setFourScore(recipe.getFourScore()+1);
+                break;
+            case 5:
+                recipe.setFiveScore(recipe.getFiveScore()+1);
+                break;
+        }
         Review review = Review.builder()
                 .reviewContent(createReviewDTO.getReviewContent())
                 .reviewDate(LocalDateTime.now())
-                .recipe(tempRecipe)
+                .recipe(recipe)
                 .user(user)
                 .score(score)
                 .build();
@@ -101,15 +116,7 @@ public class ReviewServiceImpl implements ReviewService{
     public ScoreResDTO findScoreByRecipeId(long recipeId) {
         int[] scoreCnt= new int[5];
         int total = 0;
-//        Recipe recipe = recipeRepository.findByRecipeId();
-        Recipe recipe = Recipe.builder()
-                .recipeId(1)
-                .oneScore(2)
-                .twoScore(2)
-                .threeScore(2)
-                .fourScore(2)
-                .fiveScore(2)
-                .build();
+        Recipe recipe = recipeRepository.findByRecipeId(recipeId);
         scoreCnt[0] = recipe.getOneScore();
         scoreCnt[1] = recipe.getTwoScore();
         scoreCnt[2] = recipe.getThreeScore();
@@ -120,7 +127,7 @@ public class ReviewServiceImpl implements ReviewService{
             total += scoreCnt[i]*(i+1);
             size += scoreCnt[i];
         }
-        float avgScore = Math.round((float)(total*10/size)/10);
+        float avgScore = Math.round(((float)total*10/size)/10);
         return new ScoreResDTO(scoreCnt, avgScore);
     }
 

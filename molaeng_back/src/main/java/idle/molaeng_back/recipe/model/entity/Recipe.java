@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import idle.molaeng_back.diary.model.Diary;
 import idle.molaeng_back.review.model.Review;
-import idle.molaeng_back.user.model.Outeat;
+import idle.molaeng_back.outeat.model.Outeat;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -91,5 +91,23 @@ public class Recipe {
         this.recipeIngredientList = recipeIngredientList;
     }
 
+    public void setOneScore(int oneScore) {
+        this.oneScore = oneScore;
+    }
 
+    public void setTwoScore(int twoScore) {
+        this.twoScore = twoScore;
+    }
+
+    public void setThreeScore(int threeScore) {
+        this.threeScore = threeScore;
+    }
+
+    public void setFourScore(int fourScore) {
+        this.fourScore = fourScore;
+    }
+
+    public void setFiveScore(int fiveScore) {
+        this.fiveScore = fiveScore;
+    }
 }
