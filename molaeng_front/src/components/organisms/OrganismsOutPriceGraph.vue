@@ -5,7 +5,13 @@
     :chart-options="chartOptions"
     v-if="isSell"
   />
-  <div v-else></div>
+  <div v-else class="pa-5 font-weight-bold" style="font-size: 15px">
+    <v-icon class="mb-1" style="font-size: 60px"
+      >mdi-emoticon-cry-outline</v-icon
+    ><br />
+    이 메뉴를 파는 식당이<br />
+    등록되지 않았어요ㅠㅠ
+  </div>
 </template>
 
 <script>
@@ -51,7 +57,7 @@ export default {
       },
       chartOptions: {
         layout: {
-          padding: 10,
+          padding: 12,
         },
         scales: {
           y: {
