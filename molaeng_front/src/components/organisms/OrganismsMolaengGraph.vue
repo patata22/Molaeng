@@ -1,8 +1,8 @@
 <template>
   <div class="graphPage">
     <div class="selectGraphBtnGroup">
-      <button @click="getWeekGraph">주차별</button>
-      <button @click="getMonthGraph">월별</button>
+      <div @click="getWeekGraph" :style="selectWeekBtnSyle">주차별</div>
+      <div @click="getMonthGraph" :style="selectMonthBtnSyle">월별</div>
     </div>
     <Bar
       :chart-options="weekChartOption"
@@ -18,6 +18,9 @@
 </template>
 
 <script>
+import API from "@/api/APIs";
+const api = API;
+
 import { Bar } from "vue-chartjs/legacy";
 import {
   Chart as ChartJS,
@@ -33,13 +36,27 @@ export default {
   components: { Bar },
   data() {
     return {
+      userId: 1,
+      year: 2022,
+      month: 10,
+      res_month: {
+        month: 0,
+        year: 0,
+        saveCostList: [],
+      },
+      res_week: {
+        month: 0,
+        year: 0,
+        saveCostList: [],
+      },
       selectWeekGraph: true,
+
       WeekChartData: {
         labels: ["1주차", "2주차", "3주차", "4주차", "5주차", "6주차"],
         datasets: [
           {
-            backgroundColor: "#ED8A53",
-            data: [400, 2000, -5000, -3000, 7000, -500],
+            backgroundColor: "",
+            data: [],
           },
         ],
       },
@@ -61,8 +78,8 @@ export default {
         ],
         datasets: [
           {
-            backgroundColor: "#ED8A53",
-            data: [4000, 200, -500, -3000, 700, 5000],
+            backgroundColor: "",
+            data: [],
           },
         ],
       },
@@ -75,14 +92,41 @@ export default {
       },
     };
   },
-  mounted() {
+  async mounted() {
+    this.res_week = await api.getWeekGraph(this.userId, this.year, this.month);
+    this.WeekChartData.datasets[0].data = this.res_week.saveCostList;
+
+    this.res_month = await api.getMonthGraph(
+      this.userId,
+      this.year,
+      this.month
+    );
+    this.MonthChartData.datasets[0].data = this.res_month.saveCostList;
+
     this.chartColor();
+  },
+  computed: {
+    selectWeekBtnSyle() {
+      if (this.selectWeekGraph) {
+        return "background-color: #fdac6d";
+      } else {
+        return "";
+      }
+    },
+    selectMonthBtnSyle() {
+      if (this.selectWeekGraph) {
+        return "";
+      } else {
+        return "background-color: #fdac6d";
+      }
+    },
   },
   methods: {
     chartColor() {
-      let size = this.WeekChartData.datasets[0].data.length;
+      console.log(this.res_week.saveCostList.length);
+      console.log(this.res_month.saveCostList.length);
       let colors = [];
-      for (let i = 0; i < size; i++) {
+      for (let i = 0; i < this.res_week.saveCostList.length; i++) {
         if (this.WeekChartData.datasets[0].data[i] < 0) {
           this.WeekChartData.datasets[0].data[i] =
             this.WeekChartData.datasets[0].data[i] * -1;
@@ -93,9 +137,7 @@ export default {
       }
       this.WeekChartData.datasets[0].backgroundColor = colors;
 
-      size = this.MonthChartData.datasets[0].data.length;
-      colors = [];
-      for (let i = 0; i < size; i++) {
+      for (let i = 0; i < this.res_month.saveCostList.length; i++) {
         if (this.MonthChartData.datasets[0].data[i] < 0) {
           this.MonthChartData.datasets[0].data[i] =
             this.MonthChartData.datasets[0].data[i] * -1;
@@ -132,13 +174,13 @@ export default {
   border-radius: 28px;
   justify-content: space-between;
 }
-.selectGraphBtnGroup button {
+.selectGraphBtnGroup div {
+  display: flex;
   width: 78px;
   height: 36px;
+  justify-content: center;
+  align-items: center;
   border-radius: 28px;
   color: white;
-}
-.selectGraphBtnGroup button:focus {
-  background-color: #fdac6d;
 }
 </style>

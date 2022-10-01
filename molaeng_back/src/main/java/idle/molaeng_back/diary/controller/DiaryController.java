@@ -46,6 +46,7 @@ public class DiaryController {
         Map<String, Object> resultMap = new HashMap<>();
         try {
             resultMap.put("saveCostList", diaryService.findDiaryByCalendar(userId, year, month));
+            logger.info("resultMap: "+resultMap);
             return new ResponseEntity<>(resultMap, HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

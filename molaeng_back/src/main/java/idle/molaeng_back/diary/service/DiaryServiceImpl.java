@@ -55,16 +55,25 @@ public class DiaryServiceImpl implements DiaryService{
         YearMonth targetYearMonth = YearMonth.from(startDate); //타겟 년월
         LocalDate endDate = targetYearMonth.atEndOfMonth(); //해당 월의 마지막 날
 
-        List<Diary> diaryList = diaryRepository.findByUserUserIdAndMealDateBetween(userId, startDate, endDate);
+        List<Object[]> diaryList = diaryRepository.findSaveCostForCalendar(userId, startDate, endDate);
+
         List<GetCalendarRes> getCalendarResList = new ArrayList<>();
-        for(Diary diary : diaryList){
-            GetCalendarRes getCalendarRes = GetCalendarRes.builder()
-                    .mealDate(diary.getMealDate())
-                    .saveCost(diary.getSaveCost())
+
+            diaryList.stream().forEach(objects -> {
+                StringBuffer buffer1 = new StringBuffer();
+                StringBuffer buffer2 = new StringBuffer();
+
+
+                buffer1.append(objects[0]);
+                buffer2.append(objects[1]);
+
+                GetCalendarRes getCalendarRes = GetCalendarRes.builder()
+                    .mealDate(buffer1.toString())
+                    .saveCost(Integer.parseInt(buffer2.toString()))
                     .build();
 
-            getCalendarResList.add(getCalendarRes);
-        }
+                getCalendarResList.add(getCalendarRes);
+            });
 
         return getCalendarResList;
     }
