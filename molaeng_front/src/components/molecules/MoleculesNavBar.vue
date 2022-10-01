@@ -33,8 +33,9 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 #header {
   justify-content: space-between;
+  max-height: 10%;
 }
 </style>

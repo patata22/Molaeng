@@ -10,7 +10,7 @@ export default {
   name: "ExitButton",
   methods: {
     exit() {
-      this.$router.push("/").catch(() => {});
+      this.$router.back();
     },
   },
 };
