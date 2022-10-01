@@ -27,6 +27,5 @@ export default {
 <style>
 #underButton {
   bottom: 0;
-  position: sticky;
 }
 </style>
