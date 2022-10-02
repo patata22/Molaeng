@@ -1,8 +1,8 @@
 <template>
   <div class="historyItem">
-    <span>양파스프</span>
+    <span @click="moveToRecipe">{{ meal.recipeName }}</span>
     <div class="historyItemRight">
-      <span class="historyItemPrice">-2,300원</span>
+      <span class="historyItemPrice">{{ meal.saveCost }}원</span>
       <button @click="deleteHistory">
         <v-icon class="deleteHistoryBtn">mdi-window-close</v-icon>
       </button>
@@ -11,11 +11,19 @@
 </template>
 
 <script>
+import API from "@/api/APIs";
+const api = API;
+
 export default {
+  props: { meal: Object },
   data: () => ({}),
   methods: {
-    deleteHistory() {
-      console.log("삭제합니다");
+    async deleteHistory() {
+      this.res = await api.deleteDiary(this.meal.diaryId);
+      this.$router.go();
+    },
+    moveToRecipe() {
+      this.$router.push("/recipe/" + this.meal.recipeId);
     },
   },
 };

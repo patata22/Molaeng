@@ -5,11 +5,13 @@
       <div @click="getMonthGraph" :style="selectMonthBtnSyle">월별</div>
     </div>
     <Bar
+      height="300"
       :chart-options="weekChartOption"
       :chart-data="WeekChartData"
       v-if="selectWeekGraph"
     />
     <Bar
+      height="300"
       :chart-options="MonthChartOption"
       :chart-data="MonthChartData"
       v-else
@@ -50,12 +52,12 @@ export default {
         saveCostList: [],
       },
       selectWeekGraph: true,
-
+      saveCost: 0,
       WeekChartData: {
         labels: ["1주차", "2주차", "3주차", "4주차", "5주차", "6주차"],
         datasets: [
           {
-            backgroundColor: "",
+            backgroundColor: "#ffffff",
             data: [],
           },
         ],
@@ -78,7 +80,7 @@ export default {
         ],
         datasets: [
           {
-            backgroundColor: "",
+            backgroundColor: "#ffffff",
             data: [],
           },
         ],
@@ -95,6 +97,9 @@ export default {
   async mounted() {
     this.res_week = await api.getWeekGraph(this.userId, this.year, this.month);
     this.WeekChartData.datasets[0].data = this.res_week.saveCostList;
+
+    this.saveCost = this.WeekChartData.datasets[0].data[0];
+    this.$emit("setSaveCost", this.saveCost);
 
     this.res_month = await api.getMonthGraph(
       this.userId,
@@ -123,8 +128,6 @@ export default {
   },
   methods: {
     chartColor() {
-      console.log(this.res_week.saveCostList.length);
-      console.log(this.res_month.saveCostList.length);
       let colors = [];
       for (let i = 0; i < this.res_week.saveCostList.length; i++) {
         if (this.WeekChartData.datasets[0].data[i] < 0) {
@@ -150,11 +153,13 @@ export default {
     },
     getWeekGraph() {
       this.selectWeekGraph = true;
-      console.log(this.selectWeekGraph);
+      this.saveCost = this.WeekChartData.datasets[0].data[0];
+      this.$emit("setSaveCost", this.saveCost);
     },
     getMonthGraph() {
       this.selectWeekGraph = false;
-      console.log(this.selectWeekGraph);
+      this.saveCost = this.MonthChartData.datasets[0].data[0];
+      this.$emit("setSaveCost", this.saveCost);
     },
   },
 };
@@ -162,7 +167,7 @@ export default {
 
 <style>
 .graphPage {
-  margin: 4%;
+  margin: 2% 4% 4% 4%;
 }
 .selectGraphBtnGroup {
   display: flex;
