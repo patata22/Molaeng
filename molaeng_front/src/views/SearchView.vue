@@ -5,6 +5,10 @@
 </template>
 
 <script>
+import API from "@/api/APIs";
+
+const api = API;
+
 export default {
   name: "SearchView",
   components: {},
@@ -21,6 +25,13 @@ export default {
       },
     ],
   }),
+  async created() {
+    let result = await api.getAllIngredients();
+    for (let i = 0; i < result.ingredientList.length; i++) {
+      let ingredient = result.ingredientList[i];
+      this.$store.commit("ADD_INGREDIENT", ingredient);
+    }
+  },
 };
 </script>
 
