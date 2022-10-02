@@ -1,6 +1,6 @@
 <template>
   <div class="historyPage">
-    <div class="historyHeader">내가 먹은 메뉴</div>
+    <div class="historyHeader">내가 먹은 레시피</div>
     <div class="historyList">
       <molaeng-history-item
         v-for="(meal, i) in mealList"

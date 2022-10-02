@@ -5,13 +5,11 @@
       <div @click="getMonthGraph" :style="selectMonthBtnSyle">월별</div>
     </div>
     <Bar
-      height="300"
       :chart-options="weekChartOption"
       :chart-data="WeekChartData"
       v-if="selectWeekGraph"
     />
     <Bar
-      height="300"
       :chart-options="MonthChartOption"
       :chart-data="MonthChartData"
       v-else
