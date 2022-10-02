@@ -1,6 +1,5 @@
 package idle.molaeng_back.diary.service;
 
-import idle.molaeng_back.diary.controller.DiaryController;
 import idle.molaeng_back.diary.model.Diary;
 import idle.molaeng_back.diary.model.DiaryRepository;
 import idle.molaeng_back.diary.response.GetCalendarRes;
@@ -9,8 +8,6 @@ import idle.molaeng_back.recipe.model.entity.Recipe;
 import idle.molaeng_back.recipe.model.repository.RecipeRepository;
 import idle.molaeng_back.user.model.User;
 import idle.molaeng_back.user.model.UserRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,8 +21,6 @@ import java.util.List;
 @Service
 @Transactional
 public class DiaryServiceImpl implements DiaryService{
-
-    private static final Logger logger = LoggerFactory.getLogger(DiaryController.class);
 
     private DiaryRepository diaryRepository;
     private RecipeRepository recipeRepository;
@@ -55,21 +50,20 @@ public class DiaryServiceImpl implements DiaryService{
         YearMonth targetYearMonth = YearMonth.from(startDate); //타겟 년월
         LocalDate endDate = targetYearMonth.atEndOfMonth(); //해당 월의 마지막 날
 
-        List<Object[]> diaryList = diaryRepository.findSaveCostForCalendar(userId, startDate, endDate);
+        List<Object[]> calendarList = diaryRepository.findSaveCostForCalendar(userId, startDate, endDate);
 
         List<GetCalendarRes> getCalendarResList = new ArrayList<>();
 
-            diaryList.stream().forEach(objects -> {
-                StringBuffer buffer1 = new StringBuffer();
-                StringBuffer buffer2 = new StringBuffer();
+            calendarList.stream().forEach(calendar -> {
+                StringBuffer mealDate = new StringBuffer();
+                StringBuffer saveCost = new StringBuffer();
 
-
-                buffer1.append(objects[0]);
-                buffer2.append(objects[1]);
+                mealDate.append(calendar[0]);
+                saveCost.append(calendar[1]);
 
                 GetCalendarRes getCalendarRes = GetCalendarRes.builder()
-                    .mealDate(buffer1.toString())
-                    .saveCost(Integer.parseInt(buffer2.toString()))
+                    .mealDate(mealDate.toString())
+                    .saveCost(Integer.parseInt(saveCost.toString()))
                     .build();
 
                 getCalendarResList.add(getCalendarRes);
