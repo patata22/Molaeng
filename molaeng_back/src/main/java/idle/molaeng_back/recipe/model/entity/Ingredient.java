@@ -26,10 +26,10 @@ public class Ingredient {
 
     //지금 DB에 null이 들어가있어서 테스트용으로 임시 수정
     @Column(name="ingredient_price")
-    private Double ingredientPrice;
+    private double ingredientPrice;
 
     @Column(name="ingredient_weight")
-    private Integer ingredientWeight;
+    private int ingredientWeight;
 
     @Column(name="ingredient_unit")
     private String ingredientUnit;
@@ -38,7 +38,7 @@ public class Ingredient {
     private String ingredientBlockWord;
 
     @Column(name="ingredient_iscrawl")
-    private Integer ingredientIsCrawl;
+    private int ingredientIsCrawl;
 
     @OneToMany(mappedBy = "ingredient")
     @JsonManagedReference

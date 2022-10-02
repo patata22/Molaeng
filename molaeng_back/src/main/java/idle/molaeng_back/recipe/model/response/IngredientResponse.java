@@ -30,13 +30,13 @@ public class IngredientResponse {
 
     public static class IngredientInfo {
         @ApiParam("재료 id")
-        private long ingredientId;
+        public long ingredientId;
         @ApiParam("재료명")
-        private String ingredientName;
+        public String ingredientName;
         @ApiParam("레시피를 만드는 데 필요한 재료 무게")
-        private int needWeight;
+        public int needWeight;
         @ApiParam("필요한 재료의 무게 단위")
-        private String weightUnit;
+        public String weightUnit;
 
         @Builder
         public IngredientInfo(Ingredient ingredient) {
@@ -49,15 +49,15 @@ public class IngredientResponse {
 
     public static class IngredientPrice {
         @ApiParam("재료 id")
-        private long ingredientId;
+        public long ingredientId;
         @ApiParam("재료명")
-        private String ingredientName;
+        public String ingredientName;
         @ApiParam("기준 무게 당 재료 가격")
-        private double ingredientPrice;
+        public double ingredientPrice;
         @ApiParam("기준 무게")
-        private int ingredientWeight;
+        public int ingredientWeight;
         @ApiParam("기준 무게의 무게단위")
-        private String ingredientUnit;
+        public String ingredientUnit;
 
         @Builder
         public IngredientPrice(Ingredient ingredient){
