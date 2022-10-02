@@ -1,5 +1,5 @@
 <template>
-  <table id="needIngredientList" class="mt-2 ma-auto">
+  <table id="needIngredientList" class="mt-4 mb-8 mx-auto">
     <colgroup>
       <col style="width: 50%" />
       <col style="width: 50%" />
@@ -24,24 +24,22 @@
 </template>
 
 <script>
+import API from "@/api/APIs";
+
+const api = API;
+
 export default {
   name: "RecipeIngredientInfo",
+  props: {
+    recipeId: String,
+  },
   data: () => ({
-    ingredientList: [
-      {
-        ingredientId: 35,
-        ingredientName: "당근",
-        needWeight: 300.0,
-        weightUnit: "g",
-      },
-      {
-        ingredientId: 107,
-        ingredientName: "양파",
-        needWeight: 50,
-        weightUnit: "g",
-      },
-    ],
+    ingredientList: [],
   }),
+  async mounted() {
+    let result = await api.getRecipeIngredients(this.recipeId);
+    this.ingredientList = result.ingredientList;
+  },
 };
 </script>
 
