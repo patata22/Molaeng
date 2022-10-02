@@ -1,16 +1,13 @@
-package idle.molaeng_back.auth.Service;
+package idle.molaeng_back.auth.service;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 //import idle.molaeng_back.auth.model.ApiKey;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;

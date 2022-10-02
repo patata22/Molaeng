@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService{
 
 
     @Override
-    public long joinUser(String nickname, String uuid) {
+    public User joinUser(String nickname, String uuid) {
         // 최초 가입자의 거주지역은 0번 더미 지역으로 설정함
         Gugun gugun = gugunRepository.findByGugunId(0);
 
@@ -89,9 +89,20 @@ public class UserServiceImpl implements UserService{
                 .gugun(gugun)
                 .build();
 
-        userRepository.save(member);
+        User user = userRepository.save(member);
 
-        return member.getUserId();
+        return user;
     }
+
+    @Override
+    public User getUser(long userId) {
+        return userRepository.findByUserId(userId);
+    }
+
+    @Override
+    public User findByUuid(String uuid) {
+        return userRepository.findByUuid(uuid);
+    }
+
 
 }

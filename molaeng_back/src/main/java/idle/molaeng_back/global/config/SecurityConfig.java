@@ -1,51 +1,81 @@
-//package idle.molaeng_back.global.config;
-//
-//import idle.molaeng_back.auth.CustomOAuth2UserService;
-//import idle.molaeng_back.auth.JwtAuthFilter;
-//import idle.molaeng_back.auth.OAuth2SuccessHandler;
-//import idle.molaeng_back.auth.TokenService;
-//import lombok.RequiredArgsConstructor;
-//import org.springframework.context.annotation.Configuration;
-//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-//import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-//import org.springframework.security.config.http.SessionCreationPolicy;
-//import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-//
-//
-//@Configuration
-//@EnableWebSecurity
-//@RequiredArgsConstructor
-//public class SecurityConfig extends WebSecurityConfigurerAdapter {
-//    private final CustomOAuth2UserService oAuth2UserService;
-//    private final OAuth2SuccessHandler successHandler;
-//    private final TokenService tokenService;
-//
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.httpBasic().disable()
-//                .csrf().disable()
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .and()
-//                .authorizeRequests()
-//                .antMatchers("/token/**").permitAll()
-//                .anyRequest().authenticated()
-//                .and()
-//                .addFilterBefore(new JwtAuthFilter(tokenService),
-//                        UsernamePasswordAuthenticationFilter.class)
-//                // oauth2Login() : OAuth2Login 설정 부분
-//                // loginPage() : login 페이지 url을 직접 설정
-//                .oauth2Login()
-////                .loginPage("/aaaa")
-//                // successHandler() : 로그인 성공시
-//                .successHandler(successHandler)
-//                // userInfoEndpoint() : OAuth2 로그인 성공 후 설정
-//                // userService() : oAuth2UserService에서 처리한다는 의미
-//                .userInfoEndpoint().userService(oAuth2UserService);
-//
-//        http.addFilterBefore(new JwtAuthFilter(tokenService), UsernamePasswordAuthenticationFilter.class);
-//    }
-//}
-//
-//
-//
+package idle.molaeng_back.global.config;
+
+import idle.molaeng_back.global.filter.JwtAuthenticationFilter;
+import idle.molaeng_back.global.util.JwtTokenUtil;
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.CorsUtils;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+@EnableWebSecurity
+@RequiredArgsConstructor
+@Configuration
+public class SecurityConfig{
+
+    private final JwtTokenUtil jwtTokenUtil;
+
+    @Bean
+    @Order(SecurityProperties.BASIC_AUTH_ORDER)
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.cors().configurationSource(corsConfigurationSource()).and()
+                .csrf().disable()  // 위조 요청 방지
+                .formLogin().disable()
+                .headers().frameOptions().disable()
+                // h2-console 화면을 사용하기 위해 옵션을 disable
+                .and()
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("https://recourta.ga")
+                .and()
+                .httpBasic().disable()
+                .authorizeRequests() //URL별 권한 접근제어 관리 옵션 시작점
+                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
+                .antMatchers("/user").permitAll()
+                .antMatchers("/user/**").authenticated()
+                .antMatchers("/css/**", "/images/**",
+                        "/js/**", "/h2-console/**", "/profile", "/reset/**", "/login").permitAll()
+//                    .anyRequest().authenticated()
+                .and()
+                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenUtil), UsernamePasswordAuthenticationFilter.class)
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        return http.build();
+    }
+
+
+    @Bean
+    public PasswordEncoder getPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        configuration.addAllowedOrigin("https://recourta.ga");
+//        configuration.addAllowedHeader("*");
+//        configuration.addAllowedMethod("*");
+        configuration.addAllowedHeader(CorsConfiguration.ALL);
+        configuration.addAllowedMethod(CorsConfiguration.ALL);
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration("/reset/**", configuration);
+        source.registerCorsConfiguration("/login", configuration);
+        return source;
+    }
+}
