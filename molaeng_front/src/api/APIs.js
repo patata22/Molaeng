@@ -91,6 +91,46 @@ const API = {
     const response = await this.instance.delete("/diary/" + diaryId);
     return response.data;
   },
+  //레시피
+  async getRecipeInfo(recipeId) {
+    //userId 구하기
+    let userId = 1;
+    // const response = await this.instance.get("/recipe/" + recipeId, {
+    //   params: {
+    //     userId: userId,
+    //   },
+    // });
+
+    const response = await this.instance.get(
+      "/recipe/" + recipeId + "?userId=" + userId
+    );
+
+    return response.data.result;
+  },
+  async getRecipeDetail(recipeId) {
+    const response = await this.instance.get("/recipe/detail/" + recipeId);
+    return response.data.result;
+  },
+  async registRecipeLike(recipeId) {
+    //userId 구하기
+    const response = await this.instance.post("/recipe/like", {
+      userId: 1,
+      recipeId: recipeId,
+    });
+    return response.data;
+  },
+  async deleteRecipeLike(recipeId) {
+    //userId 구하기
+    //delete의 경우 RequestBody는 data에 담아서 보내야 함
+    const response = await this.instance.delete("/recipe/like", {
+      data: {
+        userId: 1,
+        recipeId: recipeId,
+      },
+    });
+    console.log(response);
+    return response.data;
+  },
   async recentRecipe(recipeIdList) {
     let queryParam = "";
     for (let recipeId of recipeIdList) {

@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card style="margin: auto">
     <v-card-title>모랭일기에 등록하기</v-card-title>
     <v-card-text>이 레시피를 모랭일기에 등록하시겠어요?</v-card-text>
     <v-card-actions>

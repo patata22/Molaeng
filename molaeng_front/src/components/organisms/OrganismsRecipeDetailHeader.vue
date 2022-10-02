@@ -1,33 +1,32 @@
 <template>
   <div>
-    <v-img
-      :lazy-src="recipeInfo.recipeImg"
-      height="auto"
-      width="100%"
-      :src="recipeInfo.recipeImg"
-    ></v-img>
-    <div
-      v-if="recipeInfo.isLiked"
-      class="isLikedIcon"
-      @click="deleteRecipeLike"
-    >
-      <v-icon large color="#ED8A53">mdi-cards-heart</v-icon>
-    </div>
-    <div v-else class="isLikedIcon" @click="registRecipeLike">
-      <v-icon large color="#ED8A53">mdi-cards-heart-outline</v-icon>
-    </div>
-    <div style="text-align: center">
-      <div style="color: #5b574b; font-size: x-large; font-weight: bold">
-        {{ recipeInfo.recipeName }}
+    <div>
+      <div v-if="recipeInfo.isLiked" class="isLikedIcon">
+        <v-icon large color="#ED8A53" @click="deleteRecipeLike"
+          >mdi-cards-heart</v-icon
+        >
       </div>
-      <div style="color: #5b574b; opacity: 30%">
-        열량 {{ recipeInfo.recipeKcal }}kcal
+      <div v-else class="isLikedIcon">
+        <v-icon large color="#ED8A53" @click="registRecipeLike"
+          >mdi-cards-heart-outline</v-icon
+        >
+      </div>
+      <div style="text-align: center">
+        <div style="color: #5b574b; font-size: x-large; font-weight: bold">
+          {{ recipeInfo.recipeName }}
+        </div>
+        <div style="color: #5b574b; opacity: 30%">
+          열량 {{ recipeInfo.recipeKcal }}kcal
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import API from "@/api/APIs";
+const api = API;
+
 export default {
   name: "RecipeDetailHeader",
   props: {
@@ -36,13 +35,13 @@ export default {
     recipeId: String,
   },
   methods: {
-    //요청을 보내고, RecipeView로 리다이렉트..?
+    //요청을 보내고, RecipeView 새로고침
     registRecipeLike() {
-      this.$store.dispatch("registRecipeLike", this.recipeId);
+      api.registRecipeLike(this.recipeId);
       this.$router.go("/recipe/" + this.recipeId);
     },
     deleteRecipeLike() {
-      this.$store.dispatch("deleteRecipeLike", this.recipeId);
+      api.deleteRecipeLike(this.recipeId);
       this.$router.go("/recipe/" + this.recipeId);
     },
   },
