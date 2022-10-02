@@ -1,7 +1,9 @@
 <template>
   <div class="historyItem">
-    <span @click="moveToRecipe">{{ meal.recipeName }}</span>
-    <div class="historyItemRight">
+    <span class="historyItemLeft" @click="moveToRecipe">{{
+      meal.recipeName
+    }}</span>
+    <div>
       <span class="historyItemPrice">{{ meal.saveCost }}원</span>
       <button @click.stop="dialog = true">
         <v-icon class="deleteHistoryBtn">mdi-window-close</v-icon>
@@ -61,26 +63,25 @@ export default {
 }
 .historyItem {
   display: flex;
-  width: 90%;
-  height: 70px;
+  width: 92%;
+  min-height: 60px;
   margin: auto;
   margin-top: 4%;
-  padding-left: 4%;
-  padding-right: 4%;
+  padding: 4% 3% 4% 4%;
   justify-content: space-between;
-  line-height: 70px;
+  align-items: center;
   border-radius: 15px;
   box-shadow: 0px 5px 10px rgb(91 87 75 / 20%);
-  font-size: 1.1rem;
   font-weight: bold;
   color: #5b574b;
 }
-.historyItemRight {
-  display: flex;
-  justify-content: space-between;
+.historyItemLeft {
+  font-size: 1.1rem;
+  width: 60%;
 }
 .historyItemPrice {
-  margin-right: 10px;
+  margin-right: 4px;
+  font-size: 1rem;
   color: #ed8a53;
 }
 .deleteHistoryBtn {
