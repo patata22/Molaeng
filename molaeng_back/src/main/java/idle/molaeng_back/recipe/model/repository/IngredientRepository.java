@@ -16,6 +16,9 @@ public interface IngredientRepository extends JpaRepository<Ingredient, Long> {
     // 재료의 가격 정보 조회
     Ingredient findById(long ingredientId);
 
+    // 재료 가격 정보 업데이트
+
+
     //findById로 작동해야되는데 자꾸 Optional 붙은채로 튀어나와서 임시로 만듦
     //@Override 문제일까?
     Ingredient findByIngredientId(long ingredientID);

@@ -26,30 +26,42 @@ public class Ingredient {
 
     //지금 DB에 null이 들어가있어서 테스트용으로 임시 수정
     @Column(name="ingredient_price")
-    private Integer ingredientPrice;
-    //지금 DB에 null이 들어가있어서 테스트용으로 임시 수정
+    private Double ingredientPrice;
+
     @Column(name="ingredient_weight")
     private Integer ingredientWeight;
 
     @Column(name="ingredient_unit")
     private String ingredientUnit;
 
+    @Column(name="ingredient_block_word")
+    private String ingredientBlockWord;
+
+    @Column(name="ingredient_iscrawl")
+    private Integer ingredientIsCrawl;
+
     @OneToMany(mappedBy = "ingredient")
     @JsonManagedReference
     private List<RecipeIngredient> recipeIngredientList;
 
     @Builder
-    public Ingredient(long ingredientId, String ingredientName,int ingredientPrice, int ingredientWeight, String ingredientUnit, List<RecipeIngredient> recipeIngredientList) {
+    public Ingredient(long ingredientId, String ingredientName,double ingredientPrice, int ingredientWeight, String ingredientUnit, String ingredientBlockWord, int ingredientIsCrawl, List<RecipeIngredient> recipeIngredientList) {
         this.ingredientId = ingredientId;
         this.ingredientName = ingredientName;
         this.ingredientPrice = ingredientPrice;
         this.ingredientWeight = ingredientWeight;
         this.ingredientUnit = ingredientUnit;
+        this.ingredientBlockWord = ingredientBlockWord;
+        this.ingredientIsCrawl = ingredientIsCrawl;
         this.recipeIngredientList = recipeIngredientList;
     }
 
+    public void updatePrice(double ingredientPrice) {
+        this.ingredientPrice = ingredientPrice;
+    }
+
     public int pricePerWeight(double needWeight, String needUnit) {
-        int ip=this.ingredientPrice;
+        double ip=this.ingredientPrice;
         int iw=this.ingredientWeight;
         double nw=needWeight;
 
