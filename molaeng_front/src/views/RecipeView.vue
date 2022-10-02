@@ -5,6 +5,7 @@
       <recipe-detail-header
         v-bind:recipeInfo="recipeInfo"
         :recipeId="recipeId"
+        :recipeIngredientList="recipeIngredientList"
       />
       <menu-tab :tabs="tabs" />
     </div>
@@ -20,6 +21,7 @@
 import RecipeDetailHeaderImage from "../components/atoms/AtomsRecipeDetailHeaderImage.vue";
 import RecipeDetailHeader from "../components/organisms/OrganismsRecipeDetailHeader.vue";
 import MenuTab from "../components/molecules/MoleculesMenuTab.vue";
+import { mapGetters } from "vuex";
 
 import API from "@/api/APIs";
 const api = API;
@@ -37,6 +39,7 @@ export default {
     recipeId: "",
     //레시피 상단바 상세정보
     recipeInfo: {},
+    recipeIngredientList: [],
     outeat: {
       seoul: 0,
       my: 0,
@@ -45,6 +48,7 @@ export default {
     recipePrice: 5000,
   }),
   computed: {
+    ...mapGetters(["selectedIngredients"]),
     tabs() {
       return [
         {
@@ -82,11 +86,33 @@ export default {
     this.recipeId = pathName[2];
     //레시피 상단바 상세정보
     this.recipeInfo = await api.getRecipeInfo(this.recipeId);
+    //레시피 주재료 리스트
+    let result = await api.getRecipeIngredients(this.recipeId);
+    //설명 : ingredientId, ingredientName, selected를 가진 객체 배열 recipeIngredientList를 만들고
+    //axios로 가져온 주재료 리스트와 store의 selectedIngredients를 비교해서 있으면 selected를 true, 없으면 false로 만들고
+    //recipeIngredientList에 넣어서 상단바로 보내기
+    let tmp = result.ingredientList;
+    for (let i = 0; i < tmp.length; i++) {
+      let recipeIngredient = {
+        ingredientId: "",
+        ingredientName: "",
+        selected: false,
+      };
+      recipeIngredient.ingredientId = tmp[i].ingredientId;
+      recipeIngredient.ingredientName = tmp[i].ingredientName;
+      for (let j = 0; j < this.selectedIngredients.length; j++) {
+        if (tmp[i].ingredientId == this.selectedIngredients[j].ingredientId) {
+          recipeIngredient.selected = true;
+          break;
+        }
+      }
+      this.recipeIngredientList.push(recipeIngredient);
+    }
+
     this.outeat = await api.outPrice(this.recipeId);
 
     this.addLocalStorage();
   },
-
   methods: {
     addLocalStorage() {
       let newList = [];
