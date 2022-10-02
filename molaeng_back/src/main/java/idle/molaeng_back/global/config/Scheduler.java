@@ -27,8 +27,10 @@ public class Scheduler {
             if(i.getIngredientIsCrawl()==0) continue;
             System.out.println(i.getIngredientName());
             double newPrice = crawler.getIngredientPrice(ingredientRepository.findById(i.getIngredientId()));
-            i.updatePrice(newPrice);
-            ingredientRepository.save(i);
+            if(newPrice > 0) {
+                i.updatePrice(newPrice);
+                ingredientRepository.save(i);
+            }
             try {
                 Thread.sleep(3000);
             } catch(InterruptedException e) {

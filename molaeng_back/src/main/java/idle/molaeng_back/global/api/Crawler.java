@@ -25,6 +25,7 @@ public class Crawler {
             query = URLEncoder.encode(ingredient.getIngredientName(), "UTF-8");
         } catch (IOException e) {
             System.out.println("URL 변환 에러!!");
+            return -1;
         }
 
 //        System.out.println(URL+query);
@@ -98,6 +99,7 @@ public class Crawler {
                             price /= ingredient.getIngredientWeight();
                         } else {
                             System.out.println(ingredient.getIngredientId() +"번 재료 " + ingredient.getIngredientName() + "에서 문제 발생! ");
+                            return -1;
                         }
                     }
                 }
@@ -110,6 +112,7 @@ public class Crawler {
                     cnt++;
                 } else {
                     System.out.println("unitException!!!! in " + ingredient.getIngredientId() + "번 재료 " + ingredient.getIngredientName());
+                    return -1;
                 }
             }
 
