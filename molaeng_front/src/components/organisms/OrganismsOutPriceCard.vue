@@ -39,7 +39,7 @@
 import OutPriceGraph from "@/components/organisms/OrganismsOutPriceGraph.vue";
 
 export default {
-  name: "OutPriceInfo",
+  name: "OutPriceCard",
   components: {
     OutPriceGraph,
   },

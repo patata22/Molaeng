@@ -92,12 +92,24 @@ export default {
     gugunName: String,
     recipePrice: Number,
   },
+  mounted() {
+    this.graphSeoul();
+    this.graphMy();
+  },
   watch: {
-    seoul(newData) {
-      if (newData > 0) {
+    seoul() {
+      this.graphSeoul();
+    },
+    my() {
+      this.graphMy();
+    },
+  },
+  methods: {
+    graphSeoul() {
+      if (this.seoul > 0) {
         this.isSell = true;
         this.chartData.labels.push("서울 평균");
-        this.chartData.datasets[0].data.push(newData);
+        this.chartData.datasets[0].data.push(this.seoul);
         this.chartData.datasets[0].backgroundColor.push("#ED8A53");
         this.chartData.labels.push("조리 가격");
         this.chartData.datasets[0].data.push(this.recipePrice);
@@ -106,10 +118,12 @@ export default {
         this.isSell = false;
       }
     },
-    my(newData) {
-      this.chartData.labels.push(this.gugunName);
-      this.chartData.datasets[0].data.push(newData);
-      this.chartData.datasets[0].backgroundColor.push("#ED8A53");
+    graphMy() {
+      if (this.my > 0) {
+        this.chartData.labels.push(this.gugunName);
+        this.chartData.datasets[0].data.push(this.my);
+        this.chartData.datasets[0].backgroundColor.push("#ED8A53");
+      }
     },
   },
 };
