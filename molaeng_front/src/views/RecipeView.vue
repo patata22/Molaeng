@@ -8,9 +8,11 @@
       />
       <menu-tab :tabs="tabs" />
     </div>
-    <router-view :recipeId="recipeId"
-    :outeat="outeat"
-                                            :recipePrice="recipePrice"></router-view>
+    <router-view
+      :recipeId="recipeId"
+      :outeat="outeat"
+      :recipePrice="recipePrice"
+    ></router-view>
   </div>
 </template>
 
@@ -33,8 +35,8 @@ export default {
   },
   data: () => ({
     recipeId: "",
-        //레시피 상단바 상세정보
-        recipeInfo: {},
+    //레시피 상단바 상세정보
+    recipeInfo: {},
     outeat: {
       seoul: 0,
       my: 0,
@@ -82,7 +84,7 @@ export default {
     this.recipeInfo = await api.getRecipeInfo(this.recipeId);
     this.outeat = await api.outPrice(this.recipeId);
 
-        this.addLocalStorage();
+    this.addLocalStorage();
   },
 
   methods: {
