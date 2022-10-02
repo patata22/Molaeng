@@ -59,6 +59,7 @@ table {
 }
 #card {
   box-shadow: 0px 4px 10px #cecdc9;
+  max-width: 351px;
 }
 #ingredientCard #title {
   height: 60px;

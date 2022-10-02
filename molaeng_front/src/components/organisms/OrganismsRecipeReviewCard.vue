@@ -1,5 +1,5 @@
 <template>
-  <v-card id="reviewCard" class="mx-auto rounded-lg" outlined max-width="351">
+  <v-card id="reviewCard" class="mx-auto rounded-xl" outlined max-width="351">
     <v-card-title class="pt-2 pb-0 d-flex justify-space-between">
       <review-read-star :reviewScore="review.reviewScore" />
       <span
@@ -68,7 +68,7 @@ export default {
     likeReview(userId, reviewId) {
       var temp = this;
       axios
-        .post("http://j7a604.p.ssafy.io:8080/molaeng/review/like", {
+        .post("https://j7a604.p.ssafy.io/molaeng/review/like", {
           userId: userId,
           reviewId: reviewId,
         })
@@ -86,7 +86,7 @@ export default {
     dislikeReview(userId, reviewId) {
       var temp = this;
       axios
-        .delete("http://j7a604.p.ssafy.io:8080/molaeng/review/like", {
+        .delete("https://j7a604.p.ssafy.io/molaeng/review/like", {
           data: { userId: userId, reviewId: reviewId },
         })
         .then(function () {
@@ -101,7 +101,7 @@ export default {
     removeReview(userId, reviewId) {
       console.log(reviewId);
       axios
-        .delete("http://j7a604.p.ssafy.io:8080/molaeng/review", {
+        .delete("https://j7a604.p.ssafy.io/molaeng/review", {
           data: { userId: userId, reviewId: reviewId },
         })
         .then((response) => {

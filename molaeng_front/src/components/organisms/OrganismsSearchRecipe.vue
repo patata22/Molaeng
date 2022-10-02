@@ -58,7 +58,7 @@ export default {
     getAllRecipe() {
       var temp = this;
       axios
-        .get("https://j7a604.p.ssafy.io:8080/molaeng/search/all")
+        .get("https://j7a604.p.ssafy.io/molaeng/search/all")
         .then((response) => {
           response.data.result.forEach((dto) => {
             temp.recipeNameList.push(dto.recipeName);

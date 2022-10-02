@@ -1,5 +1,6 @@
 package idle.molaeng_back.recipe.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,10 +26,12 @@ public class RecipeIngredient {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="recipe_id")
+    @JsonBackReference
     private Recipe recipe;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="ingredient_id")
+    @JsonBackReference
     private Ingredient ingredient;
 
 

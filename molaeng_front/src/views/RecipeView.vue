@@ -8,7 +8,9 @@
       />
       <menu-tab :tabs="tabs" />
     </div>
-    <router-view :recipeId="recipeId"></router-view>
+    <router-view :recipeId="recipeId"
+    :outeat="outeat"
+                                            :recipePrice="recipePrice"></router-view>
   </div>
 </template>
 
@@ -29,6 +31,17 @@ export default {
     RecipeDetailHeader,
     MenuTab,
   },
+  data: () => ({
+    recipeId: "",
+        //레시피 상단바 상세정보
+        recipeInfo: {},
+    outeat: {
+      seoul: 0,
+      my: 0,
+      gugunName: "",
+    },
+    recipePrice: 5000,
+  }),
   computed: {
     tabs() {
       return [
@@ -50,6 +63,16 @@ export default {
         },
       ];
     },
+    compareLocation() {
+      if (this.outeat.my > 0) {
+        return this.outeat.gugunName;
+      } else return "서울";
+    },
+    comparePrice() {
+      if (this.compareLocation == "서울") {
+        return this.outeat.seoul - this.recipePrice;
+      } else return this.outeat.my - this.recipePrice;
+    },
   },
   async created() {
     //recipeId 저장
@@ -57,12 +80,27 @@ export default {
     this.recipeId = pathName[2];
     //레시피 상단바 상세정보
     this.recipeInfo = await api.getRecipeInfo(this.recipeId);
+    this.outeat = await api.outPrice(this.recipeId);
+
+        this.addLocalStorage();
   },
-  data: () => ({
-    recipeId: "",
-    //레시피 상단바 상세정보
-    recipeInfo: {},
-  }),
+
+  methods: {
+    addLocalStorage() {
+      let newList = [];
+      let recentList = JSON.parse(localStorage.getItem("recentRecipe"));
+      if (recentList) {
+        for (let item of recentList) {
+          if (!(item == this.recipeId)) {
+            newList.push(item);
+          }
+        }
+      }
+      newList.unshift(this.recipeId);
+      if (newList.length > 5) newList.pop();
+      localStorage.setItem("recentRecipe", JSON.stringify(newList));
+    },
+  },
 };
 </script>
 <style></style>

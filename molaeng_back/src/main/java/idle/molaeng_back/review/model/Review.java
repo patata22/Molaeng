@@ -44,6 +44,7 @@ public class Review {
 
 
     @OneToMany(mappedBy = "review", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<ReviewLike> reviewLikeList;
     @Builder
     public Review(long reviewId, LocalDateTime reviewDate, int score, String reviewContent, User user, Recipe recipe, List<ReviewLike> reviewLikeList) {

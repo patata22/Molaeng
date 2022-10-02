@@ -27,6 +27,7 @@ public class SearchServiceImpl implements SearchService {
     private final RecipeLikeRepository RecipeLikeRepository;
     private final IngredientRepository ingredientRepository;
 
+
     @Override
     public SearchRecipeResDTO searchRecipeByIngredient(List<Long> ingredientIdList, Pageable pageable, long userId) {
         HashMap<Recipe, Integer> countMap = new HashMap<>();
@@ -64,7 +65,6 @@ public class SearchServiceImpl implements SearchService {
                 .recipeList(tempList)
                 .build();
     }
-
 
 
     @Override
@@ -137,8 +137,13 @@ public class SearchServiceImpl implements SearchService {
             total += scoreCnt[i]*(i+1);
             size += scoreCnt[i];
         }
-        double avgScore = Math.round(((double)total*10/size)/10);
-        return avgScore;
+        if(size==0){
+            return 0;
+        }else{
+            float avgScore = (float) (Math.round(((float)total*10/size))/10.0);
+            return avgScore;
+        }
+
     }
 
     //재료 추출용 메서드

@@ -1,5 +1,6 @@
 package idle.molaeng_back.recipe.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import idle.molaeng_back.user.model.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,10 +19,12 @@ public class RecipeLike {
     private long recipeLikeId;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name="user_id")
     private User user;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name="recipe_id")
     private Recipe recipe;
 
