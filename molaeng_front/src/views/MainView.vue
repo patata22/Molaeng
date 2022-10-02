@@ -1,6 +1,6 @@
 <template>
-  <div class="background">
-    <On-Boarding style="max-height: 30%"></On-Boarding>
+  <div class="mainBackground">
+    <On-Boarding></On-Boarding>
     <Main-Menu></Main-Menu>
     <Kakao-Login></Kakao-Login>
   </div>
@@ -25,7 +25,7 @@ export default {
 };
 </script>
 <style scoped>
-.background {
+.mainBackground {
   background-color: #fef3c6;
   width: 100%;
   height: 100%;
