@@ -28,6 +28,7 @@
                   this.recipeList = [];
                   this.page = 0;
                   this.hasNext = true;
+                  this.sort = 0;
                   getRecipeByIngredient();
                 }
               "
@@ -44,6 +45,7 @@
                   this.recipeList = [];
                   this.page = 0;
                   this.hasNext = true;
+                  this.sort = 1;
                   getRecipeByCalory();
                 }
               "
@@ -60,6 +62,7 @@
                   this.recipeList = [];
                   this.page = 0;
                   this.hasNext = true;
+                  this.sort = 2;
                   getRecipeByScore();
                 }
               "
@@ -76,17 +79,26 @@
       class="ml-6 mt-10"
     >
     </organisms-recipe-card>
-    <button v-if="hasNext" v-on:click="getRecipeByIngredient">더보기</button>
+    <infinite-loading v-if="sort == 0" @infinite="getRecipeByIngredient">
+      <div slot="no-more"></div>
+    </infinite-loading>
+    <infinite-loading v-else-if="sort == 1" @infinite="getRecipeByCalory">
+      <div slot="no-more"></div>
+    </infinite-loading>
+    <infinite-loading v-else @infinite="getRecipeByScore">
+      <div slot="no-more"></div>
+    </infinite-loading>
   </v-container>
 </template>
 <script>
 import { mapState } from "vuex";
 import axios from "axios";
 import OrganismsRecipeCard from "../organisms/OrganismsRecipeCard.vue";
+import InfiniteLoading from "vue-infinite-loading";
 export default {
   name: "TemplatesRecipeList",
   created() {
-    this.getRecipeByIngredient();
+    // this.getRecipeByIngredient();
   },
   data: function () {
     return {
@@ -95,6 +107,7 @@ export default {
       hasNext: true,
       recipeList: [],
       sortString: "재료일치 순",
+      sort: 0,
     };
   },
   computed: {
@@ -114,11 +127,11 @@ export default {
   },
   components: {
     OrganismsRecipeCard,
+    InfiniteLoading,
   },
   methods: {
-    getRecipeByIngredient() {
+    getRecipeByIngredient($state) {
       var temp = this;
-      console.log(temp.ingredientList);
       axios
         .post("https://j7a604.p.ssafy.io/molaeng/search/ingredient", {
           ingredientList: temp.ingredientList,
@@ -130,11 +143,15 @@ export default {
             temp.recipeList.push(e);
           });
           temp.page += 1;
-          temp.hasNext = response.data.result.hasNext;
+          if (response.data.result.hasNext) {
+            $state.loaded();
+          } else {
+            $state.complete();
+          }
         })
         .catch((error) => console.log(error));
     },
-    getRecipeByCalory() {
+    getRecipeByCalory($state) {
       var temp = this;
       axios
         .get(
@@ -149,11 +166,15 @@ export default {
             temp.recipeList.push(e);
           });
           temp.page += 1;
-          temp.hasNext = response.data.result.hasNext;
+          if (response.data.result.hasNext) {
+            $state.loaded();
+          } else {
+            $state.complete();
+          }
         })
         .catch((error) => console.log(error));
     },
-    getRecipeByScore() {
+    getRecipeByScore($state) {
       var temp = this;
       axios
         .get(
@@ -166,7 +187,11 @@ export default {
             temp.recipeList.push(e);
           });
           temp.page += 1;
-          temp.hasNext = response.data.result.hasNext;
+          if (response.data.result.hasNext) {
+            $state.loaded();
+          } else {
+            $state.complete();
+          }
         })
         .catch((error) => console.log(error));
     },

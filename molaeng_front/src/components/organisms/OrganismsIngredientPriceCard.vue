@@ -1,5 +1,5 @@
 <template>
-  <v-card id="card" class="mx-auto rounded-lg" max-width="351">
+  <v-card id="card" class="mx-auto rounded-lg">
     <v-card-title
       id="title"
       class="py-3 px-5 dark--text d-flex justify-space-between"
