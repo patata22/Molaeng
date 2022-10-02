@@ -1,5 +1,6 @@
 package idle.molaeng_back.outeat.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import idle.molaeng_back.recipe.model.entity.Recipe;
 import idle.molaeng_back.user.model.Gugun;
 import lombok.Builder;
@@ -22,10 +23,12 @@ public class Outeat {
     private long outeatPrice;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     @JoinColumn(name="gugun_id")
     private Gugun gugun;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     @JoinColumn(name="recipe_id")
     private Recipe recipe;
 

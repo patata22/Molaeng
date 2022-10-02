@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div id="loginBtn">
     <v-btn
       color="secondary dark--text font-weight-bold"
@@ -6,6 +7,11 @@
       height="50px"
     >
       <img src="../../assets/kakaoIcon.png" alt="" id="kakao" />
+=======
+  <div align="center">
+    <v-btn id="loginBtn">
+      <img src="../../assets/kakaoIcon.png" alt="" id="kakaoLogo" />
+>>>>>>> aca02b246c67aad651153dec250f6444af2c2791
       <h3>카카오 로그인</h3>
     </v-btn>
   </div>
@@ -19,12 +25,21 @@ export default {
 </script>
 <style>
 #loginBtn {
+  width: 90%;
+  height: 50px;
   text-align: center;
   margin-top: 15px;
   margin-bottom: 20px;
+  border-radius: 12px;
+  background-color: #fee0a0;
+  box-shadow: 0px 5px 10px rgb(91 87 75 / 20%);
 }
-#kakao {
-  width: 28px;
-  margin-right: 5%;
+#kakaoLogo {
+  height: 28px;
+  margin-right: 4%;
+}
+h3 {
+  color: #5b574b;
+  font-weight: 800;
 }
 </style>

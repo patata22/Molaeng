@@ -1,69 +1,41 @@
 <template>
-  <div align="center">
-    <v-container
-      class="rounded-xl white"
-      style="max-width: 90%; max-height: 45%"
-    >
-      <v-row class="justify-space-between">
-        <v-col
-          class="semidark radius ml-4 mt-4"
-          align="center"
-          @click="goIngredientSearch"
-        >
-          <div class="icon">
-            <v-btn text icon color="dark">
-              <v-icon x-large>mdi-chef-hat</v-icon></v-btn
-            >
+  <div>
+    <v-container class="mainMenuBackground">
+      <v-row>
+        <v-col class="mainMenu ml-4 mt-4" @click="goIngredientSearch">
+          <div class="mainIcon">
+            <v-icon color="dark" x-large>mdi-chef-hat</v-icon>
             <h4>재료로 검색</h4>
           </div>
         </v-col>
-        <v-col
-          class="semidark radius mr-4 mt-4 ml-2"
-          align="center"
-          @click="goRecipeSearch"
-        >
-          <div class="icon">
-            <v-btn text icon color="dark">
-              <v-icon x-large>mdi-food-fork-drink</v-icon>
-            </v-btn>
-            <h5>레시피로 검색</h5>
+        <v-col class="mainMenu mr-4 mt-4 ml-2" @click="goRecipeSearch">
+          <div class="mainIcon">
+            <v-icon color="dark" x-large>mdi-food-fork-drink</v-icon>
+            <h4>레시피로 검색</h4>
           </div>
         </v-col>
       </v-row>
-      <v-row class="justify-space-between">
-        <v-col
-          class="semidark radius mt-2 ml-4"
-          align="center"
-          @click="goMyPage"
-        >
-          <div class="icon">
-            <v-btn text icon color="dark">
-              <v-icon x-large>mdi-face-man</v-icon></v-btn
-            >
+      <v-row>
+        <v-col class="mainMenu mt-2 ml-4" @click="goMyPage">
+          <div class="mainIcon">
+            <v-icon color="dark" x-large>mdi-face-man</v-icon>
             <h4>마이페이지</h4>
           </div>
         </v-col>
-        <v-col
-          class="semidark radius mr-4 mt-2 ml-2"
-          align="center"
-          @click="goDiary"
-        >
-          <div class="icon">
-            <v-btn text icon color="dark"
-              ><v-icon x-large>mdi-piggy-bank</v-icon></v-btn
-            >
+        <v-col class="mainMenu mr-4 mt-2 ml-2" @click="goDiary">
+          <div class="mainIcon">
+            <v-icon color="dark" x-large>mdi-piggy-bank</v-icon>
             <h4>모랭 일기</h4>
           </div>
         </v-col>
       </v-row>
       <v-row>
-        <v-col class="semidark radius ma-4" align="center">
-          <div class="icon">
-            <v-btn text icon color="dark" @click="goMyPage"
-              ><v-icon x-large>mdi-piggy-bank</v-icon></v-btn
-            >
-            <h4>모랭 일기</h4>
-          </div>
+        <v-col class="mainMenu ma-4">
+          <img
+            src="../../assets/logo.png"
+            alt="모두의 냉장고"
+            class="mainLogo"
+          />
         </v-col>
       </v-row>
     </v-container>
@@ -91,11 +63,34 @@ export default {
 </script>
 
 <style scoped>
-.icon {
+.mainMenuBackground {
+  text-align: center;
+  max-height: 60%;
+  max-width: 90%;
+  border-radius: 24px;
+  background-color: white;
+  box-shadow: 0px 5px 10px rgb(91 87 75 / 20%);
+}
+.mainMenu {
+  display: flex;
+  justify-content: center;
+  background-color: rgb(91 87 75 / 10%);
+  border-radius: 12px;
+  box-shadow: inset 0px 5px 10px rgb(91 87 75 / 20%);
+}
+.mainMenu:active {
+  background-color: rgb(91 87 75 / 20%);
+}
+.mainLogo {
+  width: 100%;
+}
+.mainIcon {
   width: 100%;
   height: 100%;
+  margin: 10% 0px;
 }
-.radius {
-  border-radius: 12px;
+h4 {
+  color: #5b574b;
+  font-weight: 800;
 }
 </style>

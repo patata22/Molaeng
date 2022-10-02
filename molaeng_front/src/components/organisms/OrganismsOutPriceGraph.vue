@@ -5,8 +5,12 @@
     :chart-options="chartOptions"
     v-if="isSell"
   />
-  <div v-else class="pa-5 font-weight-bold" style="font-size: 15px">
-    <v-icon class="mb-1" style="font-size: 60px"
+  <div
+    v-else
+    class="pa-5 font-weight-bold"
+    style="font-size: 15px; color: #5b574b"
+  >
+    <v-icon class="mb-1" style="font-size: 80px; color: #5b574b"
       >mdi-emoticon-cry-outline</v-icon
     ><br />
     이 메뉴를 파는 식당이<br />
@@ -51,6 +55,10 @@ export default {
               anchor: "end",
               align: "end",
               offset: "-5",
+              formatter: function (value, context) {
+                let idx = context.dataIndex;
+                return context.dataset.data[idx].toLocaleString();
+              },
             },
           },
         ],
@@ -88,12 +96,24 @@ export default {
     gugunName: String,
     recipePrice: Number,
   },
+  mounted() {
+    this.graphSeoul();
+    this.graphMy();
+  },
   watch: {
-    seoul(newData) {
-      if (newData > 0) {
+    seoul() {
+      this.graphSeoul();
+    },
+    my() {
+      this.graphMy();
+    },
+  },
+  methods: {
+    graphSeoul() {
+      if (this.seoul > 0) {
         this.isSell = true;
         this.chartData.labels.push("서울 평균");
-        this.chartData.datasets[0].data.push(newData);
+        this.chartData.datasets[0].data.push(this.seoul);
         this.chartData.datasets[0].backgroundColor.push("#ED8A53");
         this.chartData.labels.push("조리 가격");
         this.chartData.datasets[0].data.push(this.recipePrice);
@@ -102,10 +122,12 @@ export default {
         this.isSell = false;
       }
     },
-    my(newData) {
-      this.chartData.labels.push(this.gugunName);
-      this.chartData.datasets[0].data.push(newData);
-      this.chartData.datasets[0].backgroundColor.push("#ED8A53");
+    graphMy() {
+      if (this.my > 0) {
+        this.chartData.labels.push(this.gugunName);
+        this.chartData.datasets[0].data.push(this.my);
+        this.chartData.datasets[0].backgroundColor.push("#ED8A53");
+      }
     },
   },
 };

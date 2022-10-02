@@ -2,7 +2,7 @@
   <div class="calendarPage">
     <div class="calendarHeader">
       <span class="calendarHeaderDefault">이번 주는 </span
-      ><span class="calendarHeaderChange">2,300원 절약했어요!</span>
+      ><span class="calendarHeaderChange">{{ saveCost }}원 절약했어요!</span>
     </div>
     <v-sheet class="calendarButton">
       <v-btn icon large @click="$refs.calendar.prev()">
@@ -13,7 +13,7 @@
         <v-icon>mdi-chevron-right</v-icon>
       </v-btn>
     </v-sheet>
-    <v-sheet height="400">
+    <v-sheet height="380">
       <v-calendar
         ref="calendar"
         class="calendar"
@@ -38,6 +38,10 @@ import API from "@/api/APIs";
 const api = API;
 
 export default {
+  name: "MolaengCalendar",
+  props: {
+    saveCost: Number,
+  },
   data: () => ({
     userId: 1,
     year: 0,
@@ -45,12 +49,13 @@ export default {
     res: {
       saveCostList: [{ mealDate: "", saveCost: 0 }],
     },
+    date: "",
     value: "",
     type: "month",
     weekday: [0, 1, 2, 3, 4, 5, 6],
     weekDayFormat: ["S", "M", "T", "W", "T", "F", "S"],
     events: [],
-    color: "white",
+    color: "none",
     textcolor: ["#72A971", "#ED8A53"],
   }),
   methods: {
@@ -92,8 +97,9 @@ export default {
       return event.textcolor;
     },
     dateSelected(value) {
+      this.date = value.date;
       this.$emit("dateSelected");
-      console.log(value);
+      this.$emit("setDate", this.date);
     },
     setcolor(a) {
       if (a > 0) {
@@ -126,7 +132,7 @@ export default {
 .calendarButton {
   margin-left: 6%;
   margin-right: 6%;
-  margin-bottom: 5%;
+  margin-bottom: 3%;
   display: flex;
   justify-content: center;
 }
@@ -170,6 +176,8 @@ export default {
   background-color: white;
 }
 .v-calendar .v-event {
+  margin-top: -5%;
+  margin-bottom: 2%;
   font-size: 0.8rem;
 }
 .v-application .pl-1 {

@@ -57,6 +57,9 @@ dependencies {
 	implementation 'com.google.code.gson:gson:2.8.7'
 
 
+	// Jsoup
+	implementation 'org.jsoup:jsoup:1.14.2'
+
 	//querydsl
 	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
 	implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
@@ -68,6 +71,8 @@ def querydslDir = "$buildDir/generated/querydsl"
 querydsl {
 	jpa = true
 	querydslSourcesDir = querydslDir
+
+
 }
 
 sourceSets {
