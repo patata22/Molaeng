@@ -147,10 +147,10 @@ export default {
   methods: {
     getScore: function () {
       var temp = this;
-      var url = "http://j7a604.p.ssafy.io:8080/molaeng/review/score/";
+      var url = "https://j7a604.p.ssafy.io/molaeng/review/score/";
       axios
         .get(url + temp.recipeId)
-        // .get("http://j7a604.p.ssafy.io/molaeng/review/score/" + this.recipeId)
+        // .get("https://j7a604.p.ssafy.io/molaeng/review/score/" + this.recipeId)
         .then(function (response) {
           temp.avgScore = response.data.result.avgScore;
           temp.scoreCnt = response.data.result.scoreCnt;

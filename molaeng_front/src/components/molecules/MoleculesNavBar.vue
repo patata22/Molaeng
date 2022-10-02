@@ -1,10 +1,17 @@
 <template>
-  <div class="d-flex" id="header">
+  <div class="d-flex" id="header" :style="navStyle">
     <v-btn class="ma-2" text icon color="dark" @click="goMain">
       <v-icon x-large>mdi-penguin</v-icon>
     </v-btn>
     <div absolute right class="d-flex justify-end ma-2">
-      <v-btn text icon color="dark" class="ma-1" @click="goSearch">
+      <v-btn
+        text
+        icon
+        color="dark"
+        class="ma-1"
+        @click="goSearch"
+        v-if="!isSearchPage"
+      >
         <v-icon large>mdi-magnify</v-icon>
       </v-btn>
       <v-btn text icon color="dark" class="ma-1" @click="goMenu">
@@ -17,6 +24,23 @@
 <script>
 export default {
   name: "NavBar",
+  computed: {
+    path() {
+      return this.$route.path;
+    },
+    isSearchPage() {
+      if (this.path.startsWith("/search")) {
+        return true;
+      } else return false;
+    },
+    navStyle() {
+      if (this.path != "/") {
+        return "";
+      } else {
+        return "background-color: #fef3c6;";
+      }
+    },
+  },
   methods: {
     goSearch() {
       this.$router.push("/search").catch(() => {});
