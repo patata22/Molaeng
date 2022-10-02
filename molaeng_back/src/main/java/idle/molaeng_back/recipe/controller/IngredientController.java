@@ -47,7 +47,7 @@ public class IngredientController {
     }
 
     @ApiOperation(value="재료 목록 조회", notes = "등록된 전체 재료 목록을 불러온다.")
-    @GetMapping("/search/autocomplete/ingredient")
+    @GetMapping("/search")
     public ResponseEntity getAllIngredient() {
         Map<String, Object> result = new HashMap<>();
         result.put("ingredientList", ingredientService.searchAllIngredient());

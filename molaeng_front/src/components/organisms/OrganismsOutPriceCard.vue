@@ -9,7 +9,7 @@
         <v-row>
           <v-col> 사먹을 때 가격 </v-col>
           <v-col style="font-size: medium; font-weight: 500; text-align: right">
-            {{ price }}원
+            {{ price.toLocaleString() }}원
           </v-col>
         </v-row>
       </v-card-title>
@@ -29,7 +29,7 @@
     >
       <div>{{ compareLocation }}에서는 만들어 먹는게</div>
       <div :style="compareStyle">
-        {{ compareAbsPrice }}원 더 {{ compareText }}
+        {{ compareAbsPrice.toLocaleString() }}원 더 {{ compareText }}
       </div>
     </div>
   </div>
