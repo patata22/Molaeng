@@ -36,7 +36,7 @@ export default {
   data: () => ({
     ingredientList: [],
   }),
-  async mounted() {
+  async created() {
     let result = await api.getRecipeIngredients(this.recipeId);
     this.ingredientList = result.ingredientList;
   },

@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const baseURL = "https://j7a604.p.ssafy.io/molaeng";
-// const baseURL = "http://localhost:8080/molaeng";
+// const baseURL = "https://j7a604.p.ssafy.io/molaeng";
+const baseURL = "http://localhost:8080/molaeng";
 
 /**
  * 사용방법 예시
@@ -150,6 +150,11 @@ const API = {
 
   async getRecipeIngredients(recipeId) {
     const response = await this.instance.get("/recipe/ingredient/" + recipeId);
+    return response.data;
+  },
+
+  async getHomePrice(recipeId) {
+    const response = await this.instance.get("/recipe/priceinfo/" + recipeId);
     return response.data;
   },
 };

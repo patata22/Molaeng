@@ -1,10 +1,16 @@
 package idle.molaeng_back.recipe.model.response;
 
+import idle.molaeng_back.recipe.model.entity.Ingredient;
 import idle.molaeng_back.recipe.model.entity.Recipe;
 import idle.molaeng_back.recipe.model.entity.RecipeIngredient;
 import io.swagger.annotations.ApiParam;
+import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RecipeIngredientResponse {
 
     public static class RecipeIngredientInfo {
@@ -37,9 +43,9 @@ public class RecipeIngredientResponse {
         public int price;
 
         @Builder
-        public RecipeIngredientPriceInfo(RecipeIngredient recipeIngredient, int price) {
-            this.ingredientId = recipeIngredient.getIngredient().getIngredientId();
-            this.ingredientName = recipeIngredient.getIngredient().getIngredientName();
+        public RecipeIngredientPriceInfo(Ingredient ingredient, int price) {
+            this.ingredientId = ingredient.getIngredientId();
+            this.ingredientName = ingredient.getIngredientName();
             this.price = price;
         }
     }

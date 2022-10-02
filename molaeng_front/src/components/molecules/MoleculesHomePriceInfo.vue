@@ -7,11 +7,25 @@
       </colgroup>
       <tbody>
         <tr v-for="ingredient in ingredientList" :key="ingredient.ingredientId">
-          <td class="font-weight-bold dark--text px-1 py-1">
+          <td
+            class="font-weight-bold dark--text px-1 py-1"
+            :class="{
+              'semidark--text': selectedIngredientIds.includes(
+                ingredient.ingredientId
+              ),
+            }"
+          >
             {{ ingredient.ingredientName }}
           </td>
-          <td class="dark--text text-right px-1 py-1">
-            {{ ingredient.ingredientPrice }}원
+          <td
+            class="dark--text text-right px-1 py-1"
+            :class="{
+              'semidark--text': selectedIngredientIds.includes(
+                ingredient.ingredientId
+              ),
+            }"
+          >
+            {{ ingredient.price }}원
           </td>
         </tr>
       </tbody>
@@ -20,27 +34,16 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "HomePriceInfo",
-  data: () => ({
-    ingredientList: [
-      {
-        ingredientId: 35,
-        ingredientName: "당근",
-        ingredientPrice: 3000,
-      },
-      {
-        ingredientId: 107,
-        ingredientName: "양파",
-        ingredientPrice: 2000,
-      },
-      {
-        ingredientId: 36,
-        ingredientName: "가지",
-        needWeight: 900,
-      },
-    ],
-  }),
+  props: {
+    ingredientList: Array,
+  },
+  computed: {
+    ...mapGetters(["selectedIngredientIds"]),
+  },
 };
 </script>
 
