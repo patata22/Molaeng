@@ -137,8 +137,13 @@ public class SearchServiceImpl implements SearchService {
             total += scoreCnt[i]*(i+1);
             size += scoreCnt[i];
         }
-        double avgScore = Math.round((total*10/size)/10.0);
-        return avgScore;
+        if(size==0){
+            return 0;
+        }else{
+            float avgScore = (float) (Math.round(((float)total*10/size))/10.0);
+            return avgScore;
+        }
+
     }
 
     //재료 추출용 메서드
