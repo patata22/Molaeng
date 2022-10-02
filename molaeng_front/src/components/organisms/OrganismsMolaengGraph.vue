@@ -5,15 +5,11 @@
       <div @click="getMonthGraph" :style="selectMonthBtnSyle">월별</div>
     </div>
     <Bar
-      :chart-options="weekChartOption"
+      :chart-options="chartOptions"
       :chart-data="WeekChartData"
       v-if="selectWeekGraph"
     />
-    <Bar
-      :chart-options="MonthChartOption"
-      :chart-data="MonthChartData"
-      v-else
-    />
+    <Bar :chart-options="chartOptions" :chart-data="MonthChartData" v-else />
   </div>
 </template>
 
@@ -50,17 +46,48 @@ export default {
         saveCostList: [],
       },
       selectWeekGraph: true,
-
+      saveCost: 0,
       WeekChartData: {
         labels: ["1주차", "2주차", "3주차", "4주차", "5주차", "6주차"],
         datasets: [
           {
-            backgroundColor: "",
+            backgroundColor: "#ffffff",
             data: [],
+            datalabels: {
+              color: "#000000",
+              anchor: "end",
+              align: "end",
+              offset: "-5",
+              formatter: function (value, context) {
+                let idx = context.dataIndex;
+                if (context.dataset.backgroundColor[idx] == "#ED8A53") {
+                  return "-" + context.dataset.data[idx].toLocaleString();
+                } else return "+" + context.dataset.data[idx].toLocaleString();
+              },
+            },
           },
         ],
       },
-      weekChartOption: {
+
+      chartOptions: {
+        layout: {
+          padding: 12,
+        },
+        scales: {
+          y: {
+            grid: {
+              display: false,
+            },
+            ticks: {
+              display: false,
+            },
+          },
+          x: {
+            grid: {
+              display: false,
+            },
+          },
+        },
         plugins: {
           legend: {
             display: false,
@@ -78,23 +105,19 @@ export default {
         ],
         datasets: [
           {
-            backgroundColor: "",
+            backgroundColor: "#ffffff",
             data: [],
           },
         ],
-      },
-      MonthChartOption: {
-        plugins: {
-          legend: {
-            display: false,
-          },
-        },
       },
     };
   },
   async mounted() {
     this.res_week = await api.getWeekGraph(this.userId, this.year, this.month);
     this.WeekChartData.datasets[0].data = this.res_week.saveCostList;
+
+    this.saveCost = this.WeekChartData.datasets[0].data[0];
+    this.$emit("setSaveCost", this.saveCost);
 
     this.res_month = await api.getMonthGraph(
       this.userId,
@@ -123,16 +146,14 @@ export default {
   },
   methods: {
     chartColor() {
-      console.log(this.res_week.saveCostList.length);
-      console.log(this.res_month.saveCostList.length);
       let colors = [];
       for (let i = 0; i < this.res_week.saveCostList.length; i++) {
         if (this.WeekChartData.datasets[0].data[i] < 0) {
           this.WeekChartData.datasets[0].data[i] =
             this.WeekChartData.datasets[0].data[i] * -1;
-          colors.push("#ED8A53");
+          colors[i] = "#ED8A53";
         } else {
-          colors.push("#72A971");
+          colors[i] = "#72A971";
         }
       }
       this.WeekChartData.datasets[0].backgroundColor = colors;
@@ -141,20 +162,22 @@ export default {
         if (this.MonthChartData.datasets[0].data[i] < 0) {
           this.MonthChartData.datasets[0].data[i] =
             this.MonthChartData.datasets[0].data[i] * -1;
-          colors.push("#ED8A53");
+          colors[i] = "#ED8A53";
         } else {
-          colors.push("#72A971");
+          colors[i] = "#72A971";
         }
       }
       this.MonthChartData.datasets[0].backgroundColor = colors;
     },
     getWeekGraph() {
       this.selectWeekGraph = true;
-      console.log(this.selectWeekGraph);
+      this.saveCost = this.WeekChartData.datasets[0].data[0];
+      this.$emit("setSaveCost", this.saveCost);
     },
     getMonthGraph() {
       this.selectWeekGraph = false;
-      console.log(this.selectWeekGraph);
+      this.saveCost = this.MonthChartData.datasets[0].data[0];
+      this.$emit("setSaveCost", this.saveCost);
     },
   },
 };
@@ -162,7 +185,7 @@ export default {
 
 <style>
 .graphPage {
-  margin: 4%;
+  margin: 2% 4% 4% 4%;
 }
 .selectGraphBtnGroup {
   display: flex;

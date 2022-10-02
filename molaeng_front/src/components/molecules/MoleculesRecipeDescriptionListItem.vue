@@ -13,6 +13,7 @@
           height="auto"
           width="100%"
           :src="detailImg"
+          class="mb-5"
         ></v-img>
       </div>
     </div>
