@@ -67,7 +67,6 @@ public class SearchServiceImpl implements SearchService {
     }
 
 
-
     @Override
     public SearchRecipeResDTO searchRecipeByCalory(Pageable pageable, long userId) {
         Slice<Recipe> recipeList = recipeRepository.findAll(pageable);
@@ -138,7 +137,7 @@ public class SearchServiceImpl implements SearchService {
             total += scoreCnt[i]*(i+1);
             size += scoreCnt[i];
         }
-        double avgScore = Math.round(((double)total*10/size)/10);
+        double avgScore = Math.round((total*10/size)/10.0);
         return avgScore;
     }
 
