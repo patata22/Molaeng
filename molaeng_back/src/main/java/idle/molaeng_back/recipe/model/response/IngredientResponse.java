@@ -13,14 +13,18 @@ public class IngredientResponse {
 
     public static class IngredientPreview {
         @ApiParam("재료 id")
-        private long ingredientId;
+        public long ingredientId;
         @ApiParam("재료명")
-        private String ingreientName;
+        public String ingredientName;
+
+        @ApiParam("선택여부")
+        public boolean selected;
 
         @Builder
         public IngredientPreview(Ingredient ingredient) {
             this.ingredientId = ingredient.getIngredientId();
-            this.ingreientName = ingredient.getIngredientName();
+            this.ingredientName = ingredient.getIngredientName();
+            this.selected = false;
         }
     }
 
