@@ -1,13 +1,18 @@
 <template>
-  <div id="background">
+  <div id="background" align="center" class="pa-4">
     <v-carousel
       cycle
-      height="250px"
       hide-delimiter-background
       show-arrows-on-hover
       id="caro"
+      style="position: relative; height: 200px"
     >
-      <v-carousel-item v-for="(item, i) in items" :key="i" :src="item.src">
+      <v-carousel-item
+        v-for="(item, i) in items"
+        :key="i"
+        :src="item.src"
+        style="position: relative"
+      >
       </v-carousel-item>
     </v-carousel>
   </div>
@@ -35,8 +40,11 @@ export default {
 </script>
 <style scoped>
 #background {
+  align-self: center;
   background-color: white;
-  margin: 5px 5% 5% 5%;
+  margin: auto;
+  margin-bottom: 3%;
+  max-width: 90%;
   border-radius: 20px;
 }
 #caro {

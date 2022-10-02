@@ -2,7 +2,7 @@
   <div align="center">
     <v-container
       class="rounded-xl white"
-      style="max-width: 90%; max-height: 45%"
+      style="max-width: 90%; max-height: 60%"
     >
       <v-row class="justify-space-between">
         <v-col
@@ -26,7 +26,7 @@
             <v-btn text icon color="dark">
               <v-icon x-large>mdi-food-fork-drink</v-icon>
             </v-btn>
-            <h5>레시피로 검색</h5>
+            <h4>레시피로 검색</h4>
           </div>
         </v-col>
       </v-row>
@@ -94,8 +94,12 @@ export default {
 .icon {
   width: 100%;
   height: 100%;
+  margin: 20px 0px;
 }
 .radius {
   border-radius: 12px;
+}
+h4 {
+  color: #5b574b;
 }
 </style>

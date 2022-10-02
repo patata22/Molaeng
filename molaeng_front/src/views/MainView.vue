@@ -1,6 +1,6 @@
 <template>
   <div class="background">
-    <On-Boarding></On-Boarding>
+    <On-Boarding style="max-height: 30%"></On-Boarding>
     <Main-Menu></Main-Menu>
     <Kakao-Login></Kakao-Login>
   </div>

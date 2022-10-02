@@ -1,5 +1,6 @@
 package idle.molaeng_back.user.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import idle.molaeng_back.outeat.model.Outeat;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,9 +24,11 @@ public class Gugun {
     private String gugunName;
 
     @OneToMany(mappedBy = "gugun", fetch = FetchType.LAZY)
+    @JsonManagedReference
     List<User> userList = new ArrayList<>();
 
     @OneToMany(mappedBy = "gugun", fetch = FetchType.LAZY)
+    @JsonManagedReference
     List<Outeat> outeatList = new ArrayList<>();
 
     @Builder

@@ -27,6 +27,7 @@ public class SearchServiceImpl implements SearchService {
     private final RecipeLikeRepository RecipeLikeRepository;
     private final IngredientRepository ingredientRepository;
 
+
     @Override
     public SearchRecipeResDTO searchRecipeByIngredient(List<Long> ingredientIdList, Pageable pageable, long userId) {
         HashMap<Recipe, Integer> countMap = new HashMap<>();

@@ -1,5 +1,6 @@
 package idle.molaeng_back.recipe.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.swagger.annotations.ApiParam;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -34,6 +35,7 @@ public class Ingredient {
     private String ingredientUnit;
 
     @OneToMany(mappedBy = "ingredient")
+    @JsonManagedReference
     private List<RecipeIngredient> recipeIngredientList;
 
     @Builder

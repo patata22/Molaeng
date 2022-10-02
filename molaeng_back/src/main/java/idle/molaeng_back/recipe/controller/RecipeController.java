@@ -96,4 +96,22 @@ public class RecipeController {
             return new ResponseEntity(resultMap, HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("/history")
+    public ResponseEntity getRecipeHistory(@RequestParam List<Long> recipeIdList){
+        long userId=1;
+        for(long recipeId : recipeIdList){
+            System.out.println("recipeId="+recipeId);
+        }
+        Map<String, Object> resultMap = new HashMap<>();
+        try{
+            resultMap.put("result",recipeService.getRecipeList(recipeIdList,userId));
+            resultMap.put("message","success");
+            return new ResponseEntity(resultMap,HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            resultMap.put("message","레시피 히스토리 오류");
+            return new ResponseEntity(resultMap,HttpStatus.BAD_REQUEST);
+        }
+    }
 }

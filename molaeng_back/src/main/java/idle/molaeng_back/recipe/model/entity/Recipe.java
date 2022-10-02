@@ -55,7 +55,7 @@ public class Recipe {
     private List<Outeat> outeatList;
 
     @OneToMany(mappedBy = "recipe")
-    @JsonBackReference
+    @JsonManagedReference
     private List<RecipeLike> recipeLikeList;
 
     @OneToMany(mappedBy = "recipe")
@@ -63,6 +63,7 @@ public class Recipe {
     private List<Review> reviewList;
 
     @OneToMany(mappedBy = "recipe")
+    @JsonManagedReference
     private List<RecipeDetail> recipeDetailList;
 
     @OneToMany(mappedBy = "recipe")

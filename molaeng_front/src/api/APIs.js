@@ -38,7 +38,16 @@ const API = {
       recipeId: recipeId,
       userId: userId,
     });
-    return response.data;
+    return response.data.result;
+  },
+  async dislikeRecipe(recipeId, userId) {
+    const response = await this.instance.delete("/recipe/like", {
+      data: {
+        recipeId: recipeId,
+        userId: userId,
+      },
+    });
+    return response.data.result;
   },
   async getCalendar(userId, year, month) {
     const response = await this.instance.get(
@@ -81,6 +90,17 @@ const API = {
   async deleteDiary(diaryId) {
     const response = await this.instance.delete("/diary/" + diaryId);
     return response.data;
+  },
+  async recentRecipe(recipeIdList) {
+    let queryParam = "";
+    for (let recipeId of recipeIdList) {
+      queryParam += recipeId + ",";
+    }
+    queryParam = queryParam.slice(0, -1);
+    const response = await this.instance.get(
+      "/recipe/history?recipeIdList=" + queryParam
+    );
+    return response.data.result;
   },
 };
 

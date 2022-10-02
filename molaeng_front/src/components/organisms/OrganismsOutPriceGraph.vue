@@ -5,8 +5,12 @@
     :chart-options="chartOptions"
     v-if="isSell"
   />
-  <div v-else class="pa-5 font-weight-bold" style="font-size: 15px">
-    <v-icon class="mb-1" style="font-size: 60px"
+  <div
+    v-else
+    class="pa-5 font-weight-bold"
+    style="font-size: 15px; color: #5b574b"
+  >
+    <v-icon class="mb-1" style="font-size: 80px; color: #5b574b"
       >mdi-emoticon-cry-outline</v-icon
     ><br />
     이 메뉴를 파는 식당이<br />
