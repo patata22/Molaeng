@@ -142,6 +142,11 @@ const API = {
     );
     return response.data.result;
   },
+
+  async getAllIngredients() {
+    const response = await this.instance.get("/search");
+    return response.data;
+  },
 };
 
 export default API;

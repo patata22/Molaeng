@@ -3,29 +3,100 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
+function getFirstChar(kor) {
+  const f = [
+    "ㄱ",
+    "ㄲ",
+    "ㄴ",
+    "ㄷ",
+    "ㄸ",
+    "ㄹ",
+    "ㅁ",
+    "ㅂ",
+    "ㅃ",
+    "ㅅ",
+    "ㅆ",
+    "ㅇ",
+    "ㅈ",
+    "ㅉ",
+    "ㅊ",
+    "ㅋ",
+    "ㅌ",
+    "ㅍ",
+    "ㅎ",
+  ];
+  // const s = ['ㅏ', 'ㅐ', 'ㅑ', 'ㅒ', 'ㅓ', 'ㅔ', 'ㅕ',
+  //            'ㅖ', 'ㅗ', 'ㅘ', 'ㅙ', 'ㅚ', 'ㅛ', 'ㅜ',
+  //            'ㅝ', 'ㅞ', 'ㅟ', 'ㅠ', 'ㅡ', 'ㅢ', 'ㅣ'];
+  // const t = ['', 'ㄱ', 'ㄲ', 'ㄳ', 'ㄴ', 'ㄵ', 'ㄶ',
+  //            'ㄷ', 'ㄹ', 'ㄺ', 'ㄻ', 'ㄼ', 'ㄽ', 'ㄾ',
+  //            'ㄿ', 'ㅀ', 'ㅁ', 'ㅂ', 'ㅄ', 'ㅅ', 'ㅆ',
+  //            'ㅇ', 'ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'];
+
+  const ga = 44032;
+  let uni = kor.charCodeAt(0);
+
+  uni = uni - ga;
+
+  let fn = parseInt(uni / 588);
+
+  return f[fn];
+}
+
 export const ingredient = {
   state: {
     ingredients: [
       {
         ingredientTitle: "ㄱ/ㄲ",
-        ingredientList: [
-          { ingredientId: 7, ingredientName: "고등어", selected: false },
-          { ingredientId: 8, ingredientName: "가지", selected: false },
-        ],
+        ingredientList: [],
       },
       {
         ingredientTitle: "ㄴ",
-        ingredientList: [
-          { ingredientId: 9, ingredientName: "넙치", selected: false },
-          { ingredientId: 10, ingredientName: "냉이", selected: false },
-        ],
+        ingredientList: [],
       },
       {
         ingredientTitle: "ㄷ/ㄸ",
-        ingredientList: [
-          { ingredientId: 12, ingredientName: "당근", selected: false },
-          { ingredientId: 15, ingredientName: "대추", selected: false },
-        ],
+        ingredientList: [],
+      },
+      {
+        ingredientTitle: "ㄹ",
+        ingredientList: [],
+      },
+      {
+        ingredientTitle: "ㅁ",
+        ingredientList: [],
+      },
+      {
+        ingredientTitle: "ㅂ",
+        ingredientList: [],
+      },
+      {
+        ingredientTitle: "ㅅ/ㅆ",
+        ingredientList: [],
+      },
+      {
+        ingredientTitle: "ㅇ",
+        ingredientList: [],
+      },
+      {
+        ingredientTitle: "ㅈ/ㅉ",
+        ingredientList: [],
+      },
+      {
+        ingredientTitle: "ㅋ",
+        ingredientList: [],
+      },
+      {
+        ingredientTitle: "ㅌ",
+        ingredientList: [],
+      },
+      {
+        ingredientTitle: "ㅍ",
+        ingredientList: [],
+      },
+      {
+        ingredientTitle: "ㅎ",
+        ingredientList: [],
       },
     ],
     selectedIngredients: [],
@@ -58,6 +129,14 @@ export const ingredient = {
       });
       ingredient.selected = false;
       state.selectedIngredients.splice(idx, 1);
+    },
+    ADD_INGREDIENT(state, ingredient) {
+      let start = getFirstChar(ingredient.ingredientName.substring(0, 1));
+      for (let ing of state.ingredients) {
+        if (ing.ingredientTitle.includes(start)) {
+          ing.ingredientList.push(ingredient);
+        }
+      }
     },
   }, // setter. state를 변경할 땐 mutations를 사용해야. 무조건 동기
   actions: {}, // 비동기
