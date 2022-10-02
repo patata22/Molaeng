@@ -56,7 +56,7 @@ export default {
   font-weight: bold !important;
   color: rgba(91, 87, 75, 50%) !important;
 }
-.historyDeleteDialog {
+.historyDialog {
   margin: 0 auto;
 }
 .historyItem {

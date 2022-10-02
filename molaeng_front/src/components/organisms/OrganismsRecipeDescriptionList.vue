@@ -1,6 +1,5 @@
 <template>
   <v-stepper vertical>
-    <!-- <div class="v-stepper v-stepper--vertical v-sheet theme--light"> -->
     <recipe-description-list-item
       v-for="(detail, index) in recipeDetailList"
       :key="index"
@@ -9,17 +8,27 @@
       :content="detail.recipeContent"
     >
     </recipe-description-list-item>
-    <under-bar-button :text="buttonText" @click.native="moveMolaeng" />
+    <under-bar-button :text="buttonText" @click.native.stop="dialog = true">
+      모랭일기에 기록하기
+    </under-bar-button>
     <v-dialog v-model="dialog">
-      <add-to-molaeng-button @cancel="cancel" />
+      <v-card class="historyDialog">
+        <v-card-title class="dialogtitle">모랭일기 등록하기</v-card-title>
+        <v-card-text>이 레시피를 모랭일기에 기록하시겠어요?</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn depressed color="primary" white--text @click="addHistory">
+            예
+          </v-btn>
+          <v-btn outlined color="primary" @click="dialog = false">아니요</v-btn>
+        </v-card-actions>
+      </v-card>
     </v-dialog>
-    <!-- </div> -->
   </v-stepper>
 </template>
 
 <script>
 import RecipeDescriptionListItem from "../molecules/MoleculesRecipeDescriptionListItem.vue";
-import AddToMolaengButton from "../atoms/AtomsAddToMolaengButton.vue";
 import UnderBarButton from "../atoms/AtomsUnderBarButton.vue";
 
 import API from "@/api/APIs";
@@ -29,11 +38,12 @@ export default {
   name: "RecipeDescriptionList",
   components: {
     RecipeDescriptionListItem,
-    AddToMolaengButton,
     UnderBarButton,
   },
   props: {
     recipeId: String,
+    outeat: Object,
+    recipePrice: Number,
   },
   async created() {
     //레시피 조리방법
@@ -43,16 +53,17 @@ export default {
     //레시피 조리방법
     recipeDetailList: [],
     buttonText: "모랭일기에 기록하기",
+    userId: 1,
+    saveCost: 0,
     dialog: false,
   }),
   methods: {
-    //registMolaeng으로 바꾸고 axios 연결해야 함
-    async moveMolaeng() {
-      this.dialog = true;
-    },
-    //emit으로 AddToMolaengButton에게서 전달받은 dialog
-    cancel(value) {
-      this.dialog = value;
+    async addHistory() {
+      console.log("모랭일기 등록!!");
+      this.saveCost = this.outeat.seoul - this.recipePrice;
+      this.res = await api.saveDiary(this.userId, this.recipeId, this.saveCost);
+      console.log(this.res);
+      this.$router.go();
     },
   },
 };
