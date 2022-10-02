@@ -55,6 +55,10 @@ export default {
               anchor: "end",
               align: "end",
               offset: "-5",
+              formatter: function (value, context) {
+                let idx = context.dataIndex;
+                return context.dataset.data[idx].toLocaleString();
+              },
             },
           },
         ],

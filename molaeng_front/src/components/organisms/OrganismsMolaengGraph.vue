@@ -5,15 +5,11 @@
       <div @click="getMonthGraph" :style="selectMonthBtnSyle">월별</div>
     </div>
     <Bar
-      :chart-options="weekChartOption"
+      :chart-options="chartOptions"
       :chart-data="WeekChartData"
       v-if="selectWeekGraph"
     />
-    <Bar
-      :chart-options="MonthChartOption"
-      :chart-data="MonthChartData"
-      v-else
-    />
+    <Bar :chart-options="chartOptions" :chart-data="MonthChartData" v-else />
   </div>
 </template>
 
@@ -57,10 +53,41 @@ export default {
           {
             backgroundColor: "#ffffff",
             data: [],
+            datalabels: {
+              color: "#000000",
+              anchor: "end",
+              align: "end",
+              offset: "-5",
+              formatter: function (value, context) {
+                let idx = context.dataIndex;
+                if (context.dataset.backgroundColor[idx] == "#ED8A53") {
+                  return "-" + context.dataset.data[idx].toLocaleString();
+                } else return "+" + context.dataset.data[idx].toLocaleString();
+              },
+            },
           },
         ],
       },
-      weekChartOption: {
+
+      chartOptions: {
+        layout: {
+          padding: 12,
+        },
+        scales: {
+          y: {
+            grid: {
+              display: false,
+            },
+            ticks: {
+              display: false,
+            },
+          },
+          x: {
+            grid: {
+              display: false,
+            },
+          },
+        },
         plugins: {
           legend: {
             display: false,
@@ -82,13 +109,6 @@ export default {
             data: [],
           },
         ],
-      },
-      MonthChartOption: {
-        plugins: {
-          legend: {
-            display: false,
-          },
-        },
       },
     };
   },
@@ -131,9 +151,9 @@ export default {
         if (this.WeekChartData.datasets[0].data[i] < 0) {
           this.WeekChartData.datasets[0].data[i] =
             this.WeekChartData.datasets[0].data[i] * -1;
-          colors.push("#ED8A53");
+          colors[i] = "#ED8A53";
         } else {
-          colors.push("#72A971");
+          colors[i] = "#72A971";
         }
       }
       this.WeekChartData.datasets[0].backgroundColor = colors;
@@ -142,9 +162,9 @@ export default {
         if (this.MonthChartData.datasets[0].data[i] < 0) {
           this.MonthChartData.datasets[0].data[i] =
             this.MonthChartData.datasets[0].data[i] * -1;
-          colors.push("#ED8A53");
+          colors[i] = "#ED8A53";
         } else {
-          colors.push("#72A971");
+          colors[i] = "#72A971";
         }
       }
       this.MonthChartData.datasets[0].backgroundColor = colors;
