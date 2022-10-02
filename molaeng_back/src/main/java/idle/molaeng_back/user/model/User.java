@@ -1,5 +1,6 @@
 package idle.molaeng_back.user.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import idle.molaeng_back.diary.model.Diary;
 import idle.molaeng_back.recipe.model.entity.RecipeLike;
@@ -32,9 +33,11 @@ public class User  {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="gugun_id")
+    @JsonBackReference
     private Gugun gugun;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<RecipeLike> recipeLikeList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
@@ -42,9 +45,11 @@ public class User  {
     private List<Review> reviewList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<ReviewLike> reviewLikeList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Diary> diaryList = new ArrayList<>();
 
     public void changeProfile(UserProfileRequest userProfileRequest, Gugun gugun){

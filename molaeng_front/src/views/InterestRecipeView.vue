@@ -1,19 +1,16 @@
 <template>
   <div>
-    <nav-bar></nav-bar>
     <interest-recipe-header :tabs="tabs" />
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import InterestRecipeHeader from "../components/organisms/OrganismInterestRecipeHeader.vue";
-import NavBar from "../components/molecules/MoleculesNavBar.vue";
+import InterestRecipeHeader from "@/components/organisms/OrganismInterestRecipeHeader.vue";
 
 export default {
   name: "InterestRecipe",
   components: {
-    NavBar,
     InterestRecipeHeader,
   },
   data: () => ({

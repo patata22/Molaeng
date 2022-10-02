@@ -1,5 +1,6 @@
 package idle.molaeng_back.review.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import idle.molaeng_back.user.model.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,10 +20,12 @@ public class ReviewLike {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="review_id")
+    @JsonBackReference
     private Review review;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
+    @JsonBackReference
     private User user;
 
     @Builder
