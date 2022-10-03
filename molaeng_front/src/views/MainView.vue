@@ -1,8 +1,10 @@
 <template>
-  <div class="mainBackground">
-    <On-Boarding></On-Boarding>
-    <Main-Menu></Main-Menu>
-    <Kakao-Login></Kakao-Login>
+  <div class="mainPage">
+    <div class="mainPageContent">
+      <On-Boarding></On-Boarding>
+      <Main-Menu></Main-Menu>
+      <Kakao-Login></Kakao-Login>
+    </div>
   </div>
 </template>
 
@@ -25,9 +27,13 @@ export default {
 };
 </script>
 <style scoped>
-.mainBackground {
-  background-color: #fef3c6;
-  width: 100%;
+.mainPage {
+  display: flex;
   height: 100%;
+  align-items: center;
+  background-color: #fef3c6;
+}
+.mainPageContent {
+  width: 100%;
 }
 </style>
