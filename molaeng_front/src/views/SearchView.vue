@@ -26,6 +26,7 @@ export default {
     ],
   }),
   async created() {
+    this.$store.commit("INIT_INGREDIENT");
     let result = await api.getAllIngredients();
     for (let i = 0; i < result.ingredientList.length; i++) {
       let ingredient = result.ingredientList[i];
