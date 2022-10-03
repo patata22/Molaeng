@@ -6,6 +6,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -41,6 +42,7 @@ public class Ingredient {
     private int ingredientIsCrawl;
 
     @OneToMany(mappedBy = "ingredient")
+    @BatchSize(size=100)
     @JsonManagedReference
     private List<RecipeIngredient> recipeIngredientList;
 

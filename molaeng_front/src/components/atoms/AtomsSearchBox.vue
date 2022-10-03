@@ -1,7 +1,7 @@
 <template>
   <div id="searchTextField" class="mt-5">
     <v-text-field
-      placeholder="레시피를 검색해주세요"
+      :placeholder="searchword"
       v-model="keyword"
       color="default"
       solo
@@ -22,6 +22,7 @@ export default {
       return this.keyword;
     },
   },
+  props: ["searchword"],
   data: () => ({
     keyword: "",
   }),

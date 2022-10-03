@@ -9,6 +9,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 import java.util.List;
@@ -55,25 +56,34 @@ public class Recipe {
     private List<Outeat> outeatList;
 
     @OneToMany(mappedBy = "recipe")
+    @BatchSize(size=100)
     @JsonManagedReference
     private List<RecipeLike> recipeLikeList;
 
     @OneToMany(mappedBy = "recipe")
+    @BatchSize(size=100)
     @JsonManagedReference
     private List<Review> reviewList;
 
     @OneToMany(mappedBy = "recipe")
+    @BatchSize(size=100)
     @JsonManagedReference
     private List<RecipeDetail> recipeDetailList;
 
     @OneToMany(mappedBy = "recipe")
+    @BatchSize(size=100)
     private List<Diary> diaryList;
 
     @OneToMany(mappedBy = "recipe")
+    @BatchSize(size=100)
     private List<RecipeIngredient> recipeIngredientList;
 
+    @OneToMany(mappedBy = "recipe")
+    @BatchSize(size=100)
+    private List<RecipeSubIngredient> recipeSubIngredientList;
+
     @Builder
-    public Recipe(long recipeId, String recipeName, String recipeImage, int recipeKcal, int serving, int oneScore, int twoScore, int threeScore, int fourScore, int fiveScore, List<Outeat> outeatList, List<RecipeLike> recipeLikeList, List<Review> reviewList, List<RecipeDetail> recipeDetailList, List<Diary> diaryList, List<RecipeIngredient> recipeIngredientList) {
+    public Recipe(long recipeId, String recipeName, String recipeImage, int recipeKcal, int serving, int oneScore, int twoScore, int threeScore, int fourScore, int fiveScore, List<Outeat> outeatList, List<RecipeLike> recipeLikeList, List<Review> reviewList, List<RecipeDetail> recipeDetailList, List<Diary> diaryList, List<RecipeIngredient> recipeIngredientList, List<RecipeSubIngredient> recipeSubIngredients) {
         this.recipeId = recipeId;
         this.recipeName = recipeName;
         this.recipeImage = recipeImage;
@@ -90,6 +100,7 @@ public class Recipe {
         this.recipeDetailList = recipeDetailList;
         this.diaryList = diaryList;
         this.recipeIngredientList = recipeIngredientList;
+        this.recipeSubIngredientList = recipeSubIngredients;
     }
 
     public void setOneScore(int oneScore) {
