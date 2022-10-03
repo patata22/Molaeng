@@ -1,5 +1,5 @@
 <template>
-  <v-stepper vertical>
+  <v-stepper vertical style="box-shadow: none">
     <recipe-description-list-item
       v-for="(detail, index) in recipeDetailList"
       :key="index"

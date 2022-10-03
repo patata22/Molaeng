@@ -138,12 +138,12 @@ export default {
       let result = await api.getRecipeIngredients(this.recipeId);
       let tmp = result.ingredientList;
       for (let i = 0; i < tmp.length; i++) {
+        tmp[i].selected = false;
         for (let j = 0; j < this.selectedIngredients.length; j++) {
           if (tmp[i].ingredientId == this.selectedIngredients[j].ingredientId) {
             tmp[i].selected = true;
             break;
           }
-          tmp[i].selected = false;
         }
         this.recipeIngredientList.push(tmp[i]);
       }
