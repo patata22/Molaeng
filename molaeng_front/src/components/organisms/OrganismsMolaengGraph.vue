@@ -189,12 +189,12 @@ export default {
 
 <style>
 .graphPage {
-  margin: 2% 1% 2% 0%;
+  margin: 2%;
 }
 .selectGraphBtnGroup {
   display: flex;
   width: 160px;
-  margin-bottom: 2%;
+  margin: 0 4% 2% 0;
   padding: 2px;
   float: right;
   background-color: rgba(91, 87, 75, 30%);
