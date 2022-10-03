@@ -45,6 +45,7 @@ function getFirstChar(kor) {
 
 export const ingredient = {
   state: {
+    flag: false,
     ingredients: [
       {
         ingredientTitle: "ㄱ/ㄲ",
@@ -100,8 +101,12 @@ export const ingredient = {
       },
     ],
     selectedIngredients: [],
+    selectedIngredientIds: [],
   }, //원본 소스. vue에서 data로 불러올 수 있음
   getters: {
+    flag: (state) => {
+      return state.flag;
+    },
     allIngredients: (state) => {
       return state.ingredients;
     },
@@ -114,6 +119,9 @@ export const ingredient = {
         (ingredient) => ingredient.ingredientId === id
       );
     },
+    selectedIngredientIds: (state) => {
+      return state.selectedIngredientIds;
+    },
   }, // state를 접근할 땐 getter를 사용해야.
   mutations: {
     SET_INGREDIENT_SELECT(state, ingredient) {
@@ -122,6 +130,7 @@ export const ingredient = {
     ADD_CART(state, ingredient) {
       ingredient.selected = true;
       state.selectedIngredients.push(ingredient);
+      state.selectedIngredientIds.push(ingredient.ingredientId);
     },
     REMOVE_CART(state, ingredient) {
       let idx = state.selectedIngredients.findIndex((i) => {
@@ -129,14 +138,18 @@ export const ingredient = {
       });
       ingredient.selected = false;
       state.selectedIngredients.splice(idx, 1);
+      state.selectedIngredientIds.splice(idx, 1);
     },
-    ADD_INGREDIENT(state, ingredient) {
+    INIT_INGREDIENT(state, ingredient) {
       let start = getFirstChar(ingredient.ingredientName.substring(0, 1));
       for (let ing of state.ingredients) {
         if (ing.ingredientTitle.includes(start)) {
           ing.ingredientList.push(ingredient);
         }
       }
+    },
+    TOGGLE_FLAG(state) {
+      state.flag = !state.flag;
     },
   }, // setter. state를 변경할 땐 mutations를 사용해야. 무조건 동기
   actions: {}, // 비동기

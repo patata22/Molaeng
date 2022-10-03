@@ -59,7 +59,7 @@ export default {
   padding: 4% 6%;
   border-style: solid none solid;
   border-color: rgba(91, 87, 75, 10%);
-  border-width: 12px 0px 1px;
+  border-width: 12px 0 0 0;
 }
 .historyHeader {
   font-size: 1.2rem;

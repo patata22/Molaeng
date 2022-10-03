@@ -1,8 +1,7 @@
 <template>
   <v-img
+    class="recipeImage"
     :lazy-src="recipeInfo.recipeImg"
-    height="auto"
-    width="100%"
     :src="recipeInfo.recipeImg"
   ></v-img>
 </template>
@@ -16,4 +15,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.recipeImage {
+  max-width: 70%;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+</style>

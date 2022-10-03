@@ -6,6 +6,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -41,6 +42,7 @@ public class Ingredient {
     private int ingredientIsCrawl;
 
     @OneToMany(mappedBy = "ingredient")
+    @BatchSize(size=100)
     @JsonManagedReference
     private List<RecipeIngredient> recipeIngredientList;
 
@@ -61,20 +63,17 @@ public class Ingredient {
     }
 
     public int pricePerWeight(double needWeight, String needUnit) {
+        // ip: g 또는 개당 재료 가격
         double ip=this.ingredientPrice;
-        int iw=this.ingredientWeight;
+        // nw: 레시피를 만드는데 필요한 재료 무게/단위 (ex: 2개, 30g 등)
         double nw=needWeight;
 
-        // 200g 당근이 3500원인데 1kg이 필요할 때
-        if(needUnit.equals("kg") && ingredientUnit.equals("g")){
-            nw*=1000;
-            // 쌀 1kg이 25000원인데 100g이 필요할 때
-        } else if (needUnit.equals("g") && ingredientUnit.equals("kg")){
-            ip/=1000;
+
+        if(this.getIngredientUnit().equals(needUnit) || needUnit.equals("ml") || this.getIngredientUnit().equals("ml")){
+            return (int) Math.round(ip*nw);
+        } else {
+            return (int) Math.round(ip*this.ingredientWeight*nw);
         }
 
-        // ml는 어떻게 할건지 차후 추가 필요~
-
-        return (int)Math.round((ip/iw) * nw);
     }
 }

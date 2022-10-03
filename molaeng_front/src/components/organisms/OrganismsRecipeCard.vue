@@ -14,7 +14,7 @@
         class="ml-3 mt-2"
       ></v-rating>
       <span class="carrot--text mr-3 mt-2 text-weight-bold text-subtitle-2"
-        >5780원이 더 필요해요!</span
+        >{{ recipe.cost.toFixed() }}원 더 필요해요!</span
       >
       <!-- <h3>{{ recipe.recipeName }}</h3> -->
     </div>

@@ -10,8 +10,9 @@ import java.util.List;
 public interface SearchService {
 
     SearchRecipeResDTO searchRecipeByIngredient(List<Long> ingredientIdList, Pageable pageable, long userId);
-    SearchRecipeResDTO searchRecipeByCalory(Pageable pageable, long userId);
-    SearchRecipeResDTO searchRecipeByScore(Pageable pageable, long userId);
+    SearchRecipeResDTO searchRecipeByCalory(List<Long> ingredientIdList, Pageable pageable, long userId);
+    SearchRecipeResDTO searchRecipeByScore(List<Long> ingredientIdList, Pageable pageable, long userId);
+    SearchRecipeResDTO searchRecipeByCost(List<Long> ingredientIdList, Pageable pageable, long userId);
     List<RecipeNameResDTO> searchAllRecipe();
 
 }

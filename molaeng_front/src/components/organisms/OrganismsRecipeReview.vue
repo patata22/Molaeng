@@ -7,8 +7,8 @@
     <v-divider></v-divider>
     <v-container>
       <v-row>
-        <v-col class="ml-5" cols="auto"><h2>리뷰</h2></v-col>
-        <v-col cols="auto" align-self="center" class="dark--text"
+        <v-col class="ml-5 dark--text" cols="auto"><h2>리뷰</h2></v-col>
+        <v-col cols="auto" align-self="center" class="semidark--text"
           ><h4>{{ count }}건</h4></v-col
         >
         <v-spacer></v-spacer>
@@ -40,7 +40,7 @@
                         this.reviewList = [];
                         this.page = 0;
                         this.hasNext = true;
-                        getReview();
+                        this.identifierId += 1;
                       }
                     "
                     >별점 높은순</v-list-item-title
@@ -56,7 +56,7 @@
                         this.reviewList = [];
                         this.page = 0;
                         this.hasNext = true;
-                        getReview();
+                        this.identifierId += 1;
                       }
                     "
                     >별점 낮은순</v-list-item-title
@@ -72,10 +72,26 @@
                         this.reviewList = [];
                         this.page = 0;
                         this.hasNext = true;
-                        getReview();
+                        this.identifierId += 1;
                       }
                     "
                     >최신순</v-list-item-title
+                  >
+                </v-list-item>
+                <v-list-item dense>
+                  <v-list-item-title
+                    class="primary--text"
+                    v-on:click="
+                      () => {
+                        this.sort = 'like';
+                        this.sortString = '좋아요순';
+                        this.reviewList = [];
+                        this.page = 0;
+                        this.hasNext = true;
+                        this.identifierId += 1;
+                      }
+                    "
+                    >좋아요순</v-list-item-title
                   >
                 </v-list-item>
               </v-list>
@@ -93,7 +109,7 @@
     <br />
     <br />
 
-    <infinite-loading @infinite="getReview">
+    <infinite-loading :identifier="identifierId" @infinite="getReview">
       <div slot="no-more"></div>
     </infinite-loading>
     <!-- 여기서부터 리뷰 쓰기-> 뺄 수 있을지 모르겠다???? -->
@@ -122,9 +138,7 @@
           </v-footer>
         </template>
         <v-card>
-          <v-card-title>
-            <span class="text-h5">리뷰 작성</span>
-          </v-card-title>
+          <v-card-title> 리뷰 작성 </v-card-title>
           <v-card-actions class="pt-0 pb-3">
             <v-rating
               large
@@ -145,6 +159,7 @@
                   required
                   hide-details
                   rows="4"
+                  no-resize
                 ></v-textarea>
               </v-col>
             </v-row>
@@ -189,41 +204,65 @@ export default {
       count: 0,
       sort: "score,desc",
       sortString: "별점 높은순",
+      identifierId: 0,
     };
   },
   methods: {
     getReview($state) {
       var temp = this;
       var recipeId = window.location.pathname.split("/")[2];
-      axios
-        .get(
-          "https://j7a604.p.ssafy.io/molaeng/review/" +
-            recipeId +
-            "?page=" +
-            this.page +
-            "&sort=" +
-            this.sort +
-            "&userId=1&size=5"
-        )
-        .then((response) => {
-          response.data.result.reviewList.forEach((e) => {
-            temp.reviewList.push(e);
+      if (temp.sort == "like") {
+        axios
+          .get(
+            "https://j7a604.p.ssafy.io/molaeng/review/like/" +
+              recipeId +
+              "?userId=1&size=5&page=" +
+              this.page
+          )
+          .then((response) => {
+            response.data.result.reviewList.forEach((e) => {
+              temp.reviewList.push(e);
+            });
+            temp.page += 1;
+            if (response.data.result.hasNext) {
+              $state.loaded();
+            } else {
+              $state.complete();
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
           });
-          temp.page += 1;
-          if (response.data.result.hasNext) {
-            $state.loaded();
-          } else {
-            $state.complete();
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      } else {
+        axios
+          .get(
+            "https://j7a604.p.ssafy.io/molaeng/review/" +
+              recipeId +
+              "?page=" +
+              this.page +
+              "&sort=" +
+              this.sort +
+              "&userId=1&size=5"
+          )
+          .then((response) => {
+            response.data.result.reviewList.forEach((e) => {
+              temp.reviewList.push(e);
+            });
+            temp.page += 1;
+            if (response.data.result.hasNext) {
+              $state.loaded();
+            } else {
+              $state.complete();
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
     },
     sendReview() {
       var temp = this;
       var recipeId = window.location.pathname.split("/")[2];
-      console.log(temp.Content);
       axios
         .post("https://j7a604.p.ssafy.io/molaeng/review/" + recipeId, {
           userId: 1,

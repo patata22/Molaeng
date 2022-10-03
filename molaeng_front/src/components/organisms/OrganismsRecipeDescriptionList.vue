@@ -48,6 +48,10 @@ export default {
   async created() {
     //레시피 조리방법
     this.recipeDetailList = await api.getRecipeDetail(this.recipeId);
+    //정렬
+    this.recipeDetailList.sort(function (a, b) {
+      return a.recipeOrder - b.recipeOrder;
+    });
   },
   data: () => ({
     //레시피 조리방법

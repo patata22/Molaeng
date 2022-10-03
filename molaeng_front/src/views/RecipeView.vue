@@ -13,6 +13,9 @@
       :recipeId="recipeId"
       :outeat="outeat"
       :recipePrice="recipePrice"
+      :totalPrice="totalPrice"
+      :ingredientList="ingredientList"
+      :recipeIngredientList="recipeIngredientList"
     ></router-view>
   </div>
 </template>
@@ -45,15 +48,16 @@ export default {
       my: 0,
       gugunName: "",
     },
-    recipePrice: 5000,
+    totalPrice: 0,
+    ingredientList: [],
   }),
   computed: {
-    ...mapGetters(["selectedIngredients"]),
+    ...mapGetters(["selectedIngredients", "selectedIngredientIds"]),
     tabs() {
       return [
         {
           tabName: "재료",
-          tabLink: "/recipe/" + this.recipeId + "/ingInfo",
+          tabLink: "/recipe/" + this.recipeId + "/inginfo",
         },
         {
           tabName: "조리방법",
@@ -79,6 +83,16 @@ export default {
         return this.outeat.seoul - this.recipePrice;
       } else return this.outeat.my - this.recipePrice;
     },
+    recipePrice() {
+      let recipePrice = 0;
+      for (let i = 0; i < this.ingredientList.length; i++) {
+        let ingredient = this.ingredientList[i];
+        if (!this.selectedIngredientIds.includes(ingredient.ingredientId)) {
+          recipePrice += Number(ingredient.price);
+        }
+      }
+      return recipePrice;
+    },
   },
   async created() {
     //recipeId 저장
@@ -87,27 +101,12 @@ export default {
     //레시피 상단바 상세정보
     this.recipeInfo = await api.getRecipeInfo(this.recipeId);
     //레시피 주재료 리스트
-    let result = await api.getRecipeIngredients(this.recipeId);
+
     //설명 : ingredientId, ingredientName, selected를 가진 객체 배열 recipeIngredientList를 만들고
     //axios로 가져온 주재료 리스트와 store의 selectedIngredients를 비교해서 있으면 selected를 true, 없으면 false로 만들고
     //recipeIngredientList에 넣어서 상단바로 보내기
-    let tmp = result.ingredientList;
-    for (let i = 0; i < tmp.length; i++) {
-      let recipeIngredient = {
-        ingredientId: "",
-        ingredientName: "",
-        selected: false,
-      };
-      recipeIngredient.ingredientId = tmp[i].ingredientId;
-      recipeIngredient.ingredientName = tmp[i].ingredientName;
-      for (let j = 0; j < this.selectedIngredients.length; j++) {
-        if (tmp[i].ingredientId == this.selectedIngredients[j].ingredientId) {
-          recipeIngredient.selected = true;
-          break;
-        }
-      }
-      this.recipeIngredientList.push(recipeIngredient);
-    }
+    this.getRecipeIngredients();
+    this.getHomePrice();
 
     this.outeat = await api.outPrice(this.recipeId);
 
@@ -127,6 +126,35 @@ export default {
       newList.unshift(this.recipeId);
       if (newList.length > 5) newList.pop();
       localStorage.setItem("recentRecipe", JSON.stringify(newList));
+    },
+
+    /**
+     * 설명 : ingredientId, ingredientName, selected를 가진 객체 배열 recipeIngredientList를 만들고
+     * axios로 가져온 주재료 리스트와 store의 selectedIngredients를 비교해서 있으면 selected를 true, 없으면 false로 만들고
+     * recipeIngredientList에 넣어서 상단바로 보내기
+     * tmp에 바로 selected 추가 가능
+     */
+    async getRecipeIngredients() {
+      let result = await api.getRecipeIngredients(this.recipeId);
+      let tmp = result.ingredientList;
+      for (let i = 0; i < tmp.length; i++) {
+        for (let j = 0; j < this.selectedIngredients.length; j++) {
+          if (tmp[i].ingredientId == this.selectedIngredients[j].ingredientId) {
+            tmp[i].selected = true;
+            break;
+          }
+          tmp[i].selected = false;
+        }
+        this.recipeIngredientList.push(tmp[i]);
+      }
+    },
+    async getHomePrice() {
+      let result = await api.getHomePrice(this.recipeId);
+      this.ingredientList = result.ingredientList;
+      for (let i = 0; i < this.ingredientList.length; i++) {
+        let ingredient = this.ingredientList[i];
+        this.totalPrice += Number(ingredient.price);
+      }
     },
   },
 };

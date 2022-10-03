@@ -56,7 +56,7 @@ export default {
       this.$router.push("/search").catch(() => {});
     },
     goRecipeSearch() {
-      this.$router.push("/search").catch(() => {});
+      this.$router.push("/search/recipe").catch(() => {});
     },
   },
 };

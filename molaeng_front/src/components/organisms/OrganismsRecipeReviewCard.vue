@@ -116,13 +116,13 @@ export default {
 
 <style>
 #writerInfo {
-  color: #adaba5;
+  color: rgb(91 87 75 / 60%);
 }
 #reviewLikeButton .v-btn__content {
   flex-direction: column;
 }
 #reviewCard {
   border: 3px solid #fdac6d;
-  box-shadow: 0px 4px 10px #feefe2;
+  box-shadow: 0px 5px 10px rgb(91 87 75 / 20%);
 }
 </style>

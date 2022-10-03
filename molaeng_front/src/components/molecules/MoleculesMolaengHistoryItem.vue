@@ -4,7 +4,7 @@
       meal.recipeName
     }}</span>
     <div>
-      <span class="historyItemPrice">{{ meal.saveCost }}원</span>
+      <span class="historyItemPrice">{{ saveCost }}원</span>
       <button @click.stop="dialog = true">
         <v-icon class="deleteHistoryBtn">mdi-window-close</v-icon>
       </button>
@@ -32,9 +32,26 @@ const api = API;
 export default {
   props: { meal: Object },
   data: () => ({
+    saveCost: "",
     dialog: false,
   }),
+  created() {
+    this.saveCostFormatter();
+  },
+  watch: {
+    meal() {
+      this.saveCostFormatter();
+    },
+  },
   methods: {
+    saveCostFormatter() {
+      if (this.meal.saveCost > 0) {
+        this.saveCost = this.meal.saveCost.toLocaleString();
+        this.saveCost = "+" + this.saveCost;
+      } else {
+        this.saveCost = this.meal.saveCost.toLocaleString();
+      }
+    },
     async deleteHistory() {
       this.res = await api.deleteDiary(this.meal.diaryId);
       this.$router.go();

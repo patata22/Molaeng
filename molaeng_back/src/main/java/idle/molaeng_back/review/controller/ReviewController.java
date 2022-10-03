@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -142,5 +141,20 @@ public class ReviewController {
             resultMap.put("message", "리뷰 좋아요 취소에서 에러남");
             return new ResponseEntity(resultMap, HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping("/like/{recipeId}")
+    public ResponseEntity readReviewByLikeCount(@PathVariable long recipeId,@RequestParam long userId, Pageable pageable){
+        Map<String, Object> resultMap = new HashMap<>();
+        try{
+            ReviewResDTO result = reviewService.readReviewByLikeCount(recipeId, pageable);
+            resultMap.put("result", result);
+            resultMap.put("message", "success");
+            return new ResponseEntity(resultMap, HttpStatus.OK);
+        }catch(Exception e){
+            resultMap.put("message", "좋아요순 검색에서 에러!");
+            return new ResponseEntity(resultMap, HttpStatus.BAD_REQUEST);
+        }
+
     }
 }

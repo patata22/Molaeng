@@ -18,9 +18,15 @@
         <div style="color: #5b574b; opacity: 30%">
           열량 {{ recipeInfo.recipeKcal }}kcal
         </div>
-        <ingredient-tag-list
+        <recipe-ingredient-tag-list
           :ingredientList="recipeIngredientList"
-          style="display: flex; flex-wrap: nowrap; overflow-x: auto"
+          style="
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            margin: 3% 5% 0 5%;
+          "
+          class="box"
         />
       </div>
     </div>
@@ -28,14 +34,14 @@
 </template>
 
 <script>
-import IngredientTagList from "../molecules/MoleculesIngredientTagList.vue";
+import RecipeIngredientTagList from "../molecules/MoleculesRecipeIngredientTagList.vue";
 import API from "@/api/APIs";
 const api = API;
 
 export default {
   name: "RecipeDetailHeader",
   components: {
-    IngredientTagList,
+    RecipeIngredientTagList,
   },
   props: {
     // 레시피 제목, 열량, 대표이미지, 찜여부 등의 정보를 받아옴
@@ -44,14 +50,16 @@ export default {
     recipeIngredientList: Array,
   },
   methods: {
-    //요청을 보내고, RecipeView 새로고침
+    //요청을 보내고, RecipeView 새로고침X
     registRecipeLike() {
+      let temp = this.recipeInfo;
       api.registRecipeLike(this.recipeId);
-      this.$router.go("/recipe/" + this.recipeId);
+      temp.isLiked = !temp.isLiked;
     },
     deleteRecipeLike() {
+      let temp = this.recipeInfo;
       api.deleteRecipeLike(this.recipeId);
-      this.$router.go("/recipe/" + this.recipeId);
+      temp.isLiked = !temp.isLiked;
     },
   },
 };
@@ -63,5 +71,16 @@ export default {
   justify-content: right;
   padding-top: 2%;
   padding-right: 2%;
+}
+/* 가로스크롤
+display: flex;
+flex-wrap: nowrap;
+overflow-x: auto; */
+.box {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.box::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
 }
 </style>

@@ -24,12 +24,12 @@ public class RecipeIngredient {
     @Column(name="weight_unit")
     private String weightUnit;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="recipe_id")
     @JsonBackReference
     private Recipe recipe;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="ingredient_id")
     @JsonBackReference
     private Ingredient ingredient;

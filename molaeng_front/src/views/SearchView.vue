@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import API from "@/api/APIs";
 
 const api = API;
@@ -12,12 +13,15 @@ const api = API;
 export default {
   name: "SearchView",
   components: {},
+  computed: {
+    ...mapGetters(["flag"]),
+  },
   data: () => ({
     buttonText: "레시피 검색",
     tabs: [
       {
         tabName: "재료",
-        tabLink: "/search/ingredient",
+        tabLink: "/search",
       },
       {
         tabName: "레시피",
@@ -26,10 +30,13 @@ export default {
     ],
   }),
   async created() {
-    let result = await api.getAllIngredients();
-    for (let i = 0; i < result.ingredientList.length; i++) {
-      let ingredient = result.ingredientList[i];
-      this.$store.commit("ADD_INGREDIENT", ingredient);
+    if (!this.flag) {
+      let result = await api.getAllIngredients();
+      for (let i = 0; i < result.ingredientList.length; i++) {
+        let ingredient = result.ingredientList[i];
+        this.$store.commit("INIT_INGREDIENT", ingredient);
+      }
+      this.$store.commit("TOGGLE_FLAG");
     }
   },
 };

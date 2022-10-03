@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const baseURL = "https://j7a604.p.ssafy.io/molaeng";
-const baseURL = "http://localhost:8080/molaeng";
+const baseURL = "https://j7a604.p.ssafy.io/molaeng";
+// const baseURL = "http://localhost:8080/molaeng";
 
 /**
  * 사용방법 예시
@@ -49,18 +49,18 @@ const API = {
     });
     return response.data.result;
   },
-  // async getCalendar(userId, year, month) {
-  //   const response = await this.instance.get(
-  //     "/diary/calendar" +
-  //     "?userId=" +
-  //     userId +
-  //     "&year=" +
-  //     year +
-  //     "&month=" +
-  //     month
-  //   );
-  //   return response.data;
-  // },
+  async getCalendar(userId, year, month) {
+    const response = await this.instance.get(
+      "/diary/calendar" +
+        "?userId=" +
+        userId +
+        "&year=" +
+        year +
+        "&month=" +
+        month
+    );
+    return response.data;
+  },
   async getMonthGraph(userId, year, month) {
     const response = await this.instance.get(
       "/diary/month" + "?userId=" + userId + "&year=" + year + "&month=" + month
@@ -153,18 +153,16 @@ const API = {
     return response.data;
   },
 
-  // async getProfile() {
-  //   const response = this.instance.post("/user", {
-  //     params: {
-  //       userId: 1,
-  //     },
-  //   });
-  //   return response.reuslt;
-  // },
+  async getHomePrice(recipeId) {
+    const response = await this.instance.get("/recipe/priceinfo/" + recipeId);
+    return response.data;
+  },
 
-  async getRecipeLikeList(userId) {
-    const response = await this.instance.get("/recipe/like?userId=" + userId);
-    return response.data.result;
+  async getRecipeSubIngredients(recipeId) {
+    const response = await this.instance.get(
+      "/recipe/ingredient/" + recipeId + "/sub"
+    );
+    return response.data;
   },
 };
 

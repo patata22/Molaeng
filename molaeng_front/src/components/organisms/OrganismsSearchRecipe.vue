@@ -1,15 +1,8 @@
 <template lang="">
   <div>
-    <atoms-search-box v-on:change="changeKeyword"> </atoms-search-box>
+    <atoms-search-box v-on:change="changeKeyword" :searchword="searchword">
+    </atoms-search-box>
     <menu-tab :tabs="tabs"></menu-tab>
-    <!-- <v-input
-      ><v-text-field
-        v-model="keyWord"
-        @input="matchingKeyword"
-        id="searchInputText"
-        class="font-weight-bold"
-      ></v-text-field
-    ></v-input> -->
     <v-card
       flat
       v-for="(recipe, i) in matchList"
@@ -36,7 +29,6 @@ export default {
   data: function () {
     return {
       recipeNameList: [],
-      recipeMap: new Map(),
       matchList: [],
       tabs: [
         {
@@ -48,6 +40,7 @@ export default {
           tabLink: "/search/recipe",
         },
       ],
+      searchword: "레시피를 검색해주세요",
     };
   },
   components: {
@@ -61,8 +54,10 @@ export default {
         .get("https://j7a604.p.ssafy.io/molaeng/search/all")
         .then((response) => {
           response.data.result.forEach((dto) => {
-            temp.recipeNameList.push(dto.recipeName);
-            temp.recipeMap.set(dto.recipeName, dto.recipeId);
+            temp.recipeNameList.push({
+              recipeName: dto.recipeName,
+              recipeId: dto.recipeId,
+            });
           });
         })
         .catch((error) => console.log(error));
@@ -71,15 +66,15 @@ export default {
       var temp = this;
       temp.matchList = [];
       if (temp.keyWord == "") return;
-      temp.recipeNameList.forEach((name) => {
-        if (name.indexOf(this.keyWord) >= 0) {
-          var idx = name.indexOf(this.keyWord);
+      temp.recipeNameList.forEach((recipe) => {
+        if (recipe.recipeName.indexOf(this.keyWord) >= 0) {
+          var idx = recipe.recipeName.indexOf(this.keyWord);
           temp.matchList.push({
-            recipeName: name,
-            recipeId: temp.recipeMap.get(name),
-            F: name.substr(0, idx),
-            M: name.substr(idx, temp.keyWord.length),
-            E: name.substr(idx + temp.keyWord.length),
+            recipeName: recipe.recipeName,
+            recipeId: recipe.recipeId,
+            F: recipe.recipeName.substr(0, idx),
+            M: recipe.recipeName.substr(idx, temp.keyWord.length),
+            E: recipe.recipeName.substr(idx + temp.keyWord.length),
           });
         }
       });

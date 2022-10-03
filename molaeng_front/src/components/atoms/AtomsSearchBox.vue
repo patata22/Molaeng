@@ -1,9 +1,9 @@
 <template>
   <div id="searchTextField" class="mt-5">
     <v-text-field
-      placeholder="레시피를 검색해주세요"
+      :placeholder="searchword"
       v-model="keyword"
-      color="default"
+      color="dark"
       solo
       dense
       rounded
@@ -22,6 +22,7 @@ export default {
       return this.keyword;
     },
   },
+  props: ["searchword"],
   data: () => ({
     keyword: "",
   }),
@@ -38,8 +39,8 @@ export default {
 
 <style>
 #searchTextField .v-input__slot {
-  box-shadow: 0px 4px 10px #cecdc9;
-  max-width: 351px;
+  box-shadow: 0px 5px 10px rgb(91 87 75 / 20%);
+  max-width: 300px;
   margin: auto;
 }
 </style>

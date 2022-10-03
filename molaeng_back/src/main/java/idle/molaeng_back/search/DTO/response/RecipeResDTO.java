@@ -16,10 +16,10 @@ public class RecipeResDTO {
     int recipeKcal;
     int isLiked;
     double avgScore;
-    //int cost;
+    double cost;
 
     @Builder
-    public RecipeResDTO(long recipeId, String recipeName, List<IngredientResDTO> ingredientList, String recipeImage, int recipeKcal, int isLiked, double avgScore) {
+    public RecipeResDTO(long recipeId, String recipeName, List<IngredientResDTO> ingredientList, String recipeImage, int recipeKcal, int isLiked, double avgScore, double cost) {
         this.recipeId = recipeId;
         this.recipeName = recipeName;
         this.ingredientList = ingredientList;
@@ -27,5 +27,6 @@ public class RecipeResDTO {
         this.recipeKcal = recipeKcal;
         this.isLiked = isLiked;
         this.avgScore = avgScore;
+        this.cost=cost;
     }
 }

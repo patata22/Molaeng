@@ -26,6 +26,6 @@ export default {
 </script>
 <style>
 #selectedTag {
-  box-shadow: 0px 4px 10px #cecdc9;
+  box-shadow: 0px 5px 10px rgb(91 87 75 / 20%);
 }
 </style>

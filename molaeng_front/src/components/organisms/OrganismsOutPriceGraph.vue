@@ -107,11 +107,24 @@ export default {
     my() {
       this.graphMy();
     },
+    recipePrice() {
+      this.graphSeoul();
+      this.graphMy();
+    },
   },
   methods: {
     graphSeoul() {
       if (this.seoul > 0) {
         this.isSell = true;
+        this.chartData.labels.shift();
+        this.chartData.labels.shift();
+        this.chartData.labels.shift();
+        this.chartData.datasets[0].data.shift();
+        this.chartData.datasets[0].data.shift();
+        this.chartData.datasets[0].data.shift();
+        this.chartData.datasets[0].backgroundColor.shift();
+        this.chartData.datasets[0].backgroundColor.shift();
+        this.chartData.datasets[0].backgroundColor.shift();
         this.chartData.labels.push("서울 평균");
         this.chartData.datasets[0].data.push(this.seoul);
         this.chartData.datasets[0].backgroundColor.push("#ED8A53");
