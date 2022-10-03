@@ -15,6 +15,7 @@
       :recipePrice="recipePrice"
       :totalPrice="totalPrice"
       :ingredientList="ingredientList"
+      :recipeIngredientList="recipeIngredientList"
     ></router-view>
   </div>
 </template>

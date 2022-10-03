@@ -11,7 +11,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="ingredient in ingredientList" :key="ingredient.ingredientId">
+      <tr
+        v-for="ingredient in recipeIngredientList"
+        :key="ingredient.ingredientId"
+      >
         <td class="font-weight-bold dark--text">
           {{ ingredient.ingredientName }}
         </td>
@@ -49,15 +52,13 @@ export default {
   name: "RecipeIngredientInfo",
   props: {
     recipeId: String,
+    recipeIngredientList: Array,
   },
   data: () => ({
-    ingredientList: [],
     subIngredientList: [],
   }),
   async created() {
-    let result = await api.getRecipeIngredients(this.recipeId);
-    this.ingredientList = result.ingredientList;
-    result = await api.getRecipeSubIngredients(this.recipeId);
+    let result = await api.getRecipeSubIngredients(this.recipeId);
     this.subIngredientList = result.subIngredientList;
   },
 };
