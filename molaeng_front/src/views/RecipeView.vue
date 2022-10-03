@@ -142,6 +142,7 @@ export default {
             tmp[i].selected = true;
             break;
           }
+          tmp[i].selected = false;
         }
         this.recipeIngredientList.push(tmp[i]);
       }
