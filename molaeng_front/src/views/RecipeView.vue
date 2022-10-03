@@ -7,7 +7,6 @@
         :recipeId="recipeId"
         :recipeIngredientList="recipeIngredientList"
       />
-
       <menu-tab :tabs="tabs" />
     </div>
     <router-view
