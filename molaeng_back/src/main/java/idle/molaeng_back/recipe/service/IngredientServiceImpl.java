@@ -54,15 +54,14 @@ public class IngredientServiceImpl implements IngredientService {
         // 가장 먼저 레시피- 재료 테이블에서 필요한 재료 목록 불러오기
         // 필요한 재료 목록들의 재료id로 재료 가격 조회
         // 레시피-재료 테이블에 적힌 무게대로 가격 환산
-//        List<RecipeIngredient> recipeIngredients = recipeIngredientRepository.findAllByRecipe_RecipeId(recipeId);
-//        List<RecipeIngredientResponse.RecipeIngredientPriceInfo> result = new ArrayList<>();
-//        for (RecipeIngredient recipeIngredient : recipeIngredients) {
-//            Ingredient ingredient = recipeIngredient.getIngredient();
-//            result.add(new RecipeIngredientResponse.RecipeIngredientPriceInfo(recipeIngredient, ingredient.pricePerWeight(recipeIngredient.getNeedWeight(),recipeIngredient.getWeightUnit())));
-//        }
-//
-//        return result;
-        return null;
+        List<RecipeIngredient> recipeIngredients = recipeIngredientRepository.findAllByRecipe_RecipeId(recipeId);
+        List<RecipeIngredientResponse.RecipeIngredientPriceInfo> result = new ArrayList<>();
+        for (RecipeIngredient recipeIngredient : recipeIngredients) {
+            Ingredient ingredient = recipeIngredient.getIngredient();
+            result.add(new RecipeIngredientResponse.RecipeIngredientPriceInfo(ingredient, ingredient.pricePerWeight(recipeIngredient.getNeedWeight(),recipeIngredient.getWeightUnit())));
+        }
+
+        return result;
     }
 
 
