@@ -9,6 +9,7 @@
     <div class="v-stepper_content">
       <div class="v-stepper__wrapper" style="height: auto">
         <v-img
+          v-if="detailImg != ' '"
           :lazy-src="detailImg"
           height="auto"
           width="100%"
