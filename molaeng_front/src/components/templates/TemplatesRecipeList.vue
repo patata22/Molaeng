@@ -40,6 +40,22 @@
               class="carrot--text"
               v-on:click="
                 () => {
+                  this.sortString = '비용 낮은순';
+                  this.recipeList = [];
+                  this.page = 0;
+                  this.hasNext = true;
+                  this.sort = 0;
+                  getRecipeByCost();
+                }
+              "
+              >비용 낮은순</v-list-item-title
+            >
+          </v-list-item>
+          <v-list-item dense>
+            <v-list-item-title
+              class="carrot--text"
+              v-on:click="
+                () => {
                   this.sort = 'score';
                   this.sortString = '열량 낮은순';
                   this.recipeList = [];
@@ -153,14 +169,14 @@ export default {
     },
     getRecipeByCalory($state) {
       var temp = this;
+      const url =
+        "https://j7a604.p.ssafy.io/molaeng/search/calory?page=" +
+        temp.page +
+        "&size=" +
+        temp.size +
+        "&sort=recipeKcal&userId=1";
       axios
-        .get(
-          "https://j7a604.p.ssafy.io/molaeng/search/calory?page=" +
-            temp.page +
-            "&size=" +
-            temp.size +
-            "&sort=recipeKcal&userId=1"
-        )
+        .post(url, { ingredientList: temp.ingredientList })
         .then((response) => {
           response.data.result.recipeList.forEach((e) => {
             temp.recipeList.push(e);
@@ -177,10 +193,37 @@ export default {
     getRecipeByScore($state) {
       var temp = this;
       axios
-        .get(
+        .post(
           "https://j7a604.p.ssafy.io/molaeng/search/score?userId=1&page=" +
             temp.page +
-            "&size=5"
+            "&size=5",
+          {
+            ingredientList: temp.ingredientList,
+          }
+        )
+        .then((response) => {
+          response.data.result.recipeList.forEach((e) => {
+            temp.recipeList.push(e);
+          });
+          temp.page += 1;
+          if (response.data.result.hasNext) {
+            $state.loaded();
+          } else {
+            $state.complete();
+          }
+        })
+        .catch((error) => console.log(error));
+    },
+    getRecipeByCost($state) {
+      var temp = this;
+      axios
+        .post(
+          "https://j7a604.p.ssafy.io/molaeng/search/cost?userId=1&page=" +
+            temp.page +
+            "&size=5",
+          {
+            ingredientList: temp.ingredientList,
+          }
         )
         .then((response) => {
           response.data.result.recipeList.forEach((e) => {

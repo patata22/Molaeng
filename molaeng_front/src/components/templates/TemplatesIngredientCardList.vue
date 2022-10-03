@@ -4,6 +4,7 @@
       v-for="(ingredientCategory, index) in allIngredients"
       :key="index"
       :ingredientCategory="ingredientCategory"
+      :keyWord="keyWord"
     />
   </div>
 </template>
@@ -17,6 +18,7 @@ export default {
   components: {
     IngredientCard,
   },
+  props: { keyWord: String },
   computed: {
     ...mapGetters(["allIngredients"]),
   },

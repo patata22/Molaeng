@@ -45,7 +45,6 @@ export default {
         )
         .then((response) => {
           this.result = response.data.result;
-          console.log(this.result.reviewList);
           temp.hasNext = response.data.result.hasNext;
           temp.page += 1;
           response.data.result.reviewList.forEach((e) => {

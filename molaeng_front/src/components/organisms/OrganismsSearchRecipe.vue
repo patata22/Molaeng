@@ -1,6 +1,7 @@
 <template lang="">
   <div>
-    <atoms-search-box v-on:change="changeKeyword"> </atoms-search-box>
+    <atoms-search-box v-on:change="changeKeyword" :searchword="searchword">
+    </atoms-search-box>
     <menu-tab :tabs="tabs"></menu-tab>
     <!-- <v-input
       ><v-text-field
@@ -48,6 +49,7 @@ export default {
           tabLink: "/search/recipe",
         },
       ],
+      searchword: "레시피를 검색해주세요",
     };
   },
   components: {
