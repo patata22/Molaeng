@@ -15,11 +15,13 @@ public interface ReviewService {
     long createReview(Long recipeId, CreateReviewReqDTO createReviewDTO);
     Review readReviewById(long reviewId);
     ReviewResDTO readReviewByUserId(long userId, Pageable pageable);
+
+    void transUserReview(long userId);
+
     ReviewResDTO readReviewByRecipeId(long userId, long recipeId, Pageable pageable);
     ScoreResDTO findScoreByRecipeId(long recipeId);
     int countReviewByRecipeId(long recipeId);
     void deleteReviewById(long reviewId);
 
-
-    void transUserReview(long userId);
+    ReviewResDTO readReviewByLikeCount(long recipeId, Pageable pageable);
 }

@@ -11,7 +11,6 @@ import idle.molaeng_back.review.repository.ReviewLikeRepository;
 import idle.molaeng_back.review.repository.ReviewRepository;
 import idle.molaeng_back.user.model.User;
 import idle.molaeng_back.user.model.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
@@ -133,6 +132,21 @@ public class ReviewServiceImpl implements ReviewService{
             return new ScoreResDTO(scoreCnt, avgScore);
         }
 
+    }
+    //userId 더미 수정할것!
+    @Override
+    public ReviewResDTO readReviewByLikeCount(long recipeId, Pageable pageable) {
+        List<Review> tempList = reviewRepository.findAllByRecipeRecipeId(recipeId);
+        long start = pageable.getOffset();
+        long end= Math.min(start+pageable.getPageSize(), tempList.size());
+        boolean hasNext = end < tempList.size();
+        tempList.sort((o1,o2) -> o2.getReviewLikeList().size()-o1.getReviewLikeList().size());
+        List<Review> subList = tempList.subList((int) start, (int) end);
+        //여기 더미값!!
+        List<ReadReviewResDTO> dtoList = subList.stream()
+                .map(x -> reviewToReadReviewDTO(1, x))
+                .collect(Collectors.toList());
+        return new ReviewResDTO(pageable.getPageNumber(), hasNext, dtoList);
     }
 
     @Override

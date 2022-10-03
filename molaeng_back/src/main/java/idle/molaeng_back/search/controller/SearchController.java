@@ -44,11 +44,16 @@ public class SearchController {
             return new ResponseEntity(resultMap, HttpStatus.BAD_REQUEST);
         }
     }
-    @GetMapping("/calory")
-    public ResponseEntity searchByCalory(@RequestParam long userId, Pageable pageable){
+    @PostMapping("/calory")
+    public ResponseEntity searchByCalory(@RequestBody SearchRecipeDTO data, @RequestParam long userId, Pageable pageable){
         Map<String, Object> resultMap = new HashMap();
+
         try{
-            SearchRecipeResDTO result = searchService.searchRecipeByCalory(pageable, userId);
+            List<Long> ingredientIdList = new ArrayList<>();
+            for (SearchRecipeByIngredientReqDTO dto : data.getIngredientList()) {
+                ingredientIdList.add(dto.getIngredientId());
+            }
+            SearchRecipeResDTO result = searchService.searchRecipeByCalory(ingredientIdList, pageable, userId);
             resultMap.put("result", result);
             resultMap.put("message","success");
             return new ResponseEntity(resultMap, HttpStatus.OK);
@@ -58,11 +63,33 @@ public class SearchController {
         }
     }
 
-    @GetMapping("/score")
-    public ResponseEntity searchByScore(@RequestParam long userId, Pageable pageable){
+    @PostMapping("/score")
+    public ResponseEntity searchByScore(@RequestBody SearchRecipeDTO data, @RequestParam long userId, Pageable pageable){
         Map<String, Object> resultMap = new HashMap<>();
         try{
-            SearchRecipeResDTO result = searchService.searchRecipeByScore(pageable, userId);
+            List<Long> ingredientIdList = new ArrayList<>();
+            for (SearchRecipeByIngredientReqDTO dto : data.getIngredientList()) {
+                ingredientIdList.add(dto.getIngredientId());
+            }
+            SearchRecipeResDTO result = searchService.searchRecipeByScore(ingredientIdList, pageable, userId);
+            resultMap.put("result", result);
+            resultMap.put("message", "success");
+            return new ResponseEntity(resultMap, HttpStatus.OK);
+        }catch(Exception e){
+            resultMap.put("message", "평점검색 에러");
+            return new ResponseEntity(resultMap, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/cost")
+    public ResponseEntity searchByCost(@RequestBody SearchRecipeDTO data, @RequestParam long userId, Pageable pageable){
+        Map<String, Object> resultMap = new HashMap<>();
+        try{
+            List<Long> ingredientIdList = new ArrayList<>();
+            for (SearchRecipeByIngredientReqDTO dto : data.getIngredientList()) {
+                ingredientIdList.add(dto.getIngredientId());
+            }
+            SearchRecipeResDTO result = searchService.searchRecipeByCost(ingredientIdList, pageable, userId);
             resultMap.put("result", result);
             resultMap.put("message", "success");
             return new ResponseEntity(resultMap, HttpStatus.OK);
