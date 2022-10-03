@@ -49,7 +49,6 @@ export default {
       gugunName: "",
     },
     totalPrice: 0,
-    recipePrice: 0,
     ingredientList: [],
   }),
   computed: {
@@ -83,6 +82,16 @@ export default {
       if (this.compareLocation == "서울") {
         return this.outeat.seoul - this.recipePrice;
       } else return this.outeat.my - this.recipePrice;
+    },
+    recipePrice() {
+      let recipePrice = 0;
+      for (let i = 0; i < this.ingredientList.length; i++) {
+        let ingredient = this.ingredientList[i];
+        if (!this.selectedIngredientIds.includes(ingredient.ingredientId)) {
+          recipePrice += Number(ingredient.price);
+        }
+      }
+      return recipePrice;
     },
   },
   async created() {
@@ -143,9 +152,6 @@ export default {
       for (let i = 0; i < this.ingredientList.length; i++) {
         let ingredient = this.ingredientList[i];
         this.totalPrice += Number(ingredient.price);
-        if (!this.selectedIngredientIds.includes(ingredient.ingredientId)) {
-          this.recipePrice += Number(ingredient.price);
-        }
       }
     },
   },
