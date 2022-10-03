@@ -20,7 +20,13 @@
         </div>
         <ingredient-tag-list
           :ingredientList="recipeIngredientList"
-          style="display: flex; flex-wrap: nowrap; overflow-x: auto"
+          style="
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            margin: 3% 5% 0 5%;
+          "
+          class="box"
         />
       </div>
     </div>
@@ -65,5 +71,16 @@ export default {
   justify-content: right;
   padding-top: 2%;
   padding-right: 2%;
+}
+/* 가로스크롤
+display: flex;
+flex-wrap: nowrap;
+overflow-x: auto; */
+.box {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.box::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
 }
 </style>
