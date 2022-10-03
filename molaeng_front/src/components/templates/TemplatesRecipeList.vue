@@ -44,7 +44,7 @@
                   this.recipeList = [];
                   this.page = 0;
                   this.hasNext = true;
-                  this.sort = 0;
+                  this.sort = 3;
                   getRecipeByCost();
                 }
               "
@@ -99,6 +99,9 @@
       <div slot="no-more"></div>
     </infinite-loading>
     <infinite-loading v-else-if="sort == 1" @infinite="getRecipeByCalory">
+      <div slot="no-more"></div>
+    </infinite-loading>
+    <infinite-loading v-else-if="sort == 3" @infinite="getRecipeByCost">
       <div slot="no-more"></div>
     </infinite-loading>
     <infinite-loading v-else @infinite="getRecipeByScore">
