@@ -28,6 +28,7 @@ export default {
       } else {
         this.$store.commit("REMOVE_CART", ingredient);
       }
+      this.$store.commit("SET_INGREDIENT_SELECT", ingredient);
     },
   },
 };
