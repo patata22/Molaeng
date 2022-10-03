@@ -12,9 +12,9 @@
 
     <home-price-info :ingredientList="ingredientList" />
     <v-divider class="mx-5"></v-divider>
-    <v-card-text class="pr-5 text-right carrot--text font-weight-bold"
-      >{{ recipePrice.toLocaleString() }}원이 더 필요해요!
-    </v-card-text>
+    <div class="needPrice">
+      {{ recipePrice.toLocaleString() }}원이 더 필요해요!
+    </div>
   </v-card>
 </template>
 
@@ -36,8 +36,10 @@ export default {
 </script>
 
 <style>
-.v-card__text {
-  letter-spacing: 0.05em;
-  font-size: 16px;
+.needPrice {
+  padding: 4% 6% 4% 6%;
+  text-align: right;
+  color: #ed8a53;
+  font-weight: bold;
 }
 </style>
