@@ -132,6 +132,7 @@ export default {
      * 설명 : ingredientId, ingredientName, selected를 가진 객체 배열 recipeIngredientList를 만들고
      * axios로 가져온 주재료 리스트와 store의 selectedIngredients를 비교해서 있으면 selected를 true, 없으면 false로 만들고
      * recipeIngredientList에 넣어서 상단바로 보내기
+     * tmp에 바로 selected 추가 가능
      */
     async getRecipeIngredients() {
       let result = await api.getRecipeIngredients(this.recipeId);
@@ -142,6 +143,7 @@ export default {
             tmp[i].selected = true;
             break;
           }
+          tmp[i].selected = false;
         }
         this.recipeIngredientList.push(tmp[i]);
       }
