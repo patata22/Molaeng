@@ -144,6 +144,62 @@ export const ingredient = {
         }
       }
     },
+    INIT_INGREDIENT(state) {
+      state.ingredients = [
+        {
+          ingredientTitle: "ㄱ/ㄲ",
+          ingredientList: [],
+        },
+        {
+          ingredientTitle: "ㄴ",
+          ingredientList: [],
+        },
+        {
+          ingredientTitle: "ㄷ/ㄸ",
+          ingredientList: [],
+        },
+        {
+          ingredientTitle: "ㄹ",
+          ingredientList: [],
+        },
+        {
+          ingredientTitle: "ㅁ",
+          ingredientList: [],
+        },
+        {
+          ingredientTitle: "ㅂ",
+          ingredientList: [],
+        },
+        {
+          ingredientTitle: "ㅅ/ㅆ",
+          ingredientList: [],
+        },
+        {
+          ingredientTitle: "ㅇ",
+          ingredientList: [],
+        },
+        {
+          ingredientTitle: "ㅈ/ㅉ",
+          ingredientList: [],
+        },
+        {
+          ingredientTitle: "ㅋ",
+          ingredientList: [],
+        },
+        {
+          ingredientTitle: "ㅌ",
+          ingredientList: [],
+        },
+        {
+          ingredientTitle: "ㅍ",
+          ingredientList: [],
+        },
+        {
+          ingredientTitle: "ㅎ",
+          ingredientList: [],
+        },
+      ];
+    },
   }, // setter. state를 변경할 땐 mutations를 사용해야. 무조건 동기
   actions: {}, // 비동기
   modules: {},
