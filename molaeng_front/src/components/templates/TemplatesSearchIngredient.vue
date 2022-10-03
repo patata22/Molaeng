@@ -35,7 +35,7 @@ export default {
     tabs: [
       {
         tabName: "재료",
-        tabLink: "/search/ingredient",
+        tabLink: "/search",
       },
       {
         tabName: "레시피",
