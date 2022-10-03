@@ -6,8 +6,8 @@
     </colgroup>
     <thead>
       <tr>
-        <th class="text-left dark--text font-weight-bold">재료명</th>
-        <th class="text-left dark--text font-weight-bold">용량</th>
+        <th class="text-left dark--text font-weight-bold">주재료명</th>
+        <th class="text-left dark--text font-weight-bold text-right">용량</th>
       </tr>
     </thead>
     <tbody>
@@ -15,8 +15,25 @@
         <td class="font-weight-bold dark--text">
           {{ ingredient.ingredientName }}
         </td>
-        <td class="dark--text">
+        <td class="dark--text text-right">
           {{ ingredient.needWeight }}{{ ingredient.weightUnit }}
+        </td>
+      </tr>
+    </tbody>
+    <br />
+    <thead>
+      <tr>
+        <th class="text-left dark--text font-weight-bold">부재료명</th>
+        <th class="text-left dark--text font-weight-bold text-right">용량</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="(ingredient, index) in subIngredientList" :key="index">
+        <td class="font-weight-bold dark--text">
+          {{ ingredient.subIngredientName }}
+        </td>
+        <td class="dark--text text-right">
+          {{ ingredient.weightUnit }}
         </td>
       </tr>
     </tbody>
@@ -35,10 +52,13 @@ export default {
   },
   data: () => ({
     ingredientList: [],
+    subIngredientList: [],
   }),
   async created() {
     let result = await api.getRecipeIngredients(this.recipeId);
     this.ingredientList = result.ingredientList;
+    result = await api.getRecipeSubIngredients(this.recipeId);
+    this.subIngredientList = result.subIngredientList;
   },
 };
 </script>
