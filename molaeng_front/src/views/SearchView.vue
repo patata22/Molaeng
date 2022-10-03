@@ -14,7 +14,7 @@ export default {
   name: "SearchView",
   components: {},
   computed: {
-    ...mapGetters(["flag"]),
+    ...mapGetters(["flag", "selectedIngredients"]),
   },
   data: () => ({
     buttonText: "레시피 검색",
@@ -34,6 +34,11 @@ export default {
       let result = await api.getAllIngredients();
       for (let i = 0; i < result.ingredientList.length; i++) {
         let ingredient = result.ingredientList[i];
+        for (let j of this.selectedIngredients) {
+          if (ingredient.ingredientId == j.ingredientId) {
+            ingredient.selected = true;
+          }
+        }
         this.$store.commit("INIT_INGREDIENT", ingredient);
       }
       this.$store.commit("TOGGLE_FLAG");
