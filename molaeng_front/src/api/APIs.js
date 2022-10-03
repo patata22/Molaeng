@@ -152,6 +152,11 @@ const API = {
     const response = await this.instance.get("/recipe/ingredient/" + recipeId);
     return response.data;
   },
+
+  async getHomePrice(recipeId) {
+    const response = await this.instance.get("/recipe/priceinfo/" + recipeId);
+    return response.data;
+  },
 };
 
 export default API;

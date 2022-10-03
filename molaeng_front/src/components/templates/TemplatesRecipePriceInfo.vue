@@ -1,5 +1,6 @@
 <template>
   <div>
+    <home-price-card :recipeId="recipeId" />
     <out-price-card
       :recipeId="recipeId"
       :outeat="outeat"
@@ -10,6 +11,7 @@
 
 <script>
 import OutPriceCard from "@/components/organisms/OrganismsOutPriceCard.vue";
+import HomePriceCard from "@/components/organisms/OrganismsRecipeHomePriceCard.vue";
 
 export default {
   name: "RecipePriceInfo",
@@ -20,6 +22,7 @@ export default {
   },
   components: {
     OutPriceCard,
+    HomePriceCard,
   },
 };
 </script>
