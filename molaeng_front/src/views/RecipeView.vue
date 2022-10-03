@@ -57,7 +57,7 @@ export default {
       return [
         {
           tabName: "재료",
-          tabLink: "/recipe/" + this.recipeId + "/ingInfo",
+          tabLink: "/recipe/" + this.recipeId,
         },
         {
           tabName: "조리방법",
