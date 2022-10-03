@@ -44,14 +44,16 @@ export default {
     recipeIngredientList: Array,
   },
   methods: {
-    //요청을 보내고, RecipeView 새로고침
+    //요청을 보내고, RecipeView 새로고침X
     registRecipeLike() {
+      let temp = this.recipeInfo;
       api.registRecipeLike(this.recipeId);
-      this.$router.go("/recipe/" + this.recipeId);
+      temp.isLiked = !temp.isLiked;
     },
     deleteRecipeLike() {
+      let temp = this.recipeInfo;
       api.deleteRecipeLike(this.recipeId);
-      this.$router.go("/recipe/" + this.recipeId);
+      temp.isLiked = !temp.isLiked;
     },
   },
 };
