@@ -1,10 +1,15 @@
 <template>
   <div>
-    <home-price-card :recipeId="recipeId" />
+    <home-price-card
+      :recipeId="recipeId"
+      :recipePrice="recipePrice"
+      :totalPrice="totalPrice"
+    />
     <out-price-card
       :recipeId="recipeId"
       :outeat="outeat"
       :recipePrice="recipePrice"
+      :ingredientList="ingredientList"
     ></out-price-card>
   </div>
 </template>

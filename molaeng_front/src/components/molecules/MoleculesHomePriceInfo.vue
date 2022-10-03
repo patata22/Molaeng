@@ -25,7 +25,7 @@
               ),
             }"
           >
-            {{ ingredient.price }}원
+            {{ ingredient.price.toLocaleString() }}원
           </td>
         </tr>
       </tbody>
