@@ -46,7 +46,8 @@ export default {
         saveCostList: [],
       },
       selectWeekGraph: true,
-      saveCost: 0,
+      weekSavedCost: 0,
+      monthSavedCost: 0,
       WeekChartData: {
         labels: ["1주차", "2주차", "3주차", "4주차", "5주차", "6주차"],
         datasets: [
@@ -54,7 +55,7 @@ export default {
             backgroundColor: "#ffffff",
             data: [],
             datalabels: {
-              color: "#000000",
+              color: "#5B574B",
               anchor: "end",
               align: "end",
               offset: "-5",
@@ -116,8 +117,9 @@ export default {
     this.res_week = await api.getWeekGraph(this.userId, this.year, this.month);
     this.WeekChartData.datasets[0].data = this.res_week.saveCostList;
 
-    this.saveCost = this.WeekChartData.datasets[0].data[0];
-    this.$emit("setSaveCost", this.saveCost);
+    this.weekSavedCost = this.WeekChartData.datasets[0].data[0];
+    this.$emit("setSavedCost", this.weekSavedCost);
+    this.$emit("setSelectedGraph", "이번 주는");
 
     this.res_month = await api.getMonthGraph(
       this.userId,
@@ -125,6 +127,8 @@ export default {
       this.month
     );
     this.MonthChartData.datasets[0].data = this.res_month.saveCostList;
+
+    this.monthSavedCost = this.MonthChartData.datasets[0].data[0];
 
     this.chartColor();
   },
@@ -151,33 +155,33 @@ export default {
         if (this.WeekChartData.datasets[0].data[i] < 0) {
           this.WeekChartData.datasets[0].data[i] =
             this.WeekChartData.datasets[0].data[i] * -1;
-          colors[i] = "#ED8A53";
+          colors.push("#ED8A53");
         } else {
-          colors[i] = "#72A971";
+          colors.push("#72A971");
         }
       }
       this.WeekChartData.datasets[0].backgroundColor = colors;
-
+      colors = [];
       for (let i = 0; i < this.res_month.saveCostList.length; i++) {
         if (this.MonthChartData.datasets[0].data[i] < 0) {
           this.MonthChartData.datasets[0].data[i] =
             this.MonthChartData.datasets[0].data[i] * -1;
-          colors[i] = "#ED8A53";
+          colors.push("#ED8A53");
         } else {
-          colors[i] = "#72A971";
+          colors.push("#72A971");
         }
       }
       this.MonthChartData.datasets[0].backgroundColor = colors;
     },
     getWeekGraph() {
       this.selectWeekGraph = true;
-      this.saveCost = this.WeekChartData.datasets[0].data[0];
-      this.$emit("setSaveCost", this.saveCost);
+      this.$emit("setSelectedGraph", "이번 주는");
+      this.$emit("setSavedCost", this.weekSavedCost);
     },
     getMonthGraph() {
       this.selectWeekGraph = false;
-      this.saveCost = this.MonthChartData.datasets[0].data[0];
-      this.$emit("setSaveCost", this.saveCost);
+      this.$emit("setSelectedGraph", "이번 달은");
+      this.$emit("setSavedCost", this.monthSavedCost);
     },
   },
 };
@@ -185,7 +189,7 @@ export default {
 
 <style>
 .graphPage {
-  margin: 2% 4% 4% 4%;
+  margin: 2% 1% 2% 0%;
 }
 .selectGraphBtnGroup {
   display: flex;

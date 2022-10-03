@@ -2,7 +2,8 @@
   <div>
     <molaeng-diary-header @click.native="dateNotSelected" />
     <molaeng-calendar
-      :saveCost="saveCost"
+      :selectedGraph="selectedGraph"
+      :savedCost="savedCost"
       v-on:dateSelected="dateSelected"
       v-on:setDate="setDate"
       @click.native="dateNotSelected"
@@ -12,7 +13,11 @@
       :isDateSelected="isDateSelected"
       v-if="isDateSelected"
     />
-    <molaeng-graph v-on:setSaveCost="setSaveCost" v-else />
+    <molaeng-graph
+      v-on:setSelectedGraph="setSelectedGraph"
+      v-on:setSavedCost="setSavedCost"
+      v-else
+    />
   </div>
 </template>
 
@@ -32,7 +37,8 @@ export default {
   data: () => ({
     isDateSelected: false,
     date: "",
-    saveCost: 0,
+    selectedGraph: "",
+    savedCost: 0,
   }),
   methods: {
     dateSelected() {
@@ -44,8 +50,11 @@ export default {
     setDate(date) {
       this.date = date;
     },
-    setSaveCost(saveCost) {
-      this.saveCost = saveCost;
+    setSavedCost(savedCost) {
+      this.savedCost = savedCost;
+    },
+    setSelectedGraph(selectedGraph) {
+      this.selectedGraph = selectedGraph;
     },
   },
 };
