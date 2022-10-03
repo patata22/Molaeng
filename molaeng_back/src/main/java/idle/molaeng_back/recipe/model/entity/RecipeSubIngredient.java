@@ -23,8 +23,8 @@ public class RecipeSubIngredient {
     @Column(name="weight_unit")
     private String weightUnit;
 
-    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
+    @ManyToOne
     @JoinColumn(name="recipe_id")
     private Recipe recipe;
 
