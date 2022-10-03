@@ -18,6 +18,7 @@
           <v-card-text>
             <ingredient-tag-list
               :ingredientList="ingredientCategory.ingredientList"
+              :keyWord="keyWord"
             />
           </v-card-text>
         </div>
@@ -33,6 +34,7 @@ export default {
   name: "IngredientCard",
   props: {
     ingredientCategory: Object,
+    keyWord: String,
   },
   components: {
     IngredientTagList,
