@@ -4,12 +4,12 @@
       :recipeId="recipeId"
       :recipePrice="recipePrice"
       :totalPrice="totalPrice"
+      :ingredientList="ingredientList"
     />
     <out-price-card
       :recipeId="recipeId"
       :outeat="outeat"
       :recipePrice="recipePrice"
-      :ingredientList="ingredientList"
     ></out-price-card>
   </div>
 </template>
@@ -24,6 +24,8 @@ export default {
     recipeId: String,
     outeat: Object,
     recipePrice: Number,
+    ingredientList: Array,
+    totalPrice: Number,
   },
   components: {
     OutPriceCard,

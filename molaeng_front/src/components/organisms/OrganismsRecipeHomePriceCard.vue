@@ -30,7 +30,7 @@ export default {
     recipeId: String,
     totalPrice: Number,
     recipePrice: Number,
-    ingredientList: Object,
+    ingredientList: Array,
   },
 };
 </script>
