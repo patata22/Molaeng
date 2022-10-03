@@ -3,6 +3,7 @@ package idle.molaeng_back.recipe.controller;
 import idle.molaeng_back.recipe.model.response.IngredientResponse;
 import idle.molaeng_back.recipe.model.response.RecipeIngredientResponse;
 import idle.molaeng_back.recipe.service.IngredientService;
+import idle.molaeng_back.recipe.service.RecipeSubIngredientService;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +25,10 @@ public class IngredientController {
     @Autowired
     IngredientService ingredientService;
 
-    @ApiOperation(value="레시피에 필요한 재료들 조회", notes = "레시피 id를 이용하여 레시피를 만드는 데 필요한 재료의 정보들을 불러온다.")
+    @Autowired
+    RecipeSubIngredientService recipeSubIngredientService;
+
+    @ApiOperation(value="레시피에 필요한 주재료들 조회", notes = "레시피 id를 이용하여 레시피를 만드는 데 필요한 재료의 정보들을 불러온다.")
     @GetMapping("/recipe/ingredient/{recipeId}")
     public ResponseEntity getRecipeIngredients(@PathVariable Long recipeId) {
         Map<String, Object> result = new HashMap<>();
@@ -51,6 +55,14 @@ public class IngredientController {
     public ResponseEntity getAllIngredient() {
         Map<String, Object> result = new HashMap<>();
         result.put("ingredientList", ingredientService.searchAllIngredient());
+        return ResponseEntity.ok().body(result);
+    }
+
+    @ApiOperation(value="레시피에 필요한 부재료 목록들 조회", notes = "레시피 id를 이용하여 레시피를 만드는 데 필요한 부재료의 정보들을 불러온다.")
+    @GetMapping("/recipe/ingredient/{recipeId}/sub")
+    public ResponseEntity getRecipeSubIngredients(@PathVariable Long recipeId){
+        Map<String, Object> result = new HashMap<>();
+        result.put("subIngredientList", recipeSubIngredientService.readRecipeSubIngredientByRecipeId(recipeId));
         return ResponseEntity.ok().body(result);
     }
 }
