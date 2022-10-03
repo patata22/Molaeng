@@ -1,17 +1,12 @@
 <template>
-  <v-card class="mx-auto rounded-lg" outlined>
-    
-  </v-card>
+  <v-card class="mx-auto rounded-lg" outlined> </v-card>
 </template>
 <script>
-import ReviewReadStar from "@/components/atoms/AtomReviewReadStar.vue";
+// import ReviewReadStar from "@/components/atoms/AtomReviewReadStar.vue";
 export default {
   components: {
-    ReviewReadStar,
+    // ReviewReadStar,
   },
-
-}
+};
 </script>
-<style>
-  
-</style>
+<style></style>

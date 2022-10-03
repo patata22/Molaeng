@@ -4,6 +4,7 @@ import idle.molaeng_back.user.model.User;
 import idle.molaeng_back.user.service.UserService;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -15,7 +16,7 @@ import java.io.Serializable;
 import java.util.Base64;
 import java.util.Date;
 
-
+@Slf4j
 @RequiredArgsConstructor
 @Component
 public class JwtTokenUtil implements Serializable {
@@ -25,7 +26,7 @@ public class JwtTokenUtil implements Serializable {
     public static final long ACCESS_TOKEN_VALIDITY = 30 * 60L;              // 초 단위(=30분)
     public static final long REFRESH_TOKEN_VALIDITY = 3 * 24 * 60 * 60L;    // 초 단위(= 3일)
 
-    @Value("${jwt.secret}")                   // application.properties 에 저장된 값
+    @Value("${jwt.secret-key}")                   // application.properties 에 저장된 값
     private String secretKey;
 
     private final UserService userService;
@@ -38,9 +39,11 @@ public class JwtTokenUtil implements Serializable {
 
     public Claims getClaims(User user) {
         Claims claims = Jwts.claims().setSubject(String.valueOf(user.getUserId()));
-//        claims.put("isStudent", user.getIsStudent());
+//        claims.put("isUser", user.getIsStudent());
         /* claim에 추가할 내용들 여기에 추가 */
-//        claims.put("userId", user.getUserId());
+
+        //예시로 넣어봄
+//        claims.put("isUser", true);
 
         return claims;
     }
@@ -56,10 +59,13 @@ public class JwtTokenUtil implements Serializable {
     }
 
     // Access Token을 생성한다.
-    public String generateAccessToken() {
+    public String generateAccessToken(Claims claims) {
+        log.info("generateAccessToken 함수");
+
         Date now = new Date();
+
         return Jwts.builder()
-//                .setSubject(user.getNickname())
+                .setClaims(claims)
                 .setIssuedAt(now)
                 .setExpiration(new Date(now.getTime() + ACCESS_TOKEN_VALIDITY * 1000))
                 .signWith(SignatureAlgorithm.HS256, secretKey)
@@ -74,8 +80,6 @@ public class JwtTokenUtil implements Serializable {
                 .setExpiration(new Date(now.getTime() + REFRESH_TOKEN_VALIDITY * 1000))
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
-
-
     }
 
     // Request의 Header에서 token을 가져온다.
@@ -90,7 +94,7 @@ public class JwtTokenUtil implements Serializable {
     // Token에서 인증 정보 조회
     public Authentication getAuthentication(String token) {
         User user = userService.getUser(Integer.parseInt(this.getUserIdFromToken(token)));
-        return new UsernamePasswordAuthenticationToken(user, "");
+        return new UsernamePasswordAuthenticationToken(user, "", user.getAuthorities());
     }
 
     // Token에서 userId 추출

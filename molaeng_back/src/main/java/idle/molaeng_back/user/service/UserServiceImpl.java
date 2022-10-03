@@ -70,8 +70,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public boolean isMember(String uuid) {
-        // User 테이블의 uuid 항목이 같은 값이 1개라도 있으면, 이미 가입한 User라는 의미
+    public boolean isMember(long uuid) {
         int count = userRepository.countUserByUuid(uuid);
 
         return count >= 1;
@@ -79,7 +78,7 @@ public class UserServiceImpl implements UserService{
 
 
     @Override
-    public User joinUser(String nickname, String uuid) {
+    public User joinUser(String nickname, long uuid, String profileImg) {
         // 최초 가입자의 거주지역은 0번 더미 지역으로 설정함
         Gugun gugun = gugunRepository.findByGugunId(0);
 
@@ -87,6 +86,7 @@ public class UserServiceImpl implements UserService{
                 .nickname(nickname)
                 .uuid(uuid)
                 .gugun(gugun)
+                .profileImg(profileImg)
                 .build();
 
         User user = userRepository.save(member);
@@ -100,7 +100,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User findByUuid(String uuid) {
+    public User findByUuid(long uuid) {
         return userRepository.findByUuid(uuid);
     }
 

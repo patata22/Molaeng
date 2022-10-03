@@ -1,12 +1,14 @@
 package idle.molaeng_back.recipe.service;
 
 import idle.molaeng_back.recipe.model.entity.Recipe;
+import idle.molaeng_back.recipe.model.entity.RecipeIngredient;
 import idle.molaeng_back.recipe.model.entity.RecipeLike;
 import idle.molaeng_back.recipe.model.repository.RecipeLikeRepository;
 import idle.molaeng_back.recipe.model.repository.RecipeRepository;
 import idle.molaeng_back.recipe.model.request.RecipeLikeRequest;
 import idle.molaeng_back.recipe.model.response.RecipeLikeResponse;
-import idle.molaeng_back.recipe.model.response.RecipeListResponse;
+import idle.molaeng_back.search.DTO.response.IngredientResDTO;
+import idle.molaeng_back.search.DTO.response.RecipeResDTO;
 import idle.molaeng_back.user.model.User;
 import idle.molaeng_back.user.model.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,26 +38,25 @@ public class RecipeLikeServiceImpl implements RecipeLikeService{
 
 
     @Override
-    public List<RecipeListResponse> getRecipeLikeList(long userId) {
+    public List<RecipeResDTO> getRecipeLikeList(long userId) {
         List<RecipeLike> recipeLikeList = recipeLikeRepository.findAllByUserUserId(userId);
-        List<RecipeListResponse> resultList = new ArrayList<>();
-        boolean isLiked;
+        List<RecipeResDTO> resultList = new ArrayList<>();
+        int isLiked = 1;
         double avgScore;
 
         for(int i = 0; i < recipeLikeList.size(); i++){
             Recipe recipe = recipeRepository.findByRecipeId(recipeLikeList.get(i).getRecipe().getRecipeId());
-            isLiked = (recipeLikeRepository.countByUserUserIdAndRecipeRecipeId(userId, recipe.getRecipeId())) == 1 ? true : false;
-            System.out.println((recipeLikeRepository.countByUserUserIdAndRecipeRecipeId(userId, recipe.getRecipeId())));
+//            isLiked = (recipeLikeRepository.countByUserUserIdAndRecipeRecipeId(userId, recipe.getRecipeId())) == 1 ? true : false;
             avgScore = calAvgScore(recipe);
-            RecipeListResponse response = RecipeListResponse
+            RecipeResDTO response = RecipeResDTO
                     .builder()
                     .recipeId(recipe.getRecipeId())
                     .recipeName(recipe.getRecipeName())
                     .recipeKcal(recipe.getRecipeKcal())
-                    .needPrice(111) // 얼마나 더 필요한지에 대해서는 다른 곳에서 계산한 값을 넣어줘야 함.
+                    .ingredientList(IngredientToDTO(recipe))
                     .avgScore(avgScore)
-                    .recipeImg(recipe.getRecipeImage())
-                    .isliked(isLiked)
+                    .recipeImage(recipe.getRecipeImage())
+                    .isLiked(isLiked)
                     .build();
             resultList.add(response);
         }
@@ -104,6 +105,16 @@ public class RecipeLikeServiceImpl implements RecipeLikeService{
             countScore += scoreList[score-1];
         }
 
-        return (double) sum / countScore;
+        double avgScore = Math.round(((double) sum * 10 / countScore) / 10);
+
+        return avgScore;
+    }
+
+    private List<IngredientResDTO> IngredientToDTO(Recipe recipe) {
+        List<IngredientResDTO> tempIngRes = new ArrayList<>();
+        for (RecipeIngredient recipeIngredient : recipe.getRecipeIngredientList()) {
+            tempIngRes.add(new IngredientResDTO(recipeIngredient.getIngredient().getIngredientId(), recipeIngredient.getIngredient().getIngredientName()));
+        }
+        return tempIngRes;
     }
 }

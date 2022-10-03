@@ -10,11 +10,11 @@ public interface UserService {
     void updateUserProfile(UserProfileRequest userProfileRequest);
     void deleteUserAccount(long userId);
 
-    boolean isMember(String uuid);
+    boolean isMember(long uuid);
 
-    User joinUser(String nickname, String uuid);
+    User joinUser(String nickname, long uuid, String profileImg);
 
     User getUser(long userId);
 
-    User findByUuid(String uuid);
+    User findByUuid(long uuid);
 }

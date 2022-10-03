@@ -1,5 +1,4 @@
 package idle.molaeng_back.global.filter;
-
 import idle.molaeng_back.global.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;

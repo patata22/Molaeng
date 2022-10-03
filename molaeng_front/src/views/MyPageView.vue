@@ -1,6 +1,5 @@
 <template>
   <div>
-    <nav-bar></nav-bar>
     <my-page-header :tabs="tabs"> </my-page-header>
     <router-view></router-view>
   </div>
@@ -8,15 +7,11 @@
 
 <script>
 import MyPageHeader from "../components/organisms/OrganismMyPageHeader.vue";
-// import AccountEdit from "../components/templates/TemplatesEditProfile.vue";
-import NavBar from "../components/molecules/MoleculesNavBar.vue";
 
 export default {
   name: "MyPageView",
   components: {
     MyPageHeader,
-    // AccountEdit,
-    NavBar,
   },
   data: () => ({
     buttonText: "마이 페이지",

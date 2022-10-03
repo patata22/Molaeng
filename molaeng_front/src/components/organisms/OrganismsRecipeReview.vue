@@ -164,7 +164,7 @@
   </div>
 </template>
 <script>
-import InfiniteLoading from "vue-infinite-loading";
+// import InfiniteLoading from "vue-infinite-loading";
 import RecipeScore from "@/components/molecules/MoleculesRecipeScore2";
 import RecipeReviewCard from "@/components/organisms/OrganismsRecipeReviewCard.vue";
 import axios from "axios";
@@ -176,7 +176,7 @@ export default {
   components: {
     RecipeScore,
     RecipeReviewCard,
-    InfiniteLoading,
+    // InfiniteLoading,
   },
   data: function () {
     return {

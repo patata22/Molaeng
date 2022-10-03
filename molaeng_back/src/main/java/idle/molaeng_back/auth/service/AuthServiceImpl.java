@@ -1,6 +1,6 @@
 package idle.molaeng_back.auth.service;
 
-import idle.molaeng_back.auth.model.TokenDto;
+import idle.molaeng_back.auth.model.JwtTokenDto;
 import idle.molaeng_back.global.exception.AuthException;
 import idle.molaeng_back.global.util.JwtTokenUtil;
 import idle.molaeng_back.global.util.RedisUtil;
@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 @Slf4j
 @Service
@@ -23,44 +22,41 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private final RedisUtil redisUtil;
 
+
+    // Jwt Token 생성
     @Override
-    public TokenDto.Refresh createTokens(User user) {
+    public JwtTokenDto createTokens(User user) {
+        log.info("Token 생성하러 들어왔습니다.");
+        String accessToken = jwtTokenUtil.generateAccessToken(jwtTokenUtil.getClaims(user));
 
-        // Token 발급부분에서 오류 발생
-        // Redis에는 데이터 삽입 정상적으로 이루어지고 있는 것 확인
+        log.info("access 토큰은 발급 받았어요.");
+        String refreshToken = jwtTokenUtil.generateRefreshToken();
 
+        log.info("토큰 생성했어요" + accessToken + " " + refreshToken);
+        String userId = String.valueOf(user.getUserId());
+        redisUtil.setDataExpire(userId, refreshToken, JwtTokenUtil.REFRESH_TOKEN_VALIDITY);
 
-//        System.out.println("111111111111");
-//        String accessToken = jwtTokenUtil.generateAccessToken();
-//        System.out.println("2222222222222222");
-//        String refreshToken = jwtTokenUtil.generateRefreshToken();
-//        System.out.println("33333333333333333");
-//
-//        String userId = String.valueOf(user.getUserId());
-//        redisUtil.setDataExpire(userId, refreshToken, JwtTokenUtil.REFRESH_TOKEN_VALIDITY);
-//        System.out.println("444444444444444444444");
-//
-//        return TokenDto.Refresh.builder()
-//                .accessToken(accessToken)
-//                .refreshToken(refreshToken)
-//                .build();
+        log.info("레디스 저장 했습니다.");
 
-        redisUtil.setDataExpire(String.valueOf(user.getUserId()), "1111", 10000);
-        return TokenDto.Refresh.builder().build();
+        return JwtTokenDto.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .build();
     }
 
+    // Refresh token 발급 받는 메서드
     @Override
-    public TokenDto.Refresh refreshTokens(String accessToken, String refreshToken) {
+    public JwtTokenDto refreshTokens(String accessToken, String refreshToken) {
         String userId = jwtTokenUtil.getUserIdFromToken(accessToken);
 
         if(jwtTokenUtil.validateToken(refreshToken) && refreshToken.equals(redisUtil.getData(userId))) {
-            User user = User.builder().userId(Long.parseLong(userId)).build();
+            User user = User.builder().userId(Integer.parseInt(userId)).build();
             Claims claims = jwtTokenUtil.getClaims(user);
-            String newAccessToken = jwtTokenUtil.generateAccessToken();
+            String newAccessToken = jwtTokenUtil.generateAccessToken(claims);
             String newRefreshToken = jwtTokenUtil.generateRefreshToken();
             redisUtil.setDataExpire(userId, newRefreshToken, JwtTokenUtil.REFRESH_TOKEN_VALIDITY);    // JwtTokenUtil과 똑같이 설정
 
-            return TokenDto.Refresh.builder()
+            return JwtTokenDto.builder()
                     .accessToken(newAccessToken)
                     .refreshToken(newRefreshToken)
                     .build();
@@ -69,15 +65,17 @@ public class AuthServiceImpl implements AuthService {
         }
     }
 
+
+    // 발급받은 메서드 삭제하는 메서드
     @Override
-    public TokenDto.Refresh deleteTokens(User user) {
+    public JwtTokenDto deleteTokens(User user) {
         String accessToken = "";
         String refreshToken = "";
 
         String userId = String.valueOf(user.getUserId());
         redisUtil.deleteData(userId);
 
-        return TokenDto.Refresh.builder()
+        return JwtTokenDto.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .build();

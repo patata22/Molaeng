@@ -16,12 +16,11 @@
             <h4 class="carrot--text">닉네임</h4>
           </div>
           <v-text-field
-            placeholder="닉네임을 입력해주세요."
             outlined
             color="carrot"
             rounded
             dense
-            v-model="nickname"
+            v-model="userProfile.nickname"
             :error-messages="nicknameDuplicated"
             :disabled="validated ? '' : disabled"
           ></v-text-field>
@@ -69,64 +68,84 @@
           class="primary font-weight-bold mt-5"
           rounded
           dense
-          @click="saveUserInfo"
+          @click="updateProfile"
           v-if="disabled === false"
         >
           저장
         </v-btn>
       </v-row>
-      <v-row class="text--disabled justify-end pa-5 pt-15">
-        <p class="font-weight-bold">탈퇴하기</p>
+
+      <v-row justify="end">
+        <v-btn
+          color="dark--text justify-end "
+          class="large mt-10"
+          x-large
+          style="text-weight: bold"
+          depressed
+          @click.stop="dialog = true"
+        >
+          <span style="opacity: 40%">탈퇴하기</span>
+        </v-btn>
+
+        <v-dialog v-model="dialog" max-width="290">
+          <v-card>
+            <v-card-title class="text-h5"> 회원 탈퇴 </v-card-title>
+
+            <v-card-text> 정말 탈퇴하실 건가요....? </v-card-text>
+
+            <v-card-actions id="buttonsId">
+              <v-spacer></v-spacer>
+
+              <v-btn
+                color="primary primary--outlined"
+                outlined
+                text
+                @click="dialog = false"
+              >
+                <span style="font-weight: bold">취소</span>
+              </v-btn>
+
+              <v-btn class="primary" text @click="dialog = false">
+                <span style="font-weight: bold" class="white--text">탈퇴</span>
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </v-row>
     </v-container>
   </div>
 </template>
 
 <script>
-// import { mapActions, mapGetters } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
+// import API from "@/api/APIs";
+// import { ContextExclusionPlugin } from "webpack";
+
+// const api = API;
+import axios from "axios";
 
 export default {
   name: "EditProfile",
-  // mounted() {
-  //   this.gugun = this.$store.getters.getAllGugun;
-  // },
-  // props: {
-  //   gugun: Array,
-  // },
-  data: () => ({
-    sido: ["서울특별시"],
-    gugun: [
-      "강남구",
-      "강동구",
-      "강북구",
-      "강서구",
-      "관악구",
-      "광진구",
-      "구로구",
-      "금천구",
-      "노원구",
-      "도봉구",
-      "동대문구",
-      "동작구",
-      "마포구",
-      "서대문구",
-      "서초구",
-      "성동구",
-      "성북구",
-      "송파구",
-      "양천구",
-      "영등포구",
-      "용산구",
-      "은평구",
-      "종로구",
-      "중구",
-      "중랑구",
-    ],
-    disabled: true,
-  }),
+
+  data() {
+    return {
+      userProfile: {
+        userId: 1,
+        gugunId: 1,
+        nickname: "test",
+      },
+      disabled: true,
+      dialog: false,
+      gugunList: {},
+    };
+  },
+  computed: {
+    ...mapGetters(["getSido", "getGugunList"]),
+  },
 
   // computed: { ...mapGetters(["userId", "nickname", "myRegion", "gugun"]) },
   methods: {
+    ...mapMutations(["SET_GUGUN"]),
     // ...mapActions(["getUserInfo"]),
     clickUpdate: function () {
       console.log("수정 버튼 클릭");
@@ -136,14 +155,49 @@ export default {
       console.log("회원 정보 수정");
       this.disabled = true;
     },
+    getProfile() {
+      axios
+        .post(
+          "https://j7a604.p.ssafy.io/molaeng/user?userId=" +
+            this.userProfile.userId
+        )
+        .then((res) => {
+          this.userProfile.nickname = res.data.result.nickname;
+          console.log("닉네임 불러옴");
+        })
+        .catch((error) => console.log(error));
+    },
+    updateProfile() {
+      axios
+        .put("https://j7a604.p.ssafy.io/molaeng/user", {
+          gugunId: this.userProfile.gugunId,
+          nickname: this.userProfile.nickname,
+          userId: this.userProfile.nickname,
+        })
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((error) => console.log(error));
+    },
+    getGugunList() {
+      this.SET_GUGUN;
+      this.getGugunList();
+      this.getSido();
+    },
   },
-  // created() {
-  //   console.log("시작한다1");
-  //   // this.getUserInfo(this.userId);
-  //   this.$store.dispatch("getUserInfo");
-  //   console.log("created 끝?");
-  // },
+  mounted() {
+    this.getProfile();
+    console.log("mounted 시작");
+  },
+  created() {
+    this.getGugunList();
+    console.log("created 시작");
+  },
 };
 </script>
 
-<style></style>
+<style>
+#buttonsId .v-btn--outlined {
+  border: thin solid #fdac6d;
+}
+</style>

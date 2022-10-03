@@ -94,7 +94,7 @@
 import { mapState } from "vuex";
 import axios from "axios";
 import OrganismsRecipeCard from "../organisms/OrganismsRecipeCard.vue";
-import InfiniteLoading from "vue-infinite-loading";
+// import InfiniteLoading from "vue-infinite-loading";
 export default {
   name: "TemplatesRecipeList",
   created() {
@@ -127,7 +127,7 @@ export default {
   },
   components: {
     OrganismsRecipeCard,
-    InfiniteLoading,
+    // InfiniteLoading,
   },
   methods: {
     getRecipeByIngredient($state) {
