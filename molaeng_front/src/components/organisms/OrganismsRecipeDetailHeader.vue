@@ -18,21 +18,30 @@
         <div style="color: #5b574b; opacity: 30%">
           열량 {{ recipeInfo.recipeKcal }}kcal
         </div>
+        <ingredient-tag-list
+          :ingredientList="recipeIngredientList"
+          style="display: flex; flex-wrap: nowrap; overflow-x: auto"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import IngredientTagList from "../molecules/MoleculesIngredientTagList.vue";
 import API from "@/api/APIs";
 const api = API;
 
 export default {
   name: "RecipeDetailHeader",
+  components: {
+    IngredientTagList,
+  },
   props: {
     // 레시피 제목, 열량, 대표이미지, 찜여부 등의 정보를 받아옴
     recipeInfo: Object,
     recipeId: String,
+    recipeIngredientList: Array,
   },
   methods: {
     //요청을 보내고, RecipeView 새로고침
