@@ -45,6 +45,7 @@ function getFirstChar(kor) {
 
 export const ingredient = {
   state: {
+    flag: false,
     ingredients: [
       {
         ingredientTitle: "ㄱ/ㄲ",
@@ -103,6 +104,9 @@ export const ingredient = {
     selectedIngredientIds: [],
   }, //원본 소스. vue에서 data로 불러올 수 있음
   getters: {
+    flag: (state) => {
+      return state.flag;
+    },
     allIngredients: (state) => {
       return state.ingredients;
     },
@@ -136,7 +140,7 @@ export const ingredient = {
       state.selectedIngredients.splice(idx, 1);
       state.selectedIngredientIds.splice(idx, 1);
     },
-    ADD_INGREDIENT(state, ingredient) {
+    INIT_INGREDIENT(state, ingredient) {
       let start = getFirstChar(ingredient.ingredientName.substring(0, 1));
       for (let ing of state.ingredients) {
         if (ing.ingredientTitle.includes(start)) {
@@ -144,61 +148,8 @@ export const ingredient = {
         }
       }
     },
-    INIT_INGREDIENT(state) {
-      state.ingredients = [
-        {
-          ingredientTitle: "ㄱ/ㄲ",
-          ingredientList: [],
-        },
-        {
-          ingredientTitle: "ㄴ",
-          ingredientList: [],
-        },
-        {
-          ingredientTitle: "ㄷ/ㄸ",
-          ingredientList: [],
-        },
-        {
-          ingredientTitle: "ㄹ",
-          ingredientList: [],
-        },
-        {
-          ingredientTitle: "ㅁ",
-          ingredientList: [],
-        },
-        {
-          ingredientTitle: "ㅂ",
-          ingredientList: [],
-        },
-        {
-          ingredientTitle: "ㅅ/ㅆ",
-          ingredientList: [],
-        },
-        {
-          ingredientTitle: "ㅇ",
-          ingredientList: [],
-        },
-        {
-          ingredientTitle: "ㅈ/ㅉ",
-          ingredientList: [],
-        },
-        {
-          ingredientTitle: "ㅋ",
-          ingredientList: [],
-        },
-        {
-          ingredientTitle: "ㅌ",
-          ingredientList: [],
-        },
-        {
-          ingredientTitle: "ㅍ",
-          ingredientList: [],
-        },
-        {
-          ingredientTitle: "ㅎ",
-          ingredientList: [],
-        },
-      ];
+    TOGGLE_FLAG(state) {
+      state.flag = !state.flag;
     },
   }, // setter. state를 변경할 땐 mutations를 사용해야. 무조건 동기
   actions: {}, // 비동기
