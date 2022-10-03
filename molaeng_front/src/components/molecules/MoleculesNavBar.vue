@@ -1,7 +1,7 @@
 <template>
-  <div class="d-flex" id="header" :style="navStyle">
-    <v-btn class="ma-2" text icon color="dark" @click="goMain">
-      <v-icon x-large>mdi-penguin</v-icon>
+  <div class="navHeader" :style="navStyle">
+    <v-btn class="navLogo" text icon @click="goMain">
+      <img height="44px" src="../../assets/navlogo.png" />
     </v-btn>
     <div absolute right class="d-flex justify-end ma-2">
       <v-btn
@@ -44,22 +44,27 @@ export default {
   methods: {
     goSearch() {
       this.$router.push("/search").catch(() => {});
-      console.log("검색 페이지로 이동합니다.");
     },
     goMain() {
       this.$router.push("/").catch(() => {});
-      console.log("메인 페이지로 이동합니다.");
     },
     goMenu() {
       this.$router.push("/menu").catch(() => {});
-      console.log("메뉴로 이동합니다.");
     },
   },
 };
 </script>
-<style scoped>
-#header {
-  justify-content: space-between;
+<style>
+.navHeader {
+  display: flex;
   max-height: 10%;
+  justify-content: space-between;
+  align-items: center;
+}
+.navLogo {
+  margin-left: 2%;
+}
+img {
+  -webkit-user-drag: none;
 }
 </style>
