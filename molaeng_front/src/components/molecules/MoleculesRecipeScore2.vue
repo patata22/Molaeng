@@ -1,11 +1,7 @@
 <template>
   <v-card
     class="ml-7 mt-7 rounded-xl"
-    style="
-      height: 135px;
-      border: 3px solid #fdac6d;
-      box-shadow: 0px 4px 10px #feefe2;
-    "
+    style="height: 135px; box-shadow: none"
     max-width="351px"
   >
     <v-row no-gutters class="mt-2 justify-start">
@@ -55,7 +51,9 @@
           </v-col>
           <v-spacer />
           <v-col class="pl-1 mr-4" cols="auto">
-            <span style="font-size: 15px">{{ scoreCnt[4] }}</span>
+            <span style="font-size: 0.9rem; color: #5b574b">{{
+              scoreCnt[4]
+            }}</span>
           </v-col>
         </v-row>
         <v-row
@@ -82,7 +80,9 @@
           </v-col>
           <v-spacer />
           <v-col class="pl-1 mr-4" cols="auto">
-            <span style="font-size: 15px">{{ scoreCnt[3] }}</span>
+            <span style="font-size: 0.9rem; color: #5b574b">{{
+              scoreCnt[3]
+            }}</span>
           </v-col>
         </v-row>
         <v-row
@@ -111,7 +111,9 @@
           </v-col>
           <v-spacer />
           <v-col class="pl-1 mr-4" cols="auto">
-            <span style="font-size: 15px">{{ scoreCnt[2] }}</span>
+            <span style="font-size: 0.9rem; color: #5b574b">{{
+              scoreCnt[2]
+            }}</span>
           </v-col>
         </v-row>
         <v-row
@@ -139,7 +141,9 @@
           </v-col>
           <v-spacer />
           <v-col class="pl-1 mr-4" cols="auto">
-            <span style="font-size: 15px">{{ scoreCnt[1] }}</span>
+            <span style="font-size: 0.9rem; color: #5b574b">{{
+              scoreCnt[1]
+            }}</span>
           </v-col>
         </v-row>
         <v-row
@@ -167,7 +171,9 @@
           </v-col>
           <v-spacer />
           <v-col class="pl-1 mr-4" cols="auto">
-            <span style="font-size: 15px">{{ scoreCnt[0] }}</span>
+            <span style="font-size: 0.9rem; color: #5b574b">{{
+              scoreCnt[0]
+            }}</span>
           </v-col>
         </v-row>
       </v-col>
