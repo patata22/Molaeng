@@ -63,11 +63,15 @@ export default {
   }),
   methods: {
     async addHistory() {
-      console.log("모랭일기 등록!!");
-      this.saveCost = this.outeat.seoul - this.recipePrice;
+      if (this.outeat.my != 0) {
+        this.saveCost = this.outeat.my - this.recipePrice;
+      } else if (this.outeat.seoul != 0) {
+        this.saveCost = this.outeat.seoul - this.recipePrice;
+      } else {
+        this.saveCost = 0;
+      }
       this.res = await api.saveDiary(this.userId, this.recipeId, this.saveCost);
-      console.log(this.res);
-      this.$router.go();
+      this.dialog = false;
     },
   },
 };

@@ -18,8 +18,8 @@ export default {
   width: 90%;
   height: 50px;
   text-align: center;
-  margin-top: 15px;
-  margin-bottom: 20px;
+  margin-top: 4%;
+  margin-bottom: 4%;
   border-radius: 12px;
   background-color: #fee0a0;
   box-shadow: 0px 5px 10px rgb(91 87 75 / 20%);
