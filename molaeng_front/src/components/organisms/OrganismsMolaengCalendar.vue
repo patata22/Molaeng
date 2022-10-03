@@ -1,8 +1,8 @@
 <template>
   <div class="calendarPage">
     <div class="calendarHeader">
-      <span class="calendarHeaderDefault">이번 주는 </span
-      ><span class="calendarHeaderChange">{{ saveCost }}원 절약했어요!</span>
+      <span class="calendarHeaderDefault">{{ selectedGraph }} </span
+      ><span class="calendarHeaderChange">{{ header }}</span>
     </div>
     <v-sheet class="calendarButton">
       <v-btn icon large @click="$refs.calendar.prev()">
@@ -40,12 +40,14 @@ const api = API;
 export default {
   name: "MolaengCalendar",
   props: {
-    saveCost: Number,
+    selectedGraph: String,
+    savedCost: Number,
   },
   data: () => ({
     userId: 1,
     year: 0,
     month: 0,
+    header: "",
     res: {
       saveCostList: [{ mealDate: "", saveCost: 0 }],
     },
@@ -58,7 +60,22 @@ export default {
     color: "none",
     textcolor: ["#72A971", "#ED8A53"],
   }),
+  created() {
+    this.changeHeader();
+  },
+  watch: {
+    savedCost() {
+      this.changeHeader();
+    },
+  },
   methods: {
+    changeHeader() {
+      if (this.savedCost > 0) {
+        this.header = this.savedCost.toLocaleString() + "원 절약했어요!";
+      } else {
+        this.header = "절약한 금액이 없어요ㅠㅠ";
+      }
+    },
     async getPrices({ start }) {
       const events = [];
 
@@ -178,7 +195,7 @@ export default {
 .v-calendar .v-event {
   margin-top: -5%;
   margin-bottom: 2%;
-  font-size: 0.8rem;
+  font-size: 0.76rem;
 }
 .v-application .pl-1 {
   padding: 0 !important;
