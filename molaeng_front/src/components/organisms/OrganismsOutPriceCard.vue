@@ -25,9 +25,11 @@
     <div
       align="center"
       v-if="outeat.seoul > 0"
-      class="font-weight-bold text-h6 mb-3"
+      class="font-weight-bold text-h6 mb-9"
     >
-      <div>{{ compareLocation }}에서는 만들어 먹는게</div>
+      <div style="color: #5b574b">
+        {{ compareLocation }}에서는 만들어 먹는게
+      </div>
       <div :style="compareStyle">
         {{ compareAbsPrice.toLocaleString() }}원 더 {{ compareText }}
       </div>
