@@ -107,6 +107,9 @@
     <infinite-loading v-else @infinite="getRecipeByScore">
       <div slot="no-more"></div>
     </infinite-loading>
+    <v-btn fab fixed right bottom color="carrot" @click="toTop">
+      <v-icon color="white">mdi-navigation-outline</v-icon>
+    </v-btn>
   </v-container>
 </template>
 <script>
@@ -240,6 +243,9 @@ export default {
           }
         })
         .catch((error) => console.log(error));
+    },
+    toTop() {
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     },
   },
 };

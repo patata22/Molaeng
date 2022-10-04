@@ -109,6 +109,18 @@
     <br />
 
     <infinite-loading :identifier="identifierId" @infinite="getReview">
+      <div
+        v-if="reviewList.length == 0"
+        slot="no-results"
+        class="pa-5 font-weight-bold"
+        style="font-size: 15px; color: #5b574b"
+      >
+        <v-icon class="mb-1" style="font-size: 80px; color: #5b574b"
+          >mdi-emoticon-cry-outline</v-icon
+        ><br />
+        아직 등록된 리뷰가 없어요.
+      </div>
+      <div v-else slot="no-results"></div>
       <div slot="no-more"></div>
     </infinite-loading>
     <!-- 여기서부터 리뷰 쓰기-> 뺄 수 있을지 모르겠다???? -->

@@ -224,6 +224,30 @@ public class SearchServiceImpl implements SearchService {
                 .build();
     }
 
+    @Override
+    public SearchRecipeResDTO searchRecipeByNoName(Pageable pageable, long userId) {
+        Page<Recipe> recipeList = recipeRepository.findAll(pageable);
+        List<RecipeResDTO> tempList = new ArrayList<>();
+        for (Recipe recipe : recipeList) {
+            long id = recipe.getRecipeId();
+            tempList.add(RecipeResDTO.builder()
+                    .recipeId(id)
+                    .recipeName(recipe.getRecipeName())
+                    .ingredientList(IngredientToDTO(recipe))
+                    .recipeImage(recipe.getRecipeImage())
+                    .recipeKcal(recipe.getRecipeKcal())
+                    .isLiked(RecipeLikeRepository.countByUserUserIdAndRecipeRecipeId(userId, id))
+                    .avgScore(getAvgScore(recipe))
+                    .cost(CalculateCost(recipe, new ArrayList<>()))
+                    .build());
+        }
+
+        return SearchRecipeResDTO.builder()
+                .hasNext(recipeList.hasNext())
+                .recipeList(tempList)
+                .build();
+    }
+
     //평점 추출용 메서드
     private double getAvgScore(Recipe recipe) {
         int[] scoreCnt = new int[5];
