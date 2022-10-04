@@ -252,8 +252,14 @@ export default {
           score: this.score,
         })
         .then(() => {
+          temp.sort = "reviewDate,desc";
+          temp.sortString = "최신순";
+          temp.reviewList = [];
+          temp.page = 0;
+          temp.hasNext = true;
+          temp.identifierId += 1;
           temp.writing = false;
-          this.$router.go();
+          // this.$router.go();
         })
         .catch((error) => console.log(error));
     },
