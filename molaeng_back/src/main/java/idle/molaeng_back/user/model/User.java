@@ -40,10 +40,6 @@ public class User  {
     @Column(name="profile_img")
     private String profileImg;
 
-//    @Enumerated(EnumType.STRING)
-//    @Column(length = 20)
-//    private Role role;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="gugun_id")
     @JsonBackReference

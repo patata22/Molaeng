@@ -6,6 +6,8 @@ import com.google.gson.JsonParser;
 import idle.molaeng_back.auth.model.OAuthTokenDto;
 import idle.molaeng_back.auth.model.OAuthUserRes;
 import idle.molaeng_back.global.util.RedisUtil;
+import idle.molaeng_back.user.model.User;
+import idle.molaeng_back.user.model.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,9 +42,16 @@ public class OAuthService {
     private String admin_key;
 
     @Autowired
+    private final UserRepository userRepository;
+
+    @Autowired
     private final RedisUtil redisUtil;
 
-    public OAuthService(RedisUtil redisUtil) {
+    public static final long ACCESS_TOKEN_VALIDITY = 30 * 60L;              // 초 단위(=30분)
+    public static final long REFRESH_TOKEN_VALIDITY = 3 * 24 * 60 * 60L;    // 초 단위(= 3일)
+
+    public OAuthService(UserRepository userRepository, RedisUtil redisUtil) {
+        this.userRepository = userRepository;
         this.redisUtil = redisUtil;
     }
 
@@ -101,7 +110,6 @@ public class OAuthService {
             log.info("refreshToken 발급  성공입니다. " + resultToken.getRefreshToken());
 
 
-
             br.close();
             bw.close();
         } catch (IOException e) {
@@ -143,18 +151,13 @@ public class OAuthService {
             JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
             log.warn("id:: "+element.getAsJsonObject().get("id").getAsString());
 
-            log.info("1111111111111111");
             long uuid = element.getAsJsonObject().get("id").getAsLong();
-            log.info("2222222222222222");
             String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-            log.info("3333333333333333");
-//            String profileImg = properties.getAsJsonObject().get("profile_image").getAsString();
-
-            log.info("사진~~~~~~~~~~~~~~" );
+            String profileImg = properties.getAsJsonObject().get("profile_image").getAsString();
 
             oAuthUserRes = OAuthUserRes.builder()
                     .nickname(nickname)
-//                    .profileImg(profileImg)
+                    .profileImg(profileImg)
                     .uuid(uuid)
                     .build();
 
@@ -167,7 +170,7 @@ public class OAuthService {
 
 
     // logout 시 호출하는 메서드
-    public void kakaoLogout(String uuid){
+    public void kakaoLogout(long uuid){
         String reqURL = "https://kapi.kakao.com/v1/user/logout";
 
         try {
@@ -204,52 +207,9 @@ public class OAuthService {
         }
     }
 
-    // 앱과 사용자 카카오계정의 연결을 끊는 메서드
-    public void unlink(Long id) {
-        String reqURL = "https://kapi.kakao.com/v1/user/unlink";
-        log.info("회원아이디"+id);
-        log.info("앱키"+admin_key);
-        try {
-            URL url = new URL(reqURL);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
-            conn.setRequestProperty("Authorization", "KakaoAK " + admin_key);
-            conn.setDoOutput(true);
-
-            //POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
-            StringBuilder sb = new StringBuilder();
-            sb.append("target_id_type=user_id");
-            sb.append("&target_id="+id);
-
-            log.info("주소"+sb.toString());
-
-            bw.write(sb.toString());
-            bw.flush();
-
-
-            int responseCode = conn.getResponseCode();
-            System.out.println("responseCode : " + responseCode);
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-            String result = "";
-            String line = "";
-
-            while ((line = br.readLine()) != null) {
-                result += line;
-            }
-            System.out.println(result);
-            br.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     // AccessToken 갱신하는 메서드
-    public String updateAccessToken(String refresh_token) {
+    public OAuthTokenDto updateAccessToken(String refresh_token) {
+        OAuthTokenDto resultToken = null;
         String accessToken = "";
         String refreshToken = "";
 
@@ -289,14 +249,20 @@ public class OAuthService {
             log.info("refresh_token여부"+ String.valueOf(jsonObject.has("refresh_token")));
             log.info("access_token여부"+String.valueOf(jsonObject.has("access_token")));
             accessToken = jsonObject.get("access_token").getAsString();
-            String uuid = jsonObject.get("id").getAsString();
+
 
             if(jsonObject.has("refresh_token")){
                 refreshToken = jsonObject.get("refresh_token").getAsString();
+
+                resultToken = OAuthTokenDto.builder()
+                        .accessToken(accessToken)
+                        .refreshToken(refreshToken).build();
+
+                User user = userRepository.findByUuid(jsonObject.get("id").getAsLong());
+
                 //리프레시토큰 DB저장 -> 아직 여기에서 사용 X
                 // refreshToken은 redis에 저장하기 {"userId": refresh_token}
-//                redisUtil.setDataExpire(String.valueOf(uuid), refresh_token, JwtUtil.REFRESH_TOKEN_VALIDITY);
-
+                redisUtil.setDataExpire(String.valueOf(user.getUserId()), refreshToken, REFRESH_TOKEN_VALIDITY);
 
             }
 
@@ -305,7 +271,7 @@ public class OAuthService {
         }catch (Exception e) {
             e.printStackTrace();
         }
-        return accessToken;
+        return resultToken;
     }
 
 }
