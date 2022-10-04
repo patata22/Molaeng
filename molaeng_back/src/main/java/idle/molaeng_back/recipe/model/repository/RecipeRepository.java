@@ -1,7 +1,7 @@
 package idle.molaeng_back.recipe.model.repository;
 
 import idle.molaeng_back.recipe.model.entity.Recipe;
-import idle.molaeng_back.review.model.Review;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,4 +15,5 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
     List<Recipe> findAll();
 
     Slice<Recipe> findAllByRecipeNameContains(String keyWord, Pageable pageable);
+    Page<Recipe> findAll(Pageable pageable);
 }

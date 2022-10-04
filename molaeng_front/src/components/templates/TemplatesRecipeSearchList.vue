@@ -14,18 +14,17 @@
       <div slot="no-more"></div>
     </infinite-loading>
     <br />
+    <v-btn fab fixed right bottom color="carrot" @click="toTop">
+      <v-icon color="white">mdi-navigation-outline</v-icon>
+    </v-btn>
   </v-container>
 </template>
 <script>
-// import { mapState } from "vuex";
 import axios from "axios";
 import OrganismsRecipeCard from "../organisms/OrganismsRecipeCard.vue";
 import InfiniteLoading from "vue-infinite-loading";
 export default {
   name: "RecipeSearchList",
-  created() {
-    // this.getRecipeByIngredient();
-  },
   data: function () {
     return {
       page: 0,
@@ -33,21 +32,6 @@ export default {
       hasNext: true,
       recipeList: [],
     };
-  },
-  computed: {
-    //   ...mapState({
-    //     ingredientList(state) {
-    //       var ingredient = [];
-    //       var temp = state.ingredient.selectedIngredients;
-    //       temp.forEach((e) => {
-    //         ingredient.push({
-    //           ingredientId: e.ingredientId,
-    //           ingredientName: e.ingredientName,
-    //         });
-    //       });
-    //       return ingredient;
-    //     },
-    //   }),
   },
   components: {
     OrganismsRecipeCard,
@@ -58,25 +42,47 @@ export default {
     getRecipeByName($state) {
       var temp = this;
       var keyWord = window.location.pathname.split("/")[2];
-      axios
-        .get(
-          "https://j7a604.p.ssafy.io/molaeng/search/name/" +
-            keyWord +
-            "?size=5&userId=1&page=" +
-            this.page
-        )
-        .then((response) => {
-          response.data.result.recipeList.forEach((e) => {
-            temp.recipeList.push(e);
+      if (keyWord == "") {
+        axios
+          .get(
+            "https://j7a604.p.ssafy.io/molaeng/search/name?size=5&userId=1&page=" +
+              this.page
+          )
+          .then((response) => {
+            response.data.result.recipeList.forEach((e) => {
+              temp.recipeList.push(e);
+            });
+            temp.page += 1;
+            if (response.data.result.hasNext) {
+              $state.loaded();
+            } else {
+              $state.complete();
+            }
           });
-          temp.page += 1;
-          if (response.data.result.hasNext) {
-            $state.loaded();
-          } else {
-            $state.complete();
-          }
-        })
-        .catch((error) => console.log(error));
+      } else {
+        axios
+          .get(
+            "https://j7a604.p.ssafy.io/molaeng/search/name/" +
+              keyWord +
+              "?size=5&userId=1&page=" +
+              this.page
+          )
+          .then((response) => {
+            response.data.result.recipeList.forEach((e) => {
+              temp.recipeList.push(e);
+            });
+            temp.page += 1;
+            if (response.data.result.hasNext) {
+              $state.loaded();
+            } else {
+              $state.complete();
+            }
+          })
+          .catch((error) => console.log(error));
+      }
+    },
+    toTop() {
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     },
   },
 };

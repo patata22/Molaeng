@@ -61,6 +61,11 @@ const routes = [
     component: RecipeSearchList,
   },
   {
+    path: "/recipeSearchList",
+    name: "recipeSearchList-no",
+    component: RecipeSearchList,
+  },
+  {
     // path: "/recipe",
     path: "/recipe/:recipeId",
     name: "recipe",

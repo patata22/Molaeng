@@ -114,6 +114,21 @@ public class SearchController {
         }
     }
 
+    @GetMapping("/name")
+    public ResponseEntity searchByNoName(@RequestParam long userId, Pageable pageable){
+        Map<String, Object> resultMap = new HashMap<>();
+        try{
+            SearchRecipeResDTO result = searchService.searchRecipeByNoName(pageable, userId);
+            resultMap.put("result", result);
+            resultMap.put("message", "success");
+            return new ResponseEntity(resultMap, HttpStatus.OK);
+        }catch(Exception e){
+            resultMap.put("message", "레시피 이름검색에서 에러");
+            return new ResponseEntity(resultMap, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
     @GetMapping("/all")
     public ResponseEntity searchAllRecipe(){
         Map<String, Object> resultMap = new HashMap();
