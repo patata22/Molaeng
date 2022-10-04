@@ -60,7 +60,7 @@ export default {
       var keyWord = window.location.pathname.split("/")[2];
       axios
         .get(
-          "http://localhost:8080/molaeng/search/name/" +
+          "https://j7a604.p.ssafy.io/molaeng/search/name/" +
             keyWord +
             "?size=5&userId=1&page=" +
             this.page
