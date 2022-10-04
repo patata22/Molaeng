@@ -1,12 +1,14 @@
 <template>
-  <div>
+  <div class="mx-auto" style="max-width: 420px">
     <home-price-card
+      class="mt-10"
       :recipeId="recipeId"
       :recipePrice="recipePrice"
       :totalPrice="totalPrice"
       :ingredientList="ingredientList"
     />
     <out-price-card
+      class="my-10"
       :recipeId="recipeId"
       :outeat="outeat"
       :recipePrice="recipePrice"

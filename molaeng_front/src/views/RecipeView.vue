@@ -1,7 +1,20 @@
 <template>
   <div>
-    <recipe-detail-header-image :recipeInfo="recipeInfo" />
-    <div style="position: sticky; top: 0; z-index: 3; background-color: white">
+    <recipe-detail-header-image
+      class="mx-auto"
+      style="max-width: 420px"
+      :recipeInfo="recipeInfo"
+    />
+    <div
+      class="mx-auto"
+      style="
+        position: sticky;
+        top: 0;
+        z-index: 3;
+        background-color: white;
+        max-width: 420px;
+      "
+    >
       <recipe-detail-header
         v-bind:recipeInfo="recipeInfo"
         :recipeId="recipeId"
@@ -10,6 +23,7 @@
       <menu-tab :tabs="tabs" />
     </div>
     <router-view
+      class="mx-auto"
       :recipeId="recipeId"
       :outeat="outeat"
       :recipePrice="recipePrice"

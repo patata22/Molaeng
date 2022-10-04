@@ -1,5 +1,5 @@
 <template>
-  <table id="needIngredientList" class="mt-4 mb-8 mx-auto">
+  <table id="needIngredientList" class="mt-4 mb-8">
     <colgroup>
       <col style="width: 50%" />
       <col style="width: 50%" />
@@ -68,6 +68,7 @@ export default {
 #needIngredientList {
   border-collapse: collapse;
   margin-top: 10px;
+  width: 90%;
 }
 
 #needIngredientList th {
