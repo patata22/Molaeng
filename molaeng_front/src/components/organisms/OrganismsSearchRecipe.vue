@@ -15,12 +15,14 @@
       {{ recipe.F }}<span class="primary--text">{{ recipe.M }}</span
       >{{ recipe.E }}
     </v-card>
+    <under-bar-button :text="buttonText" :to="buttonLink + keyWord" />
   </div>
 </template>
 <script>
 import AtomsSearchBox from "../atoms/AtomsSearchBox.vue";
 import axios from "axios";
 import MenuTab from "../molecules/MoleculesMenuTab.vue";
+import UnderBarButton from "@/components/atoms/AtomsUnderBarButton.vue";
 export default {
   name: "OrganismsSearchRecipe",
   created() {
@@ -41,11 +43,15 @@ export default {
         },
       ],
       searchword: "레시피를 검색해주세요",
+      buttonText: "레시피 찾기",
+      buttonLink: "/recipeSearchList/",
+      keyWord: "",
     };
   },
   components: {
     AtomsSearchBox,
     MenuTab,
+    UnderBarButton,
   },
   methods: {
     getAllRecipe() {

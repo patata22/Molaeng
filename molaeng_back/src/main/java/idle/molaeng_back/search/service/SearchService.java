@@ -13,6 +13,7 @@ public interface SearchService {
     SearchRecipeResDTO searchRecipeByCalory(List<Long> ingredientIdList, Pageable pageable, long userId);
     SearchRecipeResDTO searchRecipeByScore(List<Long> ingredientIdList, Pageable pageable, long userId);
     SearchRecipeResDTO searchRecipeByCost(List<Long> ingredientIdList, Pageable pageable, long userId);
+    SearchRecipeResDTO searchRecipeByName(Pageable pageable, long userId, String keyWord);
     List<RecipeNameResDTO> searchAllRecipe();
 
 }
