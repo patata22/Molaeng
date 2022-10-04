@@ -1,2 +1,9 @@
-package idle.molaeng_back.auth.controller;public class AuthContoller {
+package idle.molaeng_back.auth.controller;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/user")
+public class AuthContoller {
 }

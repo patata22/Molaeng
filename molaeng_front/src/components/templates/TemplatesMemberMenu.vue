@@ -10,7 +10,7 @@
         class="mx-auto my-8 mt-10"
       ></v-img>
       <div class="d-flex justify-center">
-        <p id="name">{{ userInfo.name }} 님</p>
+        <p id="name">{{ userInfo.nickname }} 님</p>
       </div>
     </div>
     <div id="menuList">
@@ -46,14 +46,22 @@
   </div>
 </template>
 <script>
+import axios from "axios";
+// import axios from "axios";
 export default {
   name: "MemberMenu",
   components: {},
   data: () => ({
     userInfo: {
-      name: "김펭귄",
+      userId: 0,
+      nickname: "김펭귄",
     },
   }),
+  created() {
+    this.getUserIdByCookie();
+    this.getUserInfo();
+    console.log(this.userInfo);
+  },
   methods: {
     exit() {
       this.$router.push("/").catch(() => {});
@@ -68,8 +76,30 @@ export default {
       this.$router.push("/interestRecipe").catch(() => {});
     },
     logout() {
-      window.Kakao.Auth.logout();
+      // window.Kakao.Auth.logout().then(
+      //   (res) => console.log(res),
+      //   console.log(window.Kakao.Auth.getAccessToken())
+      // );
+      this.deleteCookie();
+      this.$router.push("/").catch(() => {});
       console.log("로그아웃!");
+    },
+    deleteCookie() {
+      this.$cookies.remove("userId");
+      alert("로그아웃 되었습니다.");
+    },
+    getUserIdByCookie() {
+      this.userInfo.userId = this.$cookies.get("userId");
+    },
+    getUserInfo() {
+      axios
+        .post(
+          "http://localhost:8080/molaeng/user?userId=" + this.userInfo.userId
+        )
+        .then((res) => {
+          console.log(res);
+          this.userInfo.nickname = res.data.result.nickname;
+        });
     },
   },
 };

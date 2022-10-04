@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 
 @Slf4j
@@ -37,7 +39,7 @@ public class UserController {
         }
     }
 
-    @ApiOperation(value = "마이페이지 사용자 정보 조회", notes = "userId를 이용하여 닉네임, 거주지역 정보를 불러온다.")
+    @ApiOperation(value = "사용자 정보 조회", notes = "userId를 이용하여 닉네임, 거주지역 정보를 불러온다.")
     @PostMapping
     public ResponseEntity getProfile(@RequestParam long userId) {
         HashMap<String, Object> result = new HashMap<>();
@@ -50,7 +52,7 @@ public class UserController {
 
         } catch (Exception e) {
             result.put("result", userId);
-            result.put("message", "마이페이지 조회 오류");
+            result.put("message", "사용자 정보 조회 오류");
             return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
         }
     }
@@ -73,13 +75,11 @@ public class UserController {
         }
     }
 
+    @ApiOperation(value = "로그인", notes = "Kakao uuid를 이용해 회원가입 여부를 판별하고, 로그인 혹은 가입을 진행")
     @PostMapping("/login")
     public ResponseEntity Login(@RequestBody LoginReqDTO loginReqDTO) {
-        System.out.println("HI!");
         long uuid = loginReqDTO.getUuid();
-        System.out.println(uuid);
         String nickname = loginReqDTO.getNickname();
-        System.out.println(nickname);
         HashMap<String, Object> resultMap = new HashMap<>();
         try {
             long userId = userService.Login(uuid, nickname);

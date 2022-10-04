@@ -3,8 +3,13 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
+import vueCookies from "vue-cookies";
 
 Vue.config.productionTip = false;
+Vue.use(vueCookies);
+
+//cookies 만료시간 일단 12시간으로 설정
+Vue.$cookies.config(60 * 60 * 12);
 
 new Vue({
   router,

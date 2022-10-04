@@ -5,12 +5,14 @@ import idle.molaeng_back.review.repository.ReviewRepository;
 import idle.molaeng_back.user.model.*;
 import idle.molaeng_back.user.model.DTO.UserProfileRequest;
 import idle.molaeng_back.user.model.DTO.UserProfileResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService{
 
@@ -28,6 +30,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public UserProfileResponse getUserProfile(long userId) {
         User user = userRepository.findByUserId(userId);
+        log.info("사용자" + user);
         UserProfileResponse result = new UserProfileResponse(user.getNickname(), user.getGugun().getGugunName());
         return result;
     }

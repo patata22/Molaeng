@@ -3,7 +3,7 @@
     <div class="mainPageContent mx-auto" style="max-width: 420px">
       <On-Boarding></On-Boarding>
       <Main-Menu></Main-Menu>
-      <Kakao-Login v-on:kakaoLogin="kakaoLogin"></Kakao-Login>
+      <Kakao-Login v-on:kakaoLogin="kakaoLogin" v-if="!isLogined"></Kakao-Login>
     </div>
   </div>
 </template>
@@ -20,18 +20,25 @@ export default {
     MainMenu,
     KakaoLogin,
   },
-  // computed:{
-  //   isLogin(){
-  //     if(getCookie()>0)
-  //     return true;
-  //   }
-  // },
+  data() {
+    return {
+      isLogined: false,
+    };
+  },
+  computed: {
+    isLogin() {
+      if (this.$cookies.get("userId") > 0) return true;
+      else return false;
+    },
+  },
   created() {
+    this.checkedLogin();
+    console.log("login : " + this.isLogined);
     let code = new URL(window.location.href).searchParams.get("code");
     if (code) {
       axios
         .post(
-          "https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=73e5a007dbb6c4473ba7ef95128857ff&redirect_uri=http://localhost:8082&code=" +
+          "https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=73e5a007dbb6c4473ba7ef95128857ff&redirect_uri=http://localhost:8081&code=" +
             code +
             "&client_secret=Y4AFwDzPKpLFtAdcSnT11W46zgHL2noa",
           {
@@ -53,21 +60,29 @@ export default {
             .then((res) => {
               this.$router.replace("");
               console.log(res);
-              axios.post("/user", {
-                uuid: res.data.id,
-                nickname: res.data.kakao_account.profile.nickname,
-              });
-              // .then((res) => {
-              //   this.setCookie({userid:res.data.result.userid});
-              // });
+              axios
+                .post("http://localhost:8080/molaeng/user/login", {
+                  uuid: res.data.id,
+                  nickname: res.data.kakao_account.profile.nickname,
+                })
+                .then((res) => {
+                  console.log(res);
+                  this.isLogined = true;
+
+                  this.$cookies.set("userId", res.data.userId);
+                });
             });
         });
     }
   },
   methods: {
+    checkedLogin() {
+      if (this.$cookies.get("userId") > 0) this.isLogined = true;
+      else this.isLogined = false;
+    },
     kakaoLogin() {
       window.Kakao.Auth.authorize({
-        redirectUri: "http://localhost:8082",
+        redirectUri: "http://localhost:8081",
       });
     },
     getCookie(name) {
