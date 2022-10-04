@@ -68,8 +68,8 @@ export default {
       this.$router.push("/interestRecipe").catch(() => {});
     },
     logout() {
-      // 현재에는 비로그인 메뉴 테스트용으로, 비로그인 페이지로 이동하게 설정함. 어떻게 할지 물어봐야 함.
-      this.$router.push("/menu/user").catch(() => {});
+      window.Kakao.Auth.logout();
+      console.log("로그아웃!");
     },
   },
 };
