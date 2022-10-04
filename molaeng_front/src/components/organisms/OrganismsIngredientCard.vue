@@ -52,10 +52,6 @@ table {
   max-width: 351px;
 }
 
-.v-card {
-  margin-top: 7%;
-}
-
 #title {
   background-color: #fef3c6;
 }
