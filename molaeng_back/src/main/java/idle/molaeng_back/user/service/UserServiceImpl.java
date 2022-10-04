@@ -68,4 +68,41 @@ public class UserServiceImpl implements UserService{
         // user 삭제하면 recipe_like, review_like, diary 도 같이 삭제된다.
         userRepository.deleteById(userId);
     }
+
+    @Override
+    public boolean isMember(long uuid) {
+        int count = userRepository.countUserByUuid(uuid);
+
+        return count >= 1;
+    }
+
+
+    @Override
+    public User joinUser(String nickname, long uuid, String profileImg) {
+        // 최초 가입자의 거주지역은 0번 더미 지역으로 설정함
+        Gugun gugun = gugunRepository.findByGugunId(0);
+
+        User member = User.builder()
+                .nickname(nickname)
+                .uuid(uuid)
+                .gugun(gugun)
+                .profileImg(profileImg)
+                .build();
+
+        User user = userRepository.save(member);
+
+        return user;
+    }
+
+    @Override
+    public User getUser(long userId) {
+        return userRepository.findByUserId(userId);
+    }
+
+    @Override
+    public User findByUuid(long uuid) {
+        return userRepository.findByUuid(uuid);
+    }
+
+
 }

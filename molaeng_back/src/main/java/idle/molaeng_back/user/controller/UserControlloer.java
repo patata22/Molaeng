@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 
 @Slf4j
@@ -19,6 +20,8 @@ import java.util.HashMap;
 public class UserControlloer {
 
     private final UserServiceImpl userService;
+
+    @GetMapping
 
     @ApiOperation(value="회원 탈퇴", notes = "사용자가 작성한 리뷰, 좋아요와 같은 정보를 더미 사용자에게 넘기고, 해당 계정의 정보를 삭제한다.")
     @DeleteMapping

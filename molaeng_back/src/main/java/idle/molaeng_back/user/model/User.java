@@ -7,17 +7,23 @@ import idle.molaeng_back.recipe.model.entity.RecipeLike;
 import idle.molaeng_back.review.model.Review;
 import idle.molaeng_back.review.model.ReviewLike;
 import idle.molaeng_back.user.model.DTO.UserProfileRequest;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-
+import java.util.stream.Collectors;
+@Entity
 @Getter
 @NoArgsConstructor
-@Entity
+@AllArgsConstructor
+@Builder
 public class User  {
 
     @Id
@@ -29,7 +35,10 @@ public class User  {
     private String nickname;
 
     @Column(name="uuid")
-    private String uuid;
+    private long uuid;
+
+    @Column(name="profile_img")
+    private String profileImg;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="gugun_id")
@@ -57,15 +66,29 @@ public class User  {
         this.gugun = gugun;
     }
 
+    // 인가정보
+    @ElementCollection(fetch = FetchType.LAZY)
+    @Builder.Default        // Builder 사용시 기본값 지정
+    private List<String> roles = new ArrayList<>();
+
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.roles.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    }
+
     @Builder
-    public User(long userId, String nickname, String uuid, Gugun gugun, List<RecipeLike> recipeLikeList, List<Review> reviewList, List<ReviewLike> reviewLikeList, List<Diary> diaryList) {
+    public User(long userId, String nickname, long uuid, String profileImg, List<String> roles, Gugun gugun, List<RecipeLike> recipeLikeList, List<Review> reviewList, List<ReviewLike> reviewLikeList, List<Diary> diaryList) {
         this.userId = userId;
         this.nickname = nickname;
         this.uuid = uuid;
+        this.profileImg = profileImg;
+        this.roles = roles;
         this.gugun = gugun;
         this.recipeLikeList = recipeLikeList;
         this.reviewList = reviewList;
         this.reviewLikeList = reviewLikeList;
         this.diaryList = diaryList;
     }
+
 }
