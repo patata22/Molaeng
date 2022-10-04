@@ -1,6 +1,6 @@
 <template>
   <div class="mainPage">
-    <div class="mainPageContent">
+    <div class="mainPageContent mx-auto" style="max-width: 420px">
       <On-Boarding></On-Boarding>
       <Main-Menu></Main-Menu>
       <Kakao-Login></Kakao-Login>

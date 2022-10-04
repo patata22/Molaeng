@@ -1,9 +1,9 @@
 <template lang="">
   <v-container>
-    <div class="d-flex justify-center align center pt-10">
+    <div class="d-flex justify-center align center">
       <h1 class="dark--text">레시피 목록</h1>
     </div>
-    <div class="d-flex justify-end pr-6 pt-5">
+    <div class="pt-5 mx-auto" style="width: 86%; max-width: 351px">
       <v-menu offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn
@@ -14,6 +14,7 @@
             v-bind="attrs"
             v-on="on"
             depressed
+            style="float: right"
           >
             {{ sortString }}
           </v-btn>
@@ -92,7 +93,7 @@
       v-for="(recipe, i) in recipeList"
       :key="i"
       :recipe="recipe"
-      class="ml-6 mt-10"
+      class="mx-auto mt-10"
     >
     </organisms-recipe-card>
     <infinite-loading v-if="sort == 0" @infinite="getRecipeByIngredient">

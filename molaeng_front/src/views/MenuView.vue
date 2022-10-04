@@ -1,8 +1,10 @@
 <template>
   <div class="background">
-    <!-- <member-menu></member-menu> -->
-    <exit-button></exit-button>
-    <router-view></router-view>
+    <div class="mx-auto" style="max-width: 420px">
+      <!-- <member-menu></member-menu> -->
+      <exit-button></exit-button>
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 <script>

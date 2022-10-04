@@ -1,5 +1,5 @@
 <template>
-  <v-tabs centered fixed-tabs>
+  <v-tabs fixed-tabs>
     <menu-tab-item v-for="(tab, index) in tabs" :key="index" :tab="tab" />
   </v-tabs>
 </template>

@@ -1,11 +1,11 @@
 <template>
   <div align="center">
-    <div class="semidark--text mt-2 mb-2">최근본 레시피는 5개까지 저장되요</div>
+    <div class="semidark--text my-4">최근 본 레시피는 5개까지 저장돼요</div>
     <recipe-card
       v-for="(recipe, i) in recipeList"
       :key="i"
       :recipe="recipe"
-      class="mb-7"
+      class="mb-10"
     >
     </recipe-card>
   </div>

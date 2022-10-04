@@ -1,5 +1,5 @@
 <template lang="">
-  <v-card class="ml-1">
+  <v-card class="mx-auto mt-10">
     <div
       class="d-flex justify-space-between align-center"
       style="background: #fef3c6; height: 30px"
@@ -49,21 +49,22 @@
     </v-row>
     <v-row align="center">
       <v-spacer v-on:click="moveToRecipe(recipe.recipeId)" />
-      <v-col v-on:click="moveToRecipe(recipe.recipeId)" cols="auto">
-        <span class="semidark--text"
+      <v-col cols="5" />
+      <v-col cols="7" class="pt-0">
+        <span v-on:click="moveToRecipe(recipe.recipeId)" class="semidark--text"
           >열량 {{ recipe.recipeKcal }}Kcal
-        </span></v-col
-      >
-      <v-col cols="auto" class="ml-10 mr-5">
-        <v-icon
-          v-if="recipe.isLiked == 0"
-          color="carrot"
-          v-on:click="likeRecipe()"
-          >mdi-heart-outline
-        </v-icon>
-        <v-icon v-else color="carrot" v-on:click="dislikeRecipe()"
-          >mdi-heart</v-icon
-        >
+        </span>
+        <span style="float: right" class="mr-3">
+          <v-icon
+            v-if="recipe.isLiked == 0"
+            color="carrot"
+            v-on:click="likeRecipe()"
+            >mdi-heart-outline
+          </v-icon>
+          <v-icon v-else color="carrot" v-on:click="dislikeRecipe()"
+            >mdi-heart</v-icon
+          >
+        </span>
       </v-col>
     </v-row>
   </v-card>
