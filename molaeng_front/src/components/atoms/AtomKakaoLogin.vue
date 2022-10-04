@@ -1,38 +1,18 @@
 <template>
   <div align="center">
-    <v-btn
-      id="loginBtn"
-      href="https://kauth.kakao.com/oauth/authorize?client_id=73e5a007dbb6c4473ba7ef95128857ff&redirect_uri=http://localhost:8080/molaeng/oauth/kakaoLogin&response_type=code"
-    >
+    <v-btn id="loginBtn" @click="login">
       <img src="../../assets/kakaoIcon.png" alt="" id="kakaoLogo" />
       <h4>카카오 로그인</h4>
     </v-btn>
   </div>
 </template>
 <script>
-// import axios from "axios";
-import API from "@/api/KakaoAPI";
-const api = API;
-
 export default {
   name: "KakaoLogin",
-  data() {
-    return {
-      code: "",
-      result: {},
-      user: {},
-      url: "",
-    };
-  },
   methods: {
     async login() {
-      let result = await api.login();
-      console.log("함수 끝!!!!" + result);
+      this.$emit("kakaoLogin");
     },
-  },
-  components: {},
-  created() {
-    console.log("created 실행!!");
   },
 };
 </script>
