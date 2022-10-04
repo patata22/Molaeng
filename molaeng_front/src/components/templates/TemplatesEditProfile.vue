@@ -10,7 +10,7 @@
           width="100px"
         ></v-img>
       </v-row>
-      <v-row class="px-15">
+      <v-row class="px-10">
         <v-col>
           <div class="mb-1">
             <h4 class="carrot--text">닉네임</h4>
@@ -27,7 +27,7 @@
           ></v-text-field>
         </v-col>
       </v-row>
-      <v-row class="px-15">
+      <v-row class="px-10">
         <v-col>
           <div class="d-flex mb-1">
             <h4 class="carrot--text">우리 동네</h4>
@@ -55,7 +55,7 @@
           ></v-select>
         </v-col>
       </v-row>
-      <v-row class="px-15 justify-center">
+      <v-row class="px-10 justify-center">
         <v-btn
           class="primary font-weight-bold mt-5"
           rounded

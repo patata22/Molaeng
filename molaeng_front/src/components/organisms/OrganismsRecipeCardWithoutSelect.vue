@@ -2,7 +2,7 @@
   <v-card style="margin: 0">
     <div
       class="d-flex justify-space-between align-center"
-      style="background: #fef3c6; height: 30px"
+      style="background: #fef3c6; height: 30px; max-width: 420px"
       v-on:click="moveToRecipe(recipe.recipeId)"
     >
       <v-rating

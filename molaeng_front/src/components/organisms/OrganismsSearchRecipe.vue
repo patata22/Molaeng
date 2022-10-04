@@ -2,7 +2,7 @@
   <div>
     <atoms-search-box v-on:change="changeKeyword" :searchword="searchword">
     </atoms-search-box>
-    <menu-tab :tabs="tabs"></menu-tab>
+    <menu-tab class="mx-auto" style="max-width: 420px" :tabs="tabs"></menu-tab>
     <v-card
       flat
       v-for="(recipe, i) in matchList"

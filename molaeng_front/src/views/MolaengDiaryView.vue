@@ -1,7 +1,13 @@
 <template>
   <div>
-    <molaeng-diary-header @click.native="dateNotSelected" />
+    <molaeng-diary-header
+      class="mx-auto"
+      style="max-width: 420px"
+      @click.native="dateNotSelected"
+    />
     <molaeng-calendar
+      class="mx-auto"
+      style="max-width: 420px"
       :selectedGraph="selectedGraph"
       :savedCost="savedCost"
       v-on:dateSelected="dateSelected"
@@ -9,11 +15,15 @@
       @click.native="dateNotSelected"
     />
     <molaeng-history
+      class="mx-auto"
+      style="max-width: 420px"
       :date="date"
       :isDateSelected="isDateSelected"
       v-if="isDateSelected"
     />
     <molaeng-graph
+      class="mx-auto"
+      style="max-width: 420px"
       v-on:setSelectedGraph="setSelectedGraph"
       v-on:setSavedCost="setSavedCost"
       v-else

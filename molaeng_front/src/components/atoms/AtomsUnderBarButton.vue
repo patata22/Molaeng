@@ -5,7 +5,6 @@
     fixed
     depressed
     x-large
-    block
     color="carrot"
     class="font-weight-bold white--text elevation-0 py-2"
     :to="to"
@@ -26,6 +25,10 @@ export default {
 
 <style>
 #underButton {
+  max-width: 420px;
+  width: 100%;
   bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 </style>

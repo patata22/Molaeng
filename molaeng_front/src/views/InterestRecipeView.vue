@@ -1,6 +1,10 @@
 <template>
   <div>
-    <interest-recipe-header :tabs="tabs" />
+    <interest-recipe-header
+      class="mx-auto"
+      style="max-width: 420px"
+      :tabs="tabs"
+    />
     <router-view></router-view>
   </div>
 </template>

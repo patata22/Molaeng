@@ -2,7 +2,7 @@
   <div>
     <div id="content">
       <atoms-search-box v-on:change="changeKeyword" :searchword="searchword" />
-      <menu-tab :tabs="tabs" />
+      <menu-tab class="mx-auto" style="max-width: 420px" :tabs="tabs" />
       <selected-tag-list />
       <ingredient-card-list :keyWord="keyWord" />
     </div>
@@ -42,7 +42,7 @@ export default {
         tabLink: "/search/recipe",
       },
     ],
-    searchword: "재료를 검색해주세요.",
+    searchword: "재료를 검색해주세요",
   }),
   methods: {
     changeKeyword(value) {

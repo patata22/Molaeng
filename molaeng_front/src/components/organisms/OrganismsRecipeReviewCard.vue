@@ -1,5 +1,5 @@
 <template>
-  <v-card id="reviewCard" class="mx-auto rounded-xl" outlined max-width="351">
+  <v-card id="reviewCard" class="mx-auto rounded-xl" max-width="420" outlined>
     <v-card-title class="pt-2 pb-0 d-flex justify-space-between">
       <review-read-star :reviewScore="review.reviewScore" />
       <span
