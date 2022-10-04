@@ -163,7 +163,7 @@ export default {
         )
         .then((res) => {
           this.userProfile.nickname = res.data.result.nickname;
-          console.log("닉네임 불러옴");
+          console.log("닉네임 불러옴vv");
         })
         .catch((error) => console.log(error));
     },
