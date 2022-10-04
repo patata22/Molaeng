@@ -1,5 +1,5 @@
 <template>
-  <v-stepper vertical>
+  <v-stepper vertical style="box-shadow: none">
     <recipe-description-list-item
       v-for="(detail, index) in recipeDetailList"
       :key="index"
@@ -24,6 +24,16 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-snackbar
+      color="carrot"
+      rounded="pill"
+      text
+      centered
+      v-model="snackbar"
+      :timeout="timeout"
+    >
+      레시피가 모랭일기에 등록되었어요!
+    </v-snackbar>
   </v-stepper>
 </template>
 
@@ -60,6 +70,8 @@ export default {
     userId: 1,
     saveCost: 0,
     dialog: false,
+    snackbar: false,
+    timeout: 1500,
   }),
   methods: {
     async addHistory() {
@@ -72,9 +84,15 @@ export default {
       }
       this.res = await api.saveDiary(this.userId, this.recipeId, this.saveCost);
       this.dialog = false;
+      this.snackbar = true;
     },
   },
 };
 </script>
 
-<style></style>
+<style>
+.v-snack__content {
+  font-size: 1rem;
+  text-align: center;
+}
+</style>

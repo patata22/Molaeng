@@ -7,11 +7,10 @@
         contain
         height="100px"
         width="100px"
-        class="mx-auto my-10 mt-10"
+        class="mx-auto my-8 mt-10"
       ></v-img>
-      <div class="d-flex justify-center dark--text">
-        <p id="name">{{ userInfo.name }}</p>
-        <p id="dear">님</p>
+      <div class="d-flex justify-center">
+        <p id="name">{{ userInfo.name }} 님</p>
       </div>
     </div>
     <div id="menuList">
@@ -75,27 +74,21 @@ export default {
   },
 };
 </script>
+
 <style>
 #profile {
   height: 220px;
-  width: 100%;
 }
 #profile #name {
-  font-size: 24px;
-  font-weight: bold;
-}
-#profile #dear {
-  font-size: 20px;
-  font-weight: bold;
-  margin-left: 5px;
-  margin-top: 4px;
+  color: #5b574b;
+  font-size: 1.8rem;
+  font-weight: 800;
 }
 #menuList {
   text-align: center;
-  margin-top: 5%;
 }
 #menuList p {
-  font-size: 22px;
+  font-size: 1.3rem;
   margin: 0;
   font-weight: bold;
 }
@@ -104,11 +97,10 @@ export default {
   margin: 0 auto;
 }
 #menuList .icon {
-  margin: 10px;
-  font-size: 25px;
-  padding: 0;
+  margin: 6%;
+  font-size: 1.5rem;
 }
 #menuList .menuItem {
-  margin: 10px;
+  margin: 2%;
 }
 </style>

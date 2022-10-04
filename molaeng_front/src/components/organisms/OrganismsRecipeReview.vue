@@ -3,7 +3,6 @@
   <div>
     <v-divider></v-divider>
     <recipe-score></recipe-score>
-    <br />
     <v-divider></v-divider>
     <v-container>
       <v-row>
@@ -113,31 +112,14 @@
       <div slot="no-more"></div>
     </infinite-loading>
     <!-- 여기서부터 리뷰 쓰기-> 뺄 수 있을지 모르겠다???? -->
-    <v-row justify="center">
-      <v-dialog
-        transition="dialog-bottom-transition"
-        v-model="writing"
-        persistent
-        max-width="600px"
-      >
+    <div>
+      <v-dialog v-model="writing">
         <template v-slot:activator="{ on, attrs }">
-          <v-footer fixed>
-            <v-btn
-              class="mx-2 mb-15"
-              fab
-              rounded
-              color="carrot"
-              v-bind="attrs"
-              v-on="on"
-              background-color="white"
-              absolute
-              right
-            >
-              <v-icon color="white">mdi-plus</v-icon>
-            </v-btn>
-          </v-footer>
+          <v-btn fab fixed right bottom color="carrot" v-bind="attrs" v-on="on">
+            <v-icon color="white">mdi-pencil</v-icon>
+          </v-btn>
         </template>
-        <v-card>
+        <v-card style="margin: auto">
           <v-card-title> 리뷰 작성 </v-card-title>
           <v-card-actions class="pt-0 pb-3">
             <v-rating
@@ -175,7 +157,7 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-    </v-row>
+    </div>
   </div>
 </template>
 <script>

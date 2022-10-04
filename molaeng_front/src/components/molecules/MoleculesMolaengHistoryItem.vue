@@ -4,13 +4,15 @@
       meal.recipeName
     }}</span>
     <div>
-      <span class="historyItemPrice">{{ saveCost }}원</span>
+      <span class="historyItemPrice" :style="compareStyle"
+        >{{ saveCost }}원</span
+      >
       <button @click.stop="dialog = true">
         <v-icon class="deleteHistoryBtn">mdi-window-close</v-icon>
       </button>
     </div>
     <v-dialog v-model="dialog">
-      <v-card class="historyDeleteDialog">
+      <v-card style="margin: auto">
         <v-card-title class="dialogtitle">모랭일기 삭제하기</v-card-title>
         <v-card-text>이 레시피를 모랭일기에서 삭제하시겠어요?</v-card-text>
         <v-card-actions>
@@ -33,6 +35,7 @@ export default {
   props: { meal: Object },
   data: () => ({
     saveCost: "",
+    isSaved: true,
     dialog: false,
   }),
   created() {
@@ -43,13 +46,22 @@ export default {
       this.saveCostFormatter();
     },
   },
+  computed: {
+    compareStyle() {
+      if (this.isSaved) {
+        return "color:#72A971";
+      } else return "color:#ED8A53";
+    },
+  },
   methods: {
     saveCostFormatter() {
       if (this.meal.saveCost > 0) {
         this.saveCost = this.meal.saveCost.toLocaleString();
         this.saveCost = "+" + this.saveCost;
+        this.isSaved = true;
       } else {
         this.saveCost = this.meal.saveCost.toLocaleString();
+        this.isSaved = false;
       }
     },
     async deleteHistory() {
@@ -99,7 +111,6 @@ export default {
 .historyItemPrice {
   margin-right: 4px;
   font-size: 1rem;
-  color: #ed8a53;
 }
 .deleteHistoryBtn {
   color: rgba(91, 87, 75, 50%);

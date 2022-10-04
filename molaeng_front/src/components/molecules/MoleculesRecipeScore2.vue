@@ -1,7 +1,7 @@
 <template>
   <v-card
-    class="ml-7 mt-7 rounded-xl"
-    style="height: 135px; box-shadow: none"
+    class="rounded-xl"
+    style="box-shadow: none; margin: auto; margin-top: 8%; margin-bottom: 8%"
     max-width="351px"
   >
     <v-row no-gutters class="mt-2 justify-start">

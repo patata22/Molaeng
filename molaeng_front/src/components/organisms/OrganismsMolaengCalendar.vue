@@ -2,7 +2,7 @@
   <div class="calendarPage">
     <div class="calendarHeader">
       <span class="calendarHeaderDefault">{{ selectedGraph }} </span
-      ><span class="calendarHeaderChange">{{ header }}</span>
+      ><span :style="compareStyle">{{ header }}</span>
     </div>
     <v-sheet class="calendarButton">
       <v-btn icon large @click="$refs.calendar.prev()">
@@ -66,6 +66,13 @@ export default {
   watch: {
     savedCost() {
       this.changeHeader();
+    },
+  },
+  computed: {
+    compareStyle() {
+      if (this.savedCost > 0) {
+        return "color:#72A971";
+      } else return "color:#ED8A53";
     },
   },
   methods: {
@@ -142,9 +149,6 @@ export default {
 }
 .calendarHeaderDefault {
   color: #5b574b;
-}
-.calendarHeaderChange {
-  color: #72a971;
 }
 .calendarButton {
   margin-left: 6%;

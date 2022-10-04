@@ -125,7 +125,16 @@ export const ingredient = {
   }, // state를 접근할 땐 getter를 사용해야.
   mutations: {
     SET_INGREDIENT_SELECT(state, ingredient) {
-      ingredient.selected = !ingredient.selected;
+      let start = getFirstChar(ingredient.ingredientName.substring(0, 1));
+      for (let ing of state.ingredients) {
+        if (ing.ingredientTitle.includes(start)) {
+          for (let j of ing.ingredientList)
+            if (j.ingredientId == ingredient.ingredientId) {
+              j.selected = ingredient.selected;
+              break;
+            }
+        }
+      }
     },
     ADD_CART(state, ingredient) {
       ingredient.selected = true;

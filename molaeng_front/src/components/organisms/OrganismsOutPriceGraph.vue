@@ -51,7 +51,7 @@ export default {
             data: [],
             barPercentage: 0.5,
             datalabels: {
-              color: "#000000",
+              color: "#5B574B",
               anchor: "end",
               align: "end",
               offset: "-5",
