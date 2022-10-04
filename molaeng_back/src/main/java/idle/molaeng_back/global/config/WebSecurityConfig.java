@@ -46,7 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring()
                 .antMatchers("/resources/**","/char/**", "/acc/**", "/index_bundle.js","/**/*.css", "/**/*.png", "/**/*.jpg",
                         "/**/*.gif","/**/*.woff", "/**/*.ttf","/performance/images","/member/join","/review/reviewdetail/**","/editprofile/**",
-                        "/member/login","/**/favicon.ico");
+                        "/member/login","/**/favicon.ico", "/user/**");
         web.ignoring().antMatchers(PERMIT_URL_ARRAY);
         web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }

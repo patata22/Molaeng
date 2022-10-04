@@ -61,7 +61,7 @@ public class OAuthController {
             // 만약 아직 회원이 아니라면 DB에 정보를 저장한다.
             if(!userService.isMember(userInfo.getUuid())){
                 // userImg까지 저장해야 한다.
-                user = userService.joinUser(userInfo.getNickname(), userInfo.getUuid(), userInfo.getProfileImg());
+                user = userService.joinUser(userInfo.getNickname(), userInfo.getUuid());
                 log.info("회원가입 완료" + user);
             }else{
                 // 회원이라면 정보만 받아온다.

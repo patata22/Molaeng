@@ -12,9 +12,10 @@ public interface UserService {
 
     boolean isMember(long uuid);
 
-    User joinUser(String nickname, long uuid, String profileImg);
+    User joinUser(String nickname, long uuid);
 
     User getUser(long userId);
 
     User findByUuid(long uuid);
+    long Login(long uuid, String nickname);
 }

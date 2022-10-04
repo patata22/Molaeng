@@ -14,17 +14,11 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService{
 
-    @Autowired
+
     private final UserRepository userRepository;
-
-    @Autowired
     private final GugunRepository gugunRepository;
-
-    @Autowired
     private final ReviewRepository reviewRepository;
 
-
-    @Autowired
     public UserServiceImpl(UserRepository userRepository, GugunRepository gugunRepository, ReviewRepository reviewRepository) {
         this.userRepository = userRepository;
         this.gugunRepository = gugunRepository;
@@ -35,7 +29,6 @@ public class UserServiceImpl implements UserService{
     public UserProfileResponse getUserProfile(long userId) {
         User user = userRepository.findByUserId(userId);
         UserProfileResponse result = new UserProfileResponse(user.getNickname(), user.getGugun().getGugunName());
-
         return result;
     }
 
@@ -78,7 +71,7 @@ public class UserServiceImpl implements UserService{
 
 
     @Override
-    public User joinUser(String nickname, long uuid, String profileImg) {
+    public User joinUser(String nickname, long uuid) {
         // 최초 가입자의 거주지역은 0번 더미 지역으로 설정함
         Gugun gugun = gugunRepository.findByGugunId(0);
 
@@ -86,11 +79,8 @@ public class UserServiceImpl implements UserService{
                 .nickname(nickname)
                 .uuid(uuid)
                 .gugun(gugun)
-                .profileImg(profileImg)
                 .build();
-
         User user = userRepository.save(member);
-
         return user;
     }
 
@@ -104,5 +94,14 @@ public class UserServiceImpl implements UserService{
         return userRepository.findByUuid(uuid);
     }
 
-
+    @Override
+    @Transactional
+    public long Login(long uuid, String nickname) {
+        if(userRepository.countUserByUuid(uuid)==1){
+            return userRepository.findByUuid(uuid).getUserId();
+        }else{
+            User user = joinUser(nickname, uuid);
+            return user.getUserId();
+        }
+    }
 }

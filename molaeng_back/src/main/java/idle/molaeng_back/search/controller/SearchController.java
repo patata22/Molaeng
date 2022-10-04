@@ -128,7 +128,6 @@ public class SearchController {
         }
     }
 
-
     @GetMapping("/all")
     public ResponseEntity searchAllRecipe(){
         Map<String, Object> resultMap = new HashMap();

@@ -24,8 +24,6 @@ public class ReviewController {
     private final ReviewLikeService reviewLikeService;
     private final ReviewService reviewService;
 
-
-
     @GetMapping
     public ResponseEntity readMyReview(@RequestParam long userId, Pageable pageable){
         Map<String, Object> resultMap = new HashMap<>();
@@ -78,6 +76,7 @@ public class ReviewController {
             return new ResponseEntity(resultMap, HttpStatus.OK);
         }catch (Exception e){
             resultMap.put("message", "점수조회에서 에러ㅓㅓㅓㅓㅓㅓㅓㅓ");
+            e.printStackTrace();
             return new ResponseEntity(resultMap, HttpStatus.BAD_REQUEST);
         }
     }
