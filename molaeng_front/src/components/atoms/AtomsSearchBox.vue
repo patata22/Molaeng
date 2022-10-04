@@ -7,9 +7,7 @@
       solo
       dense
       rounded
-      append-icon="mdi-microphone"
       @input="sendKeyword"
-      @click:append="startSTT"
     ></v-text-field>
   </div>
 </template>

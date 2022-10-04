@@ -6,6 +6,7 @@ import idle.molaeng_back.recipe.model.entity.RecipeIngredient;
 import idle.molaeng_back.recipe.model.repository.IngredientRepository;
 import idle.molaeng_back.recipe.model.repository.RecipeLikeRepository;
 import idle.molaeng_back.recipe.model.repository.RecipeRepository;
+import idle.molaeng_back.review.model.Review;
 import idle.molaeng_back.search.DTO.response.IngredientResDTO;
 import idle.molaeng_back.search.DTO.response.RecipeNameResDTO;
 import idle.molaeng_back.search.DTO.response.RecipeResDTO;
@@ -159,6 +160,30 @@ public class SearchServiceImpl implements SearchService {
         }
         return SearchRecipeResDTO.builder()
                 .hasNext(hasNext)
+                .recipeList(tempList)
+                .build();
+    }
+
+    @Override
+    public SearchRecipeResDTO searchRecipeByName(Pageable pageable, long userId, String keyWord) {
+        Slice<Recipe> recipeList = recipeRepository.findAllByRecipeNameContains(keyWord, pageable);
+        List<RecipeResDTO> tempList = new ArrayList<>();
+        for (Recipe recipe : recipeList) {
+            long id = recipe.getRecipeId();
+            tempList.add(RecipeResDTO.builder()
+                    .recipeId(id)
+                    .recipeName(recipe.getRecipeName())
+                    .ingredientList(IngredientToDTO(recipe))
+                    .recipeImage(recipe.getRecipeImage())
+                    .recipeKcal(recipe.getRecipeKcal())
+                    .isLiked(RecipeLikeRepository.countByUserUserIdAndRecipeRecipeId(userId, id))
+                    .avgScore(getAvgScore(recipe))
+                    .cost(CalculateCost(recipe, new ArrayList<>()))
+                    .build());
+        }
+
+        return SearchRecipeResDTO.builder()
+                .hasNext(recipeList.hasNext())
                 .recipeList(tempList)
                 .build();
     }

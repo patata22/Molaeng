@@ -20,6 +20,7 @@ import EditProfile from "@/components/templates/TemplatesEditProfile.vue";
 import MyReview from "@/components/templates/TemplatesMyReviewList.vue";
 import MemberMenu from "@/components/templates/TemplatesMemberMenu.vue";
 import UserMenu from "@/components/templates/TemplatesUserMenu.vue";
+import RecipeSearchList from "@/components/templates/TemplatesRecipeSearchList.vue";
 
 Vue.use(VueRouter);
 
@@ -53,6 +54,11 @@ const routes = [
     path: "/recipeList",
     name: "recipeList",
     component: RecipeListView,
+  },
+  {
+    path: "/recipeSearchList/:keyWord",
+    name: "recipeSearchList",
+    component: RecipeSearchList,
   },
   {
     // path: "/recipe",
