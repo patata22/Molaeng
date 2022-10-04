@@ -1,6 +1,6 @@
 <template>
   <div id="background">
-    <v-carousel id="caro" cycle hide-delimiter-background show-arrows-on-hover>
+    <v-carousel height="200" cycle hide-delimiters show-arrows-on-hover>
       <v-carousel-item v-for="(item, i) in items" :key="i" :src="item.src">
       </v-carousel-item>
     </v-carousel>
@@ -12,16 +12,16 @@ export default {
   data: () => ({
     items: [
       {
-        src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
+        src: require("../../assets/help1.png"),
       },
       {
-        src: "https://cdn.vuetifyjs.com/images/carousel/sky.jpg",
+        src: require("../../assets/help2.png"),
       },
       {
-        src: "https://cdn.vuetifyjs.com/images/carousel/bird.jpg",
+        src: require("../../assets/help3.png"),
       },
       {
-        src: "https://cdn.vuetifyjs.com/images/carousel/planet.jpg",
+        src: require("../../assets/help4.png"),
       },
     ],
   }),
@@ -39,9 +39,5 @@ export default {
   background-color: white;
   justify-content: center;
   box-shadow: 0px 5px 10px rgb(91 87 75 / 20%);
-}
-#caro {
-  height: 200px !important;
-  border-radius: 12px;
 }
 </style>
