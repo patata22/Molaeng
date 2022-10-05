@@ -175,7 +175,7 @@
   </div>
 </template>
 <script>
-// import InfiniteLoading from "vue-infinite-loading";
+import InfiniteLoading from "vue-infinite-loading";
 import RecipeScore from "@/components/molecules/MoleculesRecipeScore2";
 import RecipeReviewCard from "@/components/organisms/OrganismsRecipeReviewCard.vue";
 import axios from "axios";
@@ -187,7 +187,7 @@ export default {
   components: {
     RecipeScore,
     RecipeReviewCard,
-    // InfiniteLoading,
+    InfiniteLoading,
   },
   data: function () {
     return {
@@ -210,7 +210,7 @@ export default {
       if (temp.sort == "like") {
         axios
           .get(
-            "https://j7a604.p.ssafy.io/molaeng/review/like/" +
+            "http://localhost:8080/molaeng/review/like/" +
               recipeId +
               "?userId=1&size=5&page=" +
               this.page
