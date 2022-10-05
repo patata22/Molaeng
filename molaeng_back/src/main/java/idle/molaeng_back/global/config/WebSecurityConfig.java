@@ -17,36 +17,30 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     private static final String[] PERMIT_URL_ARRAY = {
-            /* swagger v2 */
-            "/v2/api-docs",
-            "/swagger-resources",
-            "/swagger-resources/**",
-            "/configuration/ui",
-            "/configuration/security",
-            "/swagger-ui.html",
+//            /* swagger v2 */
+//            "/v2/api-docs",
+//            "/swagger-resources",
+//            "/swagger-resources/**",
+//            "/configuration/ui",
+//            "/configuration/security",
+//            "/swagger-ui.html",
             "/webjars/**",
             /* swagger v3 */
-            "/v3/api-docs/**",
-            "/swagger-ui/**",
-            "/member/join",
-            "/member/login",
-            "/",
-            "/index",
-            "/**/*.woff",
-            "/**/*.ttf",
+//            "/v3/api-docs/**",
+//            "/swagger-ui/**",
+//            "/",
+//            "/index",
             "/**/favicon.ico",
-            "/performance/images",
-            "/main",
-            "/review/reviewdetail/**",
-            "/editprofile/**"
+//            "/editprofile/**"
     };
 
     @Override
     public void configure(WebSecurity web){ // 보안 예외처리(HTML, 정적리소스)
         web.ignoring()
-                .antMatchers("/resources/**","/char/**", "/acc/**", "/index_bundle.js","/**/*.css", "/**/*.png", "/**/*.jpg",
-                        "/**/*.gif","/**/*.woff", "/**/*.ttf","/performance/images","/member/join","/review/reviewdetail/**","/editprofile/**",
-                        "/member/login","/**/favicon.ico", "/user/**");
+                .antMatchers("/resources/**","/char/**", "/**/*.css", "/**/*.png", "/**/*.jpg",
+                        "/**/*.gif","/**/*.ttf",
+                        "/editprofile/**", "/user/**",
+                        "/**/favicon.ico");
         web.ignoring().antMatchers(PERMIT_URL_ARRAY);
         web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
@@ -70,18 +64,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 로그인, 회원가입 API 는 토큰이 없는 상태에서 요청이 들어오기 때문에 permitAll 설정
                 .and()
                 .authorizeRequests()
-//                .antMatchers("/member/**", "/comment/**","/facility/**","/follow/**","/item/**","/performance/**","/plike/**","/report/**",
-//                        "/review/**","/review-reaction/**","/twitter/**","/ws/**","/profile/**").hasRole("USER")
-//                .antMatchers(PERMIT_URL_ARRAY).permitAll()
                 .antMatchers("/**").permitAll();
 //                .anyRequest().authenticated()   // 나머지 API 는 전부 인증 필요
-
-
-
     }
 
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+//    @Bean
+//    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
 }

@@ -46,8 +46,6 @@
   </div>
 </template>
 <script>
-import API from "@/api/APIs";
-const api = API;
 export default {
   name: "MemberMenu",
   components: {},
@@ -91,20 +89,7 @@ export default {
     },
     getUserInfoByCookie() {
       this.userInfo.userId = this.$cookies.get("userId");
-<<<<<<< HEAD
-    },
-    getUserInfo() {
-      axios
-        .post(
-          "http://localhost:8080/molaeng/user?userId=" + this.userInfo.userId
-        )
-        .then((res) => {
-          console.log(res);
-          this.userInfo.nickname = res.data.result.nickname;
-        });
-=======
       this.userInfo.nickname = this.$cookies.get("nickname");
->>>>>>> 0471bf0973a0a4b763fe220dc5ec34cb75645114
     },
   },
 };

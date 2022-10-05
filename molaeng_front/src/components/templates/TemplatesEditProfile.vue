@@ -20,7 +20,7 @@
             color="carrot"
             rounded
             dense
-            v-model="userProfile.nickname"
+            v-model="userInfo.nickname"
             :error-messages="nicknameDuplicated"
             :disabled="validated ? '' : disabled"
           ></v-text-field>
@@ -38,6 +38,7 @@
             placeholder="시/도"
             :items="sido"
             outlined
+            v-model="sido"
             color="carrot"
             rounded
             dense
@@ -45,7 +46,7 @@
           ></v-select>
           <v-select
             placeholder="구/군"
-            :items="gugun"
+            :items="getGugunList"
             outlined
             color="carrot"
             rounded
@@ -117,35 +118,38 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters } from "vuex";
-// import API from "@/api/APIs";
+// import axios from "axios";
+import { mapGetters } from "vuex";
 // import { ContextExclusionPlugin } from "webpack";
 
-// const api = API;
-import axios from "axios";
+import API from "@/api/APIs";
+const api = API;
 
 export default {
   name: "EditProfile",
 
   data() {
     return {
-      userProfile: {
+      userInfo: {
         userId: 1,
         gugunId: 1,
         nickname: "test",
       },
+      sido: "서울특별시",
+      sidoList: ["서울특별시"],
       disabled: true,
       dialog: false,
+      myGugunId: 1,
       gugunList: {},
     };
   },
   computed: {
-    ...mapGetters(["getSido", "getGugunList"]),
+    ...mapGetters(["getGugunList"]),
   },
 
   // computed: { ...mapGetters(["userId", "nickname", "myRegion", "gugun"]) },
   methods: {
-    ...mapMutations(["SET_GUGUN"]),
+    // ...mapMutations(["SET_GUGUN"]),
     // ...mapActions(["getUserInfo"]),
     clickUpdate: function () {
       console.log("수정 버튼 클릭");
@@ -155,42 +159,29 @@ export default {
       console.log("회원 정보 수정");
       this.disabled = true;
     },
-    getProfile() {
-      axios
-        .post("https://j7a604.p.ssafy.io/molaeng/user", {
-          userId: Number(this.userInfo.userId),
-        })
-        .then((res) => {
-          this.userProfile.nickname = res.data.result.nickname;
-          console.log("닉네임 불러옴vv");
-        })
-        .catch((error) => console.log(error));
-    },
-    updateProfile() {
-      axios
-        .put("https://j7a604.p.ssafy.io/molaeng/user", {
-          gugunId: this.userProfile.gugunId,
-          nickname: this.userProfile.nickname,
-          userId: this.userProfile.nickname,
-        })
-        .then((res) => {
-          console.log(res.data);
-        })
-        .catch((error) => console.log(error));
-    },
-    getGugunList() {
-      this.SET_GUGUN;
-      this.getGugunList();
-      this.getSido();
+    async getUser() {
+      this.userInfo.userId = this.$cookies.get("userId");
+      console.log(this.userInfo);
+      // this.userInfo.nickname = this.$cookies.get("nickname");
+      await api.getUserInfo(this.userInfo.userId).then((res) => {
+        console.log("함수 호출됨!");
+        console.log(res);
+        // this.userInfo.userId = res.userId;
+        // this.userInfo.nickname = res.nickname;
+        // this.userInfo.myGugunId = res.gugunId;
+      });
+      // console.log(this.userInfo);
     },
   },
   mounted() {
-    this.getProfile();
     console.log("mounted 시작");
+    this.getUser();
+    // console.log(this.userInfo);
+    console.log("mounted 끝");
   },
   created() {
-    this.getGugunList();
-    console.log("created 시작");
+    // this.getUserInfo();
+    // this.userInfo.userId = console.log("created 끝");
   },
 };
 </script>

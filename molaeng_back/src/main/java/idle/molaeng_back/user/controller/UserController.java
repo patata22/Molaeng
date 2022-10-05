@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -38,12 +39,14 @@ public class UserController {
     }
 
     @ApiOperation(value = "사용자 정보 조회", notes = "userId를 이용하여 닉네임, 거주지역 정보를 불러온다.")
-    @PostMapping
-    public ResponseEntity getProfile(@RequestBody UserIdDTO userId) {
+    @GetMapping
+    public ResponseEntity getProfile(@RequestHeader Map<String,Object> header) {
         HashMap<String, Object> result = new HashMap<>();
-        System.out.println(userId.getUserId());
+        log.info("!!!!!!" + header);
+        long userId = Long.parseLong((String)header.get("userid"));
+        log.info("@@@@@ userId : " + userId);
         try {
-            UserProfileResponse resultRes = userService.getUserProfile(userId.getUserId());
+            UserProfileResponse resultRes = userService.getUserProfile(userId);
             result.put("result", resultRes);
             result.put("message", "success");
             return new ResponseEntity<>(result, HttpStatus.OK);
