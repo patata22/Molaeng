@@ -46,22 +46,21 @@
   </div>
 </template>
 <script>
-import API from "@/api/APIs";
-const api = API;
+import axios from "axios";
+// import axios from "axios";
 export default {
   name: "MemberMenu",
   components: {},
-  data() {
-    return {
-      userInfo: {
-        userId: 0,
-        nickname: "김펭귄",
-      },
-    };
-  },
+  data: () => ({
+    userInfo: {
+      userId: 0,
+      nickname: "김펭귄",
+    },
+  }),
   created() {
     this.getUserIdByCookie();
     this.getUserInfo();
+    console.log(this.userInfo);
   },
   methods: {
     exit() {
@@ -77,9 +76,10 @@ export default {
       this.$router.push("/interestRecipe").catch(() => {});
     },
     logout() {
-      window.Kakao.API.request({
-        url: "/v1/user/unlink",
-      });
+      // window.Kakao.Auth.logout().then(
+      //   (res) => console.log(res),
+      //   console.log(window.Kakao.Auth.getAccessToken())
+      // );
       this.deleteCookie();
       this.$router.push("/").catch(() => {});
       console.log("로그아웃!");
@@ -92,10 +92,14 @@ export default {
       this.userInfo.userId = this.$cookies.get("userId");
     },
     getUserInfo() {
-      api.getUserInfo(this.userInfo.userId).then((res) => {
-        console.log(res);
-        this.userInfo.nickname = res.result.nickname;
-      });
+      axios
+        .post(
+          "http://localhost:8080/molaeng/user?userId=" + this.userInfo.userId
+        )
+        .then((res) => {
+          console.log(res);
+          this.userInfo.nickname = res.data.result.nickname;
+        });
     },
   },
 };

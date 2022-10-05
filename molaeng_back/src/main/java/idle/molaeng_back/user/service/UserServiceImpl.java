@@ -107,6 +107,7 @@ public class UserServiceImpl implements UserService{
             result = LoginResDTO.builder()
                     .userId(user.getUserId())
                     .nickname(user.getNickname())
+                    .isMember(true)
                     .build();
             return result;
         }else{
@@ -114,6 +115,7 @@ public class UserServiceImpl implements UserService{
             result = LoginResDTO.builder()
                     .userId(user.getUserId())
                     .nickname(user.getNickname())
+                    .isMember(false)
                     .build();
             return result;
         }

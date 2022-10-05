@@ -84,6 +84,7 @@ public class UserController {
             LoginResDTO userInfo = userService.Login(uuid, nickname);
             resultMap.put("userId", userInfo.getUserId());
             resultMap.put("nickname", userInfo.getNickname());
+            resultMap.put("isMember", userInfo.isMember());
             resultMap.put("message", "success");
             return new ResponseEntity(resultMap, HttpStatus.OK);
         } catch (Exception e) {
