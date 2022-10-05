@@ -3,6 +3,7 @@ package idle.molaeng_back.user.service;
 import idle.molaeng_back.review.model.Review;
 import idle.molaeng_back.review.repository.ReviewRepository;
 import idle.molaeng_back.user.model.*;
+import idle.molaeng_back.user.model.DTO.LoginResDTO;
 import idle.molaeng_back.user.model.DTO.UserProfileRequest;
 import idle.molaeng_back.user.model.DTO.UserProfileResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -76,7 +77,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public User joinUser(String nickname, long uuid) {
         // 최초 가입자의 거주지역은 0번 더미 지역으로 설정함
-        Gugun gugun = gugunRepository.findByGugunId(1);
+        Gugun gugun = gugunRepository.findByGugunId(0);
         System.out.println(gugun.getGugunId());
         User member = User.builder()
                 .nickname(nickname)
@@ -99,12 +100,22 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional
-    public long Login(long uuid, String nickname) {
+    public LoginResDTO Login(long uuid, String nickname) {
+        LoginResDTO result;
         if(userRepository.countUserByUuid(uuid)==1){
-            return userRepository.findByUuid(uuid).getUserId();
+            User user = userRepository.findByUuid(uuid);
+            result = LoginResDTO.builder()
+                    .userId(user.getUserId())
+                    .nickname(user.getNickname())
+                    .build();
+            return result;
         }else{
             User user = joinUser(nickname, uuid);
-            return user.getUserId();
+            result = LoginResDTO.builder()
+                    .userId(user.getUserId())
+                    .nickname(user.getNickname())
+                    .build();
+            return result;
         }
     }
 }
