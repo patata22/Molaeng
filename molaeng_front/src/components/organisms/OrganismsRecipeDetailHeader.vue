@@ -11,7 +11,7 @@
           >mdi-cards-heart-outline</v-icon
         >
       </div>
-      <div style="text-align: center" class="type1">
+      <div style="text-align: center">
         <div style="color: #5b574b; font-size: x-large; font-weight: bold">
           {{ recipeInfo.recipeName }}
         </div>
