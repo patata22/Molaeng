@@ -20,12 +20,6 @@
         </div>
         <recipe-ingredient-tag-list
           :ingredientList="recipeIngredientList"
-          style="
-            display: flex;
-            flex-wrap: nowrap;
-            overflow-x: auto;
-            margin: 3% 5% 0 5%;
-          "
           class="box"
         />
       </div>
@@ -77,10 +71,19 @@ display: flex;
 flex-wrap: nowrap;
 overflow-x: auto; */
 .box {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  overflow: auto;
+  white-space: nowrap;
+  margin: 3% 5% 3% 5%;
+  padding-bottom: 3%;
 }
-.box::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera*/
+::-webkit-scrollbar {
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: white;
+}
+::-webkit-scrollbar-thumb {
+  background: #cecdc9;
+  border-radius: 10px;
 }
 </style>

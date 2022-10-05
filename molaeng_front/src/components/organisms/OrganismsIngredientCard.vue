@@ -5,16 +5,13 @@
         <v-card-title class="dark--text font-weight-bold" text>
           {{ ingredientCategory.ingredientTitle }}
         </v-card-title>
-
         <v-spacer></v-spacer>
-
         <v-btn icon @click="show = !show">
           <v-icon>{{ show ? "mdi-chevron-up" : "mdi-chevron-down" }}</v-icon>
         </v-btn>
       </v-card-actions>
-
       <v-expand-transition>
-        <div v-show="show">
+        <div v-if="show">
           <v-card-text>
             <ingredient-tag-list
               :ingredientList="ingredientCategory.ingredientList"
@@ -42,6 +39,21 @@ export default {
   data: () => ({
     show: false,
   }),
+  watch: {
+    keyWord(newValue) {
+      let temp = false;
+      if (newValue == "") {
+        temp = false;
+      } else {
+        this.ingredientCategory.ingredientList.forEach((e) => {
+          if (e.ingredientName.indexOf(this.keyWord) >= 0) {
+            temp = true;
+          }
+        });
+      }
+      this.show = temp;
+    },
+  },
 };
 </script>
 

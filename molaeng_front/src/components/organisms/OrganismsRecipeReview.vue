@@ -115,10 +115,12 @@
         class="pa-5 font-weight-bold"
         style="font-size: 15px; color: #5b574b"
       >
-        <v-icon class="mb-1" style="font-size: 80px; color: #5b574b"
-          >mdi-emoticon-cry-outline</v-icon
-        ><br />
-        아직 등록된 리뷰가 없어요.
+        <v-row class="d-flex justify-center">
+          <v-icon class="mb-1" style="font-size: 80px; color: #5b574b"
+            >mdi-emoticon-cry-outline</v-icon
+          ><br />
+        </v-row>
+        <v-row class="d-flex justify-center"> 아직 등록된 리뷰가 없어요 </v-row>
       </div>
       <div v-else slot="no-results"></div>
       <div slot="no-more"></div>
@@ -173,7 +175,7 @@
   </div>
 </template>
 <script>
-// import InfiniteLoading from "vue-infinite-loading";
+import InfiniteLoading from "vue-infinite-loading";
 import RecipeScore from "@/components/molecules/MoleculesRecipeScore2";
 import RecipeReviewCard from "@/components/organisms/OrganismsRecipeReviewCard.vue";
 import axios from "axios";
@@ -185,7 +187,7 @@ export default {
   components: {
     RecipeScore,
     RecipeReviewCard,
-    // InfiniteLoading,
+    InfiniteLoading,
   },
   data: function () {
     return {
@@ -208,7 +210,7 @@ export default {
       if (temp.sort == "like") {
         axios
           .get(
-            "https://j7a604.p.ssafy.io/molaeng/review/like/" +
+            "http://localhost:8080/molaeng/review/like/" +
               recipeId +
               "?userId=1&size=5&page=" +
               this.page

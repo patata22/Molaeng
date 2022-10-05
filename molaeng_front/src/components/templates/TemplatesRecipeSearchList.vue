@@ -7,10 +7,25 @@
       v-for="(recipe, i) in recipeList"
       :key="i"
       :recipe="recipe"
-      class="ml-6 mt-10"
+      class="mx-auto mt-10"
     >
     </organisms-recipe-card>
+    <div
+      v-if="recipeList.length == 0"
+      class="pa-5 font-weight-bold"
+      style="font-size: 15px; color: #5b574b"
+    >
+      <br />
+      <br />
+      <v-row class="d-flex justify-center">
+        <v-icon class="mb-1" style="font-size: 80px; color: #5b574b"
+          >mdi-emoticon-cry-outline</v-icon
+        ><br />
+      </v-row>
+      <v-row class="d-flex justify-center"> 일치하는 레시피가 없어요 </v-row>
+    </div>
     <infinite-loading @infinite="getRecipeByName">
+      <div slot="no-results"></div>
       <div slot="no-more"></div>
     </infinite-loading>
     <br />
