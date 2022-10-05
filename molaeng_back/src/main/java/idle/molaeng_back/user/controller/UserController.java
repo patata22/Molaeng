@@ -1,9 +1,6 @@
 package idle.molaeng_back.user.controller;
 
-import idle.molaeng_back.user.model.DTO.LoginReqDTO;
-import idle.molaeng_back.user.model.DTO.UserIdDTO;
-import idle.molaeng_back.user.model.DTO.UserProfileRequest;
-import idle.molaeng_back.user.model.DTO.UserProfileResponse;
+import idle.molaeng_back.user.model.DTO.*;
 import idle.molaeng_back.user.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -84,8 +81,9 @@ public class UserController {
         String nickname = loginReqDTO.getNickname();
         HashMap<String, Object> resultMap = new HashMap<>();
         try {
-            long userId = userService.Login(uuid, nickname);
-            resultMap.put("userId", userId);
+            LoginResDTO userInfo = userService.Login(uuid, nickname);
+            resultMap.put("userId", userInfo.getUserId());
+            resultMap.put("nickname", userInfo.getNickname());
             resultMap.put("message", "success");
             return new ResponseEntity(resultMap, HttpStatus.OK);
         } catch (Exception e) {
