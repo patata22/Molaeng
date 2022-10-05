@@ -57,34 +57,7 @@ export const user = {
       return state.gugun;
     },
   }, // state를 접근할 땐 getter를 사용해야.
-  mutations: {
-    SET_USERINFO: (state, data) => {
-      state.userInfo = {
-        userId: data.userId,
-        profile_image_url: data.profile.profile_image_url,
-        nickname: data.profile.nickname,
-        accessToken: data.profile,
-        refreshToken: data.profile,
-      };
-    },
-    CHANGE_IS_LOGINED: (state) => {
-      state.isLogined = !state.isLogined;
-    },
-  }, // setter. state를 변경할 땐 mutations를 사용해야. 무조건 동기
-  actions: {
-    getUserInfo: (state, codes) => {
-      getUser(
-        codes,
-        ({ data }) => {
-          state.commit("SET_USERINFO", data);
-          state.commit("CHANGE_IS_LOGINED");
-          router.push({ name: "main" });
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    },
-  }, // 비동기
+  mutations: {}, // setter. state를 변경할 땐 mutations를 사용해야. 무조건 동기
+  actions: {}, // 비동기
   modules: {},
 };
