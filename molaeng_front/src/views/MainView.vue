@@ -2,7 +2,7 @@
   <div class="mainPage">
     <div class="mainPageContent mx-auto" style="max-width: 420px">
       <On-Boarding></On-Boarding>
-      <Main-Menu></Main-Menu>
+      <Main-Menu :isLogined="isLogined"></Main-Menu>
       <Kakao-Login v-on:kakaoLogin="kakaoLogin" v-if="!isLogined"></Kakao-Login>
     </div>
   </div>
@@ -28,28 +28,21 @@ export default {
       isLogined: false,
     };
   },
-  computed: {
-    isLogin() {
-      if (this.$cookies.get("userId") > 0) return true;
-      else return false;
-    },
-  },
   async created() {
-    this.checkedLogin();
+    this.checkLogin();
   },
   methods: {
-    checkedLogin() {
-      if (this.$cookies.get("userId") > 0) this.isLogined = true;
-      else this.isLogined = false;
+    checkLogin() {
+      if (parseInt(this.$cookies.get("userId")) > 0) {
+        this.isLogined = true;
+        console.log("있음" + this.isLogined);
+      } else {
+        this.isLogined = false;
+        console.log("없음" + this.isLogined);
+      }
     },
     async kakaoLogin() {
       await kakao.KakaoAuth();
-    },
-    getCookie(name) {
-      var parts = document.cookie.split(name + "=");
-      if (parts.length === 2) {
-        return parts[1].split(";")[0];
-      }
     },
   },
 };

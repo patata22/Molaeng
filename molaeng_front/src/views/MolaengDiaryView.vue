@@ -8,6 +8,7 @@
     <molaeng-calendar
       class="mx-auto"
       style="max-width: 420px"
+      :userId="userId"
       :selectedGraph="selectedGraph"
       :savedCost="savedCost"
       v-on:dateSelected="dateSelected"
@@ -17,6 +18,7 @@
     <molaeng-history
       class="mx-auto"
       style="max-width: 420px"
+      :userId="userId"
       :date="date"
       :isDateSelected="isDateSelected"
       v-if="isDateSelected"
@@ -24,6 +26,7 @@
     <molaeng-graph
       class="mx-auto"
       style="max-width: 420px"
+      :userId="userId"
       v-on:setSelectedGraph="setSelectedGraph"
       v-on:setSavedCost="setSavedCost"
       v-else
@@ -45,11 +48,15 @@ export default {
     MolaengGraph,
   },
   data: () => ({
+    userId: 0,
     isDateSelected: false,
     date: "",
     selectedGraph: "",
     savedCost: 0,
   }),
+  created() {
+    this.getUserIdByCookie();
+  },
   methods: {
     dateSelected() {
       this.isDateSelected = true;
@@ -65,6 +72,14 @@ export default {
     },
     setSelectedGraph(selectedGraph) {
       this.selectedGraph = selectedGraph;
+    },
+    getUserIdByCookie() {
+      let userId = this.$cookies.get("userId");
+      if (userId) {
+        this.userId = parseInt(userId);
+      } else {
+        this.$router.push("/");
+      }
     },
   },
 };

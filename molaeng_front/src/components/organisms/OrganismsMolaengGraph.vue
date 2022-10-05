@@ -30,9 +30,11 @@ ChartJS.register(BarElement, CategoryScale, LinearScale);
 export default {
   name: "BarChart",
   components: { Bar },
+  props: {
+    userId: Number,
+  },
   data() {
     return {
-      userId: 1,
       year: 2022,
       month: 10,
       res_month: {

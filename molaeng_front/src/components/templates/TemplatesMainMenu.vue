@@ -39,18 +39,43 @@
         </v-col>
       </v-row>
     </v-container>
+    <v-snackbar
+      color="carrot"
+      rounded="pill"
+      text
+      centered
+      v-model="snackbar"
+      :timeout="timeout"
+    >
+      로그인이 필요한 기능입니다!
+    </v-snackbar>
   </div>
 </template>
 
 <script>
 export default {
   name: "MainMenu",
+  props: {
+    isLogined: Boolean,
+  },
+  data: () => ({
+    snackbar: false,
+    timeout: 1500,
+  }),
   methods: {
     goMyPage() {
-      this.$router.push("/myPage").catch(() => {});
+      if (this.isLogined) {
+        this.$router.push("/myPage").catch(() => {});
+      } else {
+        this.snackbar = true;
+      }
     },
     goDiary() {
-      this.$router.push("/diary").catch(() => {});
+      if (this.isLogined) {
+        this.$router.push("/diary").catch(() => {});
+      } else {
+        this.snackbar = true;
+      }
     },
     goIngredientSearch() {
       this.$router.push("/search").catch(() => {});
