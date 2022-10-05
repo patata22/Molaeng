@@ -46,8 +46,6 @@
   </div>
 </template>
 <script>
-import API from "@/api/APIs";
-const api = API;
 export default {
   name: "MemberMenu",
   components: {},
@@ -55,13 +53,12 @@ export default {
     return {
       userInfo: {
         userId: 0,
-        nickname: "김펭귄",
+        nickname: "",
       },
     };
   },
   created() {
-    this.getUserIdByCookie();
-    this.getUserInfo();
+    this.getUserInfoByCookie();
   },
   methods: {
     exit() {
@@ -86,16 +83,12 @@ export default {
     },
     deleteCookie() {
       this.$cookies.remove("userId");
+      this.$cookies.remove("nickname");
       alert("로그아웃 되었습니다.");
     },
-    getUserIdByCookie() {
+    getUserInfoByCookie() {
       this.userInfo.userId = this.$cookies.get("userId");
-    },
-    getUserInfo() {
-      api.getUserInfo(this.userInfo.userId).then((res) => {
-        console.log(res);
-        this.userInfo.nickname = res.result.nickname;
-      });
+      this.userInfo.nickname = this.$cookies.get("nickname");
     },
   },
 };
