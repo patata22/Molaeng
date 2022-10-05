@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const baseURL = "https://j7a604.p.ssafy.io/molaeng";
-// const baseURL = "http://localhost:8080/molaeng";
+// const baseURL = "https://j7a604.p.ssafy.io/molaeng";
+const baseURL = "http://localhost:8080/molaeng";
 
 /**
  * 사용방법 예시
@@ -29,14 +29,20 @@ const API = {
       "Content-Type": "application/json",
     },
   }),
-  async outPrice(recipeId) {
-    const response = await this.instance.get("/recipe/outeat/" + recipeId);
+  async outPrice(recipeId, userId) {
+    const response = await this.instance.get("/recipe/outeat/" + recipeId, {
+      headers: {
+        userId: userId,
+      },
+    });
     return response.data;
   },
   async recipeLike(recipeId, userId) {
     const response = await this.instance.post("/recipe/like/", {
       recipeId: recipeId,
-      userId: userId,
+      headers: {
+        userId: userId,
+      },
     });
     return response.data.result;
   },
@@ -44,6 +50,8 @@ const API = {
     const response = await this.instance.delete("/recipe/like", {
       data: {
         recipeId: recipeId,
+      },
+      headers: {
         userId: userId,
       },
     });
@@ -51,40 +59,53 @@ const API = {
   },
   async getCalendar(userId, year, month) {
     const response = await this.instance.get(
-      "/diary/calendar" +
-        "?userId=" +
-        userId +
-        "&year=" +
-        year +
-        "&month=" +
-        month
+      "/diary/calendar" + "?year=" + year + "&month=" + month,
+      {
+        headers: {
+          userId: userId,
+        },
+      }
     );
     return response.data;
   },
   async getMonthGraph(userId, year, month) {
     const response = await this.instance.get(
-      "/diary/month" + "?userId=" + userId + "&year=" + year + "&month=" + month
+      "/diary/month" + "?year=" + year + "&month=" + month,
+      {
+        headers: {
+          userId: userId,
+        },
+      }
     );
     return response.data;
   },
   async getWeekGraph(userId, year, month) {
     const response = await this.instance.get(
-      "/diary/week" + "?userId=" + userId + "&year=" + year + "&month=" + month
+      "/diary/week" + "?year=" + year + "&month=" + month,
+      {
+        headers: {
+          userId: userId,
+        },
+      }
     );
     return response.data;
   },
   async saveDiary(userId, recipeId, saveCost) {
     const response = await this.instance.post("/diary", {
-      userId: userId,
       recipeId: recipeId,
       saveCost: saveCost,
+      headers: {
+        userId: userId,
+      },
     });
     return response.data;
   },
   async getDiary(userId, date) {
-    const response = await this.instance.get(
-      "/diary" + "?userId=" + userId + "&date=" + date
-    );
+    const response = await this.instance.get("/diary" + "&date=" + date, {
+      headers: {
+        userId: userId,
+      },
+    });
     return response.data;
   },
   async deleteDiary(diaryId) {
@@ -92,18 +113,12 @@ const API = {
     return response.data;
   },
   //레시피
-  async getRecipeInfo(recipeId) {
-    //userId 구하기
-    let userId = 1;
-    // const response = await this.instance.get("/recipe/" + recipeId, {
-    //   params: {
-    //     userId: userId,
-    //   },
-    // });
-
-    const response = await this.instance.get(
-      "/recipe/" + recipeId + "?userId=" + userId
-    );
+  async getRecipeInfo(recipeId, userId) {
+    const response = await this.instance.get("/recipe/" + recipeId, {
+      headers: {
+        userId: userId,
+      },
+    });
 
     return response.data.result;
   },
@@ -111,20 +126,24 @@ const API = {
     const response = await this.instance.get("/recipe/detail/" + recipeId);
     return response.data.result;
   },
-  async registRecipeLike(recipeId) {
+  async registRecipeLike(recipeId, userId) {
     //userId 구하기
     const response = await this.instance.post("/recipe/like", {
-      userId: 1,
+      headers: {
+        userId: userId,
+      },
       recipeId: recipeId,
     });
     return response.data;
   },
-  async deleteRecipeLike(recipeId) {
+  async deleteRecipeLike(recipeId, userId) {
     //userId 구하기
     //delete의 경우 RequestBody는 data에 담아서 보내야 함
     const response = await this.instance.delete("/recipe/like", {
       data: {
-        userId: 1,
+        headers: {
+          userId: userId,
+        },
         recipeId: recipeId,
       },
     });
@@ -166,7 +185,11 @@ const API = {
   },
 
   async getRecipeLikeList(userId) {
-    const response = await this.instance.get("/recipe/like?userId=" + userId);
+    const response = await this.instance.get("/recipe/like", {
+      headers: {
+        userId: userId,
+      },
+    });
     return response.data.result;
   },
   async getUserInfo(userId) {

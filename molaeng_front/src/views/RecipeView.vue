@@ -53,6 +53,7 @@ export default {
     MenuTab,
   },
   data: () => ({
+    userId: 0,
     recipeId: "",
     //레시피 상단바 상세정보
     recipeInfo: {},
@@ -109,11 +110,12 @@ export default {
     },
   },
   async created() {
+    this.getUserIdByCookie();
     //recipeId 저장
     const pathName = this.$route.fullPath.split("/");
     this.recipeId = pathName[2];
     //레시피 상단바 상세정보
-    this.recipeInfo = await api.getRecipeInfo(this.recipeId);
+    this.recipeInfo = await api.getRecipeInfo(this.recipeId, this.userId);
     //레시피 주재료 리스트
 
     //설명 : ingredientId, ingredientName, selected를 가진 객체 배열 recipeIngredientList를 만들고
@@ -122,7 +124,7 @@ export default {
     this.getRecipeIngredients();
     this.getHomePrice();
 
-    this.outeat = await api.outPrice(this.recipeId);
+    this.outeat = await api.outPrice(this.recipeId, this.userId);
 
     this.addLocalStorage();
   },
@@ -140,6 +142,13 @@ export default {
       newList.unshift(this.recipeId);
       if (newList.length > 5) newList.pop();
       localStorage.setItem("recentRecipe", JSON.stringify(newList));
+    },
+    getUserIdByCookie() {
+      let userId = this.$cookies.get("userId");
+      console.log(userId);
+      if (userId) {
+        this.userId = userId;
+      }
     },
 
     /**

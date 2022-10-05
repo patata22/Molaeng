@@ -77,10 +77,9 @@ export default {
       this.$router.push("/interestRecipe").catch(() => {});
     },
     logout() {
-      // window.Kakao.Auth.logout().then(
-      //   (res) => console.log(res),
-      //   console.log(window.Kakao.Auth.getAccessToken())
-      // );
+      window.Kakao.API.request({
+        url: "/v1/user/unlink",
+      });
       this.deleteCookie();
       this.$router.push("/").catch(() => {});
       console.log("로그아웃!");
