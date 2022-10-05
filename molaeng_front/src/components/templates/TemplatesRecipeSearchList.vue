@@ -7,7 +7,7 @@
       v-for="(recipe, i) in recipeList"
       :key="i"
       :recipe="recipe"
-      class="ml-6 mt-10"
+      class="mx-auto mt-10"
     >
     </organisms-recipe-card>
     <infinite-loading @infinite="getRecipeByName">
