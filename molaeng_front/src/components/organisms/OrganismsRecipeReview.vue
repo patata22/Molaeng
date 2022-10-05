@@ -1,6 +1,6 @@
 <template>
   <!-- 이 페이지는 recipeId와 userId를 모두 더미(1)로 설정된 페이지이므로 추후 수정이 필요함 -->
-  <div>
+  <div style="max-width: 420px" class="mx-auto">
     <v-divider></v-divider>
     <recipe-score></recipe-score>
     <v-divider></v-divider>

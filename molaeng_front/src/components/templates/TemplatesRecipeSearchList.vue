@@ -1,6 +1,6 @@
 <template lang="">
   <v-container>
-    <div class="d-flex justify-center align center pt-10">
+    <div class="d-flex justify-center align center">
       <h1 class="dark--text">레시피 목록</h1>
     </div>
     <organisms-recipe-card
@@ -15,7 +15,7 @@
     </infinite-loading>
     <br />
     <v-btn fab fixed right bottom color="carrot" @click="toTop">
-      <v-icon color="white">mdi-navigation-outline</v-icon>
+      <v-icon color="white">mdi-arrow-up-thick</v-icon>
     </v-btn>
   </v-container>
 </template>

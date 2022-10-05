@@ -109,7 +109,7 @@
       <div slot="no-more"></div>
     </infinite-loading>
     <v-btn fab fixed right bottom color="carrot" @click="toTop">
-      <v-icon color="white">mdi-navigation-outline</v-icon>
+      <v-icon color="white">mdi-arrow-up-thick</v-icon>
     </v-btn>
   </v-container>
 </template>
