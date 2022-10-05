@@ -46,21 +46,21 @@
   </div>
 </template>
 <script>
-import axios from "axios";
-// import axios from "axios";
+import API from "@/api/APIs";
+const api = API;
 export default {
   name: "MemberMenu",
   components: {},
-  data: () => ({
-    userInfo: {
-      userId: 0,
-      nickname: "김펭귄",
-    },
-  }),
+  data() {
+    return {
+      userInfo: {
+        userId: 0,
+        nickname: "",
+      },
+    };
+  },
   created() {
-    this.getUserIdByCookie();
-    this.getUserInfo();
-    console.log(this.userInfo);
+    this.getUserInfoByCookie();
   },
   methods: {
     exit() {
@@ -86,10 +86,12 @@ export default {
     },
     deleteCookie() {
       this.$cookies.remove("userId");
+      this.$cookies.remove("nickname");
       alert("로그아웃 되었습니다.");
     },
-    getUserIdByCookie() {
+    getUserInfoByCookie() {
       this.userInfo.userId = this.$cookies.get("userId");
+<<<<<<< HEAD
     },
     getUserInfo() {
       axios
@@ -100,6 +102,9 @@ export default {
           console.log(res);
           this.userInfo.nickname = res.data.result.nickname;
         });
+=======
+      this.userInfo.nickname = this.$cookies.get("nickname");
+>>>>>>> 0471bf0973a0a4b763fe220dc5ec34cb75645114
     },
   },
 };
