@@ -4,12 +4,10 @@ import lombok.Getter;
 
 @Getter
 public class SaveDiaryReq {
-    private long userId;
     private long recipeId;
     private int saveCost;
 
-    public SaveDiaryReq(long userId, long recipeId, int saveCost) {
-        this.userId = userId;
+    public SaveDiaryReq(long recipeId, int saveCost) {
         this.recipeId = recipeId;
         this.saveCost = saveCost;
     }

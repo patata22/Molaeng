@@ -26,8 +26,8 @@ public class DiaryController {
     }
 
     @PostMapping
-    public ResponseEntity saveDiary(@RequestBody SaveDiaryReq saveDiaryReq){
-        long userId = saveDiaryReq.getUserId();
+    public ResponseEntity saveDiary(@RequestHeader Map<String,Object> header,@RequestBody SaveDiaryReq saveDiaryReq){
+        long userId = Long.parseLong((String)header.get("userid"));
         long recipeId = saveDiaryReq.getRecipeId();
         int saveCost = saveDiaryReq.getSaveCost();
 
@@ -41,8 +41,8 @@ public class DiaryController {
     }
 
     @GetMapping("/calendar")
-    public ResponseEntity getCalendar(@RequestParam long userId, @RequestParam int year, @RequestParam int month){
-        logger.info("userId:"+userId+" year:"+year+" month:"+month);
+    public ResponseEntity getCalendar(@RequestHeader Map<String,Object> header, @RequestParam int year, @RequestParam int month){
+        long userId = Long.parseLong((String)header.get("userid"));
         Map<String, Object> resultMap = new HashMap<>();
         try {
             resultMap.put("saveCostList", diaryService.findDiaryByCalendar(userId, year, month));
@@ -54,7 +54,8 @@ public class DiaryController {
     }
 
     @GetMapping("/week")
-    public ResponseEntity getWeekGraph(@RequestParam long userId, @RequestParam int year, @RequestParam int month){
+    public ResponseEntity getWeekGraph(@RequestHeader Map<String,Object> header, @RequestParam int year, @RequestParam int month){
+        long userId = Long.parseLong((String)header.get("userid"));
         Map<String, Object> resultMap = new HashMap<>();
         try {
             resultMap.put("year",year);
@@ -68,7 +69,8 @@ public class DiaryController {
     }
 
     @GetMapping("/month")
-    public ResponseEntity getMonthGraph(@RequestParam long userId, @RequestParam int year, @RequestParam int month){
+    public ResponseEntity getMonthGraph(@RequestHeader Map<String,Object> header, @RequestParam int year, @RequestParam int month){
+        long userId = Long.parseLong((String)header.get("userid"));
         Map<String, Object> resultMap = new HashMap<>();
         try {
             resultMap.put("year",year);
@@ -81,7 +83,8 @@ public class DiaryController {
     }
 
     @GetMapping
-    public ResponseEntity getDiary(@RequestParam Long userId, String date){
+    public ResponseEntity getDiary(@RequestHeader Map<String,Object> header, String date){
+        long userId = Long.parseLong((String)header.get("userid"));
         Map<String, Object> resultMap = new HashMap<>();
         try {
             resultMap.put("mealDate",date);
