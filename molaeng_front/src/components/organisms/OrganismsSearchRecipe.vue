@@ -1,6 +1,10 @@
 <template lang="">
   <div class="mx-auto" style="max-width: 420px">
-    <atoms-search-box v-on:change="changeKeyword" :searchword="searchword">
+    <atoms-search-box
+      v-on:change="changeKeyword"
+      :searchword="searchword"
+      v-on:submit="moveToList"
+    >
     </atoms-search-box>
     <menu-tab :tabs="tabs"></menu-tab>
     <v-card
@@ -91,6 +95,9 @@ export default {
     },
     moveToRecipe(i) {
       this.$router.push("/recipe/" + i);
+    },
+    moveToList() {
+      this.$router.push("/recipeSearchList/" + this.keyWord);
     },
   },
 };

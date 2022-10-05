@@ -118,7 +118,7 @@
         <v-icon class="mb-1" style="font-size: 80px; color: #5b574b"
           >mdi-emoticon-cry-outline</v-icon
         ><br />
-        아직 등록된 리뷰가 없어요.
+        아직 등록된 리뷰가 없어요
       </div>
       <div v-else slot="no-results"></div>
       <div slot="no-more"></div>
