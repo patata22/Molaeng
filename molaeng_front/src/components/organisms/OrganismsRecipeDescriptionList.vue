@@ -8,16 +8,16 @@
       :content="detail.recipeContent"
     >
     </recipe-description-list-item>
-    <under-bar-button :text="buttonText" @click.native.stop="dialog = true">
+    <under-bar-button :text="buttonText" @click.native="clickAddButton">
       모랭일기에 기록하기
     </under-bar-button>
     <v-dialog v-model="dialog">
-      <v-card class="historyDialog">
+      <v-card>
         <v-card-title class="dialogtitle">모랭일기 등록하기</v-card-title>
         <v-card-text>이 레시피를 모랭일기에 기록하시겠어요?</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn depressed color="primary" white--text @click="addHistory">
+          <v-btn depressed color="primary" white--text @click="addDiary">
             예
           </v-btn>
           <v-btn outlined color="primary" @click="dialog = false">아니요</v-btn>
@@ -32,7 +32,7 @@
       v-model="snackbar"
       :timeout="timeout"
     >
-      레시피가 모랭일기에 등록되었어요!
+      {{ snackBarText }}
     </v-snackbar>
   </v-stepper>
 </template>
@@ -51,6 +51,7 @@ export default {
     UnderBarButton,
   },
   props: {
+    userId: Number,
     recipeId: String,
     outeat: Object,
     recipePrice: Number,
@@ -67,14 +68,14 @@ export default {
     //레시피 조리방법
     recipeDetailList: [],
     buttonText: "모랭일기에 기록하기",
-    userId: 1,
+    snackBarText: "",
     saveCost: 0,
     dialog: false,
     snackbar: false,
     timeout: 1500,
   }),
   methods: {
-    async addHistory() {
+    async addDiary() {
       if (this.outeat.my != 0) {
         this.saveCost = this.outeat.my - this.recipePrice;
       } else if (this.outeat.seoul != 0) {
@@ -84,7 +85,16 @@ export default {
       }
       this.res = await api.saveDiary(this.userId, this.recipeId, this.saveCost);
       this.dialog = false;
+      this.snackBarText = "이 레시피를 모랭일기에 기록했어요!";
       this.snackbar = true;
+    },
+    clickAddButton() {
+      if (this.userId != 0) {
+        this.dialog = true;
+      } else {
+        this.snackBarText = "로그인이 필요한 기능입니다!";
+        this.snackbar = true;
+      }
     },
   },
 };

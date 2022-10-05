@@ -17,6 +17,7 @@
     >
       <recipe-detail-header
         v-bind:recipeInfo="recipeInfo"
+        :userId="userId"
         :recipeId="recipeId"
         :recipeIngredientList="recipeIngredientList"
       />
@@ -24,6 +25,7 @@
     </div>
     <router-view
       class="mx-auto"
+      :userId="userId"
       :recipeId="recipeId"
       :outeat="outeat"
       :recipePrice="recipePrice"
@@ -147,7 +149,7 @@ export default {
       let userId = this.$cookies.get("userId");
       console.log(userId);
       if (userId) {
-        this.userId = userId;
+        this.userId = parseInt(userId);
       }
     },
 
