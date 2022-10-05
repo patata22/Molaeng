@@ -8,6 +8,7 @@
       dense
       rounded
       @input="sendKeyword"
+      v-on:keyup.enter="submit"
     ></v-text-field>
   </div>
 </template>
@@ -30,6 +31,9 @@ export default {
     },
     sendKeyword() {
       this.$emit("change", this.keyword);
+    },
+    submit() {
+      this.$emit("submit");
     },
   },
 };
