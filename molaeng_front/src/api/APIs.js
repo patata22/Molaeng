@@ -38,12 +38,17 @@ const API = {
     return response.data;
   },
   async recipeLike(recipeId, userId) {
-    const response = await this.instance.post("/recipe/like/", {
-      recipeId: recipeId,
-      headers: {
-        userId: userId,
+    const response = await this.instance.post(
+      "/recipe/like/",
+      {
+        recipeId: recipeId,
       },
-    });
+      {
+        headers: {
+          userId: userId,
+        },
+      }
+    );
     return response.data.result;
   },
   async dislikeRecipe(recipeId, userId) {
@@ -91,13 +96,18 @@ const API = {
     return response.data;
   },
   async saveDiary(userId, recipeId, saveCost) {
-    const response = await this.instance.post("/diary", {
-      recipeId: recipeId,
-      saveCost: saveCost,
-      headers: {
-        userId: userId,
+    const response = await this.instance.post(
+      "/diary",
+      {
+        recipeId: recipeId,
+        saveCost: saveCost,
       },
-    });
+      {
+        headers: {
+          userId: userId,
+        },
+      }
+    );
     return response.data;
   },
   async getDiary(userId, date) {
@@ -128,12 +138,17 @@ const API = {
   },
   async registRecipeLike(recipeId, userId) {
     //userId 구하기
-    const response = await this.instance.post("/recipe/like", {
-      headers: {
-        userId: userId,
+    const response = await this.instance.post(
+      "/recipe/like",
+      {
+        recipeId: recipeId,
       },
-      recipeId: recipeId,
-    });
+      {
+        headers: {
+          userId: userId,
+        },
+      }
+    );
     return response.data;
   },
   async deleteRecipeLike(recipeId, userId) {
@@ -193,10 +208,13 @@ const API = {
     return response.data.result;
   },
   async getUserInfo(userId) {
-    const response = await this.instance.post("/user", {
-      userId: Number(userId),
+    console.log("header: " + userId);
+    const response = await this.instance.get("/user", {
+      headers: {
+        userId: userId,
+      },
     });
-    return response.data;
+    return response;
   },
   async Login(uuid, nickname) {
     const response = await this.instance.post("/user/login", {
