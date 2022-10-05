@@ -2,8 +2,8 @@ package idle.molaeng_back.recipe.controller;
 
 import idle.molaeng_back.recipe.model.request.RecipeLikeRequest;
 import idle.molaeng_back.recipe.model.response.RecipeLikeResponse;
-import idle.molaeng_back.recipe.model.response.RecipeListResponse;
 import idle.molaeng_back.recipe.service.RecipeLikeServiceImpl;
+import idle.molaeng_back.search.DTO.response.RecipeResDTO;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 //import javax.xml.ws.Response;
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 
@@ -27,11 +28,16 @@ public class RecipeLikeController {
     private final RecipeLikeServiceImpl recipeLikeService;
     @ApiOperation(value="찜한 레시피 목록 불러오기", notes = "user_id를 이용하여 사용자가 찜한 레시피의 전체 목록을 불러온다.")
     @GetMapping
-    public ResponseEntity getRecipeLikeList(@RequestParam long userId){
+    public ResponseEntity getRecipeLikeList(@Valid @RequestParam long userId){
         HashMap<String, Object> result = new HashMap<>();
+        logger.info(String.valueOf(userId));
+
 
         try {
-            List<RecipeListResponse> responseList = recipeLikeService.getRecipeLikeList(userId);
+            List<RecipeResDTO> responseList = recipeLikeService.getRecipeLikeList(userId);
+            for(int i = 0; i < responseList.size(); i++){
+                logger.info(responseList.get(i).getRecipeName());
+            }
             result.put("result", responseList);
             result.put("message", "success");
             return new ResponseEntity<>(result, HttpStatus.OK);
@@ -45,7 +51,7 @@ public class RecipeLikeController {
 
     @ApiOperation(value="레시피 찜하기", notes = "recipe_id와 user_id를 이용하여 찜할 레시피를 등록한다.")
     @PostMapping
-    public ResponseEntity registRecipeLike(@RequestBody RecipeLikeRequest recipeLikeRequest) {
+    public ResponseEntity registRecipeLike(@Valid @RequestBody RecipeLikeRequest recipeLikeRequest) {
         HashMap<String, Object> result = new HashMap<>();
         try {
             RecipeLikeResponse recipeLikeResponse = recipeLikeService.registRecipeLike(recipeLikeRequest);
@@ -61,7 +67,7 @@ public class RecipeLikeController {
 
     @ApiOperation(value="레시피 찜하기 해제", notes = "recipe_id와 user_id를 이용하여 찜한 레시피를 해제한다.")
     @DeleteMapping
-    public ResponseEntity deleteRecipeLike(@RequestBody RecipeLikeRequest recipeLikeRequest) {
+    public ResponseEntity deleteRecipeLike(@Valid @RequestBody RecipeLikeRequest recipeLikeRequest) {
         System.out.println(recipeLikeRequest.getRecipeId());
         HashMap<String, Object> result = new HashMap<>();
         try {

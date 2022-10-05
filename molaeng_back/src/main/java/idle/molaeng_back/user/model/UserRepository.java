@@ -8,4 +8,8 @@ public interface UserRepository extends JpaRepository <User, Long> {
 
     User findByUserId(long userId);
 
+    int countUserByUuid(long uuid);
+
+    User findByUuid(long uuid);
+
 }

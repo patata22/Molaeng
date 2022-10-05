@@ -26,6 +26,11 @@
 <script>
 export default {
   name: "NavBar",
+  data() {
+    return {
+      isLogined: false,
+    };
+  },
   computed: {
     path() {
       return this.$route.path;
@@ -42,6 +47,10 @@ export default {
         return "background-color: #fef3c6;";
       }
     },
+    // isLogin() {
+    //   if (this.$cookies.get("userId") > 0) return true;
+    //   else return false;
+    // },
   },
   methods: {
     goSearch() {
@@ -51,7 +60,13 @@ export default {
       this.$router.push("/").catch(() => {});
     },
     goMenu() {
-      this.$router.push("/menu").catch(() => {});
+      this.checkLogin();
+      if (this.isLogined) this.$router.push("/menu/member").catch(() => {});
+      else this.$router.push("/menu/user").catch(() => {});
+    },
+    checkLogin() {
+      if (this.$cookies.get("userId") > 0) this.isLogined = true;
+      else this.isLogined = false;
     },
   },
 };

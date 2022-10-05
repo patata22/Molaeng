@@ -1,67 +1,90 @@
 // import axios from "axios";
-// import api from "@/api/RestAPI";
-// import router from "@/router";
+import Vue from "vue";
+import Vuex from "vuex";
 
-// // Vue.use(Vuex);
+Vue.use(Vuex);
 
-// export default {
-//   state: {
-//     gugun: [
-//       "강남구",
-//       "강동구",
-//       "강북구",
-//       "강서구",
-//       "관악구",
-//       "광진구",
-//       "구로구",
-//       "금천구",
-//       "노원구",
-//       "도봉구",
-//       "동대문구",
-//       "동작구",
-//       "마포구",
-//       "서대문구",
-//       "서초구",
-//       "성동구",
-//       "성북구",
-//       "송파구",
-//       "양천구",
-//       "영등포구",
-//       "용산구",
-//       "은평구",
-//       "종로구",
-//       "중구",
-//       "중랑구",
-//     ],
-//   }, //원본 소스. vue에서 data로 불러올 수 있음
-//   getters: {
-//     userId: (state) => state.userId,
-//     nickname: (state) => state.nickname,
-//     myRegion: (state) => state.myRegion,
-//     uuid: (state) => state.uuid,
-//     // gugun: (state) => state.gugun,
-//     getAllGugun: (state) => {
-//       return state.gugun;
-//     },
-//   }, // state를 접근할 땐 getter를 사용해야.
-//   mutations: {
-//     SET_NICKNAME: (state, nickname) => (state.nickname = nickname),
-//     SET_MYREGION: (state, myRegion) => (state.myRegion = myRegion),
-//   }, // setter. state를 변경할 땐 mutations를 사용해야. 무조건 동기
-//   actions: {
-//     getUserInfo({ commit }, userId) {
-//       axios({
-//         methods: "post",
-//         url: api.userInfo.getUserInfo(userId),
-//       })
-//         .then((res) => {
-//           console.log(res.data);
-//           commit("SET_NICKNAME", res.data.nickname);
-//           commit("SET_MYREGION", res.data.myRegion);
-//           console.log("post 요청 들어왔다~~~");
-//         })
-//         .catch((err) => consol.log("정보 불러오기 오류오류"));
-//     },
-//   }, // 비동기
-//   modules: {},
-// };
+// function getGugunList() {
+//   const gugun = {
+//     1: "강남구",
+//     2: "강동구",
+//     3: "강북구",
+//     4: "강서구",
+//     5: "관악구",
+//     6: "광진구",
+//     7: "구로구",
+//     8: "금천구",
+//     9: "노원구",
+//     10: "도봉구",
+//     11: "동대문구",
+//     12: "동작구",
+//     13: "마포구",
+//     14: "서대문구",
+//     15: "서초구",
+//     16: "성동구",
+//     17: "성북구",
+//     18: "송파구",
+//     19: "양천구",
+//     20: "영등포구",
+//     21: "용산구",
+//     22: "은평구",
+//     23: "종로구",
+//     24: "중구",
+//     25: "중랑구",
+//   };
+//   return gugun;
+// }
+
+export const user = {
+  state: {
+    userInfo: {
+      userId: 0,
+      uuid: 0,
+      profile_image_url: "",
+      nickname: "",
+      accessToken: "",
+      refreshToken: "",
+    },
+    isLogined: false,
+    Sido: "서울특별시",
+    gugun: {},
+  }, //원본 소스. vue에서 data로 불러올 수 있음
+  getters: {
+    getSido: (state) => {
+      return state.Sido;
+    },
+    getGugunList: (state) => {
+      return state.gugun;
+    },
+  }, // state를 접근할 땐 getter를 사용해야.
+  mutations: {
+    SET_USERINFO: (state, data) => {
+      state.userInfo = {
+        userId: data.userId,
+        profile_image_url: data.profile.profile_image_url,
+        nickname: data.profile.nickname,
+        accessToken: data.profile,
+        refreshToken: data.profile,
+      };
+    },
+    CHANGE_IS_LOGINED: (state) => {
+      state.isLogined = !state.isLogined;
+    },
+  }, // setter. state를 변경할 땐 mutations를 사용해야. 무조건 동기
+  actions: {
+    getUserInfo: (state, codes) => {
+      getUser(
+        codes,
+        ({ data }) => {
+          state.commit("SET_USERINFO", data);
+          state.commit("CHANGE_IS_LOGINED");
+          router.push({ name: "main" });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+  }, // 비동기
+  modules: {},
+};

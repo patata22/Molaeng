@@ -10,7 +10,7 @@
         class="mx-auto my-8 mt-10"
       ></v-img>
       <div class="d-flex justify-center">
-        <p id="name">{{ userInfo.name }} 님</p>
+        <p id="name">{{ userInfo.nickname }} 님</p>
       </div>
     </div>
     <div id="menuList">
@@ -46,14 +46,23 @@
   </div>
 </template>
 <script>
+import API from "@/api/APIs";
+const api = API;
 export default {
   name: "MemberMenu",
   components: {},
-  data: () => ({
-    userInfo: {
-      name: "김펭귄",
-    },
-  }),
+  data() {
+    return {
+      userInfo: {
+        userId: 0,
+        nickname: "김펭귄",
+      },
+    };
+  },
+  created() {
+    this.getUserIdByCookie();
+    this.getUserInfo();
+  },
   methods: {
     exit() {
       this.$router.push("/").catch(() => {});
@@ -68,8 +77,26 @@ export default {
       this.$router.push("/interestRecipe").catch(() => {});
     },
     logout() {
-      // 현재에는 비로그인 메뉴 테스트용으로, 비로그인 페이지로 이동하게 설정함. 어떻게 할지 물어봐야 함.
-      this.$router.push("/menu/user").catch(() => {});
+      // window.Kakao.Auth.logout().then(
+      //   (res) => console.log(res),
+      //   console.log(window.Kakao.Auth.getAccessToken())
+      // );
+      this.deleteCookie();
+      this.$router.push("/").catch(() => {});
+      console.log("로그아웃!");
+    },
+    deleteCookie() {
+      this.$cookies.remove("userId");
+      alert("로그아웃 되었습니다.");
+    },
+    getUserIdByCookie() {
+      this.userInfo.userId = this.$cookies.get("userId");
+    },
+    getUserInfo() {
+      api.getUserInfo(this.userInfo.userId).then((res) => {
+        console.log(res);
+        this.userInfo.nickname = res.result.nickname;
+      });
     },
   },
 };

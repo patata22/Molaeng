@@ -1,16 +1,19 @@
 <template>
   <div align="center">
-    <v-btn id="loginBtn">
+    <v-btn id="loginBtn" @click="login">
       <img src="../../assets/kakaoIcon.png" alt="" id="kakaoLogo" />
-      <h3>카카오 로그인</h3>
+      <h4>카카오 로그인</h4>
     </v-btn>
   </div>
 </template>
 <script>
 export default {
   name: "KakaoLogin",
-  methods: {},
-  components: {},
+  methods: {
+    async login() {
+      this.$emit("kakaoLogin");
+    },
+  },
 };
 </script>
 <style>

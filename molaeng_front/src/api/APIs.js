@@ -164,6 +164,24 @@ const API = {
     );
     return response.data;
   },
+
+  async getRecipeLikeList(userId) {
+    const response = await this.instance.get("/recipe/like?userId=" + userId);
+    return response.data.result;
+  },
+  async getUserInfo(userId) {
+    const response = await this.instance.post("/user", {
+      userId: Number(userId),
+    });
+    return response.data;
+  },
+  async Login(uuid, nickname) {
+    const response = await this.instance.post("/user/login", {
+      uuid: uuid,
+      nickname: nickname,
+    });
+    return response.data;
+  },
 };
 
 export default API;
