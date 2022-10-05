@@ -22,11 +22,11 @@ export default {
     MolaengHistoryItem,
   },
   props: {
+    userId: Number,
     date: String,
     isDateSelected: Boolean,
   },
   data: () => ({
-    userId: 1,
     mealList: [
       {
         diaryId: 0,

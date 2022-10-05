@@ -40,11 +40,11 @@ const api = API;
 export default {
   name: "MolaengCalendar",
   props: {
+    userId: Number,
     selectedGraph: String,
     savedCost: Number,
   },
   data: () => ({
-    userId: 1,
     year: 0,
     month: 0,
     header: "",
