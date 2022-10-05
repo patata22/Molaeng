@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const baseURL = "https://j7a604.p.ssafy.io/molaeng";
-const baseURL = "http://localhost:8080/molaeng";
+const baseURL = "https://j7a604.p.ssafy.io/molaeng";
+// const baseURL = "http://localhost:8080/molaeng";
 
 /**
  * 사용방법 예시
