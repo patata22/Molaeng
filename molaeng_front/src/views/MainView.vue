@@ -13,6 +13,8 @@ import OnBoarding from "../components/molecules/MoleculesOnBoarding.vue";
 import MainMenu from "../components/templates/TemplatesMainMenu.vue";
 import KakaoLogin from "../components/atoms/AtomKakaoLogin.vue";
 import axios from "axios";
+import API from "@/api/APIs";
+const api = API;
 export default {
   name: "MainView",
   components: {
@@ -60,16 +62,13 @@ export default {
             .then((res) => {
               this.$router.replace("");
               console.log(res);
-              axios
-                .post("http://localhost:8080/molaeng/user/login", {
-                  uuid: res.data.id,
-                  nickname: res.data.kakao_account.profile.nickname,
-                })
+              api
+                .Login(res.data.id, res.data.kakao_account.profile.nickname)
                 .then((res) => {
                   console.log(res);
                   this.isLogined = true;
 
-                  this.$cookies.set("userId", res.data.userId);
+                  this.$cookies.set("userId", res.userId);
                 });
             });
         });

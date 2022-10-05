@@ -76,8 +76,8 @@ public class UserServiceImpl implements UserService{
     @Override
     public User joinUser(String nickname, long uuid) {
         // 최초 가입자의 거주지역은 0번 더미 지역으로 설정함
-        Gugun gugun = gugunRepository.findByGugunId(0);
-
+        Gugun gugun = gugunRepository.findByGugunId(1);
+        System.out.println(gugun.getGugunId());
         User member = User.builder()
                 .nickname(nickname)
                 .uuid(uuid)

@@ -46,21 +46,22 @@
   </div>
 </template>
 <script>
-import axios from "axios";
-// import axios from "axios";
+import API from "@/api/APIs";
+const api = API;
 export default {
   name: "MemberMenu",
   components: {},
-  data: () => ({
-    userInfo: {
-      userId: 0,
-      nickname: "김펭귄",
-    },
-  }),
+  data() {
+    return {
+      userInfo: {
+        userId: 0,
+        nickname: "김펭귄",
+      },
+    };
+  },
   created() {
     this.getUserIdByCookie();
     this.getUserInfo();
-    console.log(this.userInfo);
   },
   methods: {
     exit() {
@@ -92,14 +93,10 @@ export default {
       this.userInfo.userId = this.$cookies.get("userId");
     },
     getUserInfo() {
-      axios
-        .post(
-          "http://localhost:8080/molaeng/user?userId=" + this.userInfo.userId
-        )
-        .then((res) => {
-          console.log(res);
-          this.userInfo.nickname = res.data.result.nickname;
-        });
+      api.getUserInfo(this.userInfo.userId).then((res) => {
+        console.log(res);
+        this.userInfo.nickname = res.result.nickname;
+      });
     },
   },
 };

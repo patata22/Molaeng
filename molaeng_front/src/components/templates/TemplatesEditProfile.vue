@@ -157,10 +157,9 @@ export default {
     },
     getProfile() {
       axios
-        .post(
-          "https://j7a604.p.ssafy.io/molaeng/user?userId=" +
-            this.userProfile.userId
-        )
+        .post("https://j7a604.p.ssafy.io/molaeng/user", {
+          userId: Number(this.userInfo.userId),
+        })
         .then((res) => {
           this.userProfile.nickname = res.data.result.nickname;
           console.log("닉네임 불러옴vv");
