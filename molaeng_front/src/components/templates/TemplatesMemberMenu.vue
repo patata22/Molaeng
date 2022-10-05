@@ -78,7 +78,7 @@ export default {
         url: "/v1/user/unlink",
       });
       this.deleteCookie();
-      this.$router.push("/").catch(() => {});
+      this.$router.replace("/").catch(() => {});
       console.log("로그아웃!");
     },
     deleteCookie() {
