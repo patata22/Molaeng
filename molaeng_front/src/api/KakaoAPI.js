@@ -2,8 +2,8 @@ import axios from "axios";
 import API from "./APIs";
 const api = API;
 
-const MolaengURL = "http://localhost:8081";
-// const MolaengURL = "https://j7a604.p.ssafy.io";
+// const MolaengURL = "http://localhost:8081";
+const MolaengURL = "https://j7a604.p.ssafy.io";
 const KakaoRedirectURL = MolaengURL + "/login";
 const ClientId = "73e5a007dbb6c4473ba7ef95128857ff";
 const ClientSecret = "Y4AFwDzPKpLFtAdcSnT11W46zgHL2noa";
@@ -41,6 +41,7 @@ const KakaoAPI = {
                 .Login(res.data.id, res.data.kakao_account.profile.nickname)
                 .then((res) => {
                   document.cookie = "userId=" + res.userId;
+                  document.cookie = "nickname=" + res.nickname;
                   window.location.replace(MolaengURL);
                 });
             });

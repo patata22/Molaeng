@@ -1,5 +1,10 @@
 <template>
-  <div></div>
+  <div class="login">
+    <div class="innerDiv">
+      <img class="loginImg" src="@/assets/login.png" />
+      <h1>로그인 중입니다</h1>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -17,4 +22,25 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.login {
+  background-color: #fef3c6;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+.loginImg {
+  align-self: end;
+  height: 25%;
+}
+.innerDiv {
+  height: 100%;
+  display: grid;
+  color: #5b574b;
+  justify-items: center;
+}
+h1 {
+  margin-top: 5%;
+  margin-bottom: 25%;
+}
+</style>
