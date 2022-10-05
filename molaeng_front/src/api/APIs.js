@@ -101,7 +101,7 @@ const API = {
     return response.data;
   },
   async getDiary(userId, date) {
-    const response = await this.instance.get("/diary" + "&date=" + date, {
+    const response = await this.instance.get("/diary" + "?date=" + date, {
       headers: {
         userId: userId,
       },
