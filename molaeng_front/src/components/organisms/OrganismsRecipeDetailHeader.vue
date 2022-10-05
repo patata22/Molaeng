@@ -74,6 +74,7 @@ overflow-x: auto; */
   overflow: auto;
   white-space: nowrap;
   margin: 3% 5% 3% 5%;
+  padding-bottom: 3%;
 }
 ::-webkit-scrollbar {
   height: 10px;
@@ -82,7 +83,7 @@ overflow-x: auto; */
   background: white;
 }
 ::-webkit-scrollbar-thumb {
-  background: #fdac6d;
+  background: #cecdc9;
   border-radius: 10px;
 }
 </style>
