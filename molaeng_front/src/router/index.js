@@ -21,6 +21,7 @@ import MyReview from "@/components/templates/TemplatesMyReviewList.vue";
 import MemberMenu from "@/components/templates/TemplatesMemberMenu.vue";
 import UserMenu from "@/components/templates/TemplatesUserMenu.vue";
 import RecipeSearchList from "@/components/templates/TemplatesRecipeSearchList.vue";
+import Login from "@/views/LoginView.vue";
 
 Vue.use(VueRouter);
 
@@ -143,6 +144,11 @@ const routes = [
         component: UserMenu,
       },
     ],
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: Login,
   },
 ];
 

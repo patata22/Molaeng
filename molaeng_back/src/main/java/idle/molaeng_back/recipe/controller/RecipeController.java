@@ -39,7 +39,11 @@ public class RecipeController {
 
     //레시피 정보 조회(상단부분)
     @GetMapping("/{recipeId}")
-    public ResponseEntity getRecipeInfo(@PathVariable long recipeId, @RequestParam long userId){
+    public ResponseEntity getRecipeInfo(@RequestHeader Map<String,Object> header,@PathVariable long recipeId){
+        for (String s : header.keySet()) {
+            System.out.println(s);
+        }
+        long userId = Long.parseLong((String)header.get("userid"));
         logger.info(userId+"");
 
         Map<String, Object> resultMap = new HashMap<>();
@@ -53,6 +57,7 @@ public class RecipeController {
 
             return new ResponseEntity(resultMap, HttpStatus.OK);
         }catch(Exception e){
+            e.printStackTrace();
             resultMap.put("message", "레시피 정보 조회 오류");
             return new ResponseEntity(resultMap, HttpStatus.BAD_REQUEST);
         }
@@ -83,9 +88,9 @@ public class RecipeController {
         try{
 //            List<RecipeIngredientRes> result = recipeIngredientService.readRecipeIngredientByRecipeId(recipeId);
             RecipeMainSubIngredientRes result = RecipeMainSubIngredientRes.builder()
-                            .recipeIngredientResList(recipeIngredientService.readRecipeIngredientByRecipeId(recipeId))
-                                    .recipeSubIngredientResList(recipeSubIngredientService.readRecipeSubIngredientByRecipeId(recipeId))
-                                            .build();
+                    .recipeIngredientResList(recipeIngredientService.readRecipeIngredientByRecipeId(recipeId))
+                    .recipeSubIngredientResList(recipeSubIngredientService.readRecipeSubIngredientByRecipeId(recipeId))
+                    .build();
 
             resultMap.put("result", result);
             resultMap.put("message", "success");

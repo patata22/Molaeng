@@ -27,14 +27,14 @@ import {
   CategoryScale,
   LinearScale,
 } from "chart.js";
-// import ChartJsPluginDataLabels from "chartjs-plugin-datalabels";
+import ChartJsPluginDataLabels from "chartjs-plugin-datalabels";
 
 ChartJS.register(
   Legend,
   BarElement,
   CategoryScale,
-  LinearScale
-  // ChartJsPluginDataLabels
+  LinearScale,
+  ChartJsPluginDataLabels
 );
 
 export default {
