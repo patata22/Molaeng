@@ -48,18 +48,6 @@ public class SearchServiceImpl implements SearchService {
         long start = pageable.getOffset();
         long end = Math.min((start + pageable.getPageSize()), recipeList.size());
         List<Recipe> subList = recipeList.subList((int) start, (int) end);
-        HashMap<Recipe, Double> costMap = new HashMap<>();
-        for (Recipe recipe : subList) {
-            costMap.put(recipe, 0D);
-            List<RecipeIngredient> recipeIngredientList = recipe.getRecipeIngredientList();
-            for (RecipeIngredient recipeIngredient : recipeIngredientList) {
-                Ingredient ingredient = recipeIngredient.getIngredient();
-                if (!ingredientIdList.contains(ingredient.getIngredientId())) {
-                    double cost = ingredient.getIngredientPrice() * recipeIngredient.getNeedWeight();
-                    costMap.put(recipe, costMap.get(recipe) + cost);
-                }
-            }
-        }
         boolean hasNext = start + pageable.getPageSize() < recipeList.size();
         List<RecipeResDTO> tempList = new ArrayList<>();
         for (Recipe recipe : subList) {
@@ -72,7 +60,7 @@ public class SearchServiceImpl implements SearchService {
                     .recipeKcal(recipe.getRecipeKcal())
                     .isLiked(RecipeLikeRepository.countByUserUserIdAndRecipeRecipeId(userId, id))
                     .avgScore(getAvgScore(recipe))
-                    .cost(costMap.get(recipe))
+                    .cost(CalculateCost(recipe, ingredientIdList))
                     .build());
         }
         return SearchRecipeResDTO.builder()
@@ -86,18 +74,6 @@ public class SearchServiceImpl implements SearchService {
     public SearchRecipeResDTO searchRecipeByCalory(List<Long> ingredientIdList, Pageable pageable, long userId) {
         Slice<Recipe> recipeList = recipeRepository.findAll(pageable);
         List<RecipeResDTO> tempList = new ArrayList<>();
-        HashMap<Recipe, Double> costMap = new HashMap<>();
-        for (Recipe recipe : recipeList) {
-            costMap.put(recipe, 0D);
-            List<RecipeIngredient> recipeIngredientList = recipe.getRecipeIngredientList();
-            for (RecipeIngredient recipeIngredient : recipeIngredientList) {
-                Ingredient ingredient = recipeIngredient.getIngredient();
-                if (!ingredientIdList.contains(ingredient.getIngredientId())) {
-                    double cost = ingredient.getIngredientPrice() * recipeIngredient.getNeedWeight();
-                    costMap.put(recipe, costMap.get(recipe) + cost);
-                }
-            }
-        }
         for (Recipe recipe : recipeList) {
             long id = recipe.getRecipeId();
             tempList.add(RecipeResDTO.builder()
@@ -108,7 +84,7 @@ public class SearchServiceImpl implements SearchService {
                     .recipeKcal(recipe.getRecipeKcal())
                     .isLiked(RecipeLikeRepository.countByUserUserIdAndRecipeRecipeId(userId, id))
                     .avgScore(getAvgScore(recipe))
-                    .cost(costMap.get(recipe))
+                    .cost(CalculateCost(recipe, ingredientIdList))
                     .build());
         }
         return SearchRecipeResDTO.builder()
@@ -133,18 +109,6 @@ public class SearchServiceImpl implements SearchService {
         List<Recipe> subList = recipeList.subList((int) start, (int) end);
         boolean hasNext = start + pageable.getPageSize() < recipeList.size();
         List<RecipeResDTO> tempList = new ArrayList<>();
-        HashMap<Recipe, Double> costMap = new HashMap<>();
-        for (Recipe recipe : subList) {
-            costMap.put(recipe, 0D);
-            List<RecipeIngredient> recipeIngredientList = recipe.getRecipeIngredientList();
-            for (RecipeIngredient recipeIngredient : recipeIngredientList) {
-                Ingredient ingredient = recipeIngredient.getIngredient();
-                if (!ingredientIdList.contains(ingredient.getIngredientId())) {
-                    double cost = ingredient.getIngredientPrice() * recipeIngredient.getNeedWeight();
-                    costMap.put(recipe, costMap.get(recipe) + cost);
-                }
-            }
-        }
         for (Recipe recipe : subList) {
             long id = recipe.getRecipeId();
             tempList.add(RecipeResDTO.builder()
@@ -155,7 +119,7 @@ public class SearchServiceImpl implements SearchService {
                     .recipeKcal(recipe.getRecipeKcal())
                     .isLiked(RecipeLikeRepository.countByUserUserIdAndRecipeRecipeId(userId, id))
                     .avgScore(getAvgScore(recipe))
-                    .cost(costMap.get(recipe))
+                    .cost(CalculateCost(recipe, ingredientIdList))
                     .build());
         }
         return SearchRecipeResDTO.builder()
@@ -293,6 +257,5 @@ public class SearchServiceImpl implements SearchService {
         }
         return cost;
     }
-
 
 }

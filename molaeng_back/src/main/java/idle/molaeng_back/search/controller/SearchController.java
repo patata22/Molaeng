@@ -107,7 +107,6 @@ public class SearchController {
         if(userId==null) userId=0L;
         Map<String, Object> resultMap = new HashMap<>();
         try{
-
             SearchRecipeResDTO result = searchService.searchRecipeByName(pageable, userId, keyWord);
             resultMap.put("result", result);
             resultMap.put("message", "success");
