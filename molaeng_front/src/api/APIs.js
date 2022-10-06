@@ -165,14 +165,19 @@ const API = {
     console.log(response);
     return response.data;
   },
-  async recentRecipe(recipeIdList) {
+  async recentRecipe(recipeIdList, userId) {
     let queryParam = "";
     for (let recipeId of recipeIdList) {
       queryParam += recipeId + ",";
     }
     queryParam = queryParam.slice(0, -1);
     const response = await this.instance.get(
-      "/recipe/history?recipeIdList=" + queryParam
+      "/recipe/history?recipeIdList=" + queryParam,
+      {
+        headers: {
+          userId: userId,
+        },
+      }
     );
     return response.data.result;
   },

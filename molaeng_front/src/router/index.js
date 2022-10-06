@@ -137,10 +137,12 @@ const routes = [
       {
         path: "member",
         alias: [""],
+        name: "loginMenu",
         component: MemberMenu,
       },
       {
         path: "user",
+        name: "loginPlz",
         component: UserMenu,
       },
     ],

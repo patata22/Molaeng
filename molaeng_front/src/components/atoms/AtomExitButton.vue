@@ -8,9 +8,16 @@
 <script>
 export default {
   name: "ExitButton",
+  props: {
+    url: String,
+  },
   methods: {
     exit() {
-      this.$router.back();
+      if (this.url) {
+        this.$router.replace(this.url);
+      } else {
+        this.$router.back();
+      }
     },
   },
 };

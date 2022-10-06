@@ -81,6 +81,9 @@ export default {
   props: {
     recipe: Object,
   },
+  created() {
+    this.getUserIdByCookie();
+  },
   mounted() {
     this.isLiked = this.recipe.isLiked;
   },
@@ -95,6 +98,13 @@ export default {
     },
     moveToRecipe(i) {
       this.$router.push("/recipe/" + i);
+    },
+    getUserIdByCookie() {
+      let userId = this.$cookies.get("userId");
+      console.log(userId);
+      if (userId) {
+        this.userId = parseInt(userId);
+      }
     },
   },
 };

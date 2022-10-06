@@ -61,8 +61,18 @@ export default {
     },
     goMenu() {
       this.checkLogin();
-      if (this.isLogined) this.$router.replace("/menu/member").catch(() => {});
-      else this.$router.replace("/menu/user").catch(() => {});
+      console.log(this.$route.fullPath);
+      if (this.isLogined)
+        this.$router
+          .push({
+            name: "loginMenu",
+            params: { url: this.$route.fullPath },
+          })
+          .catch(() => {});
+      else
+        this.$router
+          .push({ name: "loginPlz", params: { url: this.$route.fullPath } })
+          .catch(() => {});
     },
     checkLogin() {
       if (this.$cookies.get("userId") > 0) this.isLogined = true;
