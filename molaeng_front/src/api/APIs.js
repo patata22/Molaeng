@@ -238,6 +238,14 @@ const API = {
     );
     return response.data;
   },
+  async deleteUser(userId) {
+    const response = await this.instance.delete("/user", {
+      headers: {
+        userId: userId,
+      },
+    });
+    return response;
+  },
 };
 
 export default API;

@@ -23,13 +23,26 @@ export default {
   components: {
     KakaoLogin,
   },
-  data: () => ({}),
+  data: () => ({
+    userId: 0,
+  }),
+  created() {
+    this.getUserIdByCookie();
+  },
   methods: {
     exit() {
-      this.$router.push("/").catch(() => {}); // 임시로 mainPage로 이동하게 해둠. 어떻게 할지 물어봐야 함.
+      this.$router.replace("/").catch(() => {}); // 임시로 mainPage로 이동하게 해둠. 어떻게 할지 물어봐야 함.
     },
     async kakaoLogin() {
       await kakao.KakaoAuth();
+    },
+    getUserIdByCookie() {
+      let userId = this.$cookies.get("userId");
+      if (userId) {
+        this.$router.replace("/");
+      } else {
+        this.userId = parseInt(userId);
+      }
     },
   },
 };
