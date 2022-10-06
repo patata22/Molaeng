@@ -61,7 +61,9 @@ export default {
     registRecipeLike() {
       if (this.userId != 0) {
         let temp = this.recipeInfo;
-        api.registRecipeLike(this.recipeId);
+        console.log(this.userId);
+        console.log(this.recipeId);
+        api.registRecipeLike(this.recipeId, this.userId);
         temp.isLiked = !temp.isLiked;
       } else {
         this.snackbar = true;
@@ -69,7 +71,7 @@ export default {
     },
     deleteRecipeLike() {
       let temp = this.recipeInfo;
-      api.deleteRecipeLike(this.recipeId);
+      api.deleteRecipeLike(this.recipeId, this.userId);
       temp.isLiked = !temp.isLiked;
     },
   },

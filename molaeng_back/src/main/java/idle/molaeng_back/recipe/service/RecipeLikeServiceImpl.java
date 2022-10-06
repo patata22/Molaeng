@@ -66,25 +66,25 @@ public class RecipeLikeServiceImpl implements RecipeLikeService{
 
     //관심 레시피 등록, 삭제 - 메서드명 수정
     @Override
-    public RecipeLikeResponse registRecipeLike(RecipeLikeRequest recipeLikeRequest) {
-        User user = userRepository.findByUserId(recipeLikeRequest.getUserId());
-        Recipe recipe = recipeRepository.findByRecipeId(recipeLikeRequest.getRecipeId());
+    public RecipeLikeResponse registRecipeLike(long userId, long recipeId) {
+        User user = userRepository.findByUserId(userId);
+        Recipe recipe = recipeRepository.findByRecipeId(recipeId);
 
         RecipeLike recipeLike = RecipeLike.builder().user(user).recipe(recipe).build();
         recipeLikeRepository.save(recipeLike);
 
-        return new RecipeLikeResponse(recipeLikeRequest.getRecipeId());
+        return new RecipeLikeResponse(recipeId);
     }
 
     @Transactional
     @Override
-    public RecipeLikeResponse deleteRecipeLike(RecipeLikeRequest recipeLikeRequest) {
-        User user = userRepository.findByUserId(recipeLikeRequest.getUserId());
-        Recipe recipe = recipeRepository.findByRecipeId(recipeLikeRequest.getRecipeId());
+    public RecipeLikeResponse deleteRecipeLike(long userId, long recipeId) {
+        User user = userRepository.findByUserId(userId);
+        Recipe recipe = recipeRepository.findByRecipeId(recipeId);
 
-        recipeLikeRepository.deleteByUserUserIdAndRecipeRecipeId(recipeLikeRequest.getUserId(), recipeLikeRequest.getRecipeId());
+        recipeLikeRepository.deleteByUserUserIdAndRecipeRecipeId(userId, recipeId);
 
-        return new RecipeLikeResponse(recipeLikeRequest.getRecipeId());
+        return new RecipeLikeResponse(recipeId);
     }
 
     // recipe의 평균 별점을 계산하는 메서드

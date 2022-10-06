@@ -4,7 +4,7 @@
       v-for="(recipe, i) in RecipeLikeList"
       :key="i"
       :recipe="recipe"
-      class="mb-7"
+      class="mt-10"
     >
     </recipe-card>
   </div>
@@ -28,11 +28,21 @@ export default {
   },
   created() {
     console.log("created 실행!!");
+    this.getUserIdByCookie();
   },
   async mounted() {
     console.log("mounted 실행!!");
     this.RecipeLikeList = await api.getRecipeLikeList(this.userId);
     console.log(this.RecipeLikeList);
+  },
+  methods: {
+    getUserIdByCookie() {
+      let userId = this.$cookies.get("userId");
+      console.log(userId);
+      if (userId) {
+        this.userId = parseInt(userId);
+      }
+    },
   },
 };
 </script>

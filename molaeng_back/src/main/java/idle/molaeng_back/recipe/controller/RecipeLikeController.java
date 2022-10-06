@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 //import javax.xml.ws.Response;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -27,9 +28,10 @@ public class RecipeLikeController {
     private final RecipeLikeServiceImpl recipeLikeService;
     @ApiOperation(value="찜한 레시피 목록 불러오기", notes = "user_id를 이용하여 사용자가 찜한 레시피의 전체 목록을 불러온다.")
     @GetMapping
-    public ResponseEntity getRecipeLikeList(@RequestParam long userId){
+    public ResponseEntity getRecipeLikeList(@RequestHeader Map<String,Object> header){
+        long userId = Long.parseLong((String)header.get("userid"));
+
         HashMap<String, Object> result = new HashMap<>();
-        logger.info(String.valueOf(userId));
 
 
         try {
@@ -50,10 +52,12 @@ public class RecipeLikeController {
 
     @ApiOperation(value="레시피 찜하기", notes = "recipe_id와 user_id를 이용하여 찜할 레시피를 등록한다.")
     @PostMapping
-    public ResponseEntity registRecipeLike(@RequestBody RecipeLikeRequest recipeLikeRequest) {
+    public ResponseEntity registRecipeLike(@RequestHeader Map<String,Object> header, @RequestBody RecipeLikeRequest recipeLikeRequest) {
+        long userId = Long.parseLong((String)header.get("userid"));
+
         HashMap<String, Object> result = new HashMap<>();
         try {
-            RecipeLikeResponse recipeLikeResponse = recipeLikeService.registRecipeLike(recipeLikeRequest);
+            RecipeLikeResponse recipeLikeResponse = recipeLikeService.registRecipeLike(userId, recipeLikeRequest.getRecipeId());
             result.put("result", recipeLikeResponse);
             result.put("message", "success");
             return new ResponseEntity<>(result, HttpStatus.OK);
@@ -66,11 +70,13 @@ public class RecipeLikeController {
 
     @ApiOperation(value="레시피 찜하기 해제", notes = "recipe_id와 user_id를 이용하여 찜한 레시피를 해제한다.")
     @DeleteMapping
-    public ResponseEntity deleteRecipeLike(@RequestBody RecipeLikeRequest recipeLikeRequest) {
-        System.out.println(recipeLikeRequest.getRecipeId());
+    public ResponseEntity deleteRecipeLike(@RequestHeader Map<String,Object> header, @RequestBody RecipeLikeRequest recipeLikeRequest) {
+//        System.out.println(recipeLikeRequest.getRecipeId());
+        long userId = Long.parseLong((String)header.get("userid"));
+
         HashMap<String, Object> result = new HashMap<>();
         try {
-            RecipeLikeResponse recipeLikeResponse = recipeLikeService.deleteRecipeLike(recipeLikeRequest);
+            RecipeLikeResponse recipeLikeResponse = recipeLikeService.deleteRecipeLike(userId, recipeLikeRequest.getRecipeId());
             result.put("result", recipeLikeResponse);
             result.put("message", "success");
             return new ResponseEntity<>(result, HttpStatus.OK);

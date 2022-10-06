@@ -10,8 +10,8 @@ import java.util.List;
 public interface RecipeLikeService {
 
     List<RecipeResDTO> getRecipeLikeList(long userId);
-    RecipeLikeResponse registRecipeLike(RecipeLikeRequest recipeLikeRequest);
-    RecipeLikeResponse deleteRecipeLike(RecipeLikeRequest recipeLikeRequest);
+    RecipeLikeResponse registRecipeLike(long userId, long recipeId);
+    RecipeLikeResponse deleteRecipeLike(long userId, long recipeId);
 
     double calAvgScore(Recipe recipe);
 }
