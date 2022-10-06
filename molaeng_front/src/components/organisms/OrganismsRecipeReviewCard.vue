@@ -55,11 +55,7 @@
 import ReviewReadStar from "@/components/atoms/AtomsReviewReadStar.vue";
 import axios from "axios";
 export default {
-  created() {
-    if (this.review.reviewId == 63) {
-      console.log(this.review);
-    }
-  },
+  created() {},
   name: "RecipeReviewCard",
   components: {
     ReviewReadStar,
@@ -87,7 +83,6 @@ export default {
         if (this.review.liked) {
           this.dislikeReview(this.userId, this.review.reviewId);
         } else {
-          console.log(this.review.likeCnt);
           this.likeReview(this.userId, this.review.reviewId);
         }
       }
@@ -100,9 +95,6 @@ export default {
           reviewId: reviewId,
         })
         .then(function () {
-          console.log("like!");
-          console.log("after!");
-          console.log(temp.review.likeCnt);
           if (!temp.review.liked) {
             temp.review.likeCnt += 1;
             temp.review.liked = true;
@@ -117,7 +109,6 @@ export default {
           data: { userId: userId, reviewId: reviewId },
         })
         .then(function () {
-          console.log("dislike!");
           if (temp.review.liked) {
             temp.review.likeCnt -= 1;
             temp.review.liked = false;
@@ -126,13 +117,11 @@ export default {
         .catch((error) => console.log(error));
     },
     removeReview(userId, reviewId) {
-      console.log(reviewId);
       axios
         .delete("https://j7a604.p.ssafy.io/molaeng/review", {
           data: { userId: userId, reviewId: reviewId },
         })
-        .then((response) => {
-          console.log(response);
+        .then(() => {
           this.$router.go();
         })
         .catch((error) => console.log(error));

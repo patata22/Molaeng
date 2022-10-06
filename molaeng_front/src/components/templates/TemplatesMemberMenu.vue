@@ -79,7 +79,6 @@ export default {
       });
       this.deleteCookie();
       this.$router.replace("/").catch(() => {});
-      console.log("로그아웃!");
     },
     deleteCookie() {
       this.$cookies.remove("userId");
@@ -93,10 +92,8 @@ export default {
     getUserIdByCookie() {
       let userId = this.$cookies.get("userId");
       if (userId) {
-        console.log(userId);
         this.userInfo.userId = parseInt(userId);
       } else {
-        console.log(userId);
         this.$router.replace("/");
       }
     },

@@ -262,8 +262,6 @@ export default {
     sendReview() {
       var temp = this;
       var recipeId = window.location.pathname.split("/")[2];
-      console.log(temp.userIdtmp);
-      console.log(temp.$cookies.get("userId"));
       axios
         .post(
           "https://j7a604.p.ssafy.io/molaeng/review/" + recipeId,

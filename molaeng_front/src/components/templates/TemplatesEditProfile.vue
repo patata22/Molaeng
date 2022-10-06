@@ -168,7 +168,6 @@ export default {
     // ...mapMutations(["SET_GUGUN"]),
     // ...mapActions(["getUserInfo"]),
     clickUpdate() {
-      console.log("수정 버튼 클릭");
       this.disabled = false;
       this.snackbar = false;
     },
@@ -178,31 +177,20 @@ export default {
         this.userInfo.userId = res.result.userId;
         this.userInfo.nickname = res.result.nickname;
         this.gugun = res.result.gugunId;
-        console.log(res);
       });
-      // console.log(this.userInfo);
     },
     async updateProfile() {
-      console.log("저장 버튼 클릭");
-      console.log("userInfo req = " + this.userInfo);
       await api
         .updateProfile(this.userInfo.userId, this.userInfo.nickname, this.gugun)
-        .then((res) => {
-          console.log(res);
+        .then(() => {
           this.disabled = true;
           this.snackbar = true;
         });
     },
-    selectGugun() {
-      console.log(this.gugun);
-    },
-    selectSido() {
-      console.log(this.sido);
-    },
+    selectGugun() {},
+    selectSido() {},
     async deleteUserAccount() {
-      console.log("탈퇴 버튼 클릭!!!");
-      await api.deleteUser(this.userInfo.userId).then((res) => {
-        console.log("탈퇴 res = " + res);
+      await api.deleteUser(this.userInfo.userId).then(() => {
         this.logout();
         this.$router.replace("/").catch(() => {});
       });
@@ -213,7 +201,6 @@ export default {
       });
       this.deleteCookie();
       this.$router.replace("/").catch(() => {});
-      console.log("로그아웃!");
     },
     deleteCookie() {
       this.$cookies.remove("userId");

@@ -28,9 +28,7 @@ export default {
     keyword: "",
   }),
   methods: {
-    startSTT() {
-      console.log("mic on!");
-    },
+    startSTT() {},
     sendKeyword() {
       this.$emit("change", this.keyword);
     },

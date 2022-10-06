@@ -196,9 +196,6 @@ public class SearchServiceImpl implements SearchService {
             costMap.put(recipe, (int) CalculateCost(recipe, ingredientIdList));
         }
         recipeList.sort((o1, o2) -> (costMap.get(o1) - costMap.get(o2)));
-        for (Recipe recipe : recipeList) {
-            System.out.println(costMap.get(recipe));
-        }
         long start = pageable.getOffset();
         long end = Math.min((start + pageable.getPageSize()), recipeList.size());
         List<Recipe> subList = recipeList.subList((int) start, (int) end);
