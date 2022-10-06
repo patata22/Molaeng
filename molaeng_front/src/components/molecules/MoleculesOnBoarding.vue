@@ -1,7 +1,12 @@
 <template>
   <div id="background">
     <v-carousel height="200" cycle hide-delimiters show-arrows-on-hover>
-      <v-carousel-item v-for="(item, i) in items" :key="i" :src="item.src">
+      <v-carousel-item
+        v-for="(item, i) in items"
+        :key="i"
+        :src="item.src"
+        :to="item.link"
+      >
       </v-carousel-item>
     </v-carousel>
   </div>
@@ -12,22 +17,16 @@ export default {
   data: () => ({
     items: [
       {
-        src: require("../../assets/help1.png"),
+        src: require("../../assets/banner1.png"),
+        link: "/recipe/60",
       },
       {
-        src: require("../../assets/help2.png"),
+        src: require("../../assets/banner2.png"),
+        link: "/recipe/166",
       },
       {
-        src: require("../../assets/help3.png"),
-      },
-      {
-        src: require("../../assets/help4.png"),
-      },
-      {
-        src: require("../../assets/help5.png"),
-      },
-      {
-        src: require("../../assets/help6.png"),
+        src: require("../../assets/banner3.png"),
+        link: "/recipe/123",
       },
     ],
   }),
