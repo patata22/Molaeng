@@ -35,8 +35,9 @@ export default {
   },
   data() {
     return {
-      year: 2022,
-      month: 10,
+      year: 0,
+      month: 0,
+      week: 0,
       res_month: {
         month: 0,
         year: 0,
@@ -115,11 +116,17 @@ export default {
       },
     };
   },
+  created() {
+    let date = new Date();
+    this.year = date.getFullYear();
+    this.month = date.getMonth() + 1;
+    this.week = this.getWeekNumber(new Date());
+  },
   async mounted() {
     this.res_week = await api.getWeekGraph(this.userId, this.year, this.month);
     this.WeekChartData.datasets[0].data = this.res_week.saveCostList;
 
-    this.weekSavedCost = this.WeekChartData.datasets[0].data[0];
+    this.weekSavedCost = this.WeekChartData.datasets[0].data[this.week - 1];
     this.$emit("setSavedCost", this.weekSavedCost);
     this.$emit("setSelectedGraph", "이번 주는");
 
@@ -184,6 +191,12 @@ export default {
       this.selectWeekGraph = false;
       this.$emit("setSelectedGraph", "이번 달은");
       this.$emit("setSavedCost", this.monthSavedCost);
+    },
+    getWeekNumber(dateFrom = new Date()) {
+      const currentDate = dateFrom.getDate();
+      const startOfMonth = new Date(dateFrom.setDate(1));
+      const weekDay = startOfMonth.getDay();
+      return parseInt((weekDay - 1 + currentDate) / 7) + 1;
     },
   },
 };
