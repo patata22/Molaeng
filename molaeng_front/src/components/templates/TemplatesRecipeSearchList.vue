@@ -57,14 +57,12 @@ export default {
     getRecipeByName($state) {
       var temp = this;
       var keyWord = window.location.pathname.split("/")[2];
-      var userId = temp.userIdtmp > 0 ? temp.userIdtmp : 0;
       if (keyWord == "") {
         axios
           .get(
             "https://j7a604.p.ssafy.io/molaeng/search/name?size=5&page=" +
-              this.page +
-              "&userId=" +
-              userId
+              this.page,
+            { withCredentials: true }
           )
           .then((response) => {
             response.data.result.recipeList.forEach((e) => {
@@ -83,9 +81,8 @@ export default {
             "https://j7a604.p.ssafy.io/molaeng/search/name/" +
               keyWord +
               "?size=5&page=" +
-              this.page +
-              "&userId=" +
-              userId
+              this.page,
+            { withCredentials: true }
           )
           .then((response) => {
             response.data.result.recipeList.forEach((e) => {

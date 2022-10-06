@@ -24,7 +24,8 @@ public class SearchController {
     }
 
     @PostMapping("/ingredient")
-    public ResponseEntity searchByIngredient(@CookieValue(name="userId") long userId, @RequestBody SearchRecipeDTO data){
+    public ResponseEntity searchByIngredient(@CookieValue(name="userId") Long userId, @RequestBody SearchRecipeDTO data){
+        if(userId==null) userId=0L;
         Map<String, Object> resultMap = new HashMap<>();
         Pageable pageable = PageRequest.of(data.getPage(), data.getSize());
         List<Long> ingredientIdList = new ArrayList<>();
@@ -43,7 +44,8 @@ public class SearchController {
         }
     }
     @PostMapping("/calory")
-    public ResponseEntity searchByCalory(@RequestBody SearchRecipeDTO data, @CookieValue(name="userId") long userId,@RequestParam Pageable pageable){
+    public ResponseEntity searchByCalory(@RequestBody SearchRecipeDTO data, @CookieValue(name="userId") Long userId, Pageable pageable){
+        if(userId==null) userId=0L;
         Map<String, Object> resultMap = new HashMap();
 
         try{
@@ -62,8 +64,10 @@ public class SearchController {
     }
 
     @PostMapping("/score")
-    public ResponseEntity searchByScore(@RequestBody SearchRecipeDTO data, @CookieValue(name="userId") long userId,@RequestParam Pageable pageable){
+    public ResponseEntity searchByScore(@RequestBody SearchRecipeDTO data, @CookieValue(name="userId") Long userId, Pageable pageable){
+        if(userId==null) userId=0L;
         Map<String, Object> resultMap = new HashMap<>();
+
         try{
             List<Long> ingredientIdList = new ArrayList<>();
             for (SearchRecipeByIngredientReqDTO dto : data.getIngredientList()) {
@@ -80,7 +84,8 @@ public class SearchController {
     }
 
     @PostMapping("/cost")
-    public ResponseEntity searchByCost(@RequestBody SearchRecipeDTO data, @CookieValue(name="userId") long userId,@RequestParam Pageable pageable){
+    public ResponseEntity searchByCost(@RequestBody SearchRecipeDTO data, @CookieValue(name="userId") Long userId, Pageable pageable){
+        if(userId==null) userId=0L;
         Map<String, Object> resultMap = new HashMap<>();
         try{
             List<Long> ingredientIdList = new ArrayList<>();
@@ -98,7 +103,8 @@ public class SearchController {
     }
 
     @GetMapping("/name/{keyWord}")
-    public ResponseEntity searchByName(@CookieValue(name="userId") long userId, Pageable pageable, @PathVariable("keyWord") String keyWord ){
+    public ResponseEntity searchByName(@CookieValue(name="userId") Long userId, Pageable pageable, @PathVariable("keyWord") String keyWord ){
+        if(userId==null) userId=0L;
         Map<String, Object> resultMap = new HashMap<>();
         try{
 
@@ -113,7 +119,8 @@ public class SearchController {
     }
 
     @GetMapping("/name")
-    public ResponseEntity searchByNoName(@CookieValue(name="userId") long userId,@RequestParam Pageable pageable){
+    public ResponseEntity searchByNoName(@CookieValue(name="userId") Long userId, Pageable pageable){
+        if(userId==null) userId=0L;
         Map<String, Object> resultMap = new HashMap<>();
         try{
             SearchRecipeResDTO result = searchService.searchRecipeByNoName(pageable, userId);
