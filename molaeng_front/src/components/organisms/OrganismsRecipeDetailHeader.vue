@@ -47,7 +47,8 @@ export default {
   },
   props: {
     userId: Number,
-    // 레시피 제목, 열량, 대표이미지, 찜여부 등의 정보를 받아옴
+    // 레시피 제목, 열량, 대표이미지, 찜여부
+    // 등의 정보를 받아옴
     recipeInfo: Object,
     recipeId: String,
     recipeIngredientList: Array,
@@ -61,7 +62,9 @@ export default {
     registRecipeLike() {
       if (this.userId != 0) {
         let temp = this.recipeInfo;
-        api.registRecipeLike(this.recipeId);
+        console.log(this.userId);
+        console.log(this.recipeId);
+        api.registRecipeLike(this.recipeId, this.userId);
         temp.isLiked = !temp.isLiked;
       } else {
         this.snackbar = true;
@@ -69,7 +72,7 @@ export default {
     },
     deleteRecipeLike() {
       let temp = this.recipeInfo;
-      api.deleteRecipeLike(this.recipeId);
+      api.deleteRecipeLike(this.recipeId, this.userId);
       temp.isLiked = !temp.isLiked;
     },
   },
