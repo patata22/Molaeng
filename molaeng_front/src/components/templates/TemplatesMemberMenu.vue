@@ -90,6 +90,16 @@ export default {
       this.userInfo.userId = this.$cookies.get("userId");
       this.userInfo.nickname = this.$cookies.get("nickname");
     },
+    getUserIdByCookie() {
+      let userId = this.$cookies.get("userId");
+      if (userId) {
+        console.log(userId);
+        this.userInfo.userId = parseInt(userId);
+      } else {
+        console.log(userId);
+        this.$router.replace("/");
+      }
+    },
   },
 };
 </script>

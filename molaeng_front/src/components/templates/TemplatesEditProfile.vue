@@ -78,19 +78,26 @@
           저장
         </v-btn>
       </v-row>
-
+      <v-snackbar
+        color="carrot"
+        rounded="pill"
+        text
+        centered
+        v-model="snackbar"
+        :timeout="timeout"
+      >
+        수정되었습니다!
+      </v-snackbar>
       <v-row justify="end">
         <v-btn
-          color="dark--text justify-end "
+          color="dark--text justify-end"
           class="large mt-10"
-          x-large
           style="text-weight: bold"
           depressed
           @click.stop="dialog = true"
         >
           <span style="opacity: 40%">탈퇴하기</span>
         </v-btn>
-
         <v-dialog v-model="dialog" max-width="290">
           <v-card>
             <v-card-title class="text-h5"> 회원 탈퇴 </v-card-title>
@@ -108,8 +115,11 @@
               >
                 <span style="font-weight: bold">취소</span>
               </v-btn>
-
-              <v-btn class="primary" text @click="dialog = false">
+              <v-btn
+                class="primary"
+                text
+                @click="(dialog = false), deleteUserAccount()"
+              >
                 <span style="font-weight: bold" class="white--text">탈퇴</span>
               </v-btn>
             </v-card-actions>
@@ -135,7 +145,7 @@ export default {
     return {
       userInfo: {
         userId: 1,
-        gugunId: 1,
+        // gugunId: 1,
         nickname: "test",
       },
       sido: "서울특별시",
@@ -143,6 +153,8 @@ export default {
       sidoList: ["서울특별시"],
       disabled: true,
       dialog: false,
+      snackbar: false,
+      timeout: 1500,
       // gugunList: [{ name: "기본", value: 0 }],
     };
   },
@@ -157,26 +169,28 @@ export default {
     clickUpdate() {
       console.log("수정 버튼 클릭");
       this.disabled = false;
+      this.snackbar = false;
     },
     async getUser() {
       this.userInfo.userId = this.$cookies.get("userId");
       await api.getUserInfo(this.userInfo.userId).then((res) => {
         this.userInfo.userId = res.result.userId;
         this.userInfo.nickname = res.result.nickname;
-        this.userInfo.gugunId = res.result.gugunId;
+        this.gugun = res.result.gugunId;
         console.log(res);
       });
       // console.log(this.userInfo);
     },
     async updateProfile() {
       console.log("저장 버튼 클릭");
+      console.log("userInfo req = " + this.userInfo);
       await api
-        .updateProfile(
-          this.userInfo.userId,
-          this.userInfo.nickname,
-          this.userInfo.gugunId
-        )
-        .then((res) => console.log(res));
+        .updateProfile(this.userInfo.userId, this.userInfo.nickname, this.gugun)
+        .then((res) => {
+          console.log(res);
+          this.disabled = true;
+          this.snackbar = true;
+        });
     },
     selectGugun() {
       console.log(this.gugun);
@@ -184,12 +198,41 @@ export default {
     selectSido() {
       console.log(this.sido);
     },
+    async deleteUserAccount() {
+      console.log("탈퇴 버튼 클릭!!!");
+      await api.deleteUser(this.userInfo.userId).then((res) => {
+        console.log("탈퇴 res = " + res);
+        this.logout();
+        this.$router.replace("/").catch(() => {});
+      });
+    },
+    logout() {
+      window.Kakao.API.request({
+        url: "/v1/user/unlink",
+      });
+      this.deleteCookie();
+      this.$router.replace("/").catch(() => {});
+      console.log("로그아웃!");
+    },
+    deleteCookie() {
+      this.$cookies.remove("userId");
+      this.$cookies.remove("nickname");
+    },
+    getUserIdByCookie() {
+      let userId = this.$cookies.get("userId");
+      if (userId) {
+        this.userInfo.userId = parseInt(userId);
+      } else {
+        this.$router.replace("/");
+      }
+    },
   },
   async mounted() {
     await this.getUser();
-    this.gugun = this.userInfo.gugunId;
   },
-  created() {},
+  created() {
+    this.getUserIdByCookie();
+  },
 };
 </script>
 
