@@ -1,7 +1,13 @@
 <template>
   <div>
     <div id="content">
-      <atoms-search-box v-on:change="changeKeyword" :searchword="searchword" />
+      <div class="searchBarBackground">
+        <atoms-search-box
+          v-on:change="changeKeyword"
+          :searchword="searchword"
+          class="searchBox"
+        />
+      </div>
       <menu-tab class="mx-auto" style="max-width: 420px" :tabs="tabs" />
       <selected-tag-list />
       <ingredient-card-list :keyWord="keyWord" />

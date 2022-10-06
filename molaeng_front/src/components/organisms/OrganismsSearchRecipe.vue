@@ -1,11 +1,14 @@
 <template lang="">
   <div class="mx-auto" style="max-width: 420px">
-    <atoms-search-box
-      v-on:change="changeKeyword"
-      :searchword="searchword"
-      v-on:submit="moveToList"
-    >
-    </atoms-search-box>
+    <div class="searchBarBackground">
+      <atoms-search-box
+        v-on:change="changeKeyword"
+        :searchword="searchword"
+        v-on:submit="moveToList"
+        class="searchBox"
+      >
+      </atoms-search-box>
+    </div>
     <menu-tab :tabs="tabs"></menu-tab>
     <v-card
       flat

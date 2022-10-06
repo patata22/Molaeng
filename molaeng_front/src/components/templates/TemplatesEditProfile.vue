@@ -42,6 +42,7 @@
             rounded
             dense
             :disabled="validated ? '' : disabled"
+            class="mb-3"
           ></v-select>
           <v-select
             placeholder="구/군"

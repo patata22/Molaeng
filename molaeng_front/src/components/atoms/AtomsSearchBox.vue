@@ -1,5 +1,5 @@
 <template>
-  <div id="searchTextField" class="mt-5">
+  <div id="searchTextField">
     <v-text-field
       :placeholder="searchword"
       v-model="keyword"
@@ -9,7 +9,9 @@
       rounded
       @input="sendKeyword"
       v-on:keyup.enter="submit"
-    ></v-text-field>
+      append-icon="mdi-magnify"
+    >
+    </v-text-field>
   </div>
 </template>
 
@@ -43,6 +45,16 @@ export default {
 #searchTextField .v-input__slot {
   box-shadow: 0px 5px 10px rgb(91 87 75 / 20%);
   max-width: 300px;
-  margin: auto;
+  background-color: white;
+  display: flex;
+}
+.v-messages {
+  min-height: 0px;
+}
+.v-text-field.v-text-field--enclosed .v-text-field__details {
+  margin-bottom: 0px;
+}
+.v-text-field__details {
+  min-height: 0px;
 }
 </style>
