@@ -10,9 +10,12 @@ public class LoginResDTO {
     long userId;
     String nickname;
 
+    boolean isMember;
+
     @Builder
-    public LoginResDTO(long userId, String nickname) {
+    public LoginResDTO(long userId, String nickname, boolean isMember) {
         this.userId = userId;
         this.nickname = nickname;
+        this.isMember = isMember;
     }
 }

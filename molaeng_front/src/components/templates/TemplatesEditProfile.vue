@@ -20,9 +20,8 @@
             color="carrot"
             rounded
             dense
-            v-model="userProfile.nickname"
-            :error-messages="nicknameDuplicated"
-            :disabled="validated ? '' : disabled"
+            v-model="userInfo.nickname"
+            :disabled="disabled"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -36,21 +35,26 @@
           </div>
           <v-select
             placeholder="시/도"
-            :items="sido"
+            :items="sidoList"
             outlined
+            v-model="sido"
             color="carrot"
             rounded
             dense
-            :disabled="validated ? '' : disabled"
+            :disabled="disabled"
           ></v-select>
           <v-select
             placeholder="구/군"
-            :items="gugun"
+            :items="getGugunList"
+            item-text="name"
+            item-value="value"
+            v-model="gugun"
             outlined
             color="carrot"
             rounded
             dense
-            :disabled="validated ? '' : disabled"
+            v-on:change="selectGugun"
+            :disabled="disabled"
           ></v-select>
         </v-col>
       </v-row>
@@ -117,81 +121,75 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters } from "vuex";
-// import API from "@/api/APIs";
+// import axios from "axios";
+import { mapGetters } from "vuex";
 // import { ContextExclusionPlugin } from "webpack";
 
-// const api = API;
-import axios from "axios";
+import API from "@/api/APIs";
+const api = API;
 
 export default {
   name: "EditProfile",
 
   data() {
     return {
-      userProfile: {
+      userInfo: {
         userId: 1,
         gugunId: 1,
         nickname: "test",
       },
+      sido: "서울특별시",
+      gugun: 0,
+      sidoList: ["서울특별시"],
       disabled: true,
       dialog: false,
-      gugunList: {},
+      // gugunList: [{ name: "기본", value: 0 }],
     };
   },
   computed: {
-    ...mapGetters(["getSido", "getGugunList"]),
+    ...mapGetters(["getGugunList"]),
   },
 
   // computed: { ...mapGetters(["userId", "nickname", "myRegion", "gugun"]) },
   methods: {
-    ...mapMutations(["SET_GUGUN"]),
+    // ...mapMutations(["SET_GUGUN"]),
     // ...mapActions(["getUserInfo"]),
-    clickUpdate: function () {
+    clickUpdate() {
       console.log("수정 버튼 클릭");
       this.disabled = false;
     },
-    saveUserInfo: function () {
-      console.log("회원 정보 수정");
-      this.disabled = true;
+    async getUser() {
+      this.userInfo.userId = this.$cookies.get("userId");
+      await api.getUserInfo(this.userInfo.userId).then((res) => {
+        this.userInfo.userId = res.result.userId;
+        this.userInfo.nickname = res.result.nickname;
+        this.userInfo.gugunId = res.result.gugunId;
+        console.log(res);
+      });
+      // console.log(this.userInfo);
     },
-    getProfile() {
-      axios
-        .post("https://j7a604.p.ssafy.io/molaeng/user", {
-          userId: Number(this.userInfo.userId),
-        })
-        .then((res) => {
-          this.userProfile.nickname = res.data.result.nickname;
-          console.log("닉네임 불러옴vv");
-        })
-        .catch((error) => console.log(error));
+    async updateProfile() {
+      console.log("저장 버튼 클릭");
+      await api
+        .updateProfile(
+          this.userInfo.userId,
+          this.userInfo.nickname,
+          this.userInfo.gugunId
+        )
+        .then((res) => console.log(res));
     },
-    updateProfile() {
-      axios
-        .put("https://j7a604.p.ssafy.io/molaeng/user", {
-          gugunId: this.userProfile.gugunId,
-          nickname: this.userProfile.nickname,
-          userId: this.userProfile.nickname,
-        })
-        .then((res) => {
-          console.log(res.data);
-        })
-        .catch((error) => console.log(error));
+    selectGugun() {
+      console.log(this.gugun);
     },
-    getGugunList() {
-      this.SET_GUGUN;
-      this.getGugunList();
-      this.getSido();
+    selectSido() {
+      console.log(this.sido);
     },
   },
-  mounted() {
-    this.getProfile();
-    console.log("mounted 시작");
+  async mounted() {
+    await this.getUser();
+    this.gugun = this.userInfo.gugunId;
   },
-  created() {
-    this.getGugunList();
-    console.log("created 시작");
-  },
+  created() {},
 };
 </script>
 
