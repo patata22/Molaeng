@@ -107,12 +107,12 @@ export default {
   background-color: rgb(91 87 75 / 20%);
 }
 .mainLogo {
-  width: 100%;
+  width: 90%;
 }
 .mainIcon {
   width: 100%;
   height: 100%;
-  margin: 10% 0px;
+  margin: 6% 0px;
 }
 h4 {
   color: #5b574b;
