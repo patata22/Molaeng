@@ -3,7 +3,11 @@
     <div class="mainPageContent mx-auto" style="max-width: 420px">
       <On-Boarding></On-Boarding>
       <Main-Menu :isLogined="isLogined"></Main-Menu>
-      <Kakao-Login v-on:kakaoLogin="kakaoLogin" v-if="!isLogined"></Kakao-Login>
+      <Kakao-Login
+        class="mainLoginBtn"
+        v-on:kakaoLogin="kakaoLogin"
+        v-if="!isLogined"
+      ></Kakao-Login>
     </div>
   </div>
 </template>
@@ -56,5 +60,8 @@ export default {
 }
 .mainPageContent {
   width: 100%;
+}
+.mainLoginBtn {
+  margin-top: 4%;
 }
 </style>

@@ -23,6 +23,12 @@ export default {
       {
         src: require("../../assets/help4.png"),
       },
+      {
+        src: require("../../assets/help5.png"),
+      },
+      {
+        src: require("../../assets/help6.png"),
+      },
     ],
   }),
 };
@@ -32,8 +38,7 @@ export default {
   display: flex;
   max-width: 90%;
   margin: auto;
-  margin-top: 1%;
-  margin-bottom: 4%;
+  margin-bottom: 2%;
   border-radius: 24px;
   padding: 16px;
   background-color: white;
