@@ -29,18 +29,12 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public RecipeRes readRecipeById(long userId, long recipeId) {
-        System.out.println("readRecipeById로 들어옴");
-
         //recipeId로 해당 레시피 정보 가져오기
         Recipe recipe = recipeRepository.findByRecipeId(recipeId);
-
-        System.out.println("가져온 레시피 : " + recipe.toString());
 
         //recipeId와 userId로 RecipeLike 테이블에서 해당 데이터 찾기
         //0이면 없다는 거니까 false, 1이면 있다는 거니까 true
         boolean isLiked = recipeLikeRepository.countByUserUserIdAndRecipeRecipeId(userId, recipeId) == 0 ? false : true;
-
-        System.out.println("isLiked : " + isLiked);
 
         RecipeRes recipeRes = RecipeRes.builder()
                 .recipeId(recipeId)

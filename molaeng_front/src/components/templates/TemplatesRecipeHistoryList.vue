@@ -30,7 +30,10 @@ export default {
     this.recentRecipeList = JSON.parse(localStorage.recentRecipe);
   },
   async mounted() {
-    this.recipeList = await api.recentRecipe(this.recentRecipeList);
+    this.recipeList = await api.recentRecipe(
+      this.recentRecipeList,
+      this.$cookies.get("userId")
+    );
     console.log(this.recipeList);
   },
 };

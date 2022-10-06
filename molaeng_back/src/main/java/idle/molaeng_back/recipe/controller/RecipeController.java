@@ -103,11 +103,8 @@ public class RecipeController {
     }
 
     @GetMapping("/history")
-    public ResponseEntity getRecipeHistory(@RequestParam List<Long> recipeIdList){
-        long userId=1;
-        for(long recipeId : recipeIdList){
-            System.out.println("recipeId="+recipeId);
-        }
+    public ResponseEntity getRecipeHistory(@RequestParam List<Long> recipeIdList, @RequestHeader Map<String, Object> header){
+        long userId=Long.parseLong((String)header.get("userid"));
         Map<String, Object> resultMap = new HashMap<>();
         try{
             resultMap.put("result",recipeService.getRecipeList(recipeIdList,userId));
