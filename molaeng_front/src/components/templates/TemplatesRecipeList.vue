@@ -157,11 +157,15 @@ export default {
       var temp = this;
       console.log(temp.ingredientList);
       axios
-        .post("https://j7a604.p.ssafy.io/molaeng/search/ingredient", {
-          ingredientList: temp.ingredientList,
-          page: temp.page,
-          size: temp.size,
-        })
+        .post(
+          "https://j7a604.p.ssafy.io/molaeng/search/ingredient",
+          {
+            ingredientList: temp.ingredientList,
+            page: temp.page,
+            size: temp.size,
+          },
+          { withCredentials: true }
+        )
         .then((response) => {
           response.data.result.recipeList.forEach((e) => {
             temp.recipeList.push(e);
@@ -184,7 +188,11 @@ export default {
         temp.size +
         "&sort=recipeKcal";
       axios
-        .post(url, { ingredientList: temp.ingredientList })
+        .post(
+          url,
+          { ingredientList: temp.ingredientList },
+          { withCredentials: true }
+        )
         .then((response) => {
           response.data.result.recipeList.forEach((e) => {
             temp.recipeList.push(e);
@@ -207,7 +215,8 @@ export default {
             "&size=5",
           {
             ingredientList: temp.ingredientList,
-          }
+          },
+          { withCredentials: true }
         )
         .then((response) => {
           response.data.result.recipeList.forEach((e) => {
@@ -231,7 +240,8 @@ export default {
             "&size=5",
           {
             ingredientList: temp.ingredientList,
-          }
+          },
+          { withCredentials: true }
         )
         .then((response) => {
           response.data.result.recipeList.forEach((e) => {
