@@ -18,6 +18,7 @@ export default {
     InterestRecipeHeader,
   },
   data: () => ({
+    userId: 0,
     buttonText: "관심 레시피",
     tabs: [
       {
@@ -30,5 +31,18 @@ export default {
       },
     ],
   }),
+  created() {
+    this.getUserIdByCookie();
+  },
+  methods: {
+    getUserIdByCookie() {
+      let userId = this.$cookies.get("userId");
+      if (userId) {
+        this.userId = parseInt(userId);
+      } else {
+        this.$router.push("/");
+      }
+    },
+  },
 };
 </script>

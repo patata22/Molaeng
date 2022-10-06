@@ -1,90 +1,48 @@
-// import axios from "axios";
 import Vue from "vue";
 import Vuex from "vuex";
 
 Vue.use(Vuex);
 
-// function getGugunList() {
-//   const gugun = {
-//     1: "강남구",
-//     2: "강동구",
-//     3: "강북구",
-//     4: "강서구",
-//     5: "관악구",
-//     6: "광진구",
-//     7: "구로구",
-//     8: "금천구",
-//     9: "노원구",
-//     10: "도봉구",
-//     11: "동대문구",
-//     12: "동작구",
-//     13: "마포구",
-//     14: "서대문구",
-//     15: "서초구",
-//     16: "성동구",
-//     17: "성북구",
-//     18: "송파구",
-//     19: "양천구",
-//     20: "영등포구",
-//     21: "용산구",
-//     22: "은평구",
-//     23: "종로구",
-//     24: "중구",
-//     25: "중랑구",
-//   };
-//   return gugun;
-// }
-
 export const user = {
   state: {
-    userInfo: {
-      userId: 0,
-      uuid: 0,
-      profile_image_url: "",
-      nickname: "",
-      accessToken: "",
-      refreshToken: "",
-    },
-    isLogined: false,
-    Sido: "서울특별시",
-    gugun: {},
+    userInfo: {},
+    gugunList: [
+      { name: "강남구", value: 1 },
+      { name: "강동구", value: 2 },
+      { name: "강북구", value: 3 },
+      { name: "강서구", value: 4 },
+      { name: "관악구", value: 5 },
+      { name: "광진구", value: 6 },
+      { name: "구로구", value: 7 },
+      { name: "금천구", value: 8 },
+      { name: "노원구", value: 9 },
+      { name: "도봉구", value: 10 },
+      { name: "동대문구", value: 11 },
+      { name: "동작구", value: 12 },
+      { name: "마포구", value: 13 },
+      { name: "서대문구", value: 14 },
+      { name: "서초구", value: 15 },
+      { name: "성동구", value: 16 },
+      { name: "성북구", value: 17 },
+      { name: "송파구", value: 18 },
+      { name: "양천구", value: 19 },
+      { name: "영등포구", value: 20 },
+      { name: "용산구", value: 21 },
+      { name: "은평구", value: 22 },
+      { name: "종로구", value: 23 },
+      { name: "중구", value: 24 },
+      { name: "중랑구", value: 25 },
+    ],
   }, //원본 소스. vue에서 data로 불러올 수 있음
   getters: {
     getSido: (state) => {
       return state.Sido;
     },
     getGugunList: (state) => {
-      return state.gugun;
+      return state.gugunList;
     },
   }, // state를 접근할 땐 getter를 사용해야.
-  mutations: {
-    SET_USERINFO: (state, data) => {
-      state.userInfo = {
-        userId: data.userId,
-        profile_image_url: data.profile.profile_image_url,
-        nickname: data.profile.nickname,
-        accessToken: data.profile,
-        refreshToken: data.profile,
-      };
-    },
-    CHANGE_IS_LOGINED: (state) => {
-      state.isLogined = !state.isLogined;
-    },
-  }, // setter. state를 변경할 땐 mutations를 사용해야. 무조건 동기
-  actions: {
-    getUserInfo: (state, codes) => {
-      getUser(
-        codes,
-        ({ data }) => {
-          state.commit("SET_USERINFO", data);
-          state.commit("CHANGE_IS_LOGINED");
-          router.push({ name: "main" });
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    },
-  }, // 비동기
+  mutations: {}, // setter. state를 변경할 땐 mutations를 사용해야. 무조건 동기
+  actions: {}, // 비동기
   modules: {},
 };

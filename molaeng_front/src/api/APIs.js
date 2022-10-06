@@ -208,13 +208,12 @@ const API = {
     return response.data.result;
   },
   async getUserInfo(userId) {
-    console.log("header: " + userId);
     const response = await this.instance.get("/user", {
       headers: {
         userId: userId,
       },
     });
-    return response;
+    return response.data;
   },
   async Login(uuid, nickname) {
     const response = await this.instance.post("/user/login", {
@@ -222,6 +221,30 @@ const API = {
       nickname: nickname,
     });
     return response.data;
+  },
+  async updateProfile(userId, nickname, gugunId) {
+    // console.log("user : " + userInfo);
+    const response = await this.instance.put(
+      "user",
+      {
+        nickname: nickname,
+        gugunId: gugunId,
+      },
+      {
+        headers: {
+          userId: userId,
+        },
+      }
+    );
+    return response.data;
+  },
+  async deleteUser(userId) {
+    const response = await this.instance.delete("/user", {
+      headers: {
+        userId: userId,
+      },
+    });
+    return response;
   },
 };
 

@@ -8,13 +8,15 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserProfileResponse {
+    private long userId;
     private String nickname;
-    private String myRegion;
+    private long gugunId;
 
     @Builder
-    public UserProfileResponse (String nickname, String myRegion){
+    public UserProfileResponse (long userId, String nickname, long gugunId){
+        this.userId = userId;
         this.nickname = nickname;
-        this.myRegion = myRegion;
+        this.gugunId = gugunId;
     }
 
 }

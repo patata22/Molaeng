@@ -54,15 +54,15 @@ export default {
   },
   methods: {
     goSearch() {
-      this.$router.push("/search").catch(() => {});
+      this.$router.replace("/search").catch(() => {});
     },
     goMain() {
-      this.$router.push("/").catch(() => {});
+      this.$router.replace("/").catch(() => {});
     },
     goMenu() {
       this.checkLogin();
-      if (this.isLogined) this.$router.push("/menu/member").catch(() => {});
-      else this.$router.push("/menu/user").catch(() => {});
+      if (this.isLogined) this.$router.replace("/menu/member").catch(() => {});
+      else this.$router.replace("/menu/user").catch(() => {});
     },
     checkLogin() {
       if (this.$cookies.get("userId") > 0) this.isLogined = true;

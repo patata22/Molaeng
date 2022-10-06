@@ -31,8 +31,11 @@ public class UserServiceImpl implements UserService{
     @Override
     public UserProfileResponse getUserProfile(long userId) {
         User user = userRepository.findByUserId(userId);
-        log.info("사용자" + user);
-        UserProfileResponse result = new UserProfileResponse(user.getNickname(), user.getGugun().getGugunName());
+        UserProfileResponse result = UserProfileResponse.builder()
+                .userId(user.getUserId())
+                .nickname(user.getNickname())
+                .gugunId(user.getGugun().getGugunId())
+                .build();
         return result;
     }
 
