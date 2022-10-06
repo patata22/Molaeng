@@ -10,13 +10,13 @@ import lombok.NoArgsConstructor;
 public class UserProfileResponse {
     private long userId;
     private String nickname;
-    private long myRegionId;
+    private long gugunId;
 
     @Builder
-    public UserProfileResponse (long userId, String nickname, long myRegionId){
+    public UserProfileResponse (long userId, String nickname, long gugunId){
         this.userId = userId;
         this.nickname = nickname;
-        this.myRegionId = myRegionId;
+        this.gugunId = gugunId;
     }
 
 }

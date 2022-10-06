@@ -24,8 +24,9 @@ public class UserController {
 
     @ApiOperation(value = "회원 탈퇴", notes = "사용자가 작성한 리뷰, 좋아요와 같은 정보를 더미 사용자에게 넘기고, 해당 계정의 정보를 삭제한다.")
     @DeleteMapping
-    public ResponseEntity deleteAccount(@RequestParam long userId) {
+    public ResponseEntity deleteAccount( @RequestHeader Map<String,Object> header) {
         HashMap<String, Object> result = new HashMap<>();
+        long userId = Long.parseLong((String)header.get("userid"));
         try {
             userService.deleteUserAccount(userId);
             result.put("result", userId);
@@ -60,8 +61,7 @@ public class UserController {
     @ApiOperation(value = "마이페이지 사용자 정보 수정", notes = "사용자의 닉네임, 거주지역 정보를 수정한다.")
     @PutMapping
     public ResponseEntity updateProfile(@RequestHeader Map<String,Object> header, @RequestBody UserProfileRequest userProfileRequest) {
-        log.info("header" + header);
-        log.info("req" + userProfileRequest.getNickname() + "   ///   " + userProfileRequest.getGugunId());
+
         HashMap<String, Object> result = new HashMap<>();
         long userId = Long.parseLong((String)header.get("userid"));
         UserProfileRequest request = UserProfileRequest.builder()
@@ -69,6 +69,9 @@ public class UserController {
                 .nickname(userProfileRequest.getNickname())
                 .gugunId(userProfileRequest.getGugunId())
                 .build();
+
+        log.info("userId = " + request.getUserId());
+        log.info("req = " + request.getNickname() + "   ///   " + request.getGugunId());
 
         try {
             userService.updateUserProfile(request);

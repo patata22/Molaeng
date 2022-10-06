@@ -57,7 +57,6 @@ dependencies {
 //	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
 //	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.2'
 //	implementation 'com.google.code.gson:gson:2.8.7'
-//
 //	// Security 오류 해결 용도
 //	implementation 'org.glassfish.jaxb:jaxb-runtime:4.0.0'
 //	implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'

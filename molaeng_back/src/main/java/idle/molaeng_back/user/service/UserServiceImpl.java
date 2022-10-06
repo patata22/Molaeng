@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService{
         UserProfileResponse result = UserProfileResponse.builder()
                 .userId(user.getUserId())
                 .nickname(user.getNickname())
-                .myRegionId(user.getGugun().getGugunId())
+                .gugunId(user.getGugun().getGugunId())
                 .build();
         return result;
     }
