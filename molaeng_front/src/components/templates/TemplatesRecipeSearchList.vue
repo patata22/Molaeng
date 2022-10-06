@@ -46,6 +46,7 @@ export default {
       size: 5,
       hasNext: true,
       recipeList: [],
+      userIdtmp: this.$cookies.get("userId"),
     };
   },
   components: {
@@ -53,15 +54,17 @@ export default {
     InfiniteLoading,
   },
   methods: {
-    // userId 수정!
     getRecipeByName($state) {
       var temp = this;
       var keyWord = window.location.pathname.split("/")[2];
+      var userId = temp.userIdtmp > 0 ? temp.userIdtmp : 0;
       if (keyWord == "") {
         axios
           .get(
-            "https://j7a604.p.ssafy.io/molaeng/search/name?size=5&userId=1&page=" +
-              this.page
+            "https://j7a604.p.ssafy.io/molaeng/search/name?size=5&page=" +
+              this.page +
+              "&userId=" +
+              userId
           )
           .then((response) => {
             response.data.result.recipeList.forEach((e) => {
@@ -79,8 +82,10 @@ export default {
           .get(
             "https://j7a604.p.ssafy.io/molaeng/search/name/" +
               keyWord +
-              "?size=5&userId=1&page=" +
-              this.page
+              "?size=5&page=" +
+              this.page +
+              "&userId=" +
+              userId
           )
           .then((response) => {
             response.data.result.recipeList.forEach((e) => {

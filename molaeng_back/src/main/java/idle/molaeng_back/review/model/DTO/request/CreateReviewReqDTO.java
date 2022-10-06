@@ -7,12 +7,10 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class CreateReviewReqDTO {
-    Long userId;
     int score;
     String reviewContent;
     @Builder
-    public CreateReviewReqDTO(Long userId, int score, String reviewContent) {
-        this.userId = userId;
+    public CreateReviewReqDTO(int score, String reviewContent) {
         this.score = score;
         this.reviewContent = reviewContent;
     }
