@@ -12,7 +12,8 @@ import java.util.List;
 
 public interface ReviewService {
 
-    long createReview(Long recipeId, CreateReviewReqDTO createReviewDTO);
+    long createReview(Long recipeId, long userId, CreateReviewReqDTO createReviewDTO);
+    void deleteReviewById(long reviewId);
     Review readReviewById(long reviewId);
     ReviewResDTO readReviewByUserId(long userId, Pageable pageable);
 
@@ -21,7 +22,7 @@ public interface ReviewService {
     ReviewResDTO readReviewByRecipeId(long userId, long recipeId, Pageable pageable);
     ScoreResDTO findScoreByRecipeId(long recipeId);
     int countReviewByRecipeId(long recipeId);
-    void deleteReviewById(long reviewId);
 
-    ReviewResDTO readReviewByLikeCount(long recipeId, Pageable pageable);
+
+    ReviewResDTO readReviewByLikeCount(long recipeId, long userId, Pageable pageable);
 }

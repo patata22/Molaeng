@@ -44,7 +44,7 @@ public class ReviewLikeServiceImpl implements ReviewLikeService{
     public Map<String, Long> dislike(long userId, long reviewId) {
 
         //존재하는 좋아요인지에 대한 밸리데이션 추가 해야하나?
-        ReviewLike reviewLike = reviewLikeRepository.findOneByUserUserIdAndReviewReviewId(userId, reviewId);
+        ReviewLike reviewLike = reviewLikeRepository.findAllByUserUserIdAndReviewReviewId(userId, reviewId);
         long reviewLikeId = reviewLike.getReviewLikeId();
         reviewLikeRepository.deleteByUserUserIdAndReviewReviewId(userId, reviewId);
         Map<String, Long> result = new HashMap<>();

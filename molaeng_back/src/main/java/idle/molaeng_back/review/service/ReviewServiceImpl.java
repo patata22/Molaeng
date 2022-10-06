@@ -38,9 +38,9 @@ public class ReviewServiceImpl implements ReviewService{
 
     @Override
     @Transactional
-    public long createReview(Long recipeId, CreateReviewReqDTO createReviewDTO) {
+    public long createReview(Long recipeId, long userId,CreateReviewReqDTO createReviewDTO) {
         int score = createReviewDTO.getScore();
-        User user = userRepository.findByUserId(createReviewDTO.getUserId());
+        User user = userRepository.findByUserId(userId);
         Recipe tempRecipe = Recipe.builder().recipeId(1).build();
         Recipe recipe = recipeRepository.findByRecipeId(recipeId);
         switch(score){
@@ -135,7 +135,7 @@ public class ReviewServiceImpl implements ReviewService{
     }
     //userId 더미 수정할것!
     @Override
-    public ReviewResDTO readReviewByLikeCount(long recipeId, Pageable pageable) {
+    public ReviewResDTO readReviewByLikeCount(long recipeId, long userId, Pageable pageable) {
         List<Review> tempList = reviewRepository.findAllByRecipeRecipeId(recipeId);
         long start = pageable.getOffset();
         long end= Math.min(start+pageable.getPageSize(), tempList.size());
@@ -144,7 +144,7 @@ public class ReviewServiceImpl implements ReviewService{
         List<Review> subList = tempList.subList((int) start, (int) end);
         //여기 더미값!!
         List<ReadReviewResDTO> dtoList = subList.stream()
-                .map(x -> reviewToReadReviewDTO(1, x))
+                .map(x -> reviewToReadReviewDTO(userId, x))
                 .collect(Collectors.toList());
         return new ReviewResDTO(pageable.getPageNumber(), hasNext, dtoList);
     }
@@ -157,17 +157,17 @@ public class ReviewServiceImpl implements ReviewService{
     //따로 추출한 메서드
     private ReadReviewResDTO reviewToReadReviewDTO(long userId, Review review) {
         long reviewId = review.getReviewId();
-        boolean isLiked= reviewLikeRepository.countByUserUserIdAndReviewReviewId(userId, reviewId)==0?false:true;
+        boolean isLiked= (reviewLikeRepository.countByUserUserIdAndReviewReviewId(userId, reviewId)==0?false:true);
         ReadReviewResDTO dto = ReadReviewResDTO.builder()
                 .reviewId(reviewId)
                 .reviewScore(review.getScore())
-                .userNickname(userRepository.findByUserId(userId).getNickname())
+                .userNickname(review.getUser().getNickname())
                 .reviewDate(review.getReviewDate())
                 .reviewContent(review.getReviewContent())
                 .likeCnt(reviewLikeRepository.countByReviewReviewId(reviewId))
                 .isLiked(isLiked)
+                .userId(review.getUser().getUserId())
                 .build();
         return dto;
     }
-
 }

@@ -2,7 +2,6 @@ package idle.molaeng_back.review.controller;
 
 import idle.molaeng_back.review.model.DTO.request.*;
 import idle.molaeng_back.review.model.DTO.response.LikeReviewResDTO;
-import idle.molaeng_back.review.model.DTO.response.ReadReviewResDTO;
 import idle.molaeng_back.review.model.DTO.response.ReviewResDTO;
 import idle.molaeng_back.review.model.DTO.response.ScoreResDTO;
 import idle.molaeng_back.review.service.ReviewLikeService;
@@ -12,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +25,7 @@ public class ReviewController {
     private final ReviewService reviewService;
 
     @GetMapping
-    public ResponseEntity readMyReview(@RequestParam long userId, Pageable pageable){
+    public ResponseEntity readMyReview(@CookieValue(name="userId") Long userId, Pageable pageable){
         Map<String, Object> resultMap = new HashMap<>();
         try{
             ReviewResDTO result = reviewService.readReviewByUserId(userId, pageable);
@@ -39,14 +39,16 @@ public class ReviewController {
     }
 
     @GetMapping("/{recipeId}")
-    public ResponseEntity readReview(@PathVariable long recipeId,@RequestParam long userId, Pageable pageable) {
+    public ResponseEntity readReview(@PathVariable long recipeId, Pageable pageable, @CookieValue(name="userId", required = false) Long userId){
         Map<String, Object> resultMap = new HashMap<>();
-        try{
+        if(userId==null) userId=0L;
+        try {
             ReviewResDTO result = reviewService.readReviewByRecipeId(userId, recipeId, pageable);
             resultMap.put("message", "success");
             resultMap.put("result", result);
             return new ResponseEntity(resultMap, HttpStatus.OK);
-        }catch(Exception e){
+        }
+        catch(Exception e){
             resultMap.put("message", "레시피 리뷰조회에서 에러났다아아");
             e.printStackTrace();
 //            resultMap.put("error", e.getStackTrace());
@@ -76,16 +78,15 @@ public class ReviewController {
             return new ResponseEntity(resultMap, HttpStatus.OK);
         }catch (Exception e){
             resultMap.put("message", "점수조회에서 에러ㅓㅓㅓㅓㅓㅓㅓㅓ");
-            e.printStackTrace();
             return new ResponseEntity(resultMap, HttpStatus.BAD_REQUEST);
         }
     }
 
     @PostMapping("/{recipeId}")
-    public ResponseEntity createReview(@PathVariable long recipeId, @RequestBody CreateReviewReqDTO createReviewDTO){
+    public ResponseEntity createReview(@PathVariable long recipeId, @CookieValue(name="userId", required = false) Long userId, @RequestBody CreateReviewReqDTO createReviewDTO){
         Map<String, Object> resultMap = new HashMap<>();
         try{
-            long result = reviewService.createReview(recipeId, createReviewDTO);
+            long result = reviewService.createReview(recipeId, userId, createReviewDTO);
             resultMap.put("message", "success");
             resultMap.put("reviewId", result);
             return new ResponseEntity(resultMap, HttpStatus.OK);
@@ -112,8 +113,8 @@ public class ReviewController {
 
     @PostMapping("/like")
     public ResponseEntity likeReview(@RequestBody LikeReviewReqDTO likeReviewDTO){
-        long userId = likeReviewDTO.getUserId();
         long reviewId = likeReviewDTO.getReviewId();
+        long userId = likeReviewDTO.getUserId();
         Map<String, Object> resultMap = new HashMap<>();
         try{
             LikeReviewResDTO result = reviewLikeService.like(userId, reviewId);
@@ -138,15 +139,17 @@ public class ReviewController {
             return new ResponseEntity(resultMap, HttpStatus.OK);
         }catch(Exception e){
             resultMap.put("message", "리뷰 좋아요 취소에서 에러남");
+            e.printStackTrace();
             return new ResponseEntity(resultMap, HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/like/{recipeId}")
-    public ResponseEntity readReviewByLikeCount(@PathVariable long recipeId,@RequestParam long userId, Pageable pageable){
+    public ResponseEntity readReviewByLikeCount(@PathVariable long recipeId,@CookieValue(name="userId", required = false) Long userId, Pageable pageable){
+        if(userId==null) userId=0L;
         Map<String, Object> resultMap = new HashMap<>();
         try{
-            ReviewResDTO result = reviewService.readReviewByLikeCount(recipeId, pageable);
+            ReviewResDTO result = reviewService.readReviewByLikeCount(recipeId, userId, pageable);
             resultMap.put("result", result);
             resultMap.put("message", "success");
             return new ResponseEntity(resultMap, HttpStatus.OK);

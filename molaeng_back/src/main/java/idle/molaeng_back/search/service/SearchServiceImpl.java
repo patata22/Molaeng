@@ -286,7 +286,7 @@ public class SearchServiceImpl implements SearchService {
         for (RecipeIngredient recipeIngredient : recipeIngredientList) {
             Ingredient ingredient = recipeIngredient.getIngredient();
             if(!ingredientIdList.contains(ingredient.getIngredientId())){
-                cost += ingredient.getIngredientPrice() * recipeIngredient.getNeedWeight();
+                cost += ingredient.getIngredientPrice() * recipeIngredient.getNeedWeight() * recipeIngredient.getIngredient().getIngredientWeight();
             }
         }
         return cost;
