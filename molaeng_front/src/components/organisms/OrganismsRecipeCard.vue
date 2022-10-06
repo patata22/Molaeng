@@ -67,11 +67,21 @@
         </span>
       </v-col>
     </v-row>
+    <v-snackbar
+      color="carrot"
+      rounded="pill"
+      text
+      centered
+      v-model="snackbar"
+      timeout="1500"
+    >
+      로그인이 필요한 기능입니다!
+    </v-snackbar>
   </v-card>
 </template>
 <script>
-import axios from "axios";
 import { mapState } from "vuex";
+import API from "@/api/APIs";
 export default {
   name: "OrganismsRecipeCard",
   computed: {
@@ -88,7 +98,9 @@ export default {
   },
   props: { recipe: Object },
   data: function () {
-    return {};
+    return {
+      snackbar: false,
+    };
   },
   methods: {
     haveIngredient(i) {
@@ -97,26 +109,21 @@ export default {
     },
     likeRecipe() {
       var temp = this;
-      axios
-        .post("https://j7a604.p.ssafy.io/molaeng/recipe/like", {
-          userId: 1,
-          recipeId: temp.recipe.recipeId,
-        })
-        .then((response) => {
-          console.log(response.data.result.recipeLikeId);
-          temp.recipe.isLiked = 1;
-        })
-        .catch((error) => console.log(error));
+      if (!temp.$cookies.get("userId")) {
+        temp.snackbar = true;
+      } else {
+        API.registRecipeLike(temp.recipe.recipeId, temp.$cookies.get("userId"))
+          .then((response) => {
+            console.log(response);
+            temp.recipe.isLiked = 1;
+          })
+          .catch((error) => console.log(error));
+      }
     },
     dislikeRecipe() {
       var temp = this;
-      axios
-        .delete("https://j7a604.p.ssafy.io/molaeng/recipe/like", {
-          data: {
-            userId: 1,
-            recipeId: temp.recipe.recipeId,
-          },
-        })
+      console.log(temp.$cookies.get("userId"));
+      API.deleteRecipeLike(temp.recipe.recipeId, temp.$cookies.get("userId"))
         .then((response) => {
           console.log(response);
           temp.recipe.isLiked = 0;

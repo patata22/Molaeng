@@ -182,7 +182,7 @@ export default {
         temp.page +
         "&size=" +
         temp.size +
-        "&sort=recipeKcal&userId=1";
+        "&sort=recipeKcal";
       axios
         .post(url, { ingredientList: temp.ingredientList })
         .then((response) => {
@@ -202,7 +202,7 @@ export default {
       var temp = this;
       axios
         .post(
-          "https://j7a604.p.ssafy.io/molaeng/search/score?userId=1&page=" +
+          "https://j7a604.p.ssafy.io/molaeng/search/score?page=" +
             temp.page +
             "&size=5",
           {
@@ -226,7 +226,7 @@ export default {
       var temp = this;
       axios
         .post(
-          "https://j7a604.p.ssafy.io/molaeng/search/cost?userId=1&page=" +
+          "https://j7a604.p.ssafy.io/molaeng/search/cost?&page=" +
             temp.page +
             "&size=5",
           {

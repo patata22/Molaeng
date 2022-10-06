@@ -16,8 +16,9 @@ public class ReadReviewResDTO {
     String reviewContent;
     int likeCnt;
     boolean isLiked;
+    long userId;
 
-    public ReadReviewResDTO(long reviewId, String userNickname, int reviewScore, LocalDateTime reviewDate, String reviewContent, int likeCnt, boolean isLiked) {
+    public ReadReviewResDTO(long reviewId, String userNickname, int reviewScore, LocalDateTime reviewDate, String reviewContent, int likeCnt, boolean isLiked, long userId) {
         this.reviewId = reviewId;
         this.userNickname = userNickname;
         this.reviewScore = reviewScore;
@@ -25,5 +26,6 @@ public class ReadReviewResDTO {
         this.reviewContent = reviewContent;
         this.likeCnt = likeCnt;
         this.isLiked = isLiked;
+        this.userId = userId;
     }
 }

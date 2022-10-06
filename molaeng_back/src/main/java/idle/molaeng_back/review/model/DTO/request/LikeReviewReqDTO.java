@@ -5,14 +5,14 @@ import lombok.Getter;
 
 @Getter
 public class LikeReviewReqDTO {
-    long userId;
     long reviewId;
+    long userId;
 
     public LikeReviewReqDTO() {
     }
 
-    public LikeReviewReqDTO(long userId, long reviewId) {
-        this.userId = userId;
+    public LikeReviewReqDTO(long reviewId, long userId) {
         this.reviewId = reviewId;
+        this.userId = userId;
     }
 }

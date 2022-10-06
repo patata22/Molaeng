@@ -8,9 +8,10 @@
     <v-card-title class="pt-2 pb-0 d-flex justify-space-between">
       <review-read-star :reviewScore="review.reviewScore" />
       <span
+        v-if="userId == review.userId"
         class="button font-weight-bold dark--text mr-1"
         style="font-size: 13px"
-        @click="removeReview(1, review.reviewId)"
+        @click="removeReview(userId, review.reviewId)"
         >삭제</span
       >
     </v-card-title>
@@ -38,12 +39,27 @@
         </span>
       </v-btn>
     </v-card-text>
+    <v-snackbar
+      color="carrot"
+      rounded="pill"
+      text
+      centered
+      v-model="snackbar"
+      timeout="1500"
+    >
+      로그인이 필요한 기능입니다!
+    </v-snackbar>
   </v-card>
 </template>
 <script>
 import ReviewReadStar from "@/components/atoms/AtomsReviewReadStar.vue";
 import axios from "axios";
 export default {
+  created() {
+    if (this.review.reviewId == 63) {
+      console.log(this.review);
+    }
+  },
   name: "RecipeReviewCard",
   components: {
     ReviewReadStar,
@@ -59,15 +75,21 @@ export default {
   data() {
     return {
       liked: this.review.liked,
+      userId: this.$cookies.get("userId"),
+      snackbar: false,
     };
   },
   methods: {
     toggleLike() {
-      if (this.review.liked) {
-        this.dislikeReview(1, this.review.reviewId);
+      if (!this.userId) {
+        this.snackbar = true;
       } else {
-        console.log(this.review.likeCnt);
-        this.likeReview(1, this.review.reviewId);
+        if (this.review.liked) {
+          this.dislikeReview(this.userId, this.review.reviewId);
+        } else {
+          console.log(this.review.likeCnt);
+          this.likeReview(this.userId, this.review.reviewId);
+        }
       }
     },
     likeReview(userId, reviewId) {

@@ -54,7 +54,6 @@ public class RecipeLikeController {
     @PostMapping
     public ResponseEntity registRecipeLike(@RequestHeader Map<String,Object> header, @RequestBody RecipeLikeRequest recipeLikeRequest) {
         long userId = Long.parseLong((String)header.get("userid"));
-
         HashMap<String, Object> result = new HashMap<>();
         try {
             RecipeLikeResponse recipeLikeResponse = recipeLikeService.registRecipeLike(userId, recipeLikeRequest.getRecipeId());
@@ -71,7 +70,6 @@ public class RecipeLikeController {
     @ApiOperation(value="레시피 찜하기 해제", notes = "recipe_id와 user_id를 이용하여 찜한 레시피를 해제한다.")
     @DeleteMapping
     public ResponseEntity deleteRecipeLike(@RequestHeader Map<String,Object> header, @RequestBody RecipeLikeRequest recipeLikeRequest) {
-//        System.out.println(recipeLikeRequest.getRecipeId());
         long userId = Long.parseLong((String)header.get("userid"));
 
         HashMap<String, Object> result = new HashMap<>();

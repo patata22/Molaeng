@@ -127,7 +127,7 @@
     </infinite-loading>
     <!-- 여기서부터 리뷰 쓰기-> 뺄 수 있을지 모르겠다???? -->
     <div>
-      <v-dialog v-model="writing">
+      <v-dialog v-if="userIdtmp > 0" v-model="writing">
         <template v-slot:activator="{ on, attrs }">
           <v-btn fab fixed right bottom color="carrot" v-bind="attrs" v-on="on">
             <v-icon color="white">mdi-pencil</v-icon>
@@ -201,6 +201,7 @@ export default {
       sort: "score,desc",
       sortString: "별점 높은순",
       identifierId: 0,
+      userIdtmp: this.$cookies.get("userId"),
     };
   },
   methods: {
@@ -210,10 +211,11 @@ export default {
       if (temp.sort == "like") {
         axios
           .get(
-            "http://localhost:8080/molaeng/review/like/" +
+            "https://j7a604.p.ssafy.io/molaeng/review/like/" +
               recipeId +
-              "?userId=1&size=5&page=" +
-              this.page
+              "?size=5&page=" +
+              this.page,
+            { withCredentials: true }
           )
           .then((response) => {
             response.data.result.reviewList.forEach((e) => {
@@ -238,7 +240,8 @@ export default {
               this.page +
               "&sort=" +
               this.sort +
-              "&userId=1&size=5"
+              "&size=5",
+            { withCredentials: true }
           )
           .then((response) => {
             response.data.result.reviewList.forEach((e) => {
@@ -259,12 +262,18 @@ export default {
     sendReview() {
       var temp = this;
       var recipeId = window.location.pathname.split("/")[2];
+      console.log(temp.userIdtmp);
+      console.log(temp.$cookies.get("userId"));
       axios
-        .post("https://j7a604.p.ssafy.io/molaeng/review/" + recipeId, {
-          userId: 1,
-          reviewContent: this.content,
-          score: this.score,
-        })
+        .post(
+          "https://j7a604.p.ssafy.io/molaeng/review/" + recipeId,
+          {
+            userId: temp.userIdtmp,
+            reviewContent: this.content,
+            score: this.score,
+          },
+          { withCredentials: true }
+        )
         .then(() => {
           temp.sort = "reviewDate,desc";
           temp.sortString = "최신순";
