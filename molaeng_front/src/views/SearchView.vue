@@ -50,6 +50,17 @@ export default {
 <style>
 #content {
   padding-bottom: 52px;
-  overflow: auto;
+  /* overflow: auto; */
+}
+.searchBarBackground {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  padding: 11px;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
 }
 </style>
