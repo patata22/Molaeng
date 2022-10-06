@@ -47,7 +47,8 @@ export default {
   },
   props: {
     userId: Number,
-    // 레시피 제목, 열량, 대표이미지, 찜여부 등의 정보를 받아옴
+    // 레시피 제목, 열량, 대표이미지, 찜여부
+    // 등의 정보를 받아옴
     recipeInfo: Object,
     recipeId: String,
     recipeIngredientList: Array,
