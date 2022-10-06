@@ -18,10 +18,4 @@ public class UserProfileRequest {
         this.nickname = nickname;
         this.gugunId = gugunId;
     }
-//    @Builder
-//    public UserProfileRequest(User user){
-//        this.userId = user.getUserId();
-//        this.nickname = user.getNickname();
-//        this.gugunName = user.getGugun().getGugunName();
-//    }
 }

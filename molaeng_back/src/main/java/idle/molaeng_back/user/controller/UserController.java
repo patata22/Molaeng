@@ -59,17 +59,25 @@ public class UserController {
 
     @ApiOperation(value = "마이페이지 사용자 정보 수정", notes = "사용자의 닉네임, 거주지역 정보를 수정한다.")
     @PutMapping
-    public ResponseEntity updateProfile(@RequestBody UserProfileRequest userProfileRequest) {
+    public ResponseEntity updateProfile(@RequestHeader Map<String,Object> header, @RequestBody UserProfileRequest userProfileRequest) {
+        log.info("header" + header);
+        log.info("req" + userProfileRequest.getNickname() + "   ///   " + userProfileRequest.getGugunId());
         HashMap<String, Object> result = new HashMap<>();
+        long userId = Long.parseLong((String)header.get("userid"));
+        UserProfileRequest request = UserProfileRequest.builder()
+                .userId(userId)
+                .nickname(userProfileRequest.getNickname())
+                .gugunId(userProfileRequest.getGugunId())
+                .build();
 
         try {
-            userService.updateUserProfile(userProfileRequest);
-            result.put("result", userProfileRequest.getUserId());
+            userService.updateUserProfile(request);
+            result.put("result", userId);
             result.put("message", "success");
             return new ResponseEntity<>(result, HttpStatus.OK);
 
         } catch (Exception e) {
-            result.put("result", userProfileRequest.getUserId());
+            result.put("result", userId);
             result.put("message", "마이페이지 사용자 정보 수정 오류");
             return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
         }
