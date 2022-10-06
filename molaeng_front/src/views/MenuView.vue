@@ -2,7 +2,7 @@
   <div class="background">
     <div class="mx-auto" style="max-width: 420px">
       <!-- <member-menu></member-menu> -->
-      <exit-button></exit-button>
+      <exit-button :url="backURL"></exit-button>
       <router-view></router-view>
     </div>
   </div>
@@ -18,7 +18,13 @@ export default {
     // MemberMenu,
   },
   data() {
-    return {};
+    return {
+      backURL: "",
+    };
+  },
+  created() {
+    this.backURL = this.$route.params.url;
+    console.log("backURL", this.backURL);
   },
 };
 </script>
