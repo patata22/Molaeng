@@ -46,6 +46,9 @@
   </div>
 </template>
 <script>
+import API from "@/api/APIs";
+const api = API;
+
 export default {
   name: "MemberMenu",
   components: {},
@@ -87,7 +90,9 @@ export default {
     },
     getUserInfoByCookie() {
       this.userInfo.userId = this.$cookies.get("userId");
-      this.userInfo.nickname = this.$cookies.get("nickname");
+      api.getUserInfo(this.userInfo.userId).then((res) => {
+        this.userInfo.nickname = res.result.nickname;
+      });
     },
     getUserIdByCookie() {
       let userId = this.$cookies.get("userId");
