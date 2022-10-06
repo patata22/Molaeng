@@ -44,7 +44,7 @@ export default {
     getMyReview($state) {
       var temp = this;
       axios
-        .get("http://localhost:8080/molaeng/review", {
+        .get("https://j7a604.p.ssafy.io/molaeng/review", {
           params: {
             sort: temp.sort,
             page: temp.page,
