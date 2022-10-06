@@ -39,10 +39,8 @@ export default {
     checkLogin() {
       if (parseInt(this.$cookies.get("userId")) > 0) {
         this.isLogined = true;
-        console.log("있음" + this.isLogined);
       } else {
         this.isLogined = false;
-        console.log("없음" + this.isLogined);
       }
     },
     async kakaoLogin() {

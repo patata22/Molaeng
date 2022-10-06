@@ -25,7 +25,6 @@ public class Scheduler {
         List<Ingredient> ingredientList = ingredientRepository.findAll();
         for (Ingredient i : ingredientList) {
             if(i.getIngredientIsCrawl()==0) continue;
-            System.out.println(i.getIngredientName());
             double newPrice = crawler.getIngredientPrice(ingredientRepository.findById(i.getIngredientId()));
             if(newPrice > 0) {
                 i.updatePrice(newPrice);

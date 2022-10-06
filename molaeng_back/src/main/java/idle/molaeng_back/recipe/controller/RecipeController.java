@@ -40,9 +40,6 @@ public class RecipeController {
     //레시피 정보 조회(상단부분)
     @GetMapping("/{recipeId}")
     public ResponseEntity getRecipeInfo(@RequestHeader Map<String,Object> header,@PathVariable long recipeId){
-        for (String s : header.keySet()) {
-            System.out.println(s);
-        }
         long userId = Long.parseLong((String)header.get("userid"));
         logger.info(userId+"");
 
@@ -50,11 +47,8 @@ public class RecipeController {
 
         try{
             RecipeRes result = recipeService.readRecipeById(userId, recipeId);
-            System.out.println(result);
-
             resultMap.put("result", result);
             resultMap.put("message", "success");
-
             return new ResponseEntity(resultMap, HttpStatus.OK);
         }catch(Exception e){
             e.printStackTrace();

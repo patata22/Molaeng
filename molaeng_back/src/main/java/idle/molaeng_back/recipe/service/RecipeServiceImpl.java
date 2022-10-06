@@ -44,8 +44,6 @@ public class RecipeServiceImpl implements RecipeService {
                 .isLiked(isLiked)
                 .build();
 
-        System.out.println("recipeRes : " + recipeRes.toString());
-
         return recipeRes;
     }
 

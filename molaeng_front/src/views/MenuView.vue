@@ -24,7 +24,6 @@ export default {
   },
   created() {
     this.backURL = this.$route.params.url;
-    console.log("backURL", this.backURL);
   },
 };
 </script>

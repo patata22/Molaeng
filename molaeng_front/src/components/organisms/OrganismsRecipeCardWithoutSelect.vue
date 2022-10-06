@@ -101,7 +101,6 @@ export default {
     },
     getUserIdByCookie() {
       let userId = this.$cookies.get("userId");
-      console.log(userId);
       if (userId) {
         this.userId = parseInt(userId);
       }

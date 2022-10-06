@@ -61,7 +61,6 @@ export default {
     },
     goMenu() {
       this.checkLogin();
-      console.log(this.$route.fullPath);
       if (this.isLogined)
         this.$router
           .push({

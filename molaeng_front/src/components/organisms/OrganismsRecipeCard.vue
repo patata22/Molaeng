@@ -58,10 +58,10 @@
           <v-icon
             v-if="recipe.isLiked == 0"
             color="carrot"
-            v-on:click="likeRecipe()"
+            v-on:click="likeRecipe"
             >mdi-heart-outline
           </v-icon>
-          <v-icon v-else color="carrot" v-on:click="dislikeRecipe()"
+          <v-icon v-else color="carrot" v-on:click="dislikeRecipe"
             >mdi-heart</v-icon
           >
         </span>
@@ -113,8 +113,7 @@ export default {
         temp.snackbar = true;
       } else {
         API.registRecipeLike(temp.recipe.recipeId, temp.$cookies.get("userId"))
-          .then((response) => {
-            console.log(response);
+          .then(() => {
             temp.recipe.isLiked = 1;
           })
           .catch((error) => console.log(error));
@@ -122,8 +121,7 @@ export default {
     },
     dislikeRecipe() {
       var temp = this;
-      console.log(temp.$cookies.get("userId"));
-      API.deleteRecipeLike(temp.recipe.recipeId, temp.$cookies.get("userId"))
+      API.dislikeRecipe(temp.recipe.recipeId, temp.$cookies.get("userId"))
         .then((response) => {
           console.log(response);
           temp.recipe.isLiked = 0;

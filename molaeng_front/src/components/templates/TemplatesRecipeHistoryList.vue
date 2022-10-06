@@ -34,7 +34,6 @@ export default {
       this.recentRecipeList,
       this.$cookies.get("userId")
     );
-    console.log(this.recipeList);
   },
 };
 </script>
