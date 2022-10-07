@@ -18,7 +18,7 @@ export default {
     items: [
       {
         src: require("../../assets/banner1.png"),
-        link: "/recipe/60",
+        link: "/recipe/692",
       },
       {
         src: require("../../assets/banner2.png"),
