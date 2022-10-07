@@ -7,7 +7,18 @@
 
 저희는 이러한 문제에서 착안하여 가지고 있는 식재료를 활용해 만들 수 있는 레시피를 추천해 주고, 해당 레시피에 필요한 조리 비용을 계산하여 외식비와 비교해 주는 기능을 담은 서비스를 기획하였습니다.
 
-### 프로젝트 기간 : 2022.08.22 ~ 2022.10.07
+# 프로젝트 기간
+**2022.08.22 ~ 2022.10.07**
+
+# 👪 팀원 소개
+|**이름**|**역할**|
+|:---:|:---:|
+|이나경|팀장, BE, FE, Infra|
+|김승준|BE, FE|
+|김지건|BE, FE|
+|박세원|BE, FE|
+|양희경|BE, FE|
+|이지영|BE, FE|
 
 # 🍴 핵심 기능
 
@@ -99,9 +110,7 @@
 
 <img src="https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=Jenkins&logoColor=white">
 
-![기술스택](/uploads/8cc7d2567e076e26eb17f9befa8c8ea3/기술스택.png)
-
-### Back-end
+### 백엔드
 - IDE : IntelliJ 2022.2
 - JAVA : 8
 - Framework : Spring boot 2.7.4
@@ -110,31 +119,27 @@
 - DBMS : MySql 8.0
 - DB API : JPA
 
-### Front-end
+### 프론트
 - IDE : VS Code 1.70.1
 - Framework :
     - Vue2 5.0.8
     - Vuetify  2.6.0
     - Chart.js 3.9.1
 
-### Infra
+### 데이터 정제
+- Hadoop
+- Python
+- JSoup
+
+### 서버
 - AWS
 - Docker
 - Nginx
 - Jenkins
 
+### 협업
+- Git
+- Jira
+
+# 아키텍처 구조
 ![아키텍쳐구조도](/uploads/9514988bcc306dba728665bef3493610/아키텍쳐구조도.png)
-
-# 👪 팀원 소개
-|**이름**|**역할**|
-|:---:|:---:|
-|이나경|팀장, BE, FE, Infra|
-|김승준|BE, FE|
-|김지건|BE, FE|
-|박세원|BE, FE|
-|양희경|BE, FE|
-|이지영|BE, FE|
-
-
-
-
