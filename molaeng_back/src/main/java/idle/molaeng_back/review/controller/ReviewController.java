@@ -51,7 +51,6 @@ public class ReviewController {
         catch(Exception e){
             resultMap.put("message", "레시피 리뷰조회에서 에러났다아아");
             e.printStackTrace();
-//            resultMap.put("error", e.getStackTrace());
             return new ResponseEntity(resultMap, HttpStatus.BAD_REQUEST);
         }
     }

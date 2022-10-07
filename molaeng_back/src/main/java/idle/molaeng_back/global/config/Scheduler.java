@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -33,7 +32,7 @@ public class Scheduler {
             try {
                 Thread.sleep(3000);
             } catch(InterruptedException e) {
-                System.out.println("error!");
+                e.printStackTrace();
             }
 
         }

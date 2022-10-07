@@ -45,8 +45,6 @@ import { mapGetters } from "vuex";
 import API from "@/api/APIs";
 const api = API;
 
-// recipeList에서 레시피아이디를 받아서 axios 요청 보내는 코드 추가해야 함
-// 레시피아이디를 어떻게 받아오는지..?
 export default {
   name: "RecipeView",
   components: {

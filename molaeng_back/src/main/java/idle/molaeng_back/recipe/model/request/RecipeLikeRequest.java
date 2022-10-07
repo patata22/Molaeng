@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RecipeLikeRequest {
-//    private long userId;
     private long recipeId;
 
     @Builder

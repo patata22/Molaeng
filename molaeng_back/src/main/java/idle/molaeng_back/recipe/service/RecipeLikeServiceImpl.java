@@ -41,7 +41,6 @@ public class RecipeLikeServiceImpl implements RecipeLikeService{
     public List<RecipeResDTO> getRecipeLikeList(long userId) {
         List<RecipeLike> recipeLikeList = recipeLikeRepository.findAllByUserUserId(userId);
         List<RecipeResDTO> resultList = new ArrayList<>();
-//        int isLiked = 1;
         double avgScore;
 
         for(int i = 0; i < recipeLikeList.size(); i++){

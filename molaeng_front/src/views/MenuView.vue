@@ -1,21 +1,18 @@
 <template>
   <div class="background">
     <div class="mx-auto" style="max-width: 420px">
-      <!-- <member-menu></member-menu> -->
       <exit-button :url="backURL"></exit-button>
       <router-view></router-view>
     </div>
   </div>
 </template>
 <script>
-// import MemberMenu from "@/components/templates/TemplatesMemberMenu.vue";
 import exitButton from "@/components/atoms/AtomExitButton.vue";
 
 export default {
   name: "MenuView",
   components: {
     exitButton,
-    // MemberMenu,
   },
   data() {
     return {

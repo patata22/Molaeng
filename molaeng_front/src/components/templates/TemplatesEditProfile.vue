@@ -132,9 +132,7 @@
 </template>
 
 <script>
-// import axios from "axios";
 import { mapGetters } from "vuex";
-// import { ContextExclusionPlugin } from "webpack";
 
 import API from "@/api/APIs";
 const api = API;
@@ -146,7 +144,6 @@ export default {
     return {
       userInfo: {
         userId: 1,
-        // gugunId: 1,
         nickname: "test",
       },
       sido: "서울특별시",
@@ -156,17 +153,13 @@ export default {
       dialog: false,
       snackbar: false,
       timeout: 1500,
-      // gugunList: [{ name: "기본", value: 0 }],
     };
   },
   computed: {
     ...mapGetters(["getGugunList"]),
   },
 
-  // computed: { ...mapGetters(["userId", "nickname", "myRegion", "gugun"]) },
   methods: {
-    // ...mapMutations(["SET_GUGUN"]),
-    // ...mapActions(["getUserInfo"]),
     clickUpdate() {
       this.disabled = false;
       this.snackbar = false;

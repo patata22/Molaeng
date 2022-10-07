@@ -73,7 +73,7 @@ export default {
             });
           });
         })
-        .catch((error) => console.log(error));
+        .catch();
     },
     matchingKeyword() {
       var temp = this;

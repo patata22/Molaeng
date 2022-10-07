@@ -43,7 +43,6 @@ public class IngredientController {
         Map<String, Object> result = new HashMap<>();
         try {
             result.put("ingredientList", ingredientService.searchIngredientPriceByRecipeId(recipeId));
-            // 서울 내 최고&최저가, 평균가, 우리 지역 가격 추가 필요
         } catch (Throwable e){
             return ResponseEntity.notFound().build();
         }

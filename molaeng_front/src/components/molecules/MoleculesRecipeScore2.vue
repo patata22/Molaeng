@@ -223,7 +223,7 @@ export default {
           temp.scoreCnt = response.data.result.scoreCnt;
           temp.avgScore = response.data.result.avgScore.toFixed(1);
         })
-        .catch((error) => console.log(error));
+        .catch();
     },
   },
 };

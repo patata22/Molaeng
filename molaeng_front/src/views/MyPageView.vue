@@ -7,13 +7,11 @@
 
 <script>
 import MyPageHeader from "../components/organisms/OrganismMyPageHeader.vue";
-// import AccountEdit from "../components/templates/TemplatesEditProfile.vue";
 
 export default {
   name: "MyPageView",
   components: {
     MyPageHeader,
-    // AccountEdit,
   },
   data: () => ({
     buttonText: "마이 페이지",

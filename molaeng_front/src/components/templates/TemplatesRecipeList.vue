@@ -120,9 +120,6 @@ import OrganismsRecipeCard from "../organisms/OrganismsRecipeCard.vue";
 import InfiniteLoading from "vue-infinite-loading";
 export default {
   name: "TemplatesRecipeList",
-  created() {
-    // this.getRecipeByIngredient();
-  },
   data: function () {
     return {
       page: 0,
@@ -155,7 +152,6 @@ export default {
   methods: {
     getRecipeByIngredient($state) {
       var temp = this;
-      console.log(temp.ingredientList);
       axios
         .post(
           "https://j7a604.p.ssafy.io/molaeng/search/ingredient",
@@ -177,7 +173,7 @@ export default {
             $state.complete();
           }
         })
-        .catch((error) => console.log(error));
+        .catch();
     },
     getRecipeByCalory($state) {
       var temp = this;
@@ -204,7 +200,7 @@ export default {
             $state.complete();
           }
         })
-        .catch((error) => console.log(error));
+        .catch();
     },
     getRecipeByScore($state) {
       var temp = this;
@@ -229,7 +225,7 @@ export default {
             $state.complete();
           }
         })
-        .catch((error) => console.log(error));
+        .catch();
     },
     getRecipeByCost($state) {
       var temp = this;
@@ -254,7 +250,7 @@ export default {
             $state.complete();
           }
         })
-        .catch((error) => console.log(error));
+        .catch();
     },
     toTop() {
       window.scrollTo({ top: 0, left: 0, behavior: "smooth" });

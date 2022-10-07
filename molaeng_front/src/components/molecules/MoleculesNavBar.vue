@@ -47,10 +47,6 @@ export default {
         return "background-color: #fef3c6;";
       }
     },
-    // isLogin() {
-    //   if (this.$cookies.get("userId") > 0) return true;
-    //   else return false;
-    // },
   },
   methods: {
     goSearch() {

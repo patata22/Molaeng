@@ -19,7 +19,6 @@ public class OuteatController {
 
     @GetMapping("/{recipeId}")
     public ResponseEntity outeatPrice(@RequestHeader Map<String,Object> header, @PathVariable long recipeId){
-        // 유저 uuid 받아오는거 구현되면 변경
         long userId = Long.parseLong((String)header.get("userid"));
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("seoul",outeatService.outeatSeoul(recipeId));
