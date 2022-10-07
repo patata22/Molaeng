@@ -1,5 +1,4 @@
 <template>
-  <!-- 이 페이지는 recipeId와 userId를 모두 더미(1)로 설정된 페이지이므로 추후 수정이 필요함 -->
   <div style="max-width: 420px" class="mx-auto">
     <v-divider></v-divider>
     <recipe-score></recipe-score>
@@ -125,7 +124,6 @@
       <div v-else slot="no-results"></div>
       <div slot="no-more"></div>
     </infinite-loading>
-    <!-- 여기서부터 리뷰 쓰기-> 뺄 수 있을지 모르겠다???? -->
     <div>
       <v-dialog v-if="userIdtmp > 0" v-model="writing">
         <template v-slot:activator="{ on, attrs }">
@@ -143,8 +141,6 @@
               v-model="score"
             ></v-rating>
           </v-card-actions>
-          <!-- 별점 -->
-          <!-- 별점끝 -->
           <v-card-text>
             <v-row>
               <v-col cols="12" class="pb-0">
@@ -228,9 +224,7 @@ export default {
               $state.complete();
             }
           })
-          .catch(function (error) {
-            console.log(error);
-          });
+          .catch();
       } else {
         axios
           .get(
@@ -254,9 +248,7 @@ export default {
               $state.complete();
             }
           })
-          .catch(function (error) {
-            console.log(error);
-          });
+          .catch();
       }
     },
     sendReview() {
@@ -280,9 +272,8 @@ export default {
           temp.hasNext = true;
           temp.identifierId += 1;
           temp.writing = false;
-          // this.$router.go();
         })
-        .catch((error) => console.log(error));
+        .catch();
     },
     getCount() {
       var temp = this;

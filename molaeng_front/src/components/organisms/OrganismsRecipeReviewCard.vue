@@ -100,7 +100,7 @@ export default {
             temp.review.liked = true;
           }
         })
-        .catch((error) => console.log(error));
+        .catch();
     },
     dislikeReview(userId, reviewId) {
       var temp = this;
@@ -114,7 +114,7 @@ export default {
             temp.review.liked = false;
           }
         })
-        .catch((error) => console.log(error));
+        .catch();
     },
     removeReview(userId, reviewId) {
       axios
@@ -124,7 +124,7 @@ export default {
         .then(() => {
           this.$router.go();
         })
-        .catch((error) => console.log(error));
+        .catch();
     },
   },
 };

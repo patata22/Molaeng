@@ -60,17 +60,6 @@ public class User  {
         this.nickname = userProfileRequest.getNickname();
         this.gugun = gugun;
     }
-//
-//    // 인가정보
-//    @ElementCollection(fetch = FetchType.LAZY)
-//    @Builder.Default        // Builder 사용시 기본값 지정
-//    private List<String> roles = new ArrayList<>();
-//
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return this.roles.stream()
-//                .map(SimpleGrantedAuthority::new)
-//                .collect(Collectors.toList());
-//    }
 
     @Builder
     public User(long userId, String nickname, long uuid, Gugun gugun, List<RecipeLike> recipeLikeList, List<Review> reviewList, List<ReviewLike> reviewLikeList, List<Diary> diaryList) {

@@ -16,7 +16,6 @@
       <span class="carrot--text mr-3 mt-2 text-weight-bold text-subtitle-2"
         >{{ recipe.cost.toFixed() }}원 더 필요해요!</span
       >
-      <!-- <h3>{{ recipe.recipeName }}</h3> -->
     </div>
     <div
       class="d-flex justify-start align-center"
@@ -116,17 +115,16 @@ export default {
           .then(() => {
             temp.recipe.isLiked = 1;
           })
-          .catch((error) => console.log(error));
+          .catch();
       }
     },
     dislikeRecipe() {
       var temp = this;
       API.dislikeRecipe(temp.recipe.recipeId, temp.$cookies.get("userId"))
-        .then((response) => {
-          console.log(response);
+        .then(() => {
           temp.recipe.isLiked = 0;
         })
-        .catch((error) => console.log(error));
+        .catch();
     },
     moveToRecipe(i) {
       this.$router.push("/recipe/" + i);

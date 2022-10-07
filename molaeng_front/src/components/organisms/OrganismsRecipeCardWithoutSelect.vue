@@ -13,8 +13,6 @@
         color="carrot"
         class="ml-3 mt-2"
       ></v-rating>
-
-      <!-- <h3>{{ recipe.recipeName }}</h3> -->
     </div>
     <div
       class="d-flex justify-start align-center"

@@ -80,7 +80,6 @@ public class RecipeController {
     public ResponseEntity getRecipeIngredient(@PathVariable long recipeId){
         Map<String, Object> resultMap = new HashMap<>();
         try{
-//            List<RecipeIngredientRes> result = recipeIngredientService.readRecipeIngredientByRecipeId(recipeId);
             RecipeMainSubIngredientRes result = RecipeMainSubIngredientRes.builder()
                     .recipeIngredientResList(recipeIngredientService.readRecipeIngredientByRecipeId(recipeId))
                     .recipeSubIngredientResList(recipeSubIngredientService.readRecipeSubIngredientByRecipeId(recipeId))

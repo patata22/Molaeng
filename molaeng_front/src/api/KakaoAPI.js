@@ -2,7 +2,6 @@ import axios from "axios";
 import API from "./APIs";
 const api = API;
 
-// const MolaengURL = "http://localhost:8081";
 const MolaengURL = "https://j7a604.p.ssafy.io";
 const KakaoRedirectURL = MolaengURL + "/login";
 const ClientId = "73e5a007dbb6c4473ba7ef95128857ff";

@@ -63,7 +63,7 @@ export default {
             $state.complete();
           }
         })
-        .catch((error) => console.log(error));
+        .catch();
     },
   },
 };

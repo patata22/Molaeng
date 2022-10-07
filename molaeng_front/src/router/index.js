@@ -36,10 +36,6 @@ const routes = [
     name: "search",
     component: SearchView,
     children: [
-      // {
-      //   path: "",
-      //   redirect: "/ingredient",
-      // },
       {
         path: "ingredient",
         alias: [""],
@@ -67,7 +63,6 @@ const routes = [
     component: RecipeSearchList,
   },
   {
-    // path: "/recipe",
     path: "/recipe/:recipeId",
     name: "recipe",
     component: RecipeView,

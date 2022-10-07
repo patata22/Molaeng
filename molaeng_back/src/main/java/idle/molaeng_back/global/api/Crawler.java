@@ -24,11 +24,10 @@ public class Crawler {
         try {
             query = URLEncoder.encode(ingredient.getIngredientName(), "UTF-8");
         } catch (IOException e) {
-            System.out.println("URL 변환 에러!!");
+            e.printStackTrace();
             return -1;
         }
 
-//        System.out.println(URL+query);
 
         try {
             // 검색 결과 페이지 가져오기
@@ -74,7 +73,6 @@ public class Crawler {
                     continue;
                 }
 
-//                System.out.println(title);
 
 
                 // 가격 부분에서 숫자만 추출
@@ -116,11 +114,10 @@ public class Crawler {
                 }
             }
 
-//            System.out.println(sum + ", "+ cnt);
             return Math.round((sum/(double)cnt)*10)/10.0;
 
         } catch (IOException e) {
-            System.out.println("에러!!!");
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }

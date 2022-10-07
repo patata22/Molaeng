@@ -1,7 +1,6 @@
 import axios from "axios";
 
 const baseURL = "https://j7a604.p.ssafy.io/molaeng";
-// const baseURL = "http://localhost:8080/molaeng";
 
 /**
  * 사용방법 예시
@@ -162,7 +161,6 @@ const API = {
         recipeId: recipeId,
       },
     });
-    console.log(response);
     return response.data;
   },
   async recentRecipe(recipeIdList, userId) {
@@ -228,7 +226,6 @@ const API = {
     return response.data;
   },
   async updateProfile(userId, nickname, gugunId) {
-    // console.log("user : " + userInfo);
     const response = await this.instance.put(
       "user",
       {

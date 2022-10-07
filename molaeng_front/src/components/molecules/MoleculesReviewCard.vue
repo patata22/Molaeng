@@ -75,7 +75,7 @@ export default {
           temp.review.likeCnt += 1;
           temp.review.liked = true;
         })
-        .catch((error) => console.log(error));
+        .catch();
     },
     dislikeReview: function (userId, reviewId) {
       var temp = this;
@@ -87,7 +87,7 @@ export default {
           temp.review.likeCnt -= 1;
           temp.review.liked = false;
         })
-        .catch((error) => console.log(error));
+        .catch();
     },
   },
 };
